@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 
 class PressureController extends Controller
 {
-    public function index()
+    public function data()
     {
-        return \App\Pressure::limit(10)->get();
+        return \App\Pressure::limit(1000)->get();
     }
 }

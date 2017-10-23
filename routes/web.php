@@ -11,4 +11,8 @@
 |
 */
 
-Route::get('/', 'PressureController@index');
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/data', 'PressureController@data');
