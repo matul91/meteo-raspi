@@ -11,4 +11,6 @@
 |
 */
 
-Route::get('/', 'PressureController@index');
+Route::get('/', function () {
+    return view('welcome');
+});
