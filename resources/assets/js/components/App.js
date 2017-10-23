@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import Chart from './Chart';
 
 export default class App extends Component {
     render() {
@@ -11,7 +12,7 @@ export default class App extends Component {
                             <div className="panel-heading">Example Component</div>
 
                             <div className="panel-body">
-                                I'm an example component!
+                                <Chart />
                             </div>
                         </div>
                     </div>
