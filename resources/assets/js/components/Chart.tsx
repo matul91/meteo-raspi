@@ -1,7 +1,13 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import {Line} from 'react-chartjs-2';
+import axios from 'axios';
 
-export default class App extends Component {
+interface StateProps {
+    data: any[],
+    labels: any[]
+}
+
+export default class App extends React.Component<{}, StateProps> {
     constructor(props) {
         super(props);
         this.state = {data: null, labels: null};
