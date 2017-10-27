@@ -1,27 +1,21 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import Chart from './Chart';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import Index from './pages/Index';
+import PageNotFound from './pages/PageNotFound';
 
-export default class App extends React.Component {
-    render() {
-        return (
-            <div className="container">
-                <div className="row">
-                    <div className="col-md-8 col-md-offset-2">
-                        <div className="panel panel-default">
-                            <div className="panel-heading">Example Component</div>
-
-                            <div className="panel-body">
-                                <Chart />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        );
-    }
+const App = () => {
+    return (
+        <BrowserRouter>
+            <Switch>
+                <Route path="/" exact={true} component={Index}/>
+                <Route path='*' exact={true} component={PageNotFound}/>
+            </Switch>
+        </BrowserRouter>
+    );
 }
 
 if (document.getElementById('app')) {
-    ReactDOM.render(<App />, document.getElementById('app'));
+    ReactDOM.render(
+        <App/>, document.getElementById('app'));
 }
