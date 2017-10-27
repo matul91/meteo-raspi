@@ -11,8 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/pressures', 'PressureController@index');
 
-Route::get('/data', 'PressureController@data');
+Route::any('{all}', function () {
+    return view('index');
+})
+->where(['all' => '.*']);

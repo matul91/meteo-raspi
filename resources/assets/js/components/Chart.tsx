@@ -13,7 +13,7 @@ export default class App extends React.Component<{}, StateProps> {
         this.state = {data: null, labels: null};
     }
     componentDidMount() {
-        axios.get('/data').then(response => {
+        axios.get('/pressures').then(response => {
             let labels = [];
             let data = [];
             for (var i = 0; i < response.data.length; i++) {
