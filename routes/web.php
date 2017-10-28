@@ -12,6 +12,9 @@
 */
 
 Route::get('/pressures', 'PressureController@index');
+Route::get('/temperatures', 'TemperatureController@index');
+Route::get('/winds', 'WindController@index');
+Route::get('/winds/latest', 'WindController@latest');
 
 Route::any('{all}', function () {
     return view('index');
