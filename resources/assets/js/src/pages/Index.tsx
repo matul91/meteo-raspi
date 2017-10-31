@@ -1,8 +1,7 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import PressureChart from '../charts/PressureChart';
-import TemperatureChart from '../charts/TemperatureChart';
-import WindSpeedChart from '../charts/WindSpeedChart';
+import PressureChart from '../components/charts/PressureChart';
+import TemperatureChart from '../components/charts/TemperatureChart';
+import WindSpeedChart from '../components/charts/WindSpeedChart';
 
 export default class App extends React.Component {
     render() {
@@ -43,8 +42,4 @@ export default class App extends React.Component {
             </div>
         );
     }
-}
-
-if (document.getElementById('app')) {
-    ReactDOM.render(<App />, document.getElementById('app'));
 }
