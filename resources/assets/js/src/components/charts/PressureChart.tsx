@@ -3,8 +3,8 @@ import {Line} from 'react-chartjs-2';
 import axios from 'axios';
 
 interface IState {
-    data: any[],
-    labels: any[]
+    data: any[];
+    labels: any[];
 }
 
 export default class PressureChart extends React.Component<{}, IState> {
