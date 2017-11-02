@@ -1,0 +1,15 @@
+{
+    "rulesDirectory": [
+        "./resources/assets/js"
+    ],
+    "extends": [
+        "tslint:latest",
+        "tslint-react"
+    ],
+    "rules": {
+        "quotemark": [
+            true,
+            "single"
+        ]
+    }
+}

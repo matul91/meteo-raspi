@@ -11,7 +11,7 @@ let mix = require('laravel-mix');
  |
  */
 
-mix.react('resources/assets/js/app.ts', 'public/js')
+mix.react('resources/assets/js/src/App.tsx', 'public/js')
    .sass('resources/assets/sass/app.sass', 'public/css')
     .webpackConfig({
         module: {
