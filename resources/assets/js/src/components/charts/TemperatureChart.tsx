@@ -1,32 +1,35 @@
+import axios from 'axios';
 import * as React from 'react';
 import {Line} from 'react-chartjs-2';
-import axios from 'axios';
 
 interface IState {
-    data: any[],
-    labels: any[]
+    data: any[];
+    labels: any[];
 }
 
 export default class TemperatureChart extends React.Component<{}, IState> {
+    public state = {
+        data: null,
+        labels: null,
+    };
     constructor(props) {
         super(props);
-        this.state = {data: null, labels: null};
     }
-    componentDidMount() {
-        axios.get('/temperatures').then(response => {
-            let labels = [];
-            let data = [];
-            for (var i = 0; i < response.data.length; i++) {
-                labels.push(response.data[i].date);
-                data.push(response.data[i].temperature);
+    public componentDidMount(): void {
+        axios.get('/temperatures').then((response: any) => {
+            const labels: any[] = [];
+            const data: any[] = [];
+            for (const row of response.data.length) {
+                labels.push(row.date);
+                data.push(row.temperature);
             }
             this.setState({
                 labels,
-                data
-            })
+                data,
+            });
         });
     }
-    render() {
+    public render(): JSX.Element {
         if (this.state.data) {
             const data = {
                 labels: this.state.labels,
@@ -50,15 +53,14 @@ export default class TemperatureChart extends React.Component<{}, IState> {
                     pointHoverBorderWidth: 2,
                     pointRadius: 1,
                     pointHitRadius: 10,
-                    data: this.state.data
-                  }
-                ]
+                    data: this.state.data,
+                  },
+                ],
               };
             return (
                 <Line data={data} />
             );
         }
-      
         return <div>Loading...</div>;
     }
 }
