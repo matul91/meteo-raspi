@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 export default class PageNotFound extends React.Component {
-    render() {
+    public render(): JSX.Element {
         return (
             <h1>Hmmm, it looks like something is wrong.</h1>
         );

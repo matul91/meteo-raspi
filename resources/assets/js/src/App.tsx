@@ -8,12 +8,12 @@ const App = () => {
     return (
         <BrowserRouter>
             <Switch>
-                <Route path="/" exact={true} component={Index} />
+                <Route path='/' exact={true} component={Index} />
                 <Route path='*' exact={true} component={PageNotFound} />
             </Switch>
         </BrowserRouter>
     );
-}
+};
 
 if (document.getElementById('app')) {
     ReactDOM.render(
