@@ -16,12 +16,12 @@ export default class WindSpeedChart extends React.Component<{}, IState> {
         super(props);
     }
     public componentDidMount(): void {
-        axios.get('/temperatures').then((response: any) => {
+        axios.get('/winds').then((response: any) => {
             const labels: any[] = [];
             const data: any[] = [];
-            for (const row of response.data.length) {
+            for (const row of response.data) {
                 labels.push(row.date);
-                data.push(row.wind);
+                data.push(row.speed);
             }
             this.setState({
                 labels,

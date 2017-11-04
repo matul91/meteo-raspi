@@ -19,7 +19,7 @@ export default class TemperatureChart extends React.Component<{}, IState> {
         axios.get('/temperatures').then((response: any) => {
             const labels: any[] = [];
             const data: any[] = [];
-            for (const row of response.data.length) {
+            for (const row of response.data) {
                 labels.push(row.date);
                 data.push(row.temperature);
             }
