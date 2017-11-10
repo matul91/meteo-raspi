@@ -44647,38 +44647,38 @@ var PressureChart = /** @class */ (function (_super) {
                 data.push(row.pressure);
             }
             _this.setState({
-                labels: labels,
                 data: data,
+                labels: labels,
             });
         });
     };
     PressureChart.prototype.render = function () {
         if (this.state.data) {
             var data = {
-                labels: this.state.labels,
                 datasets: [
                     {
-                        label: 'Tlak',
-                        fill: true,
-                        lineTension: 0.2,
                         backgroundColor: 'rgba(75,192,192,0.4)',
-                        borderColor: 'rgba(75,192,192,1)',
                         borderCapStyle: 'butt',
+                        borderColor: 'rgba(75,192,192,1)',
                         borderDash: [],
                         borderDashOffset: 0.0,
                         borderJoinStyle: 'miter',
-                        pointBorderColor: 'rgba(75,192,192,1)',
+                        data: this.state.data,
+                        fill: true,
+                        label: 'Teplota',
+                        lineTension: 0.2,
                         pointBackgroundColor: '#fff',
+                        pointBorderColor: 'rgba(75,192,192,1)',
                         pointBorderWidth: 1,
-                        pointHoverRadius: 5,
+                        pointHitRadius: 10,
                         pointHoverBackgroundColor: 'rgba(75,192,192,1)',
                         pointHoverBorderColor: 'rgba(220,220,220,1)',
                         pointHoverBorderWidth: 2,
+                        pointHoverRadius: 5,
                         pointRadius: 1,
-                        pointHitRadius: 10,
-                        data: this.state.data,
                     },
                 ],
+                labels: this.state.labels,
             };
             return (React.createElement(react_chartjs_2_1.Line, { data: data }));
         }
@@ -61705,38 +61705,38 @@ var TemperatureChart = /** @class */ (function (_super) {
                 data.push(row.temperature);
             }
             _this.setState({
-                labels: labels,
                 data: data,
+                labels: labels,
             });
         });
     };
     TemperatureChart.prototype.render = function () {
         if (this.state.data) {
             var data = {
-                labels: this.state.labels,
                 datasets: [
                     {
-                        label: 'Teplota',
-                        fill: true,
-                        lineTension: 0.2,
                         backgroundColor: 'rgba(75,192,192,0.4)',
-                        borderColor: 'rgba(75,192,192,1)',
                         borderCapStyle: 'butt',
+                        borderColor: 'rgba(75,192,192,1)',
                         borderDash: [],
                         borderDashOffset: 0.0,
                         borderJoinStyle: 'miter',
-                        pointBorderColor: 'rgba(75,192,192,1)',
+                        data: this.state.data,
+                        fill: true,
+                        label: 'Teplota',
+                        lineTension: 0.2,
                         pointBackgroundColor: '#fff',
+                        pointBorderColor: 'rgba(75,192,192,1)',
                         pointBorderWidth: 1,
-                        pointHoverRadius: 5,
+                        pointHitRadius: 10,
                         pointHoverBackgroundColor: 'rgba(75,192,192,1)',
                         pointHoverBorderColor: 'rgba(220,220,220,1)',
                         pointHoverBorderWidth: 2,
+                        pointHoverRadius: 5,
                         pointRadius: 1,
-                        pointHitRadius: 10,
-                        data: this.state.data,
                     },
                 ],
+                labels: this.state.labels,
             };
             return (React.createElement(react_chartjs_2_1.Line, { data: data }));
         }
@@ -61788,38 +61788,38 @@ var WindSpeedChart = /** @class */ (function (_super) {
                 data.push(row.speed);
             }
             _this.setState({
-                labels: labels,
                 data: data,
+                labels: labels,
             });
         });
     };
     WindSpeedChart.prototype.render = function () {
         if (this.state.data) {
             var data = {
-                labels: this.state.labels,
                 datasets: [
                     {
-                        label: 'Rychlost větru',
-                        fill: true,
-                        lineTension: 0.2,
                         backgroundColor: 'rgba(75,192,192,0.4)',
-                        borderColor: 'rgba(75,192,192,1)',
                         borderCapStyle: 'butt',
+                        borderColor: 'rgba(75,192,192,1)',
                         borderDash: [],
                         borderDashOffset: 0.0,
                         borderJoinStyle: 'miter',
-                        pointBorderColor: 'rgba(75,192,192,1)',
+                        data: this.state.data,
+                        fill: true,
+                        label: 'Teplota',
+                        lineTension: 0.2,
                         pointBackgroundColor: '#fff',
+                        pointBorderColor: 'rgba(75,192,192,1)',
                         pointBorderWidth: 1,
-                        pointHoverRadius: 5,
+                        pointHitRadius: 10,
                         pointHoverBackgroundColor: 'rgba(75,192,192,1)',
                         pointHoverBorderColor: 'rgba(220,220,220,1)',
                         pointHoverBorderWidth: 2,
+                        pointHoverRadius: 5,
                         pointRadius: 1,
-                        pointHitRadius: 10,
-                        data: this.state.data,
                     },
                 ],
+                labels: this.state.labels,
             };
             return (React.createElement(react_chartjs_2_1.Line, { data: data }));
         }

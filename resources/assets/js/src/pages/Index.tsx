@@ -20,7 +20,6 @@ export default class App extends React.Component {
                     <div className='col-md-6'>
                         <div className='panel panel-default'>
                             <div className='panel-heading'>Teplota</div>
-
                             <div className='panel-body'>
                                 <TemperatureChart />
                             </div>
@@ -30,7 +29,6 @@ export default class App extends React.Component {
                     <div className='col-md-6'>
                         <div className='panel panel-default'>
                             <div className='panel-heading'>Rychlost větru</div>
-
                             <div className='panel-body'>
                                 <WindSpeedChart />
                             </div>
