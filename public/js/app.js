@@ -21384,14 +21384,9 @@ module.exports = __webpack_require__(404);
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(3);
 var ReactDOM = __webpack_require__(201);
-var react_router_dom_1 = __webpack_require__(217);
-var Index_1 = __webpack_require__(244);
-var PageNotFound_1 = __webpack_require__(403);
+var Layout_1 = __webpack_require__(414);
 var App = function () {
-    return (React.createElement(react_router_dom_1.BrowserRouter, null,
-        React.createElement(react_router_dom_1.Switch, null,
-            React.createElement(react_router_dom_1.Route, { path: '/', exact: true, component: Index_1.default }),
-            React.createElement(react_router_dom_1.Route, { path: '*', exact: true, component: PageNotFound_1.default }))));
+    return (React.createElement(Layout_1.default, null));
 };
 if (document.getElementById('app')) {
     ReactDOM.render(React.createElement(App, null), document.getElementById('app'));
@@ -61511,6 +61506,35 @@ exports.default = PageNotFound;
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 405 */,
+/* 406 */,
+/* 407 */,
+/* 408 */,
+/* 409 */,
+/* 410 */,
+/* 411 */,
+/* 412 */,
+/* 413 */,
+/* 414 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(3);
+var react_router_dom_1 = __webpack_require__(217);
+var Index_1 = __webpack_require__(244);
+var PageNotFound_1 = __webpack_require__(403);
+var Layout = function () {
+    return (React.createElement(react_router_dom_1.BrowserRouter, null,
+        React.createElement(react_router_dom_1.Switch, null,
+            React.createElement(react_router_dom_1.Route, { path: '/', exact: true, component: Index_1.default }),
+            React.createElement(react_router_dom_1.Route, { component: PageNotFound_1.default }))));
+};
+exports.default = Layout;
+
 
 /***/ })
 /******/ ]);

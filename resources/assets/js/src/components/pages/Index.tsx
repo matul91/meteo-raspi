@@ -1,7 +1,7 @@
 import * as React from 'react';
-import PressureChart from '../components/charts/PressureChart';
-import TemperatureChart from '../components/charts/TemperatureChart';
-import WindSpeedChart from '../components/charts/WindSpeedChart';
+import PressureChart from '../charts/PressureChart';
+import TemperatureChart from '../charts/TemperatureChart';
+import WindSpeedChart from '../charts/WindSpeedChart';
 
 export default class App extends React.Component {
     public render(): JSX.Element {
