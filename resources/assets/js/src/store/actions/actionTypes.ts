@@ -1,1 +1,1 @@
-export const ADD_USER: string = 'ADD_USER';
+export const ADD_USER: string = "ADD_USER";

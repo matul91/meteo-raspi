@@ -22394,8 +22394,8 @@ var rootReducer = redux_1.combineReducers({
 var store = redux_1.createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 var app = (React.createElement(react_redux_1.Provider, { store: store },
     React.createElement(App, null)));
-if (document.getElementById('app')) {
-    ReactDOM.render(app, document.getElementById('app'));
+if (document.getElementById("app")) {
+    ReactDOM.render(app, document.getElementById("app"));
 }
 
 
@@ -43273,8 +43273,8 @@ var PageNotFound_1 = __webpack_require__(440);
 var Layout = function () {
     return (React.createElement(react_router_dom_1.BrowserRouter, null,
         React.createElement(react_router_dom_1.Switch, null,
-            React.createElement(react_router_dom_1.Route, { path: '/', exact: true, component: Index_1.default }),
-            React.createElement(react_router_dom_1.Route, { path: '/login', exact: true, component: Login_1.default }),
+            React.createElement(react_router_dom_1.Route, { path: "/", exact: true, component: Index_1.default }),
+            React.createElement(react_router_dom_1.Route, { path: "/login", exact: true, component: Login_1.default }),
             React.createElement(react_router_dom_1.Route, { component: PageNotFound_1.default }))));
 };
 exports.default = Layout;
@@ -46310,22 +46310,22 @@ var PressureChart_1 = __webpack_require__(282);
 var TemperatureChart_1 = __webpack_require__(437);
 var WindSpeedChart_1 = __webpack_require__(438);
 var Index = function () {
-    return (React.createElement("div", { className: 'container' },
-        React.createElement("div", { className: 'row' },
-            React.createElement("div", { className: 'col-md-6' },
-                React.createElement("div", { className: 'panel panel-default' },
-                    React.createElement("div", { className: 'panel-heading' }, "Tlak"),
-                    React.createElement("div", { className: 'panel-body' },
+    return (React.createElement("div", { className: "container" },
+        React.createElement("div", { className: "row" },
+            React.createElement("div", { className: "col-md-6" },
+                React.createElement("div", { className: "panel panel-default" },
+                    React.createElement("div", { className: "panel-heading" }, "Tlak"),
+                    React.createElement("div", { className: "panel-body" },
                         React.createElement(PressureChart_1.default, null)))),
-            React.createElement("div", { className: 'col-md-6' },
-                React.createElement("div", { className: 'panel panel-default' },
-                    React.createElement("div", { className: 'panel-heading' }, "Teplota"),
-                    React.createElement("div", { className: 'panel-body' },
+            React.createElement("div", { className: "col-md-6" },
+                React.createElement("div", { className: "panel panel-default" },
+                    React.createElement("div", { className: "panel-heading" }, "Teplota"),
+                    React.createElement("div", { className: "panel-body" },
                         React.createElement(TemperatureChart_1.default, null)))),
-            React.createElement("div", { className: 'col-md-6' },
-                React.createElement("div", { className: 'panel panel-default' },
-                    React.createElement("div", { className: 'panel-heading' }, "Rychlost v\u011Btru"),
-                    React.createElement("div", { className: 'panel-body' },
+            React.createElement("div", { className: "col-md-6" },
+                React.createElement("div", { className: "panel panel-default" },
+                    React.createElement("div", { className: "panel-heading" }, "Rychlost v\u011Btru"),
+                    React.createElement("div", { className: "panel-body" },
                         React.createElement(WindSpeedChart_1.default, null)))))));
 };
 exports.default = Index;
@@ -46363,7 +46363,7 @@ var PressureChart = /** @class */ (function (_super) {
     }
     PressureChart.prototype.componentDidMount = function () {
         var _this = this;
-        axios_1.default.get('/pressures').then(function (response) {
+        axios_1.default.get("/pressures").then(function (response) {
             var labels = [];
             var data = [];
             for (var _i = 0, _a = response.data; _i < _a.length; _i++) {
@@ -46382,22 +46382,22 @@ var PressureChart = /** @class */ (function (_super) {
             var data = {
                 datasets: [
                     {
-                        backgroundColor: 'rgba(75,192,192,0.4)',
-                        borderCapStyle: 'butt',
-                        borderColor: 'rgba(75,192,192,1)',
+                        backgroundColor: "rgba(75,192,192,0.4)",
+                        borderCapStyle: "butt",
+                        borderColor: "rgba(75,192,192,1)",
                         borderDash: [],
                         borderDashOffset: 0.0,
-                        borderJoinStyle: 'miter',
+                        borderJoinStyle: "miter",
                         data: this.state.data,
                         fill: true,
-                        label: 'Teplota',
+                        label: "Teplota",
                         lineTension: 0.2,
-                        pointBackgroundColor: '#fff',
-                        pointBorderColor: 'rgba(75,192,192,1)',
+                        pointBackgroundColor: "#fff",
+                        pointBorderColor: "rgba(75,192,192,1)",
                         pointBorderWidth: 1,
                         pointHitRadius: 10,
-                        pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-                        pointHoverBorderColor: 'rgba(220,220,220,1)',
+                        pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                        pointHoverBorderColor: "rgba(220,220,220,1)",
                         pointHoverBorderWidth: 2,
                         pointHoverRadius: 5,
                         pointRadius: 1,
@@ -63394,7 +63394,7 @@ var TemperatureChart = /** @class */ (function (_super) {
     }
     TemperatureChart.prototype.componentDidMount = function () {
         var _this = this;
-        axios_1.default.get('/temperatures').then(function (response) {
+        axios_1.default.get("/temperatures").then(function (response) {
             var labels = [];
             var data = [];
             for (var _i = 0, _a = response.data; _i < _a.length; _i++) {
@@ -63413,22 +63413,22 @@ var TemperatureChart = /** @class */ (function (_super) {
             var data = {
                 datasets: [
                     {
-                        backgroundColor: 'rgba(75,192,192,0.4)',
-                        borderCapStyle: 'butt',
-                        borderColor: 'rgba(75,192,192,1)',
+                        backgroundColor: "rgba(75,192,192,0.4)",
+                        borderCapStyle: "butt",
+                        borderColor: "rgba(75,192,192,1)",
                         borderDash: [],
                         borderDashOffset: 0.0,
-                        borderJoinStyle: 'miter',
+                        borderJoinStyle: "miter",
                         data: this.state.data,
                         fill: true,
-                        label: 'Teplota',
+                        label: "Teplota",
                         lineTension: 0.2,
-                        pointBackgroundColor: '#fff',
-                        pointBorderColor: 'rgba(75,192,192,1)',
+                        pointBackgroundColor: "#fff",
+                        pointBorderColor: "rgba(75,192,192,1)",
                         pointBorderWidth: 1,
                         pointHitRadius: 10,
-                        pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-                        pointHoverBorderColor: 'rgba(220,220,220,1)',
+                        pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                        pointHoverBorderColor: "rgba(220,220,220,1)",
                         pointHoverBorderWidth: 2,
                         pointHoverRadius: 5,
                         pointRadius: 1,
@@ -63477,7 +63477,7 @@ var WindSpeedChart = /** @class */ (function (_super) {
     }
     WindSpeedChart.prototype.componentDidMount = function () {
         var _this = this;
-        axios_1.default.get('/winds').then(function (response) {
+        axios_1.default.get("/winds").then(function (response) {
             var labels = [];
             var data = [];
             for (var _i = 0, _a = response.data; _i < _a.length; _i++) {
@@ -63496,22 +63496,22 @@ var WindSpeedChart = /** @class */ (function (_super) {
             var data = {
                 datasets: [
                     {
-                        backgroundColor: 'rgba(75,192,192,0.4)',
-                        borderCapStyle: 'butt',
-                        borderColor: 'rgba(75,192,192,1)',
+                        backgroundColor: "rgba(75,192,192,0.4)",
+                        borderCapStyle: "butt",
+                        borderColor: "rgba(75,192,192,1)",
                         borderDash: [],
                         borderDashOffset: 0.0,
-                        borderJoinStyle: 'miter',
+                        borderJoinStyle: "miter",
                         data: this.state.data,
                         fill: true,
-                        label: 'Teplota',
+                        label: "Teplota",
                         lineTension: 0.2,
-                        pointBackgroundColor: '#fff',
-                        pointBorderColor: 'rgba(75,192,192,1)',
+                        pointBackgroundColor: "#fff",
+                        pointBorderColor: "rgba(75,192,192,1)",
                         pointBorderWidth: 1,
                         pointHitRadius: 10,
-                        pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-                        pointHoverBorderColor: 'rgba(220,220,220,1)',
+                        pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                        pointHoverBorderColor: "rgba(220,220,220,1)",
                         pointHoverBorderWidth: 2,
                         pointHoverRadius: 5,
                         pointRadius: 1,
@@ -63560,8 +63560,8 @@ var Login = /** @class */ (function (_super) {
         var _this = _super.call(this, props) || this;
         _this.state = {
             formValues: {
-                name: '',
-                password: '',
+                name: "",
+                password: "",
                 rememberMe: false,
             },
         };
@@ -63570,22 +63570,22 @@ var Login = /** @class */ (function (_super) {
         return _this;
     }
     Login.prototype.render = function () {
-        return (React.createElement("div", { className: 'col-xs-12' },
+        return (React.createElement("div", { className: "col-xs-12" },
             React.createElement("form", { onSubmit: this.handleSubmit },
-                React.createElement("div", { className: 'form-group' },
-                    React.createElement("label", { htmlFor: 'name' }, "Name"),
-                    React.createElement("input", { type: 'text', defaultValue: this.state.formValues.name, name: 'name', className: 'form-control', onChange: this.handleChange, placeholder: 'Username' })),
-                React.createElement("div", { className: 'form-group' },
-                    React.createElement("label", { htmlFor: 'password' }, "Password"),
-                    React.createElement("input", { type: 'password', defaultValue: this.state.formValues.password, name: 'password', className: 'form-control', onChange: this.handleChange, placeholder: 'Your password' })),
-                React.createElement("div", { className: 'form-check' },
-                    React.createElement("label", { className: 'form-check-label' },
-                        React.createElement("input", { type: 'checkbox', name: 'rememberMe', className: 'form-check-input', onChange: this.handleChange, checked: this.state.formValues.rememberMe }),
+                React.createElement("div", { className: "form-group" },
+                    React.createElement("label", { htmlFor: "name" }, "Name"),
+                    React.createElement("input", { type: "text", defaultValue: this.state.formValues.name, name: "name", className: "form-control", onChange: this.handleChange, placeholder: "Username" })),
+                React.createElement("div", { className: "form-group" },
+                    React.createElement("label", { htmlFor: "password" }, "Password"),
+                    React.createElement("input", { type: "password", defaultValue: this.state.formValues.password, name: "password", className: "form-control", onChange: this.handleChange, placeholder: "Your password" })),
+                React.createElement("div", { className: "form-check" },
+                    React.createElement("label", { className: "form-check-label" },
+                        React.createElement("input", { type: "checkbox", name: "rememberMe", className: "form-check-input", onChange: this.handleChange, checked: this.state.formValues.rememberMe }),
                         "Remember me")),
-                React.createElement("button", { type: 'submit', className: 'btn btn-primary' }, "Submit"))));
+                React.createElement("button", { type: "submit", className: "btn btn-primary" }, "Submit"))));
     };
     Login.prototype.handleChange = function (e) {
-        var value = (e.target.type === 'checkbox') ? e.target.checked : e.target.value;
+        var value = (e.target.type === "checkbox") ? e.target.checked : e.target.value;
         this.setState(__assign({}, this.state, { formValues: __assign({}, this.state.formValues, (_a = {}, _a[e.target.name] = value, _a)) }));
         var _a;
     };
@@ -63650,7 +63650,7 @@ exports.default = reducer;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ADD_USER = 'ADD_USER';
+exports.ADD_USER = "ADD_USER";
 
 
 /***/ }),
