@@ -22391,7 +22391,7 @@ var App = function () {
 var rootReducer = redux_1.combineReducers({
     user: user_1.default,
 });
-var store = redux_1.createStore(rootReducer);
+var store = redux_1.createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 var app = (React.createElement(react_redux_1.Provider, { store: store },
     React.createElement(App, null)));
 if (document.getElementById('app')) {
