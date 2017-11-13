@@ -21372,7 +21372,7 @@ module.exports = castPath;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(199);
-module.exports = __webpack_require__(405);
+module.exports = __webpack_require__(406);
 
 
 /***/ }),
@@ -41116,11 +41116,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(3);
 var react_router_dom_1 = __webpack_require__(218);
 var Index_1 = __webpack_require__(245);
-var PageNotFound_1 = __webpack_require__(404);
+var Login_1 = __webpack_require__(404);
+var PageNotFound_1 = __webpack_require__(405);
 var Layout = function () {
     return (React.createElement(react_router_dom_1.BrowserRouter, null,
         React.createElement(react_router_dom_1.Switch, null,
             React.createElement(react_router_dom_1.Route, { path: '/', exact: true, component: Index_1.default }),
+            React.createElement(react_router_dom_1.Route, { path: '/login', exact: true, component: Login_1.default }),
             React.createElement(react_router_dom_1.Route, { component: PageNotFound_1.default }))));
 };
 exports.default = Layout;
@@ -61479,6 +61481,76 @@ exports.default = WindSpeedChart;
 
 "use strict";
 
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(3);
+var Login = /** @class */ (function (_super) {
+    __extends(Login, _super);
+    function Login(props) {
+        var _this = _super.call(this, props) || this;
+        _this.state = {
+            formValues: {
+                name: '',
+                password: '',
+                rememberMe: false,
+            },
+        };
+        _this.handleChange = _this.handleChange.bind(_this);
+        _this.handleSubmit = _this.handleSubmit.bind(_this);
+        return _this;
+    }
+    Login.prototype.render = function () {
+        return (React.createElement("div", { className: 'col-xs-12' },
+            React.createElement("form", { onSubmit: this.handleSubmit },
+                React.createElement("div", { className: 'form-group' },
+                    React.createElement("label", { htmlFor: 'name' }, "Name"),
+                    React.createElement("input", { type: 'text', defaultValue: this.state.formValues.name, name: 'name', className: 'form-control', onChange: this.handleChange, placeholder: 'Username' })),
+                React.createElement("div", { className: 'form-group' },
+                    React.createElement("label", { htmlFor: 'password' }, "Password"),
+                    React.createElement("input", { type: 'password', defaultValue: this.state.formValues.password, name: 'password', className: 'form-control', onChange: this.handleChange, placeholder: 'Your password' })),
+                React.createElement("div", { className: 'form-check' },
+                    React.createElement("label", { className: 'form-check-label' },
+                        React.createElement("input", { type: 'checkbox', name: 'rememberMe', className: 'form-check-input', onChange: this.handleChange, checked: this.state.formValues.rememberMe }),
+                        "Remember me")),
+                React.createElement("button", { type: 'submit', className: 'btn btn-primary' }, "Submit"))));
+    };
+    Login.prototype.handleChange = function (e) {
+        var value = (e.target.type === 'checkbox') ? e.target.checked : e.target.value;
+        this.setState(__assign({}, this.state, { formValues: __assign({}, this.state.formValues, (_a = {}, _a[e.target.name] = value, _a)) }));
+        var _a;
+    };
+    Login.prototype.handleSubmit = function (e) {
+        e.preventDefault();
+        console.log(this.state.formValues);
+    };
+    return Login;
+}(React.Component));
+exports.default = Login;
+
+
+/***/ }),
+/* 405 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(3);
 var PageNotFound = function () {
@@ -61488,7 +61560,7 @@ exports.default = PageNotFound;
 
 
 /***/ }),
-/* 405 */
+/* 406 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
