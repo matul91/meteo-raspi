@@ -12,8 +12,8 @@ const Layout = () => {
               <Navbar />
               <div className="container">
                   <Switch>
+                      <Route path="/login" component={Login} />
                       <Route path="/" exact={true} component={Index} />
-                      <Route path="/login" exact={true} component={Login} />
                       <Route component={PageNotFound} />
                   </Switch>
               </div>

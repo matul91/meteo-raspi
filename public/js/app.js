@@ -43336,8 +43336,8 @@ var Layout = function () {
             React.createElement(Navbar_1.default, null),
             React.createElement("div", { className: "container" },
                 React.createElement(react_router_dom_1.Switch, null,
+                    React.createElement(react_router_dom_1.Route, { path: "/login", component: Login_1.default }),
                     React.createElement(react_router_dom_1.Route, { path: "/", exact: true, component: Index_1.default }),
-                    React.createElement(react_router_dom_1.Route, { path: "/login", exact: true, component: Login_1.default }),
                     React.createElement(react_router_dom_1.Route, { component: PageNotFound_1.default }))))));
 };
 exports.default = Layout;
