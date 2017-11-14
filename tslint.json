@@ -7,9 +7,5 @@
         "tslint-react"
     ],
     "rules": {
-        "quotemark": [
-            true,
-            "single"
-        ]
     }
 }

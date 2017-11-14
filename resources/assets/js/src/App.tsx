@@ -1,9 +1,9 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { combineReducers, createStore } from 'redux';
-import Layout from './components/layout/Layout';
-import userReducer from './store/reducers/user';
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import { combineReducers, createStore } from "redux";
+import Layout from "./components/layout/Layout";
+import userReducer from "./store/reducers/user";
 
 const App = () => {
     return (
@@ -26,6 +26,6 @@ const app = (
     </Provider>
 );
 
-if (document.getElementById('app')) {
-    ReactDOM.render(app, document.getElementById('app'));
+if (document.getElementById("app")) {
+    ReactDOM.render(app, document.getElementById("app"));
 }

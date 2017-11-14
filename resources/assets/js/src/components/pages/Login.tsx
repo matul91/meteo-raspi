@@ -1,10 +1,10 @@
-import * as React from 'react';
+import * as React from "react";
 
 class Login extends React.Component {
     public state = {
         formValues: {
-            name: '',
-            password: '',
+            name: "",
+            password: "",
             rememberMe: false,
         },
     };
@@ -17,50 +17,50 @@ class Login extends React.Component {
 
     public render(): JSX.Element {
         return (
-            <div className='col-xs-12'>
+            <div className="col-xs-12">
                 <form onSubmit={this.handleSubmit}>
-                    <div className='form-group'>
-                        <label htmlFor='name'>Name</label>
+                    <div className="form-group">
+                        <label htmlFor="name">Name</label>
                         <input
-                            type='text'
+                            type="text"
                             defaultValue={this.state.formValues.name}
-                            name='name'
-                            className='form-control'
+                            name="name"
+                            className="form-control"
                             onChange={this.handleChange}
-                            placeholder='Username'
+                            placeholder="Username"
                         />
                     </div>
-                    <div className='form-group'>
-                        <label htmlFor='password'>Password</label>
+                    <div className="form-group">
+                        <label htmlFor="password">Password</label>
                         <input
-                            type='password'
+                            type="password"
                             defaultValue={this.state.formValues.password}
-                            name='password'
-                            className='form-control'
+                            name="password"
+                            className="form-control"
                             onChange={this.handleChange}
-                            placeholder='Your password'
+                            placeholder="Your password"
                         />
                     </div>
-                    <div className='form-check'>
-                        <label className='form-check-label'>
+                    <div className="form-check">
+                        <label className="form-check-label">
                             <input
-                                type='checkbox'
-                                name='rememberMe'
-                                className='form-check-input'
+                                type="checkbox"
+                                name="rememberMe"
+                                className="form-check-input"
                                 onChange={this.handleChange}
                                 checked={this.state.formValues.rememberMe}
                             />
                              Remember me
                         </label>
                     </div>
-                    <button type='submit' className='btn btn-primary'>Submit</button>
+                    <button type="submit" className="btn btn-primary">Submit</button>
                 </form>
             </div>
         );
     }
 
     private handleChange(e: any): void {
-        const value = (e.target.type === 'checkbox') ? e.target.checked : e.target.value;
+        const value = (e.target.type === "checkbox") ? e.target.checked : e.target.value;
 
         this.setState({
             ...this.state,
