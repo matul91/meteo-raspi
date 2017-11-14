@@ -22,7 +22,7 @@ class Login extends React.Component<any> {
             <div className="col-xs-12">
                 <form onSubmit={this.submitHandler}>
                     <div className="form-group">
-                        <label htmlFor="name">Name</label>
+                        <label htmlFor="name">E-mail</label>
                         <input
                             type="text"
                             defaultValue={this.state.formValues.email}
@@ -33,7 +33,7 @@ class Login extends React.Component<any> {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="password">Password</label>
+                        <label htmlFor="password">Heslo</label>
                         <input
                             type="password"
                             defaultValue={this.state.formValues.password}
@@ -43,8 +43,8 @@ class Login extends React.Component<any> {
                             placeholder="Vaše heslo"
                         />
                     </div>
-                    <div className="form-check">
-                        <label className="form-check-label">
+                    <div className="checkbox">
+                        <label>
                             <input
                                 type="checkbox"
                                 name="rememberMe"
@@ -52,7 +52,7 @@ class Login extends React.Component<any> {
                                 onChange={this.inputChangeHandler}
                                 checked={this.state.formValues.rememberMe}
                             />
-                            Zapamatovat si mě
+                            <span>Zapamatovat si mě</span>
                         </label>
                     </div>
                     <button type="submit" className="btn btn-primary">Submit</button>

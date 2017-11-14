@@ -63621,15 +63621,15 @@ var Login = /** @class */ (function (_super) {
         return (React.createElement("div", { className: "col-xs-12" },
             React.createElement("form", { onSubmit: this.submitHandler },
                 React.createElement("div", { className: "form-group" },
-                    React.createElement("label", { htmlFor: "name" }, "Name"),
+                    React.createElement("label", { htmlFor: "name" }, "E-mail"),
                     React.createElement("input", { type: "text", defaultValue: this.state.formValues.email, name: "email", className: "form-control", onChange: this.inputChangeHandler, placeholder: "E-mailová adresa" })),
                 React.createElement("div", { className: "form-group" },
-                    React.createElement("label", { htmlFor: "password" }, "Password"),
+                    React.createElement("label", { htmlFor: "password" }, "Heslo"),
                     React.createElement("input", { type: "password", defaultValue: this.state.formValues.password, name: "password", className: "form-control", onChange: this.inputChangeHandler, placeholder: "Vaše heslo" })),
-                React.createElement("div", { className: "form-check" },
-                    React.createElement("label", { className: "form-check-label" },
+                React.createElement("div", { className: "checkbox" },
+                    React.createElement("label", null,
                         React.createElement("input", { type: "checkbox", name: "rememberMe", className: "form-check-input", onChange: this.inputChangeHandler, checked: this.state.formValues.rememberMe }),
-                        "Zapamatovat si m\u011B")),
+                        React.createElement("span", null, "Zapamatovat si m\u011B"))),
                 React.createElement("button", { type: "submit", className: "btn btn-primary" }, "Submit"))));
     };
     Login.prototype.inputChangeHandler = function (e) {
