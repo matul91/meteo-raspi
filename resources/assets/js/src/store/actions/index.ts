@@ -1,3 +1,3 @@
 export {
-    addUser,
-} from "./user";
+    auth,
+} from "./auth";

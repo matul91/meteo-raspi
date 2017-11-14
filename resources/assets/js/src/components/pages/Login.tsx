@@ -1,9 +1,11 @@
 import * as React from "react";
+import {connect} from "react-redux";
+import * as actions from "../../store/actions";
 
-class Login extends React.Component {
+class Login extends React.Component<any> {
     public state = {
         formValues: {
-            name: "",
+            email: "",
             password: "",
             rememberMe: false,
         },
@@ -11,23 +13,23 @@ class Login extends React.Component {
 
     constructor(props) {
         super(props);
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.inputChangeHandler = this.inputChangeHandler.bind(this);
+        this.submitHandler = this.submitHandler.bind(this);
     }
 
     public render(): JSX.Element {
         return (
             <div className="col-xs-12">
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={this.submitHandler}>
                     <div className="form-group">
                         <label htmlFor="name">Name</label>
                         <input
                             type="text"
-                            defaultValue={this.state.formValues.name}
-                            name="name"
+                            defaultValue={this.state.formValues.email}
+                            name="email"
                             className="form-control"
-                            onChange={this.handleChange}
-                            placeholder="Username"
+                            onChange={this.inputChangeHandler}
+                            placeholder="E-mailová adresa"
                         />
                     </div>
                     <div className="form-group">
@@ -37,8 +39,8 @@ class Login extends React.Component {
                             defaultValue={this.state.formValues.password}
                             name="password"
                             className="form-control"
-                            onChange={this.handleChange}
-                            placeholder="Your password"
+                            onChange={this.inputChangeHandler}
+                            placeholder="Vaše heslo"
                         />
                     </div>
                     <div className="form-check">
@@ -47,10 +49,10 @@ class Login extends React.Component {
                                 type="checkbox"
                                 name="rememberMe"
                                 className="form-check-input"
-                                onChange={this.handleChange}
+                                onChange={this.inputChangeHandler}
                                 checked={this.state.formValues.rememberMe}
                             />
-                             Remember me
+                            Zapamatovat si mě
                         </label>
                     </div>
                     <button type="submit" className="btn btn-primary">Submit</button>
@@ -59,7 +61,7 @@ class Login extends React.Component {
         );
     }
 
-    private handleChange(e: any): void {
+    private inputChangeHandler(e: any): void {
         const value = (e.target.type === "checkbox") ? e.target.checked : e.target.value;
 
         this.setState({
@@ -71,10 +73,24 @@ class Login extends React.Component {
         });
     }
 
-    private handleSubmit(e: any): void {
+    private submitHandler(e: any): void {
         e.preventDefault();
-        console.log(this.state.formValues);
+        this.props.onAuth(this.state.formValues.email, this.state.formValues.password);
     }
 }
 
-export default Login;
+const mapStateToProps = (state) => {
+    return {
+        error: state.auth.error,
+        isAuthenticated: state.auth.token !== null,
+        loading: state.auth.loading,
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onAuth: (email, password) => dispatch(actions.auth(email, password)),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
