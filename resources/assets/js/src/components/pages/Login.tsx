@@ -1,5 +1,6 @@
 import * as React from "react";
 import {connect} from "react-redux";
+import { Redirect } from "react-router-dom";
 import * as actions from "../../store/actions";
 
 class Login extends React.Component<any> {
@@ -18,8 +19,15 @@ class Login extends React.Component<any> {
     }
 
     public render(): JSX.Element {
+        let authRedirect = null;
+
+        if (this.props.isAuthenticated) {
+            authRedirect = <Redirect to="/" />;
+        }
+
         return (
             <div className="col-xs-12">
+                {authRedirect}
                 <form onSubmit={this.submitHandler}>
                     <div className="form-group">
                         <label htmlFor="name">E-mail</label>
