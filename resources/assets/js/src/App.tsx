@@ -1,9 +1,10 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import { combineReducers, createStore } from "redux";
+import { applyMiddleware, combineReducers, compose, createStore } from "redux";
+import thunk from "redux-thunk";
 import Layout from "./components/layout/Layout";
-import userReducer from "./store/reducers/user";
+import authReducer from "./store/reducers/auth";
 
 const App = () => {
     return (
@@ -11,13 +12,17 @@ const App = () => {
     );
 };
 
+const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
 const rootReducer = combineReducers({
-    user: userReducer,
+    auth: authReducer,
 });
 
 const store = createStore(
     rootReducer,
-    (window as any).__REDUX_DEVTOOLS_EXTENSION__ && (window as any).__REDUX_DEVTOOLS_EXTENSION__(),
+    composeEnhancers(
+        applyMiddleware(thunk),
+    ),
 );
 
 const app = (

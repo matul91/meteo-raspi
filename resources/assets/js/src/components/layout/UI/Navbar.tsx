@@ -1,7 +1,13 @@
 import * as React from "react";
 import {NavLink} from "react-router-dom";
 
-const Navbar = () => {
+const Navbar: any = (props) => {
+        const loggedUserLinks = (
+            <ul className="nav navbar-nav">
+                <li><NavLink to="/logged" >Uživatelská stránka</NavLink></li>
+            </ul>
+        );
+
         return (
             <nav className="navbar navbar-default">
                 <div className="container">
@@ -21,11 +27,12 @@ const Navbar = () => {
                         <NavLink to="/" className="navbar-brand" >Letiště Baška</NavLink>
                     </div>
                     <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <ul className="nav navbar-nav">
-                            <li><a href="#">Link</a></li>
-                        </ul>
+                        {props.isAuthenticated && loggedUserLinks}
                         <ul className="nav navbar-nav navbar-right">
-                            <li><NavLink to="/login" >Přihlásit se</NavLink></li>
+                            <li>
+                                {!props.isAuthenticated && <NavLink to="/login" >Přihlásit se</NavLink>}
+                                {props.isAuthenticated && <NavLink to="/logout" >Odhlásit se</NavLink>}
+                            </li>
                         </ul>
                     </div>
                 </div>
