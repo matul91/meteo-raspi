@@ -17,7 +17,7 @@ class CreateWindsTable extends Migration
             $table->increments('id');
             $table->float('speed');
             $table->string('direction');
-            $table->date('date');
+            $table->dateTime('date');
         });
     }
 

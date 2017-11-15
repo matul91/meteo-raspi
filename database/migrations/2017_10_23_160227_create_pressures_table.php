@@ -16,7 +16,7 @@ class CreatePressuresTable extends Migration
         Schema::create('pressures', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('pressure');
-            $table->date('date');
+            $table->dateTime('date');
         });
     }
 
