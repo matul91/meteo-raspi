@@ -15,7 +15,9 @@ class CreateWindsTable extends Migration
     {
         Schema::create('winds', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamps();
+            $table->float('speed');
+            $table->string('direction');
+            $table->dateTime('date');
         });
     }
 
