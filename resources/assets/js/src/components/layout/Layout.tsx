@@ -22,7 +22,7 @@ const Layout = (props) => {
     return (
         <BrowserRouter>
             <div id="main">
-                <Navbar isAuthenticated={props.isAuthenticated} />
+                <Navbar isAuthenticated={props.isAuthenticated} user={props.user} />
                 <div className="container">
                     <Switch>
                         <Route path="/login" component={Login} />
@@ -39,6 +39,7 @@ const Layout = (props) => {
 const mapStateToProps = (state) => {
     return {
         isAuthenticated: state.auth.token !== null,
+        user: state.auth.name,
     };
 };
 

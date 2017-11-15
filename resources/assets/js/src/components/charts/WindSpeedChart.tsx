@@ -45,7 +45,7 @@ export default class WindSpeedChart extends React.Component<{}, IState> {
                         borderJoinStyle: "miter",
                         data: this.state.data,
                         fill: true,
-                        label: "Teplota",
+                        label: "Rychlost větru",
                         lineTension: 0.2,
                         pointBackgroundColor: "#fff",
                         pointBorderColor: "rgba(75,192,192,1)",

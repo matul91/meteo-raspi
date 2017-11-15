@@ -8,6 +8,10 @@ const Navbar: any = (props) => {
             </ul>
         );
 
+        const userInfo = (
+            <p className="navbar-text navbar-right">Přihlášen jako {props.user}</p>
+        );
+
         return (
             <nav className="navbar navbar-default">
                 <div className="container">
@@ -34,6 +38,7 @@ const Navbar: any = (props) => {
                                 {props.isAuthenticated && <NavLink to="/logout" >Odhlásit se</NavLink>}
                             </li>
                         </ul>
+                        {props.isAuthenticated && userInfo}
                     </div>
                 </div>
             </nav>

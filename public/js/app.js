@@ -43383,7 +43383,7 @@ var Layout = function (props) {
     }
     return (React.createElement(react_router_dom_1.BrowserRouter, null,
         React.createElement("div", { id: "main" },
-            React.createElement(Navbar_1.default, { isAuthenticated: props.isAuthenticated }),
+            React.createElement(Navbar_1.default, { isAuthenticated: props.isAuthenticated, user: props.user }),
             React.createElement("div", { className: "container" },
                 React.createElement(react_router_dom_1.Switch, null,
                     React.createElement(react_router_dom_1.Route, { path: "/login", component: Login_1.default }),
@@ -43394,6 +43394,7 @@ var Layout = function (props) {
 var mapStateToProps = function (state) {
     return {
         isAuthenticated: state.auth.token !== null,
+        user: state.auth.name,
     };
 };
 exports.default = react_redux_1.connect(mapStateToProps)(Layout);
@@ -46392,12 +46393,12 @@ var Index = function () {
                     React.createElement(PressureChart_1.default, null)))),
         React.createElement("div", { className: "col-md-6" },
             React.createElement("div", { className: "panel panel-default" },
-                React.createElement("div", { className: "panel-heading" }, "Tlak"),
+                React.createElement("div", { className: "panel-heading" }, "Teplota"),
                 React.createElement("div", { className: "panel-body" },
                     React.createElement(TemperatureChart_1.default, null)))),
         React.createElement("div", { className: "col-md-6" },
             React.createElement("div", { className: "panel panel-default" },
-                React.createElement("div", { className: "panel-heading" }, "Tlak"),
+                React.createElement("div", { className: "panel-heading" }, "Rychlost v\u011Btru"),
                 React.createElement("div", { className: "panel-body" },
                     React.createElement(WindSpeedChart_1.default, null))))));
 };
@@ -46463,7 +46464,7 @@ var PressureChart = /** @class */ (function (_super) {
                         borderJoinStyle: "miter",
                         data: this.state.data,
                         fill: true,
-                        label: "Teplota",
+                        label: "Tlak",
                         lineTension: 0.2,
                         pointBackgroundColor: "#fff",
                         pointBorderColor: "rgba(75,192,192,1)",
@@ -63577,7 +63578,7 @@ var WindSpeedChart = /** @class */ (function (_super) {
                         borderJoinStyle: "miter",
                         data: this.state.data,
                         fill: true,
-                        label: "Teplota",
+                        label: "Rychlost větru",
                         lineTension: 0.2,
                         pointBackgroundColor: "#fff",
                         pointBorderColor: "rgba(75,192,192,1)",
@@ -63802,6 +63803,9 @@ var Navbar = function (props) {
     var loggedUserLinks = (React.createElement("ul", { className: "nav navbar-nav" },
         React.createElement("li", null,
             React.createElement(react_router_dom_1.NavLink, { to: "/logged" }, "U\u017Eivatelsk\u00E1 str\u00E1nka"))));
+    var userInfo = (React.createElement("p", { className: "navbar-text navbar-right" },
+        "P\u0159ihl\u00E1\u0161en jako ",
+        props.user));
     return (React.createElement("nav", { className: "navbar navbar-default" },
         React.createElement("div", { className: "container" },
             React.createElement("div", { className: "navbar-header" },
@@ -63816,7 +63820,8 @@ var Navbar = function (props) {
                 React.createElement("ul", { className: "nav navbar-nav navbar-right" },
                     React.createElement("li", null,
                         !props.isAuthenticated && React.createElement(react_router_dom_1.NavLink, { to: "/login" }, "P\u0159ihl\u00E1sit se"),
-                        props.isAuthenticated && React.createElement(react_router_dom_1.NavLink, { to: "/logout" }, "Odhl\u00E1sit se")))))));
+                        props.isAuthenticated && React.createElement(react_router_dom_1.NavLink, { to: "/logout" }, "Odhl\u00E1sit se"))),
+                props.isAuthenticated && userInfo))));
 };
 exports.default = Navbar;
 
