@@ -11,12 +11,19 @@ class TemperatureController extends Controller
     {
         $result;
 
+        if(request()->query('limit') != ''){
+            $limit = request()->query('limit');
+        }else{
+            $limit = 1000;
+        }
+
         if (request()->query('start_date') != '' && request()->query('end_date') != '') {
             $result = Temperature::where('date', '>=', request()->query('start_date'))
                 ->where('date', '<=', request()->query('end_date'))
+                ->limit($limit)
                 ->get();
         } else {
-            $result = Temperature::limit(100)->get();
+            $result = Temperature::limit($limit)->get();
         }
 
         return $result;
