@@ -8,6 +8,12 @@ class PressureController extends Controller
 {
     public function index()
     {
-        return \App\Pressure::limit(1000)->get();
+        if(request()->query('limit') != ''){
+            $limit = request()->query('limit');
+        }else{
+            $limit = 1000;
+        }
+
+        return \App\Pressure::limit($limit)->get();
     }
 }
