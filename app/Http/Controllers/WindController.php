@@ -8,7 +8,14 @@ class WindController extends Controller
 {
     public function index()
     {
-        return \App\Wind::limit(1000)->get();
+
+        if(request()->query('limit') != ''){
+            $limit = request()->query('limit');
+        }else{
+            $limit = 1000;
+        }
+
+        return \App\Wind::limit($limit)->get();
     }
 
     public function latest()
