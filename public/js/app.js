@@ -22459,7 +22459,7 @@ exports.AUTH_FAIL = "AUTH_FAIL";
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(215);
-module.exports = __webpack_require__(449);
+module.exports = __webpack_require__(450);
 
 
 /***/ }),
@@ -22475,7 +22475,7 @@ var react_redux_1 = __webpack_require__(35);
 var redux_1 = __webpack_require__(175);
 var redux_thunk_1 = __webpack_require__(256);
 var Layout_1 = __webpack_require__(257);
-var auth_1 = __webpack_require__(448);
+var auth_1 = __webpack_require__(449);
 var App = function () {
     return (React.createElement(Layout_1.default, null));
 };
@@ -43374,8 +43374,8 @@ var AccessDenied_1 = __webpack_require__(283);
 var Index_1 = __webpack_require__(284);
 var LoggedUser_1 = __webpack_require__(442);
 var Login_1 = __webpack_require__(443);
-var PageNotFound_1 = __webpack_require__(446);
-var Navbar_1 = __webpack_require__(447);
+var PageNotFound_1 = __webpack_require__(447);
+var Navbar_1 = __webpack_require__(448);
 var Layout = function (props) {
     var loggedRoutes = (React.createElement(react_router_dom_1.Route, { path: "/logged", component: AccessDenied_1.default }));
     if (props.isAuthenticated) {
@@ -63647,6 +63647,7 @@ var React = __webpack_require__(2);
 var react_redux_1 = __webpack_require__(35);
 var react_router_dom_1 = __webpack_require__(39);
 var actions = __webpack_require__(444);
+var Alert_1 = __webpack_require__(446);
 var Login = /** @class */ (function (_super) {
     __extends(Login, _super);
     function Login(props) {
@@ -63655,7 +63656,6 @@ var Login = /** @class */ (function (_super) {
             formValues: {
                 email: "",
                 password: "",
-                rememberMe: false,
             },
         };
         _this.inputChangeHandler = _this.inputChangeHandler.bind(_this);
@@ -63669,6 +63669,7 @@ var Login = /** @class */ (function (_super) {
         }
         return (React.createElement("div", { className: "col-xs-12" },
             authRedirect,
+            this.props.error && React.createElement(Alert_1.default, { type: this.props.error, cls: "danger" }),
             React.createElement("form", { onSubmit: this.submitHandler },
                 React.createElement("div", { className: "form-group" },
                     React.createElement("label", { htmlFor: "name" }, "E-mail"),
@@ -63676,15 +63677,10 @@ var Login = /** @class */ (function (_super) {
                 React.createElement("div", { className: "form-group" },
                     React.createElement("label", { htmlFor: "password" }, "Heslo"),
                     React.createElement("input", { type: "password", defaultValue: this.state.formValues.password, name: "password", className: "form-control", onChange: this.inputChangeHandler, placeholder: "Vaše heslo" })),
-                React.createElement("div", { className: "checkbox" },
-                    React.createElement("label", null,
-                        React.createElement("input", { type: "checkbox", name: "rememberMe", className: "form-check-input", onChange: this.inputChangeHandler, checked: this.state.formValues.rememberMe }),
-                        React.createElement("span", null, "Zapamatovat si m\u011B"))),
                 React.createElement("button", { type: "submit", className: "btn btn-primary" }, "Submit"))));
     };
     Login.prototype.inputChangeHandler = function (e) {
-        var value = (e.target.type === "checkbox") ? e.target.checked : e.target.value;
-        this.setState(__assign({}, this.state, { formValues: __assign({}, this.state.formValues, (_a = {}, _a[e.target.name] = value, _a)) }));
+        this.setState(__assign({}, this.state, { formValues: __assign({}, this.state.formValues, (_a = {}, _a[e.target.name] = e.target.value, _a)) }));
         var _a;
     };
     Login.prototype.submitHandler = function (e) {
@@ -63784,6 +63780,29 @@ exports.auth = function (email, password) {
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(2);
+var Alert = function (props) {
+    var text = "";
+    switch (props.type) {
+        case "invalid_credentials":
+            text = "Neplatné přilašovací údaje";
+            break;
+        default:
+            text = "Neznámá chyba";
+    }
+    var cls = "alert alert-" + props.cls;
+    return (React.createElement("div", { className: cls, role: "alert" }, text));
+};
+exports.default = Alert;
+
+
+/***/ }),
+/* 447 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(2);
 var PageNotFound = function () {
     return (React.createElement("h1", null, "Hmmm, it looks like something is wrong."));
 };
@@ -63791,7 +63810,7 @@ exports.default = PageNotFound;
 
 
 /***/ }),
-/* 447 */
+/* 448 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63827,7 +63846,7 @@ exports.default = Navbar;
 
 
 /***/ }),
-/* 448 */
+/* 449 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63871,7 +63890,7 @@ exports.default = reducer;
 
 
 /***/ }),
-/* 449 */
+/* 450 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
