@@ -2,13 +2,13 @@ import * as React from "react";
 import {connect} from "react-redux";
 import { Redirect } from "react-router-dom";
 import * as actions from "../../store/actions";
+import Alert from "../alert/Alert";
 
 class Login extends React.Component<any> {
     public state = {
         formValues: {
             email: "",
             password: "",
-            rememberMe: false,
         },
     };
 
@@ -28,6 +28,7 @@ class Login extends React.Component<any> {
         return (
             <div className="col-xs-12">
                 {authRedirect}
+                {this.props.error && <Alert type={this.props.error} cls={"danger"} />}
                 <form onSubmit={this.submitHandler}>
                     <div className="form-group">
                         <label htmlFor="name">E-mail</label>
@@ -51,18 +52,6 @@ class Login extends React.Component<any> {
                             placeholder="Vaše heslo"
                         />
                     </div>
-                    <div className="checkbox">
-                        <label>
-                            <input
-                                type="checkbox"
-                                name="rememberMe"
-                                className="form-check-input"
-                                onChange={this.inputChangeHandler}
-                                checked={this.state.formValues.rememberMe}
-                            />
-                            <span>Zapamatovat si mě</span>
-                        </label>
-                    </div>
                     <button type="submit" className="btn btn-primary">Submit</button>
                 </form>
             </div>
@@ -70,13 +59,11 @@ class Login extends React.Component<any> {
     }
 
     private inputChangeHandler(e: any): void {
-        const value = (e.target.type === "checkbox") ? e.target.checked : e.target.value;
-
         this.setState({
             ...this.state,
             formValues: {
                 ...this.state.formValues,
-                [e.target.name]: value,
+                [e.target.name]: e.target.value,
             },
         });
     }
