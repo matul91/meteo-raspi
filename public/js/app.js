@@ -22459,7 +22459,7 @@ exports.AUTH_FAIL = "AUTH_FAIL";
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(215);
-module.exports = __webpack_require__(450);
+module.exports = __webpack_require__(451);
 
 
 /***/ }),
@@ -22475,7 +22475,7 @@ var react_redux_1 = __webpack_require__(35);
 var redux_1 = __webpack_require__(175);
 var redux_thunk_1 = __webpack_require__(256);
 var Layout_1 = __webpack_require__(257);
-var auth_1 = __webpack_require__(449);
+var auth_1 = __webpack_require__(450);
 var App = function () {
     return (React.createElement(Layout_1.default, null));
 };
@@ -43374,8 +43374,8 @@ var AccessDenied_1 = __webpack_require__(283);
 var Index_1 = __webpack_require__(284);
 var LoggedUser_1 = __webpack_require__(442);
 var Login_1 = __webpack_require__(443);
-var PageNotFound_1 = __webpack_require__(447);
-var Navbar_1 = __webpack_require__(448);
+var PageNotFound_1 = __webpack_require__(448);
+var Navbar_1 = __webpack_require__(449);
 var Layout = function (props) {
     var loggedRoutes = (React.createElement(react_router_dom_1.Route, { path: "/logged", component: AccessDenied_1.default }));
     if (props.isAuthenticated) {
@@ -63648,6 +63648,7 @@ var react_redux_1 = __webpack_require__(35);
 var react_router_dom_1 = __webpack_require__(39);
 var actions = __webpack_require__(444);
 var Alert_1 = __webpack_require__(446);
+var Loading_1 = __webpack_require__(447);
 var Login = /** @class */ (function (_super) {
     __extends(Login, _super);
     function Login(props) {
@@ -63664,20 +63665,27 @@ var Login = /** @class */ (function (_super) {
     }
     Login.prototype.render = function () {
         var authRedirect = null;
+        var content = null;
         if (this.props.isAuthenticated) {
             authRedirect = React.createElement(react_router_dom_1.Redirect, { to: "/" });
         }
-        return (React.createElement("div", { className: "col-xs-12" },
-            authRedirect,
-            this.props.error && React.createElement(Alert_1.default, { type: this.props.error, cls: "danger" }),
-            React.createElement("form", { onSubmit: this.submitHandler },
+        if (this.props.loading) {
+            content = React.createElement(Loading_1.default, { text: "Probíhá přihlašování" });
+        }
+        else {
+            content = (React.createElement("form", { onSubmit: this.submitHandler },
                 React.createElement("div", { className: "form-group" },
                     React.createElement("label", { htmlFor: "name" }, "E-mail"),
                     React.createElement("input", { type: "text", defaultValue: this.state.formValues.email, name: "email", className: "form-control", onChange: this.inputChangeHandler, placeholder: "E-mailová adresa" })),
                 React.createElement("div", { className: "form-group" },
                     React.createElement("label", { htmlFor: "password" }, "Heslo"),
                     React.createElement("input", { type: "password", defaultValue: this.state.formValues.password, name: "password", className: "form-control", onChange: this.inputChangeHandler, placeholder: "Vaše heslo" })),
-                React.createElement("button", { type: "submit", className: "btn btn-primary" }, "Submit"))));
+                React.createElement("button", { type: "submit", className: "btn btn-primary" }, "Submit")));
+        }
+        return (React.createElement("div", { className: "col-xs-12" },
+            authRedirect,
+            this.props.error && React.createElement(Alert_1.default, { type: this.props.error, cls: "danger" }),
+            content));
     };
     Login.prototype.inputChangeHandler = function (e) {
         this.setState(__assign({}, this.state, { formValues: __assign({}, this.state.formValues, (_a = {}, _a[e.target.name] = e.target.value, _a)) }));
@@ -63803,6 +63811,20 @@ exports.default = Alert;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(2);
+var Loading = function (props) {
+    return (React.createElement("p", null, props.text));
+};
+exports.default = Loading;
+
+
+/***/ }),
+/* 448 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(2);
 var PageNotFound = function () {
     return (React.createElement("h1", null, "Hmmm, it looks like something is wrong."));
 };
@@ -63810,7 +63832,7 @@ exports.default = PageNotFound;
 
 
 /***/ }),
-/* 448 */
+/* 449 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63846,7 +63868,7 @@ exports.default = Navbar;
 
 
 /***/ }),
-/* 449 */
+/* 450 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63890,7 +63912,7 @@ exports.default = reducer;
 
 
 /***/ }),
-/* 450 */
+/* 451 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

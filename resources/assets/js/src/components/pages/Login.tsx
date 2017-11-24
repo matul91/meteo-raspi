@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import { Redirect } from "react-router-dom";
 import * as actions from "../../store/actions";
 import Alert from "../alert/Alert";
+import Loading from "../loading/Loading";
 
 class Login extends React.Component<any> {
     public state = {
@@ -20,15 +21,16 @@ class Login extends React.Component<any> {
 
     public render(): JSX.Element {
         let authRedirect = null;
+        let content = null;
 
         if (this.props.isAuthenticated) {
             authRedirect = <Redirect to="/" />;
         }
 
-        return (
-            <div className="col-xs-12">
-                {authRedirect}
-                {this.props.error && <Alert type={this.props.error} cls={"danger"} />}
+        if (this.props.loading) {
+            content = <Loading text={"Probíhá přihlašování"} />;
+        } else {
+            content = (
                 <form onSubmit={this.submitHandler}>
                     <div className="form-group">
                         <label htmlFor="name">E-mail</label>
@@ -54,6 +56,14 @@ class Login extends React.Component<any> {
                     </div>
                     <button type="submit" className="btn btn-primary">Submit</button>
                 </form>
+            );
+        }
+
+        return (
+            <div className="col-xs-12">
+                {authRedirect}
+                {this.props.error && <Alert type={this.props.error} cls={"danger"} />}
+                {content}
             </div>
         );
     }
