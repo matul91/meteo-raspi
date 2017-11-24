@@ -1,29 +1,40 @@
 import axios from "axios";
+import * as moment from "moment";
 import * as React from "react";
 import {Line} from "react-chartjs-2";
+import Loading from "../loading/Loading";
 
 interface IState {
-    data: any[];
-    labels: any[];
+    data: number[];
+    labels: string[];
+    timeFormat: string;
 }
 
-export default class WindSpeedChart extends React.Component<{}, IState> {
+interface IProps {
+    name: string;
+    url: string;
+    columnName: string;
+    timeFormat?: string;
+}
+
+export default class Chart extends React.Component<IProps, IState> {
     public state = {
         data: null,
         labels: null,
+        timeFormat: "LL",
     };
-
     constructor(props) {
         super(props);
     }
-
     public componentDidMount(): void {
-        axios.get("/winds").then((response: any) => {
-            const labels: any[] = [];
-            const data: any[] = [];
+        moment.locale("cs");
+
+        axios.get(this.props.url).then((response: any) => {
+            const labels: string[] = [];
+            const data: number[] = [];
             for (const row of response.data) {
-                labels.push(row.date);
-                data.push(row.speed);
+                labels.push(moment(row.date).format(this.state.timeFormat));
+                data.push(row[this.props.columnName]);
             }
             this.setState({
                 data,
@@ -31,8 +42,9 @@ export default class WindSpeedChart extends React.Component<{}, IState> {
             });
         });
     }
-
     public render(): JSX.Element {
+        let content = <Loading text={"Načítá se"} />;
+
         if (this.state.data) {
             const data = {
                 datasets: [
@@ -45,7 +57,7 @@ export default class WindSpeedChart extends React.Component<{}, IState> {
                         borderJoinStyle: "miter",
                         data: this.state.data,
                         fill: true,
-                        label: "Rychlost větru",
+                        label: this.props.name,
                         lineTension: 0.2,
                         pointBackgroundColor: "#fff",
                         pointBorderColor: "rgba(75,192,192,1)",
@@ -60,10 +72,18 @@ export default class WindSpeedChart extends React.Component<{}, IState> {
                 ],
                 labels: this.state.labels,
             };
-            return (
-                <Line data={data}/>
-            );
+            content = <Line data={data} />;
         }
-        return <div>Loading...</div>;
+
+        return (
+            <div className="col-md-6">
+                <div className="panel panel-default">
+                    <div className="panel-heading">{this.props.name}</div>
+                    <div className="panel-body">
+                        {content}
+                    </div>
+                </div>
+            </div>
+        );
     }
 }

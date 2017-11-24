@@ -1,35 +1,12 @@
 import * as React from "react";
-import PressureChart from "../charts/PressureChart";
-import TemperatureChart from "../charts/TemperatureChart";
-import WindSpeedChart from "../charts/WindSpeedChart";
+import Chart from "../chart/Chart";
 
 const Index = () => {
     return (
         <div className="row">
-            <div className="col-md-6">
-                <div className="panel panel-default">
-                    <div className="panel-heading">Tlak</div>
-                    <div className="panel-body">
-                        <PressureChart />
-                    </div>
-                </div>
-            </div>
-            <div className="col-md-6">
-                <div className="panel panel-default">
-                    <div className="panel-heading">Teplota</div>
-                    <div className="panel-body">
-                        <TemperatureChart />
-                    </div>
-                </div>
-            </div>
-            <div className="col-md-6">
-                <div className="panel panel-default">
-                    <div className="panel-heading">Rychlost větru</div>
-                    <div className="panel-body">
-                        <WindSpeedChart />
-                    </div>
-                </div>
-            </div>
+            <Chart name={"Tlak"} url={"/pressures"} columnName={"pressure"} />
+            <Chart name={"Teplota"} url={"/temperatures"} columnName={"temperature"} />
+            <Chart name={"Rychlost větru"} url={"/winds"} columnName={"speed"} />
         </div>
     );
 };
