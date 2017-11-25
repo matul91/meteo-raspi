@@ -61831,6 +61831,7 @@ var moment = __webpack_require__(0);
 var React = __webpack_require__(3);
 var react_chartjs_2_1 = __webpack_require__(425);
 var Loading_1 = __webpack_require__(331);
+moment.locale("cs");
 var Chart = /** @class */ (function (_super) {
     __extends(Chart, _super);
     function Chart(props) {
@@ -61838,13 +61839,12 @@ var Chart = /** @class */ (function (_super) {
         _this.state = {
             data: null,
             labels: null,
-            timeFormat: "LL",
+            timeFormat: "HH:mm:MM",
         };
         return _this;
     }
     Chart.prototype.componentDidMount = function () {
         var _this = this;
-        moment.locale("cs");
         axios_1.default.get(this.props.url).then(function (response) {
             var labels = [];
             var data = [];

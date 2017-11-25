@@ -4,6 +4,8 @@ import * as React from "react";
 import {Line} from "react-chartjs-2";
 import Loading from "../loading/Loading";
 
+moment.locale("cs");
+
 interface IState {
     data: number[];
     labels: string[];
@@ -21,14 +23,12 @@ export default class Chart extends React.Component<IProps, IState> {
     public state = {
         data: null,
         labels: null,
-        timeFormat: "LL",
+        timeFormat: "HH:mm:MM",
     };
     constructor(props) {
         super(props);
     }
     public componentDidMount(): void {
-        moment.locale("cs");
-
         axios.get(this.props.url).then((response: any) => {
             const labels: string[] = [];
             const data: number[] = [];
