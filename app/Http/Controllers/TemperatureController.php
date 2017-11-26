@@ -9,7 +9,7 @@ class TemperatureController extends Controller
 {
     public function index()
     {
-        $result;
+        $result = null;
 
         if(request()->query('limit') != ''){
             $limit = request()->query('limit');
