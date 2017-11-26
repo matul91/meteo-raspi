@@ -8,6 +8,10 @@ moment.locale("cs");
 
 interface IState {
     data: number[];
+    dateRange: {
+        dateFrom: string,
+        dateTo: string,
+    };
     labels: string[];
     timeFormat: string;
 }
@@ -22,26 +26,24 @@ interface IProps {
 export default class Chart extends React.Component<IProps, IState> {
     public state = {
         data: null,
+        dateRange: {
+            dateFrom: null,
+            dateTo: null,
+        },
         labels: null,
         timeFormat: "HH:mm:MM",
     };
+
     constructor(props) {
         super(props);
+        this.datetimeChangeHandler = this.datetimeChangeHandler.bind(this);
+        this.showData = this.showData.bind(this);
     }
+
     public componentDidMount(): void {
-        axios.get(this.props.url).then((response: any) => {
-            const labels: string[] = [];
-            const data: number[] = [];
-            for (const row of response.data) {
-                labels.push(moment(row.date).format(this.state.timeFormat));
-                data.push(row[this.props.columnName]);
-            }
-            this.setState({
-                data,
-                labels,
-            });
-        });
+        this.loadData();
     }
+
     public render(): JSX.Element {
         let content = <Loading text={"Načítá se"} />;
 
@@ -72,7 +74,28 @@ export default class Chart extends React.Component<IProps, IState> {
                 ],
                 labels: this.state.labels,
             };
-            content = <Line data={data} />;
+            content = (
+                <div className="chart">
+                    <div>
+                        <form onSubmit={this.showData}>
+                            <input
+                                type="text"
+                                name="dateFrom"
+                                defaultValue={this.state.dateRange.dateFrom}
+                                onChange={this.datetimeChangeHandler}
+                            />
+                            <input
+                                type="text"
+                                name="dateTo"
+                                defaultValue={this.state.dateRange.dateTo}
+                                onChange={this.datetimeChangeHandler}
+                            />
+                            <button>Zobrazit</button>
+                        </form>
+                    </div>
+                    <Line data={data} />
+                </div>
+            );
         }
 
         return (
@@ -85,5 +108,44 @@ export default class Chart extends React.Component<IProps, IState> {
                 </div>
             </div>
         );
+    }
+
+    private datetimeChangeHandler(e): void {
+        this.setState({
+            ...this.state,
+            dateRange: {
+                ...this.state.dateRange,
+                [e.target.name]: e.target.value,
+            },
+        });
+    }
+
+    private showData(e): void {
+        e.preventDefault();
+        if (this.state.dateRange.dateFrom !== null && this.state.dateRange.dateTo !== null) {
+            this.loadData(this.state.dateRange.dateFrom, this.state.dateRange.dateTo);
+        }
+    }
+
+    private loadData(dateFrom: string = null, dateTo: string = null): void {
+        let url = this.props.url;
+        if (dateFrom !== null && dateTo !== null) {
+            url = `${url}/?start_date=${dateFrom}&end_date=${dateTo}`;
+        }
+
+        axios.get(url).then((response: any) => {
+            const labels: string[] = [];
+            const data: number[] = [];
+
+            for (const row of response.data) {
+                labels.push(moment(row.date).format(this.state.timeFormat));
+                data.push(row[this.props.columnName]);
+            }
+
+            this.setState({
+                data,
+                labels,
+            });
+        });
     }
 }

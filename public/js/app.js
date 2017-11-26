@@ -61825,6 +61825,14 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var axios_1 = __webpack_require__(306);
 var moment = __webpack_require__(0);
@@ -61838,26 +61846,19 @@ var Chart = /** @class */ (function (_super) {
         var _this = _super.call(this, props) || this;
         _this.state = {
             data: null,
+            dateRange: {
+                dateFrom: null,
+                dateTo: null,
+            },
             labels: null,
             timeFormat: "HH:mm:MM",
         };
+        _this.datetimeChangeHandler = _this.datetimeChangeHandler.bind(_this);
+        _this.showData = _this.showData.bind(_this);
         return _this;
     }
     Chart.prototype.componentDidMount = function () {
-        var _this = this;
-        axios_1.default.get(this.props.url).then(function (response) {
-            var labels = [];
-            var data = [];
-            for (var _i = 0, _a = response.data; _i < _a.length; _i++) {
-                var row = _a[_i];
-                labels.push(moment(row.date).format(_this.state.timeFormat));
-                data.push(row[_this.props.columnName]);
-            }
-            _this.setState({
-                data: data,
-                labels: labels,
-            });
-        });
+        this.loadData();
     };
     Chart.prototype.render = function () {
         var content = React.createElement(Loading_1.default, { text: "Načítá se" });
@@ -61888,12 +61889,50 @@ var Chart = /** @class */ (function (_super) {
                 ],
                 labels: this.state.labels,
             };
-            content = React.createElement(react_chartjs_2_1.Line, { data: data });
+            content = (React.createElement("div", { className: "chart" },
+                React.createElement("div", null,
+                    React.createElement("form", { onSubmit: this.showData },
+                        React.createElement("input", { type: "text", name: "dateFrom", defaultValue: this.state.dateRange.dateFrom, onChange: this.datetimeChangeHandler }),
+                        React.createElement("input", { type: "text", name: "dateTo", defaultValue: this.state.dateRange.dateTo, onChange: this.datetimeChangeHandler }),
+                        React.createElement("button", null, "Zobrazit"))),
+                React.createElement(react_chartjs_2_1.Line, { data: data })));
         }
         return (React.createElement("div", { className: "col-md-6" },
             React.createElement("div", { className: "panel panel-default" },
                 React.createElement("div", { className: "panel-heading" }, this.props.name),
                 React.createElement("div", { className: "panel-body" }, content))));
+    };
+    Chart.prototype.datetimeChangeHandler = function (e) {
+        this.setState(__assign({}, this.state, { dateRange: __assign({}, this.state.dateRange, (_a = {}, _a[e.target.name] = e.target.value, _a)) }));
+        var _a;
+    };
+    Chart.prototype.showData = function (e) {
+        e.preventDefault();
+        if (this.state.dateRange.dateFrom !== null && this.state.dateRange.dateTo !== null) {
+            this.loadData(this.state.dateRange.dateFrom, this.state.dateRange.dateTo);
+        }
+    };
+    Chart.prototype.loadData = function (dateFrom, dateTo) {
+        var _this = this;
+        if (dateFrom === void 0) { dateFrom = null; }
+        if (dateTo === void 0) { dateTo = null; }
+        var url = this.props.url;
+        if (dateFrom !== null && dateTo !== null) {
+            url = url + "/?start_date=" + dateFrom + "&end_date=" + dateTo;
+        }
+        axios_1.default.get(url).then(function (response) {
+            var labels = [];
+            var data = [];
+            for (var _i = 0, _a = response.data; _i < _a.length; _i++) {
+                var row = _a[_i];
+                labels.push(moment(row.date).format(_this.state.timeFormat));
+                data.push(row[_this.props.columnName]);
+            }
+            _this.setState({
+                data: data,
+                labels: labels,
+            });
+        });
     };
     return Chart;
 }(React.Component));
