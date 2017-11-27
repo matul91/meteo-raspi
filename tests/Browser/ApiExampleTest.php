@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Browser;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class ExampleTest extends TestCase
+class ApiExampleTest extends TestCase
 {
     /**
      * A basic test example.
@@ -14,6 +14,8 @@ class ExampleTest extends TestCase
      */
     public function testBasicTest()
     {
-        $this->assertTrue(true);
+        $response = $this->get('/pressures');
+
+        $response->assertStatus(200);
     }
 }
