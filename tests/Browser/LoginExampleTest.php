@@ -3,11 +3,9 @@
 namespace Tests\Browser;
 
 use Tests\DuskTestCase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class LoginExampleTest extends DuskTestCase
 {
-    use DatabaseMigrations;
 
     /**
      * A basic browser test example.
@@ -18,7 +16,7 @@ class LoginExampleTest extends DuskTestCase
     {
         $this->browse(function ($browser){
             $browser->visit('/login')
-                ->assertSee('Letiště Baška');
+                ->assertSee('Letiště Baškaaaaa');
         });
     }
 }
