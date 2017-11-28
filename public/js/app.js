@@ -37877,7 +37877,7 @@ exports.AUTH_FAIL = "AUTH_FAIL";
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(334);
-module.exports = __webpack_require__(570);
+module.exports = __webpack_require__(571);
 
 
 /***/ }),
@@ -37893,7 +37893,7 @@ var react_redux_1 = __webpack_require__(35);
 var redux_1 = __webpack_require__(292);
 var redux_thunk_1 = __webpack_require__(375);
 var Layout_1 = __webpack_require__(376);
-var auth_1 = __webpack_require__(569);
+var auth_1 = __webpack_require__(570);
 var App = function () {
     return (React.createElement(Layout_1.default, null));
 };
@@ -58790,10 +58790,10 @@ var react_redux_1 = __webpack_require__(35);
 var react_router_dom_1 = __webpack_require__(39);
 var AccessDenied_1 = __webpack_require__(402);
 var Index_1 = __webpack_require__(403);
-var LoggedUser_1 = __webpack_require__(561);
-var Login_1 = __webpack_require__(563);
-var PageNotFound_1 = __webpack_require__(567);
-var Navbar_1 = __webpack_require__(568);
+var LoggedUser_1 = __webpack_require__(562);
+var Login_1 = __webpack_require__(564);
+var PageNotFound_1 = __webpack_require__(568);
+var Navbar_1 = __webpack_require__(569);
 var Layout = function (props) {
     var loggedRoutes = (React.createElement(react_router_dom_1.Route, { path: "/logged", component: AccessDenied_1.default }));
     if (props.isAuthenticated) {
@@ -61838,6 +61838,7 @@ var axios_1 = __webpack_require__(306);
 var moment = __webpack_require__(0);
 var React = __webpack_require__(3);
 var react_chartjs_2_1 = __webpack_require__(425);
+var DateTimeRangePicker_1 = __webpack_require__(561);
 var Loading_1 = __webpack_require__(331);
 moment.locale("cs");
 var Chart = /** @class */ (function (_super) {
@@ -61890,11 +61891,7 @@ var Chart = /** @class */ (function (_super) {
                 labels: this.state.labels,
             };
             content = (React.createElement("div", { className: "chart" },
-                React.createElement("div", null,
-                    React.createElement("form", { onSubmit: this.showData },
-                        React.createElement("input", { type: "text", name: "dateFrom", defaultValue: this.state.dateRange.dateFrom, onChange: this.datetimeChangeHandler }),
-                        React.createElement("input", { type: "text", name: "dateTo", defaultValue: this.state.dateRange.dateTo, onChange: this.datetimeChangeHandler }),
-                        React.createElement("button", null, "Zobrazit"))),
+                React.createElement(DateTimeRangePicker_1.default, { onSubmit: this.showData, onInputChange: this.datetimeChangeHandler, dateFrom: this.state.dateRange.dateFrom, dateTo: this.state.dateRange.dateTo }),
                 React.createElement(react_chartjs_2_1.Line, { data: data })));
         }
         return (React.createElement("div", { className: "col-md-6" },
@@ -79682,7 +79679,24 @@ module.exports = toNumber;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(3);
-var react_web_notifications_1 = __webpack_require__(562);
+var DatetimeRangePicker = function (props) {
+    return (React.createElement("form", { onSubmit: props.onSubmit },
+        React.createElement("input", { type: "text", name: "dateFrom", defaultValue: props.dateFrom, onChange: props.onInputChange }),
+        React.createElement("input", { type: "text", name: "dateTo", defaultValue: props.dateTo, onChange: props.onInputChange }),
+        React.createElement("button", null, "Zobrazit")));
+};
+exports.default = DatetimeRangePicker;
+
+
+/***/ }),
+/* 562 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(3);
+var react_web_notifications_1 = __webpack_require__(563);
 var LoggedUser = function () {
     return (React.createElement("div", { className: "row" },
         React.createElement(react_web_notifications_1.default, { title: "Hello, World!", body: "This is a web notification", timeout: 9000 }),
@@ -79693,13 +79707,13 @@ exports.default = LoggedUser;
 
 
 /***/ }),
-/* 562 */
+/* 563 */
 /***/ (function(module, exports, __webpack_require__) {
 
 !function(t,e){ true?module.exports=e(__webpack_require__(3)):"function"==typeof define&&define.amd?define(["react"],e):"object"==typeof exports?exports.ReactWebNotification=e(require("react")):t.ReactWebNotification=e(t.React)}(this,function(t){return function(t){function e(o){if(n[o])return n[o].exports;var r=n[o]={i:o,l:!1,exports:{}};return t[o].call(r.exports,r,r.exports,e),r.l=!0,r.exports}var n={};return e.m=t,e.c=n,e.i=function(t){return t},e.d=function(t,n,o){e.o(t,n)||Object.defineProperty(t,n,{configurable:!1,enumerable:!0,get:o})},e.n=function(t){var n=t&&t.__esModule?function(){return t.default}:function(){return t};return e.d(n,"a",n),n},e.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},e.p="dist/",e(e.s=3)}([function(t,e,n){(function(e){var n;n="undefined"!=typeof window?window:void 0!==e?e:"undefined"!=typeof self?self:{},t.exports=n}).call(e,n(8))},function(t,e,n){t.exports=n(6)()},function(e,n){e.exports=t},function(t,e,n){"use strict";function o(t){return t&&t.__esModule?t:{default:t}}function r(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}function i(t,e){if(!t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!e||"object"!=typeof e&&"function"!=typeof e?t:e}function u(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function, not "+typeof e);t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,enumerable:!1,writable:!0,configurable:!0}}),e&&(Object.setPrototypeOf?Object.setPrototypeOf(t,e):t.__proto__=e)}Object.defineProperty(e,"__esModule",{value:!0});var c=function(){function t(t,e){for(var n=0;n<e.length;n++){var o=e[n];o.enumerable=o.enumerable||!1,o.configurable=!0,"value"in o&&(o.writable=!0),Object.defineProperty(t,o.key,o)}}return function(e,n,o){return n&&t(e.prototype,n),o&&t(e,o),e}}(),f=n(2),a=(o(f),n(1)),s=o(a),l=n(0),p=o(l),d=function(t){function e(){var t,n,o,u;r(this,e);for(var c=arguments.length,f=Array(c),a=0;a<c;a++)f[a]=arguments[a];return n=o=i(this,(t=e.__proto__||Object.getPrototypeOf(e)).call.apply(t,[this].concat(f))),o.notification={},u=n,i(o,u)}return u(e,t),c(e,[{key:"componentDidMount",value:function(){var t=this;p.default.Notification&&p.default.Notification.requestPermission(function(e){"granted"===e&&t.show()})}},{key:"show",value:function(){var t=this,e=this.props,n=e.title,o=e.icon,r=e.body,i=e.timeout,u=e.onClickFn;if(n){var c={};o&&Object.assign(c,{icon:o}),r&&Object.assign(c,{body:r}),this.notification=new p.default.Notification(n,c),u&&this.notification.addEventListener("click",u,!1),p.default.setTimeout(function(){t.notification.close()},i||5e3)}}},{key:"render",value:function(){return null}}]),e}(f.Component);d.propTypes={title:s.default.string.isRequired,icon:s.default.string,body:s.default.string,timeout:s.default.number,onClickFn:s.default.func},e.default=d},function(t,e,n){"use strict";function o(t){return function(){return t}}var r=function(){};r.thatReturns=o,r.thatReturnsFalse=o(!1),r.thatReturnsTrue=o(!0),r.thatReturnsNull=o(null),r.thatReturnsThis=function(){return this},r.thatReturnsArgument=function(t){return t},t.exports=r},function(t,e,n){"use strict";function o(t,e,n,o,i,u,c,f){if(r(e),!t){var a;if(void 0===e)a=new Error("Minified exception occurred; use the non-minified dev environment for the full error message and additional helpful warnings.");else{var s=[n,o,i,u,c,f],l=0;a=new Error(e.replace(/%s/g,function(){return s[l++]})),a.name="Invariant Violation"}throw a.framesToPop=1,a}}var r=function(t){};t.exports=o},function(t,e,n){"use strict";var o=n(4),r=n(5),i=n(7);t.exports=function(){function t(t,e,n,o,u,c){c!==i&&r(!1,"Calling PropTypes validators directly is not supported by the `prop-types` package. Use PropTypes.checkPropTypes() to call them. Read more at http://fb.me/use-check-prop-types")}function e(){return t}t.isRequired=t;var n={array:t,bool:t,func:t,number:t,object:t,string:t,symbol:t,any:t,arrayOf:e,element:t,instanceOf:e,node:t,objectOf:e,oneOf:e,oneOfType:e,shape:e};return n.checkPropTypes=o,n.PropTypes=n,n}},function(t,e,n){"use strict";t.exports="SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED"},function(t,e){var n;n=function(){return this}();try{n=n||Function("return this")()||(0,eval)("this")}catch(t){"object"==typeof window&&(n=window)}t.exports=n}])});
 
 /***/ }),
-/* 563 */
+/* 564 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -79726,8 +79740,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(3);
 var react_redux_1 = __webpack_require__(35);
 var react_router_dom_1 = __webpack_require__(39);
-var actions = __webpack_require__(564);
-var Alert_1 = __webpack_require__(566);
+var actions = __webpack_require__(565);
+var Alert_1 = __webpack_require__(567);
 var Loading_1 = __webpack_require__(331);
 var Login = /** @class */ (function (_super) {
     __extends(Login, _super);
@@ -79793,18 +79807,18 @@ exports.default = react_redux_1.connect(mapStateToProps, mapDispatchToProps)(Log
 
 
 /***/ }),
-/* 564 */
+/* 565 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var auth_1 = __webpack_require__(565);
+var auth_1 = __webpack_require__(566);
 exports.auth = auth_1.auth;
 
 
 /***/ }),
-/* 565 */
+/* 566 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -79861,7 +79875,7 @@ exports.auth = function (email, password) {
 
 
 /***/ }),
-/* 566 */
+/* 567 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -79884,7 +79898,7 @@ exports.default = Alert;
 
 
 /***/ }),
-/* 567 */
+/* 568 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -79898,7 +79912,7 @@ exports.default = PageNotFound;
 
 
 /***/ }),
-/* 568 */
+/* 569 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -79934,7 +79948,7 @@ exports.default = Navbar;
 
 
 /***/ }),
-/* 569 */
+/* 570 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -79978,7 +79992,7 @@ exports.default = reducer;
 
 
 /***/ }),
-/* 570 */
+/* 571 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
