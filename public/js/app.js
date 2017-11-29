@@ -79680,10 +79680,14 @@ module.exports = toNumber;
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(3);
 var DatetimeRangePicker = function (props) {
-    return (React.createElement("form", { onSubmit: props.onSubmit },
-        React.createElement("input", { type: "text", name: "dateFrom", defaultValue: props.dateFrom, onChange: props.onInputChange }),
-        React.createElement("input", { type: "text", name: "dateTo", defaultValue: props.dateTo, onChange: props.onInputChange }),
-        React.createElement("button", null, "Zobrazit")));
+    return (React.createElement("form", { className: "form-inline text-right", onSubmit: props.onSubmit },
+        React.createElement("div", { className: "form-group" },
+            React.createElement("label", { className: "sr-only" }, "Po\u010D\u00E1te\u010Dn\u00ED datum"),
+            React.createElement("input", { type: "text", name: "dateFrom", className: "form-control", placeholder: "Počáteční datum", defaultValue: props.dateFrom, onChange: props.onInputChange })),
+        React.createElement("div", { className: "form-group" },
+            React.createElement("label", { className: "sr-only" }, "Koncov\u00E9 datum"),
+            React.createElement("input", { type: "text", name: "dateTo", className: "form-control", placeholder: "Koncové datum", defaultValue: props.dateTo, onChange: props.onInputChange })),
+        React.createElement("button", { type: "submit", className: "btn btn-default" }, "Zobrazit")));
 };
 exports.default = DatetimeRangePicker;
 

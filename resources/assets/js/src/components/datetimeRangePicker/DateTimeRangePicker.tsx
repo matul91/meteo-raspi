@@ -1,4 +1,6 @@
+import $ from "jquery";
 import * as React from "react";
+import { findDOMNode } from "react-dom";
 
 interface IProps {
     dateFrom: string;
@@ -9,20 +11,30 @@ interface IProps {
 
 const DatetimeRangePicker: any = (props) => {
     return (
-        <form onSubmit={props.onSubmit}>
-            <input
-                type="text"
-                name="dateFrom"
-                defaultValue={props.dateFrom}
-                onChange={props.onInputChange}
-            />
-            <input
-                type="text"
-                name="dateTo"
-                defaultValue={props.dateTo}
-                onChange={props.onInputChange}
-            />
-            <button>Zobrazit</button>
+        <form className="form-inline text-right" onSubmit={props.onSubmit}>
+            <div className="form-group">
+                <label className="sr-only">Počáteční datum</label>
+                <input
+                    type="text"
+                    name="dateFrom"
+                    className="form-control"
+                    placeholder="Počáteční datum"
+                    defaultValue={props.dateFrom}
+                    onChange={props.onInputChange}
+                />
+            </div>
+            <div className="form-group">
+                <label className="sr-only">Koncové datum</label>
+                <input
+                    type="text"
+                    name="dateTo"
+                    className="form-control"
+                    placeholder="Koncové datum"
+                    defaultValue={props.dateTo}
+                    onChange={props.onInputChange}
+                />
+            </div>
+            <button type="submit" className="btn btn-default">Zobrazit</button>
         </form>
     );
 };
