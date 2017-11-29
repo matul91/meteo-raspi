@@ -100,12 +100,12 @@ export default class Chart extends React.Component<IProps, IState> {
         );
     }
 
-    private datetimeChangeHandler(e): void {
+    private datetimeChangeHandler(date, name): void {
         this.setState({
             ...this.state,
             dateRange: {
                 ...this.state.dateRange,
-                [e.target.name]: e.target.value,
+                [name]: date.format("YYYY-MM-DD HH:mm:ss"),
             },
         });
     }

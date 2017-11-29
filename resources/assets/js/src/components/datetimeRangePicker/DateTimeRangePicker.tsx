@@ -1,6 +1,5 @@
-import $ from "jquery";
 import * as React from "react";
-import { findDOMNode } from "react-dom";
+import DateTimeField from "./dateTimeField/dateTimeField";
 
 interface IProps {
     dateFrom: string;
@@ -9,34 +8,28 @@ interface IProps {
     onSubmit: any;
 }
 
-const DatetimeRangePicker: any = (props) => {
-    return (
-        <form className="form-inline text-right" onSubmit={props.onSubmit}>
-            <div className="form-group">
-                <label className="sr-only">Počáteční datum</label>
-                <input
-                    type="text"
-                    name="dateFrom"
-                    className="form-control"
-                    placeholder="Počáteční datum"
-                    defaultValue={props.dateFrom}
-                    onChange={props.onInputChange}
-                />
-            </div>
-            <div className="form-group">
-                <label className="sr-only">Koncové datum</label>
-                <input
-                    type="text"
-                    name="dateTo"
-                    className="form-control"
-                    placeholder="Koncové datum"
-                    defaultValue={props.dateTo}
-                    onChange={props.onInputChange}
-                />
-            </div>
-            <button type="submit" className="btn btn-default">Zobrazit</button>
-        </form>
-    );
-};
-
-export default DatetimeRangePicker;
+export default class DateTimeRangePicker extends React.Component<IProps, null> {
+    public render(): JSX.Element {
+        return (
+            <form className="form-inline text-right" onSubmit={this.props.onSubmit}>
+                <div className="form-group">
+                    <label className="sr-only">Počáteční datum</label>
+                    <DateTimeField
+                        name="dateFrom"
+                        placeholder="Počáteční datum"
+                        onInputChange={this.props.onInputChange}
+                    />
+                </div>
+                <div className="form-group">
+                    <label className="sr-only">Koncové datum</label>
+                    <DateTimeField
+                        name="dateTo"
+                        placeholder="Koncové datum"
+                        onInputChange={this.props.onInputChange}
+                    />
+                </div>
+                <button type="submit" className="btn btn-default">Zobrazit</button>
+            </form>
+        );
+    }
+}
