@@ -2,6 +2,7 @@ import axios from "axios";
 import * as moment from "moment";
 import * as React from "react";
 import {Line} from "react-chartjs-2";
+import DatetimeRangePicker from "../datetimeRangePicker/DateTimeRangePicker";
 import Loading from "../loading/Loading";
 
 moment.locale("cs");
@@ -76,23 +77,12 @@ export default class Chart extends React.Component<IProps, IState> {
             };
             content = (
                 <div className="chart">
-                    <div>
-                        <form onSubmit={this.showData}>
-                            <input
-                                type="text"
-                                name="dateFrom"
-                                defaultValue={this.state.dateRange.dateFrom}
-                                onChange={this.datetimeChangeHandler}
-                            />
-                            <input
-                                type="text"
-                                name="dateTo"
-                                defaultValue={this.state.dateRange.dateTo}
-                                onChange={this.datetimeChangeHandler}
-                            />
-                            <button>Zobrazit</button>
-                        </form>
-                    </div>
+                    <DatetimeRangePicker
+                        onSubmit={this.showData}
+                        onInputChange={this.datetimeChangeHandler}
+                        dateFrom={this.state.dateRange.dateFrom}
+                        dateTo={this.state.dateRange.dateTo}
+                    />
                     <Line data={data} />
                 </div>
             );
@@ -110,12 +100,12 @@ export default class Chart extends React.Component<IProps, IState> {
         );
     }
 
-    private datetimeChangeHandler(e): void {
+    private datetimeChangeHandler(date, name): void {
         this.setState({
             ...this.state,
             dateRange: {
                 ...this.state.dateRange,
-                [e.target.name]: e.target.value,
+                [name]: date.format("YYYY-MM-DD HH:mm:ss"),
             },
         });
     }
