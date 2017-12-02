@@ -5,6 +5,7 @@ import AccessDenied from "../pages/AccessDenied";
 import Index from "../pages/Index";
 import LoggedUser from "../pages/LoggedUser";
 import Login from "../pages/Login";
+import Logout from "../pages/Logout";
 import PageNotFound from "../pages/PageNotFound";
 import Navbar from "./UI/Navbar";
 
@@ -26,6 +27,7 @@ const Layout = (props) => {
                 <div className="container">
                     <Switch>
                         <Route path="/login" component={Login} />
+                        <Route path="/logout" component={Logout} />
                         {loggedRoutes}
                         <Route path="/" exact={true} component={Index} />
                         <Route component={PageNotFound} />
