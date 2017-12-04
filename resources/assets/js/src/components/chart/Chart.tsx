@@ -13,6 +13,7 @@ interface IState {
         dateFrom: string,
         dateTo: string,
     };
+    initialValue: number;
     labels: string[];
     timeFormat: string;
 }
@@ -31,6 +32,7 @@ export default class Chart extends React.Component<IProps, IState> {
             dateFrom: null,
             dateTo: null,
         },
+        initialValue: null,
         labels: null,
         timeFormat: "HH:mm:MM",
     };
@@ -42,7 +44,7 @@ export default class Chart extends React.Component<IProps, IState> {
     }
 
     public componentDidMount(): void {
-        this.loadData();
+        this.loadInitialData();
     }
 
     public render(): JSX.Element {
@@ -89,7 +91,7 @@ export default class Chart extends React.Component<IProps, IState> {
         return (
             <div className="col-md-6">
                 <div className="panel panel-default">
-                    <div className="panel-heading">{this.props.name}</div>
+                    <div className="panel-heading">{this.props.name}: {this.state.initialValue}</div>
                     <div className="panel-body">
                         {content}
                     </div>
@@ -105,6 +107,31 @@ export default class Chart extends React.Component<IProps, IState> {
                 ...this.state.dateRange,
                 [name]: date.format("YYYY-MM-DD HH:mm:ss"),
             },
+        });
+    }
+
+    private loadInitialData(): void {
+        const url = `${this.props.url}/latest`;
+
+        axios.get(url).then((response: any) => {
+            this.setState({
+                ...this.state,
+                initialValue: response.data[this.props.columnName],
+            });
+
+            const dateTo = response.data.date;
+            const dateFrom = moment(dateTo).subtract(30, "minutes").format("YYYY-MM-DD HH:mm:ss");
+
+            this.setState({
+                ...this.state,
+                dateRange: {
+                    ...this.state.dateRange,
+                    dateFrom,
+                    dateTo,
+                },
+            });
+
+            this.loadData();
         });
     }
 
