@@ -37,8 +37,8 @@ export default class Chart extends React.Component<IProps, IState> {
 
     constructor(props) {
         super(props);
-        this.datetimeChangeHandler = this.datetimeChangeHandler.bind(this);
-        this.showData = this.showData.bind(this);
+        this.datetimeChangedHandler = this.datetimeChangedHandler.bind(this);
+        this.loadNewData = this.loadNewData.bind(this);
     }
 
     public componentDidMount(): void {
@@ -78,8 +78,8 @@ export default class Chart extends React.Component<IProps, IState> {
             content = (
                 <div className="chart">
                     <DatetimeRangePicker
-                        onSubmit={this.showData}
-                        onInputChange={this.datetimeChangeHandler}
+                        onSubmit={this.loadNewData}
+                        onInputChange={this.datetimeChangedHandler}
                     />
                     <Line data={data} />
                 </div>
@@ -98,7 +98,7 @@ export default class Chart extends React.Component<IProps, IState> {
         );
     }
 
-    private datetimeChangeHandler(date, name): void {
+    private datetimeChangedHandler(date, name): void {
         this.setState({
             ...this.state,
             dateRange: {
@@ -108,7 +108,7 @@ export default class Chart extends React.Component<IProps, IState> {
         });
     }
 
-    private showData(e): void {
+    private loadNewData(e): void {
         e.preventDefault();
         if (this.state.dateRange.dateFrom !== null && this.state.dateRange.dateTo !== null) {
             this.loadData();
