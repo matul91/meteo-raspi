@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Setting;
 use App\Wind;
 use Illuminate\Http\Request;
 
@@ -11,20 +12,32 @@ class WindController extends Controller
     {
 
         $result = null;
-
-        if(request()->query('limit') != ''){
-            $limit = request()->query('limit');
-        }else{
-            $limit = 1000;
-        }
-
+        $maxValues = Setting::getByID(1)->value;
         if (request()->query('start_date') != '' && request()->query('end_date') != '') {
-            $result = Wind::where('date', '>=', request()->query('start_date'))
+            $numRows = Wind::where('date', '>=', request()->query('start_date'))
                 ->where('date', '<=', request()->query('end_date'))
-                ->limit($limit)
-                ->get();
+                ->get()->count();
+            if ($maxValues <= $numRows) {
+                $nthRows = $numRows / $maxValues;
+                $nthRows = ceil($nthRows);
+                $result = Wind::where('date', '>=', request()->query('start_date'))
+                    ->where('date', '<=', request()->query('end_date'))
+                    ->whereRaw('id mod ' . $nthRows . ' = 0')
+                    ->get();
+            } else {
+                $result = Wind::where('date', '>=', request()->query('start_date'))
+                    ->where('date', '<=', request()->query('end_date'))
+                    ->get();
+            }
         } else {
-            $result = Wind::limit($limit)->get();
+            $numRows = Wind::get()->count();
+            if ($maxValues <= $numRows) {
+                $nthRows = $numRows / $maxValues;
+                $nthRows = ceil($nthRows);
+                $result = Wind::whereRaw('id mod ' . $nthRows . ' = 0')->get();
+            } else {
+                $result = Wind::get();
+            }
         }
 
         return $result;
