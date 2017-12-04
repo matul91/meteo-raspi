@@ -33,9 +33,10 @@ abstract class DuskTestCase extends BaseTestCase
             '--disable-gpu',
             '--headless'
         ]);
-
+        $duskIp = env("DUSK-IP");
         return RemoteWebDriver::create(
-            'http://localhost:9515', DesiredCapabilities::chrome()->setCapability(
+
+            $duskIp, DesiredCapabilities::chrome()->setCapability(
                 ChromeOptions::CAPABILITY, $options
             )
         );

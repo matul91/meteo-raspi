@@ -5,7 +5,7 @@ namespace Tests\Browser;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class ApiExampleTest extends TestCase
+class ApiPressuresWorkingTest extends TestCase
 {
     /**
      * A basic test example.
@@ -15,7 +15,6 @@ class ApiExampleTest extends TestCase
     public function testBasicTest()
     {
         $response = $this->get('/pressures');
-
         $response->assertStatus(200);
     }
 }

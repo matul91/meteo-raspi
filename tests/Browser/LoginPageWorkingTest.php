@@ -4,7 +4,7 @@ namespace Tests\Browser;
 
 use Tests\DuskTestCase;
 
-class LoginExampleTest extends DuskTestCase
+class LoginPageWorkingTest extends DuskTestCase
 {
 
     /**
