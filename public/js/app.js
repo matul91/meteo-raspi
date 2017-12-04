@@ -63512,12 +63512,14 @@ var Chart = /** @class */ (function (_super) {
                 dateFrom: null,
                 dateTo: null,
             },
+            dbDateFormat: "YYYY-MM-DD HH:mm:ss",
             initialValue: null,
             labels: null,
-            timeFormat: "HH:mm:MM",
+            showedDateFormat: "HH:mm:MM",
         };
         _this.datetimeChangedHandler = _this.datetimeChangedHandler.bind(_this);
-        _this.loadNewData = _this.loadNewData.bind(_this);
+        _this.loadNewDataByDateHandler = _this.loadNewDataByDateHandler.bind(_this);
+        _this.loadNewDataByMoveHandler = _this.loadNewDataByMoveHandler.bind(_this);
         return _this;
     }
     Chart.prototype.componentDidMount = function () {
@@ -63553,8 +63555,10 @@ var Chart = /** @class */ (function (_super) {
                 labels: this.state.labels,
             };
             content = (React.createElement("div", { className: "chart" },
-                React.createElement(DateTimeRangePicker_1.default, { onSubmit: this.loadNewData, onInputChange: this.datetimeChangedHandler }),
-                React.createElement(react_chartjs_2_1.Line, { data: data })));
+                React.createElement(DateTimeRangePicker_1.default, { onSubmit: this.loadNewDataByDateHandler, onInputChange: this.datetimeChangedHandler }),
+                React.createElement(react_chartjs_2_1.Line, { data: data }),
+                React.createElement("button", { name: "minus", onClick: this.loadNewDataByMoveHandler }, "Prev"),
+                React.createElement("button", { name: "plus", onClick: this.loadNewDataByMoveHandler }, "Next")));
         }
         return (React.createElement("div", { className: "col-md-6" },
             React.createElement("div", { className: "panel panel-default" },
@@ -63565,8 +63569,43 @@ var Chart = /** @class */ (function (_super) {
                 React.createElement("div", { className: "panel-body" }, content))));
     };
     Chart.prototype.datetimeChangedHandler = function (date, name) {
-        this.setState(__assign({}, this.state, { dateRange: __assign({}, this.state.dateRange, (_a = {}, _a[name] = date.format("YYYY-MM-DD HH:mm:ss"), _a)) }));
+        this.setState(__assign({}, this.state, { dateRange: __assign({}, this.state.dateRange, (_a = {}, _a[name] = date.format(this.state.dbDateFormat), _a)) }));
         var _a;
+    };
+    Chart.prototype.loadNewDataByDateHandler = function (e) {
+        e.preventDefault();
+        if (this.state.dateRange.dateFrom !== null && this.state.dateRange.dateTo !== null) {
+            this.loadData();
+        }
+    };
+    Chart.prototype.loadNewDataByMoveHandler = function (e) {
+        var _this = this;
+        if (this.state.dateRange.dateFrom !== null && this.state.dateRange.dateTo !== null) {
+            var dateFrom = null;
+            var dateTo = null;
+            var diff = moment(this.state.dateRange.dateTo)
+                .diff(this.state.dateRange.dateFrom) / 1000;
+            switch (e.target.name) {
+                case "minus":
+                    dateTo = moment(this.state.dateRange.dateFrom)
+                        .format(this.state.dbDateFormat);
+                    dateFrom = moment(this.state.dateRange.dateFrom)
+                        .subtract(diff, "seconds")
+                        .format(this.state.dbDateFormat);
+                    break;
+                case "plus":
+                    dateFrom = moment(this.state.dateRange.dateTo)
+                        .format(this.state.dbDateFormat);
+                    dateTo = moment(this.state.dateRange.dateTo)
+                        .add(diff, "seconds")
+                        .format(this.state.dbDateFormat);
+                    break;
+                default:
+                    return null;
+            }
+            this.setState(__assign({}, this.state, { dateRange: __assign({}, this.state.dateRange, { dateFrom: dateFrom,
+                    dateTo: dateTo }) }), function () { return _this.loadData(); });
+        }
     };
     Chart.prototype.loadInitialData = function () {
         var _this = this;
@@ -63574,17 +63613,11 @@ var Chart = /** @class */ (function (_super) {
         axios_1.default.get(url).then(function (response) {
             _this.setState(__assign({}, _this.state, { initialValue: response.data[_this.props.columnName] }));
             var dateTo = response.data.date;
-            var dateFrom = moment(dateTo).subtract(30, "minutes").format("YYYY-MM-DD HH:mm:ss");
+            var dateFrom = moment(dateTo).subtract(30, "minutes").format(_this.state.dbDateFormat);
             _this.setState(__assign({}, _this.state, { dateRange: __assign({}, _this.state.dateRange, { dateFrom: dateFrom,
                     dateTo: dateTo }) }));
             _this.loadData();
         });
-    };
-    Chart.prototype.loadNewData = function (e) {
-        e.preventDefault();
-        if (this.state.dateRange.dateFrom !== null && this.state.dateRange.dateTo !== null) {
-            this.loadData();
-        }
     };
     Chart.prototype.loadData = function () {
         var _this = this;
@@ -63599,7 +63632,7 @@ var Chart = /** @class */ (function (_super) {
             var data = [];
             for (var _i = 0, _a = response.data; _i < _a.length; _i++) {
                 var row = _a[_i];
-                labels.push(moment(row.date).format(_this.state.timeFormat));
+                labels.push(moment(row.date).format(_this.state.showedDateFormat));
                 data.push(row[_this.props.columnName]);
             }
             _this.setState({

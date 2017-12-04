@@ -13,16 +13,17 @@ interface IState {
         dateFrom: string,
         dateTo: string,
     };
+    dbDateFormat: string;
     initialValue: number;
     labels: string[];
-    timeFormat: string;
+    showedDateFormat: string;
 }
 
 interface IProps {
     name: string;
     url: string;
     columnName: string;
-    timeFormat?: string;
+    showedDateFormat?: string;
 }
 
 export default class Chart extends React.Component<IProps, IState> {
@@ -32,15 +33,17 @@ export default class Chart extends React.Component<IProps, IState> {
             dateFrom: null,
             dateTo: null,
         },
+        dbDateFormat: "YYYY-MM-DD HH:mm:ss",
         initialValue: null,
         labels: null,
-        timeFormat: "HH:mm:MM",
+        showedDateFormat: "HH:mm:MM",
     };
 
     constructor(props) {
         super(props);
         this.datetimeChangedHandler = this.datetimeChangedHandler.bind(this);
-        this.loadNewData = this.loadNewData.bind(this);
+        this.loadNewDataByDateHandler = this.loadNewDataByDateHandler.bind(this);
+        this.loadNewDataByMoveHandler = this.loadNewDataByMoveHandler.bind(this);
     }
 
     public componentDidMount(): void {
@@ -80,10 +83,12 @@ export default class Chart extends React.Component<IProps, IState> {
             content = (
                 <div className="chart">
                     <DatetimeRangePicker
-                        onSubmit={this.loadNewData}
+                        onSubmit={this.loadNewDataByDateHandler}
                         onInputChange={this.datetimeChangedHandler}
                     />
                     <Line data={data} />
+                    <button name="minus" onClick={this.loadNewDataByMoveHandler}>Prev</button>
+                    <button name="plus" onClick={this.loadNewDataByMoveHandler}>Next</button>
                 </div>
             );
         }
@@ -105,9 +110,54 @@ export default class Chart extends React.Component<IProps, IState> {
             ...this.state,
             dateRange: {
                 ...this.state.dateRange,
-                [name]: date.format("YYYY-MM-DD HH:mm:ss"),
+                [name]: date.format(this.state.dbDateFormat),
             },
         });
+    }
+
+    private loadNewDataByDateHandler(e): void {
+        e.preventDefault();
+        if (this.state.dateRange.dateFrom !== null && this.state.dateRange.dateTo !== null) {
+            this.loadData();
+        }
+    }
+
+    private loadNewDataByMoveHandler(e): void {
+        if (this.state.dateRange.dateFrom !== null && this.state.dateRange.dateTo !== null) {
+
+            let dateFrom = null;
+            let dateTo = null;
+            const diff = moment(this.state.dateRange.dateTo)
+                .diff(this.state.dateRange.dateFrom) / 1000;
+
+            switch (e.target.name) {
+                case "minus":
+                    dateTo = moment(this.state.dateRange.dateFrom)
+                        .format(this.state.dbDateFormat);
+                    dateFrom = moment(this.state.dateRange.dateFrom)
+                        .subtract(diff, "seconds")
+                        .format(this.state.dbDateFormat);
+                    break;
+                case "plus":
+                    dateFrom = moment(this.state.dateRange.dateTo)
+                        .format(this.state.dbDateFormat);
+                    dateTo = moment(this.state.dateRange.dateTo)
+                        .add(diff, "seconds")
+                        .format(this.state.dbDateFormat);
+                    break;
+                default:
+                    return null;
+            }
+
+            this.setState({
+                ...this.state,
+                dateRange: {
+                    ...this.state.dateRange,
+                    dateFrom,
+                    dateTo,
+                },
+            }, () => this.loadData());
+        }
     }
 
     private loadInitialData(): void {
@@ -120,7 +170,7 @@ export default class Chart extends React.Component<IProps, IState> {
             });
 
             const dateTo = response.data.date;
-            const dateFrom = moment(dateTo).subtract(30, "minutes").format("YYYY-MM-DD HH:mm:ss");
+            const dateFrom = moment(dateTo).subtract(30, "minutes").format(this.state.dbDateFormat);
 
             this.setState({
                 ...this.state,
@@ -133,13 +183,6 @@ export default class Chart extends React.Component<IProps, IState> {
 
             this.loadData();
         });
-    }
-
-    private loadNewData(e): void {
-        e.preventDefault();
-        if (this.state.dateRange.dateFrom !== null && this.state.dateRange.dateTo !== null) {
-            this.loadData();
-        }
     }
 
     private loadData(): void {
@@ -156,7 +199,7 @@ export default class Chart extends React.Component<IProps, IState> {
             const data: number[] = [];
 
             for (const row of response.data) {
-                labels.push(moment(row.date).format(this.state.timeFormat));
+                labels.push(moment(row.date).format(this.state.showedDateFormat));
                 data.push(row[this.props.columnName]);
             }
 
