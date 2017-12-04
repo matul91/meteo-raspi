@@ -12,7 +12,11 @@
 */
 
 Route::get('/pressures', 'PressureController@index');
+Route::get('/pressures/latest', 'PressureController@latest');
+
 Route::get('/temperatures', 'TemperatureController@index');
+Route::get('/temperatures/latest', 'TemperatureController@latest');
+
 Route::get('/winds', 'WindController@index');
 Route::get('/winds/latest', 'WindController@latest');
 
