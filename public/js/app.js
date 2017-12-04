@@ -63552,7 +63552,7 @@ var Chart = /** @class */ (function (_super) {
                 labels: this.state.labels,
             };
             content = (React.createElement("div", { className: "chart" },
-                React.createElement(DateTimeRangePicker_1.default, { onSubmit: this.showData, onInputChange: this.datetimeChangeHandler, dateFrom: this.state.dateRange.dateFrom, dateTo: this.state.dateRange.dateTo }),
+                React.createElement(DateTimeRangePicker_1.default, { onSubmit: this.showData, onInputChange: this.datetimeChangeHandler }),
                 React.createElement(react_chartjs_2_1.Line, { data: data })));
         }
         return (React.createElement("div", { className: "col-md-6" },
@@ -63567,14 +63567,14 @@ var Chart = /** @class */ (function (_super) {
     Chart.prototype.showData = function (e) {
         e.preventDefault();
         if (this.state.dateRange.dateFrom !== null && this.state.dateRange.dateTo !== null) {
-            this.loadData(this.state.dateRange.dateFrom, this.state.dateRange.dateTo);
+            this.loadData();
         }
     };
-    Chart.prototype.loadData = function (dateFrom, dateTo) {
+    Chart.prototype.loadData = function () {
         var _this = this;
-        if (dateFrom === void 0) { dateFrom = null; }
-        if (dateTo === void 0) { dateTo = null; }
         var url = this.props.url;
+        var dateFrom = this.state.dateRange.dateFrom;
+        var dateTo = this.state.dateRange.dateTo;
         if (dateFrom !== null && dateTo !== null) {
             url = url + "/?start_date=" + dateFrom + "&end_date=" + dateTo;
         }
@@ -82580,13 +82580,13 @@ var authStart = function (state, action) {
     return __assign({}, state, { error: null, loading: true });
 };
 var authSuccess = function (state, action) {
-    return __assign({}, state, { error: null, loading: false, token: action.idToken, userId: action.userId, name: action.name });
+    return __assign({}, state, { error: null, loading: false, name: action.name, token: action.idToken, userId: action.userId });
 };
 var authFail = function (state, action) {
     return __assign({}, state, { error: action.error, loading: false });
 };
 var authLogout = function (state, action) {
-    return __assign({}, state, { error: null, loading: false, token: null, userId: null, name: null });
+    return __assign({}, state, { error: null, loading: false, name: null, token: null, userId: null });
 };
 var reducer = function (state, action) {
     if (state === void 0) { state = initialState; }

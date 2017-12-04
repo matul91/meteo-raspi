@@ -80,8 +80,6 @@ export default class Chart extends React.Component<IProps, IState> {
                     <DatetimeRangePicker
                         onSubmit={this.showData}
                         onInputChange={this.datetimeChangeHandler}
-                        dateFrom={this.state.dateRange.dateFrom}
-                        dateTo={this.state.dateRange.dateTo}
                     />
                     <Line data={data} />
                 </div>
@@ -113,12 +111,15 @@ export default class Chart extends React.Component<IProps, IState> {
     private showData(e): void {
         e.preventDefault();
         if (this.state.dateRange.dateFrom !== null && this.state.dateRange.dateTo !== null) {
-            this.loadData(this.state.dateRange.dateFrom, this.state.dateRange.dateTo);
+            this.loadData();
         }
     }
 
-    private loadData(dateFrom: string = null, dateTo: string = null): void {
+    private loadData(): void {
         let url = this.props.url;
+        const dateFrom = this.state.dateRange.dateFrom;
+        const dateTo = this.state.dateRange.dateTo;
+
         if (dateFrom !== null && dateTo !== null) {
             url = `${url}/?start_date=${dateFrom}&end_date=${dateTo}`;
         }
