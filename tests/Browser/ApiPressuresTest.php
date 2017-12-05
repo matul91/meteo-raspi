@@ -12,7 +12,7 @@ class ApiPressuresTest extends TestCase
      *
      * @return void
      */
-    public function testApiWorkingTest()
+    public function testApiWorking()
     {
         $response = $this->get('/pressures');
         $response->assertStatus(200);

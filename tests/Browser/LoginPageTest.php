@@ -12,7 +12,7 @@ class LoginPageTest extends DuskTestCase
      *
      * @return void
      */
-    public function testShowLoginPageTest()
+    public function testShowLoginPage()
     {
         $this->browse(function ($browser){
             $browser->visit('/login')
