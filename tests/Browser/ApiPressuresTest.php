@@ -1,21 +1,20 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Browser;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class ExampleTest extends TestCase
+class ApiPressuresTest extends TestCase
 {
     /**
      * A basic test example.
      *
      * @return void
      */
-    public function testBasicTest()
+    public function testApiWorking()
     {
-        $response = $this->get('/');
-
+        $response = $this->get('/pressures');
         $response->assertStatus(200);
     }
 }
