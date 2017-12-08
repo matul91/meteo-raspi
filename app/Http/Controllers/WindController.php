@@ -32,6 +32,6 @@ class WindController extends Controller
 
     public function latest()
     {
-        return \App\Wind::orderBy('date', 'desc')->first();
+        return Wind::orderBy('date', 'desc')->first();
     }
 }

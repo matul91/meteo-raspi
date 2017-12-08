@@ -2,8 +2,6 @@ import * as React from "react";
 import DateTimeField from "./dateTimeField/dateTimeField";
 
 interface IProps {
-    dateFrom: string;
-    dateTo: string;
     onInputChange: any;
     onSubmit: any;
 }

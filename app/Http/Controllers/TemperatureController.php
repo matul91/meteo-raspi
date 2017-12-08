@@ -27,6 +27,10 @@ class TemperatureController extends Controller
         }
 
         return $result;
+    }
 
+    public function latest()
+    {
+        return Temperature::orderBy('date', 'desc')->first();
     }
 }
