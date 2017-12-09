@@ -3,10 +3,30 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 class Pressure extends Model
 {
     public $timestamps = false;
+
+    public static function getDataForIndex(){
+        $result = null;
+        if (request()->query('start_date') != '' && request()->query('end_date') != '') {
+            if (self::getSettingMaxValuesPerGraph() <= self::getCountRowsByDate(request()->query('start_date'), request()->query('end_date'))) {
+                $result = self::getOptimizedDataByDate(request()->query('start_date'), request()->query('end_date'));
+            } else {
+                $result = self::getDataByDate(request()->query('start_date'), request()->query('end_date'));
+            }
+        } else {
+            if (self::getSettingMaxValuesPerGraph() <= self::getCountRows()) {
+                $result = self::whereRaw('id mod ' . self::getNthRows(self::getCountRows()) . ' = 0')->get();
+            } else {
+                $result = self::get();
+            }
+        }
+        return $result;
+
+    }
 
     public static function getCountRowsByDate(string $startDate, string $endDate){
         return self::where('date', '>=', $startDate)
