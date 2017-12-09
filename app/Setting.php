@@ -9,9 +9,9 @@ class Setting extends Model
     public $timestamps = false;
 
 
-    public static function getByID(int $id)
+    public static function getByID(string $name)
     {
-        return Setting::where('id', $id)->first();
+        return Setting::where('name', $name)->first();
     }
 
 

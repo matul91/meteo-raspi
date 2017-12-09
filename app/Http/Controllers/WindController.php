@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Setting;
+
 use App\Wind;
-use Illuminate\Http\Request;
+
 
 class WindController extends Controller
 {

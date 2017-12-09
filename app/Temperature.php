@@ -39,7 +39,7 @@ class Temperature extends Model
     }
 
     public static function getSettingMaxValuesPerGraph(){
-        return Setting::getByID(1)->value;
+        return Setting::getByID("max_data_per_graph")->value;
     }
 
     public static function getNthRows(int $numRows){

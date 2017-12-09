@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Pressure;
-use App\Setting;
-use Faker\Provider\Person;
-use Illuminate\Http\Request;
+
 
 class PressureController extends Controller
 {
