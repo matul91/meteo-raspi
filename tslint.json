@@ -7,5 +7,6 @@
         "tslint-react"
     ],
     "rules": {
+        "no-console": [false]
     }
 }
