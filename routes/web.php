@@ -13,7 +13,7 @@
 
 Route::get('/pressures', 'PressureController@index');
 Route::get('/pressures/latest', 'PressureController@latest');
-
+Route::get('/settings', 'SettingController@index');
 Route::get('/temperatures', 'TemperatureController@index');
 Route::get('/temperatures/latest', 'TemperatureController@latest');
 
