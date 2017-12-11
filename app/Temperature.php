@@ -8,13 +8,13 @@ class Temperature extends Model
 {
     public $timestamps = false;
 
-    public static function getDataForIndex(){
+    public static function loadData($from = null, $to = null){
         $result = null;
-        if (request()->query('start_date') != '' && request()->query('end_date') != '') {
-            if (self::getSettingMaxValuesPerGraph() <= self::getCountRowsByDate(request()->query('start_date'), request()->query('end_date'))) {
-                $result = self::getOptimizedDataByDate(request()->query('start_date'), request()->query('end_date'));
+        if ($from != '' && $to != '') {
+            if (self::getSettingMaxValuesPerGraph() <= self::getCountRowsByDate($from, $to)) {
+                $result = self::getOptimizedDataByDate($from, $to);
             } else {
-                $result = self::getDataByDate(request()->query('start_date'), request()->query('end_date'));
+                $result = self::getDataByDate($from, $to);
             }
         } else {
             if (self::getSettingMaxValuesPerGraph() <= self::getCountRows()) {
@@ -27,39 +27,39 @@ class Temperature extends Model
 
     }
 
-    public static function getCountRowsByDate(string $startDate, string $endDate){
+    private static function getCountRowsByDate(string $startDate, string $endDate){
         return self::where('date', '>=', $startDate)
             ->where('date', '<=', $endDate)
             ->get()->count();
     }
 
-    public static function getCountRows(){
+    private static function getCountRows(){
         return self::get()->count();
 
     }
 
-    public static function getSettingMaxValuesPerGraph(){
+    private static function getSettingMaxValuesPerGraph(){
         return Setting::getByID("max_data_per_graph")->value;
     }
 
-    public static function getNthRows(int $numRows){
+    private static function getNthRows(int $numRows){
         return ceil($numRows / self::getSettingMaxValuesPerGraph());
     }
 
-    public static function getOptimizedDataByDate(string $startDate, string $endDate){
+    private static function getOptimizedDataByDate(string $startDate, string $endDate){
         return self::where('date', '>=', $startDate)
             ->where('date', '<=', $endDate)
             ->whereRaw('id mod ' . self::getNthRows(self::getCountRowsByDate($startDate, $endDate)) . ' = 0')
             ->get();
     }
 
-    public static function getDataByDate(string $startDate, string $endDate){
+    private static function getDataByDate(string $startDate, string $endDate){
         return self::where('date', '>=', $startDate)
             ->where('date', '<=', $endDate)
             ->get();
     }
 
-    public static function getLastDateRow(){
+    public static function getLastRecord(){
         return self::orderBy('date', 'desc')->first();
     }
 }

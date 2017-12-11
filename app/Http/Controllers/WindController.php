@@ -10,11 +10,11 @@ class WindController extends Controller
 {
     public function index()
     {
-        return Wind::getDataForIndex();
+        return Wind::loadData(request()->query('start_date'), request()->query('end_date'));
     }
 
     public function latest()
     {
-        return Wind::getLastDateRow();
+        return Wind::getLastRecord();
     }
 }

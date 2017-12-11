@@ -9,11 +9,11 @@ class PressureController extends Controller
 {
     public function index()
     {
-        return Pressure::getDataForIndex();
+        return Pressure::loadData(request()->query('start_date'), request()->query('end_date'));
     }
 
     public function latest()
     {
-        return Pressure::getLastDateRow();
+        return Pressure::getLastRecord();
     }
 }

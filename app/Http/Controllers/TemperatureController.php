@@ -9,11 +9,11 @@ class TemperatureController extends Controller
 {
     public function index()
     {
-        return Temperature::getDataForIndex();
+        return Temperature::loadData(request()->query('start_date'), request()->query('end_date'));
     }
 
     public function latest()
     {
-        return Temperature::getLastDateRow();
+        return Temperature::getLastRecord();
     }
 }
