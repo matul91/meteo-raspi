@@ -2,6 +2,7 @@ import axios from "axios";
 import * as moment from "moment";
 import * as React from "react";
 import {Line} from "react-chartjs-2";
+import * as Swipeable from "react-swipeable";
 import DatetimeRangePicker from "../datetimeRangePicker/DateTimeRangePicker";
 import Loading from "../loading/Loading";
 
@@ -44,6 +45,7 @@ export default class Chart extends React.Component<IProps, IState> {
         this.datetimeChangedHandler = this.datetimeChangedHandler.bind(this);
         this.loadNewDataByDateHandler = this.loadNewDataByDateHandler.bind(this);
         this.loadNewDataByMoveHandler = this.loadNewDataByMoveHandler.bind(this);
+        this.onSwipedLeft = this.onSwipedLeft.bind(this);
     }
 
     public componentDidMount(): void {
@@ -86,7 +88,13 @@ export default class Chart extends React.Component<IProps, IState> {
                         onSubmit={this.loadNewDataByDateHandler}
                         onInputChange={this.datetimeChangedHandler}
                     />
-                    <Line data={data} />
+                    <Swipeable
+                        onSwipedLeft={this.onSwipedLeft}
+                        onSwipedRight={this.onSwipedRight}
+                        trackMouse={true}
+                    >
+                        <Line data={data} />
+                    </Swipeable>
                     <button name="minus" onClick={this.loadNewDataByMoveHandler}>Prev</button>
                     <button name="plus" onClick={this.loadNewDataByMoveHandler}>Next</button>
                 </div>
@@ -103,6 +111,14 @@ export default class Chart extends React.Component<IProps, IState> {
                 </div>
             </div>
         );
+    }
+
+    private onSwipedLeft(): void {
+        console.log("swiped left");
+    }
+
+    private onSwipedRight(): void {
+        console.log("swiped right");
     }
 
     private datetimeChangedHandler(date, name): void {
