@@ -30,4 +30,4 @@ WARNING: There is bug in TSLint, it doesn't report some errors when you're using
 
 Now, the project is ready to work! If your server is running, just enter the address of the project into your browser (for me with Laragon - http://meteostanice.dev/).
 
-<p align="center"><img src="festik.cz/tmp/truestorybro.jpg"></p>
+<p align="center"><img src="https://festik.cz/tmp/truestorybro.jpg"></p>

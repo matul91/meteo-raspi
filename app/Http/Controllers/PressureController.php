@@ -17,8 +17,4 @@ class PressureController extends Controller
         return Pressure::getLastRecord();
     }
 
-    public function latest()
-    {
-        return Pressure::orderBy('date', 'desc')->first();
-    }
 }
