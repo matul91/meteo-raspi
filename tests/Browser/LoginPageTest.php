@@ -8,11 +8,6 @@ use Tests\DuskTestCase;
 class LoginPageTest extends DuskTestCase
 {
 
-    /**
-     * A basic browser test example.
-     *
-     * @return void
-     */
     public function testShowLoginPage()
     {
         $this->browse(function ($browser){

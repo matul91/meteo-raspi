@@ -8,11 +8,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class ApiWindTest extends DuskTestCase
 {
-    /**
-     * A Dusk test example.
-     *
-     * @return void
-     */
+
     public function testApiWorking()
     {
         $response = $this->get('/winds');
