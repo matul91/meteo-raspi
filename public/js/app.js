@@ -61898,9 +61898,9 @@ var React = __webpack_require__(2);
 var Chart_1 = __webpack_require__(428);
 var Index = function () {
     return (React.createElement("div", { className: "row" },
-        React.createElement(Chart_1.default, { name: "Tlak", url: "/pressures", columnName: "pressure" }),
-        React.createElement(Chart_1.default, { name: "Teplota", url: "/temperatures", columnName: "temperature" }),
-        React.createElement(Chart_1.default, { name: "Rychlost větru", url: "/winds", columnName: "speed" })));
+        React.createElement(Chart_1.default, { name: "Tlak", url: "/pressures", columnName: "pressure", suffix: "hPa" }),
+        React.createElement(Chart_1.default, { name: "Teplota", url: "/temperatures", columnName: "temperature", suffix: "°C" }),
+        React.createElement(Chart_1.default, { name: "Rychlost větru", url: "/winds", columnName: "speed", suffix: "m/s" })));
 };
 exports.default = Index;
 
@@ -61998,12 +61998,14 @@ var Chart = /** @class */ (function (_super) {
                 React.createElement("button", { name: "minus", onClick: this.loadNewDataByMoveHandler }, "Prev"),
                 React.createElement("button", { name: "plus", onClick: this.loadNewDataByMoveHandler }, "Next")));
         }
+        var suffix = this.props.suffix ? " " + this.props.suffix : "";
         return (React.createElement("div", { className: "col-md-6" },
             React.createElement("div", { className: "panel panel-default" },
                 React.createElement("div", { className: "panel-heading" },
                     this.props.name,
                     ": ",
-                    this.state.initialValue),
+                    this.state.initialValue,
+                    suffix),
                 React.createElement("div", { className: "panel-body" }, content))));
     };
     Chart.prototype.onSwipedLeft = function () {

@@ -25,6 +25,7 @@ interface IProps {
     url: string;
     columnName: string;
     showedDateFormat?: string;
+    suffix?: string;
 }
 
 export default class Chart extends React.Component<IProps, IState> {
@@ -101,10 +102,12 @@ export default class Chart extends React.Component<IProps, IState> {
             );
         }
 
+        const suffix = this.props.suffix ? ` ${this.props.suffix}` : "";
+
         return (
             <div className="col-md-6">
                 <div className="panel panel-default">
-                    <div className="panel-heading">{this.props.name}: {this.state.initialValue}</div>
+                    <div className="panel-heading">{this.props.name}: {this.state.initialValue}{suffix}</div>
                     <div className="panel-body">
                         {content}
                     </div>
