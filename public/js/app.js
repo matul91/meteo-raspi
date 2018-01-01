@@ -79222,14 +79222,15 @@ var DateTimeRangePicker = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     DateTimeRangePicker.prototype.render = function () {
-        return (React.createElement("form", { className: "form-inline text-right", onSubmit: this.props.onSubmit },
-            React.createElement("div", { className: "form-group form-space" },
-                React.createElement("label", { className: "sr-only" }, "Po\u010D\u00E1te\u010Dn\u00ED datum"),
-                React.createElement(dateTimeField_1.default, { name: "dateFrom", placeholder: "Počáteční datum", onInputChange: this.props.onInputChange })),
-            React.createElement("div", { className: "form-group form-space" },
-                React.createElement("label", { className: "sr-only" }, "Koncov\u00E9 datum"),
-                React.createElement(dateTimeField_1.default, { name: "dateTo", placeholder: "Koncové datum", onInputChange: this.props.onInputChange })),
-            React.createElement("button", { type: "submit", className: "btn btn-default" }, "Zobrazit")));
+        return (React.createElement("div", { className: "row" },
+            React.createElement("form", { className: "form-inline text-right form-bottom-space col-xs-12", onSubmit: this.props.onSubmit },
+                React.createElement("div", { className: "form-group form-space" },
+                    React.createElement("label", { className: "sr-only" }, "Po\u010D\u00E1te\u010Dn\u00ED datum"),
+                    React.createElement(dateTimeField_1.default, { name: "dateFrom", placeholder: "Počáteční datum", onInputChange: this.props.onInputChange })),
+                React.createElement("div", { className: "form-group form-space" },
+                    React.createElement("label", { className: "sr-only" }, "Koncov\u00E9 datum"),
+                    React.createElement(dateTimeField_1.default, { name: "dateTo", placeholder: "Koncové datum", onInputChange: this.props.onInputChange })),
+                React.createElement("button", { type: "submit", className: "btn btn-default" }, "Zobrazit"))));
     };
     return DateTimeRangePicker;
 }(React.Component));
