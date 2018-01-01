@@ -61964,6 +61964,7 @@ var Chart = /** @class */ (function (_super) {
     };
     Chart.prototype.render = function () {
         var content = React.createElement(Loading_1.default, { text: "Načítá se" });
+        var suffix = this.props.suffix ? " " + this.props.suffix : "";
         if (this.state.data) {
             var data = {
                 datasets: [
@@ -61976,7 +61977,7 @@ var Chart = /** @class */ (function (_super) {
                         borderJoinStyle: "miter",
                         data: this.state.data,
                         fill: true,
-                        label: this.props.name,
+                        label: "" + this.props.name + suffix,
                         lineTension: 0.2,
                         pointBackgroundColor: "#fff",
                         pointBorderColor: "rgba(75,192,192,1)",
@@ -61999,7 +62000,6 @@ var Chart = /** @class */ (function (_super) {
                     React.createElement("button", { name: "minus", className: "btn btn-default btn-space", onClick: this.loadNewDataByMoveHandler }, "P\u0159edchoz\u00ED"),
                     React.createElement("button", { name: "plus", className: "btn btn-default", onClick: this.loadNewDataByMoveHandler }, "Dal\u0161\u00ED"))));
         }
-        var suffix = this.props.suffix ? " " + this.props.suffix : "";
         return (React.createElement("div", { className: "col-md-6" },
             React.createElement("div", { className: "panel panel-default" },
                 React.createElement("div", { className: "panel-heading" },

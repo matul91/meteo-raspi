@@ -55,6 +55,7 @@ export default class Chart extends React.Component<IProps, IState> {
 
     public render(): JSX.Element {
         let content = <Loading text={"Načítá se"} />;
+        const suffix = this.props.suffix ? ` ${this.props.suffix}` : "";
 
         if (this.state.data) {
             const data = {
@@ -68,7 +69,7 @@ export default class Chart extends React.Component<IProps, IState> {
                         borderJoinStyle: "miter",
                         data: this.state.data,
                         fill: true,
-                        label: this.props.name,
+                        label: `${this.props.name}${suffix}`,
                         lineTension: 0.2,
                         pointBackgroundColor: "#fff",
                         pointBorderColor: "rgba(75,192,192,1)",
@@ -115,8 +116,6 @@ export default class Chart extends React.Component<IProps, IState> {
                 </div>
             );
         }
-
-        const suffix = this.props.suffix ? ` ${this.props.suffix}` : "";
 
         return (
             <div className="col-md-6">
