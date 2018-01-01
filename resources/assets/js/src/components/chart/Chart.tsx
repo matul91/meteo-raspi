@@ -96,8 +96,22 @@ export default class Chart extends React.Component<IProps, IState> {
                     >
                         <Line data={data} />
                     </Swipeable>
-                    <button name="minus" onClick={this.loadNewDataByMoveHandler}>Prev</button>
-                    <button name="plus" onClick={this.loadNewDataByMoveHandler}>Next</button>
+                    <div className="text-right chart-buttons">
+                        <button
+                            name="minus"
+                            className="btn btn-default btn-space"
+                            onClick={this.loadNewDataByMoveHandler}
+                        >
+                            Předchozí
+                        </button>
+                        <button
+                            name="plus"
+                            className="btn btn-default"
+                            onClick={this.loadNewDataByMoveHandler}
+                        >
+                            Další
+                        </button>
+                    </div>
                 </div>
             );
         }

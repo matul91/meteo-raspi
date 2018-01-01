@@ -61995,8 +61995,9 @@ var Chart = /** @class */ (function (_super) {
                 React.createElement(DateTimeRangePicker_1.default, { onSubmit: this.loadNewDataByDateHandler, onInputChange: this.datetimeChangedHandler }),
                 React.createElement(Swipeable, { onSwipedLeft: this.onSwipedLeft, onSwipedRight: this.onSwipedRight, trackMouse: true },
                     React.createElement(react_chartjs_2_1.Line, { data: data })),
-                React.createElement("button", { name: "minus", onClick: this.loadNewDataByMoveHandler }, "Prev"),
-                React.createElement("button", { name: "plus", onClick: this.loadNewDataByMoveHandler }, "Next")));
+                React.createElement("div", { className: "text-right chart-buttons" },
+                    React.createElement("button", { name: "minus", className: "btn btn-default btn-space", onClick: this.loadNewDataByMoveHandler }, "P\u0159edchoz\u00ED"),
+                    React.createElement("button", { name: "plus", className: "btn btn-default", onClick: this.loadNewDataByMoveHandler }, "Dal\u0161\u00ED"))));
         }
         var suffix = this.props.suffix ? " " + this.props.suffix : "";
         return (React.createElement("div", { className: "col-md-6" },
@@ -79222,10 +79223,10 @@ var DateTimeRangePicker = /** @class */ (function (_super) {
     }
     DateTimeRangePicker.prototype.render = function () {
         return (React.createElement("form", { className: "form-inline text-right", onSubmit: this.props.onSubmit },
-            React.createElement("div", { className: "form-group" },
+            React.createElement("div", { className: "form-group form-space" },
                 React.createElement("label", { className: "sr-only" }, "Po\u010D\u00E1te\u010Dn\u00ED datum"),
                 React.createElement(dateTimeField_1.default, { name: "dateFrom", placeholder: "Počáteční datum", onInputChange: this.props.onInputChange })),
-            React.createElement("div", { className: "form-group" },
+            React.createElement("div", { className: "form-group form-space" },
                 React.createElement("label", { className: "sr-only" }, "Koncov\u00E9 datum"),
                 React.createElement(dateTimeField_1.default, { name: "dateTo", placeholder: "Koncové datum", onInputChange: this.props.onInputChange })),
             React.createElement("button", { type: "submit", className: "btn btn-default" }, "Zobrazit")));

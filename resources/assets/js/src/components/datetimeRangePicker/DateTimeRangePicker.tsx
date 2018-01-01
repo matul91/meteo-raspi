@@ -10,7 +10,7 @@ export default class DateTimeRangePicker extends React.Component<IProps, null> {
     public render(): JSX.Element {
         return (
             <form className="form-inline text-right" onSubmit={this.props.onSubmit}>
-                <div className="form-group">
+                <div className="form-group form-space">
                     <label className="sr-only">Počáteční datum</label>
                     <DateTimeField
                         name="dateFrom"
@@ -18,7 +18,7 @@ export default class DateTimeRangePicker extends React.Component<IProps, null> {
                         onInputChange={this.props.onInputChange}
                     />
                 </div>
-                <div className="form-group">
+                <div className="form-group form-space">
                     <label className="sr-only">Koncové datum</label>
                     <DateTimeField
                         name="dateTo"
