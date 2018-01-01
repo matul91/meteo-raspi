@@ -14,7 +14,7 @@ const Navbar: any = (props) => {
 
         return (
             <nav className="navbar navbar-default">
-                <div className="container">
+                <div className="container-fluid">
                     <div className="navbar-header">
                         <button
                             type="button"
@@ -28,7 +28,7 @@ const Navbar: any = (props) => {
                             <span className="icon-bar" />
                             <span className="icon-bar" />
                         </button>
-                        <NavLink to="/" className="navbar-brand" >Letiště Baška</NavLink>
+                        <NavLink to="/" className="navbar-brand" >Letiště Baška - LKBASK</NavLink>
                     </div>
                     <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         {props.isAuthenticated && loggedUserLinks}
