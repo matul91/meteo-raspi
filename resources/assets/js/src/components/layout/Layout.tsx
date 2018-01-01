@@ -24,7 +24,7 @@ const Layout = (props) => {
         <BrowserRouter>
             <div id="main">
                 <Navbar isAuthenticated={props.isAuthenticated} user={props.user} />
-                <div className="container">
+                <div className="container-fluid">
                     <Switch>
                         <Route path="/login" component={Login} />
                         <Route path="/logout" component={Logout} />

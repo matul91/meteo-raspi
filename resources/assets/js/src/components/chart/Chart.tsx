@@ -25,6 +25,7 @@ interface IProps {
     url: string;
     columnName: string;
     showedDateFormat?: string;
+    suffix?: string;
 }
 
 export default class Chart extends React.Component<IProps, IState> {
@@ -54,6 +55,7 @@ export default class Chart extends React.Component<IProps, IState> {
 
     public render(): JSX.Element {
         let content = <Loading text={"Načítá se"} />;
+        const suffix = this.props.suffix ? ` ${this.props.suffix}` : "";
 
         if (this.state.data) {
             const data = {
@@ -67,7 +69,7 @@ export default class Chart extends React.Component<IProps, IState> {
                         borderJoinStyle: "miter",
                         data: this.state.data,
                         fill: true,
-                        label: this.props.name,
+                        label: `${this.props.name}${suffix}`,
                         lineTension: 0.2,
                         pointBackgroundColor: "#fff",
                         pointBorderColor: "rgba(75,192,192,1)",
@@ -95,8 +97,22 @@ export default class Chart extends React.Component<IProps, IState> {
                     >
                         <Line data={data} />
                     </Swipeable>
-                    <button name="minus" onClick={this.loadNewDataByMoveHandler}>Prev</button>
-                    <button name="plus" onClick={this.loadNewDataByMoveHandler}>Next</button>
+                    <div className="text-right chart-buttons">
+                        <button
+                            name="minus"
+                            className="btn btn-default btn-space"
+                            onClick={this.loadNewDataByMoveHandler}
+                        >
+                            Předchozí
+                        </button>
+                        <button
+                            name="plus"
+                            className="btn btn-default"
+                            onClick={this.loadNewDataByMoveHandler}
+                        >
+                            Další
+                        </button>
+                    </div>
                 </div>
             );
         }
@@ -104,7 +120,7 @@ export default class Chart extends React.Component<IProps, IState> {
         return (
             <div className="col-md-6">
                 <div className="panel panel-default">
-                    <div className="panel-heading">{this.props.name}: {this.state.initialValue}</div>
+                    <div className="panel-heading">{this.props.name}: {this.state.initialValue}{suffix}</div>
                     <div className="panel-body">
                         {content}
                     </div>
