@@ -1,0 +1,8 @@
+[
+    {
+        "level": "SEVERE",
+        "message": "http:\/\/meteostanice.test\/oauth\/token - Failed to load resource: the server responded with a status of 401 (Unauthorized)",
+        "source": "network",
+        "timestamp": 1513692161508
+    }
+]
