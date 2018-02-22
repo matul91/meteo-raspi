@@ -30,14 +30,14 @@ interface IProps {
 
 export default class Chart extends React.Component<IProps, IState> {
     public state = {
-        data: null,
+        data: [],
         dateRange: {
             dateFrom: null,
             dateTo: null,
         },
         dbDateFormat: "YYYY-MM-DD HH:mm:ss",
         initialValue: null,
-        labels: null,
+        labels: [],
         showedDateFormat: "HH:mm:MM",
     };
 
@@ -45,8 +45,9 @@ export default class Chart extends React.Component<IProps, IState> {
         super(props);
         this.datetimeChangedHandler = this.datetimeChangedHandler.bind(this);
         this.loadNewDataByDateHandler = this.loadNewDataByDateHandler.bind(this);
-        this.loadNewDataByMoveHandler = this.loadNewDataByMoveHandler.bind(this);
+        this.loadNewDataByEventHandler = this.loadNewDataByEventHandler.bind(this);
         this.onSwipedLeft = this.onSwipedLeft.bind(this);
+        this.onSwipedRight = this.onSwipedRight.bind(this);
     }
 
     public componentDidMount(): void {
@@ -57,7 +58,7 @@ export default class Chart extends React.Component<IProps, IState> {
         let content = <Loading text={"Načítá se"} />;
         const suffix = this.props.suffix ? ` ${this.props.suffix}` : "";
 
-        if (this.state.data) {
+        if (this.state.data.length > 0) {
             const data = {
                 datasets: [
                     {
@@ -101,14 +102,14 @@ export default class Chart extends React.Component<IProps, IState> {
                         <button
                             name="minus"
                             className="btn btn-default btn-space"
-                            onClick={this.loadNewDataByMoveHandler}
+                            onClick={this.loadNewDataByEventHandler}
                         >
                             Předchozí
                         </button>
                         <button
                             name="plus"
                             className="btn btn-default"
-                            onClick={this.loadNewDataByMoveHandler}
+                            onClick={this.loadNewDataByEventHandler}
                         >
                             Další
                         </button>
@@ -130,11 +131,11 @@ export default class Chart extends React.Component<IProps, IState> {
     }
 
     private onSwipedLeft(): void {
-        console.log("swiped left");
+        this.loadNewDataToChart("plus");
     }
 
     private onSwipedRight(): void {
-        console.log("swiped right");
+        this.loadNewDataToChart("minus");
     }
 
     private datetimeChangedHandler(date, name): void {
@@ -154,15 +155,20 @@ export default class Chart extends React.Component<IProps, IState> {
         }
     }
 
-    private loadNewDataByMoveHandler(e): void {
-        if (this.state.dateRange.dateFrom !== null && this.state.dateRange.dateTo !== null) {
+    private loadNewDataByEventHandler(e): void {
+        const direction = e.target.name;
+        this.loadNewDataToChart(direction);
+    }
 
+    private loadNewDataToChart(direction: string = null): void {
+        console.log(direction);
+        if (this.state.dateRange.dateFrom !== null && this.state.dateRange.dateTo !== null) {
             let dateFrom = null;
             let dateTo = null;
             const diff = moment(this.state.dateRange.dateTo)
                 .diff(this.state.dateRange.dateFrom) / 1000;
 
-            switch (e.target.name) {
+            switch (direction) {
                 case "minus":
                     dateTo = moment(this.state.dateRange.dateFrom)
                         .format(this.state.dbDateFormat);
@@ -188,7 +194,7 @@ export default class Chart extends React.Component<IProps, IState> {
                     dateFrom,
                     dateTo,
                 },
-            }, () => this.loadData());
+            }, () => this.loadData(direction));
         }
     }
 
@@ -217,7 +223,7 @@ export default class Chart extends React.Component<IProps, IState> {
         });
     }
 
-    private loadData(): void {
+    private loadData(direction: string = null): void {
         let url = this.props.url;
         const dateFrom = this.state.dateRange.dateFrom;
         const dateTo = this.state.dateRange.dateTo;
@@ -227,18 +233,41 @@ export default class Chart extends React.Component<IProps, IState> {
         }
 
         axios.get(url).then((response: any) => {
-            const labels: string[] = [];
-            const data: number[] = [];
+            const newLabels: string[] = [];
+            const newData: number[] = [];
 
             for (const row of response.data) {
-                labels.push(moment(row.date).format(this.state.showedDateFormat));
-                data.push(row[this.props.columnName]);
+                newLabels.push(moment(row.date).format(this.state.showedDateFormat));
+                newData.push(row[this.props.columnName]);
             }
 
-            this.setState({
-                data,
-                labels,
-            });
+            if (direction) {
+                const data = [...this.state.data];
+                const labels = [...this.state.labels];
+
+                switch (direction) {
+                    case "plus":
+                        data.push(...newData);
+                        labels.push(...newLabels);
+                        break;
+                    case "minus":
+                        data.unshift(...newData);
+                        labels.unshift(...newLabels);
+                        break;
+                    default:
+                        return null;
+                }
+
+                this.setState({
+                    data,
+                    labels,
+                });
+            } else {
+                this.setState({
+                    data: newData,
+                    labels: newLabels,
+                });
+            }
         });
     }
 }

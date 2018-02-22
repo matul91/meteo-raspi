@@ -61943,20 +61943,21 @@ var Chart = /** @class */ (function (_super) {
     function Chart(props) {
         var _this = _super.call(this, props) || this;
         _this.state = {
-            data: null,
+            data: [],
             dateRange: {
                 dateFrom: null,
                 dateTo: null,
             },
             dbDateFormat: "YYYY-MM-DD HH:mm:ss",
             initialValue: null,
-            labels: null,
+            labels: [],
             showedDateFormat: "HH:mm:MM",
         };
         _this.datetimeChangedHandler = _this.datetimeChangedHandler.bind(_this);
         _this.loadNewDataByDateHandler = _this.loadNewDataByDateHandler.bind(_this);
-        _this.loadNewDataByMoveHandler = _this.loadNewDataByMoveHandler.bind(_this);
+        _this.loadNewDataByEventHandler = _this.loadNewDataByEventHandler.bind(_this);
         _this.onSwipedLeft = _this.onSwipedLeft.bind(_this);
+        _this.onSwipedRight = _this.onSwipedRight.bind(_this);
         return _this;
     }
     Chart.prototype.componentDidMount = function () {
@@ -61965,7 +61966,7 @@ var Chart = /** @class */ (function (_super) {
     Chart.prototype.render = function () {
         var content = React.createElement(Loading_1.default, { text: "Načítá se" });
         var suffix = this.props.suffix ? " " + this.props.suffix : "";
-        if (this.state.data) {
+        if (this.state.data.length > 0) {
             var data = {
                 datasets: [
                     {
@@ -61997,8 +61998,8 @@ var Chart = /** @class */ (function (_super) {
                 React.createElement(Swipeable, { onSwipedLeft: this.onSwipedLeft, onSwipedRight: this.onSwipedRight, trackMouse: true },
                     React.createElement(react_chartjs_2_1.Line, { data: data })),
                 React.createElement("div", { className: "text-right chart-buttons" },
-                    React.createElement("button", { name: "minus", className: "btn btn-default btn-space", onClick: this.loadNewDataByMoveHandler }, "P\u0159edchoz\u00ED"),
-                    React.createElement("button", { name: "plus", className: "btn btn-default", onClick: this.loadNewDataByMoveHandler }, "Dal\u0161\u00ED"))));
+                    React.createElement("button", { name: "minus", className: "btn btn-default btn-space", onClick: this.loadNewDataByEventHandler }, "P\u0159edchoz\u00ED"),
+                    React.createElement("button", { name: "plus", className: "btn btn-default", onClick: this.loadNewDataByEventHandler }, "Dal\u0161\u00ED"))));
         }
         return (React.createElement("div", { className: "col-md-6" },
             React.createElement("div", { className: "panel panel-default" },
@@ -62010,10 +62011,10 @@ var Chart = /** @class */ (function (_super) {
                 React.createElement("div", { className: "panel-body" }, content))));
     };
     Chart.prototype.onSwipedLeft = function () {
-        console.log("swiped left");
+        this.loadNewDataToChart("plus");
     };
     Chart.prototype.onSwipedRight = function () {
-        console.log("swiped right");
+        this.loadNewDataToChart("minus");
     };
     Chart.prototype.datetimeChangedHandler = function (date, name) {
         this.setState(__assign({}, this.state, { dateRange: __assign({}, this.state.dateRange, (_a = {}, _a[name] = date.format(this.state.dbDateFormat), _a)) }));
@@ -62025,14 +62026,20 @@ var Chart = /** @class */ (function (_super) {
             this.loadData();
         }
     };
-    Chart.prototype.loadNewDataByMoveHandler = function (e) {
+    Chart.prototype.loadNewDataByEventHandler = function (e) {
+        var direction = e.target.name;
+        this.loadNewDataToChart(direction);
+    };
+    Chart.prototype.loadNewDataToChart = function (direction) {
         var _this = this;
+        if (direction === void 0) { direction = null; }
+        console.log(direction);
         if (this.state.dateRange.dateFrom !== null && this.state.dateRange.dateTo !== null) {
             var dateFrom = null;
             var dateTo = null;
             var diff = moment(this.state.dateRange.dateTo)
                 .diff(this.state.dateRange.dateFrom) / 1000;
-            switch (e.target.name) {
+            switch (direction) {
                 case "minus":
                     dateTo = moment(this.state.dateRange.dateFrom)
                         .format(this.state.dbDateFormat);
@@ -62051,7 +62058,7 @@ var Chart = /** @class */ (function (_super) {
                     return null;
             }
             this.setState(__assign({}, this.state, { dateRange: __assign({}, this.state.dateRange, { dateFrom: dateFrom,
-                    dateTo: dateTo }) }), function () { return _this.loadData(); });
+                    dateTo: dateTo }) }), function () { return _this.loadData(direction); });
         }
     };
     Chart.prototype.loadInitialData = function () {
@@ -62066,8 +62073,9 @@ var Chart = /** @class */ (function (_super) {
             _this.loadData();
         });
     };
-    Chart.prototype.loadData = function () {
+    Chart.prototype.loadData = function (direction) {
         var _this = this;
+        if (direction === void 0) { direction = null; }
         var url = this.props.url;
         var dateFrom = this.state.dateRange.dateFrom;
         var dateTo = this.state.dateRange.dateTo;
@@ -62075,17 +62083,39 @@ var Chart = /** @class */ (function (_super) {
             url = url + "/?start_date=" + dateFrom + "&end_date=" + dateTo;
         }
         axios_1.default.get(url).then(function (response) {
-            var labels = [];
-            var data = [];
+            var newLabels = [];
+            var newData = [];
             for (var _i = 0, _a = response.data; _i < _a.length; _i++) {
                 var row = _a[_i];
-                labels.push(moment(row.date).format(_this.state.showedDateFormat));
-                data.push(row[_this.props.columnName]);
+                newLabels.push(moment(row.date).format(_this.state.showedDateFormat));
+                newData.push(row[_this.props.columnName]);
             }
-            _this.setState({
-                data: data,
-                labels: labels,
-            });
+            if (direction) {
+                var data = _this.state.data.slice();
+                var labels = _this.state.labels.slice();
+                switch (direction) {
+                    case "plus":
+                        data.push.apply(data, newData);
+                        labels.push.apply(labels, newLabels);
+                        break;
+                    case "minus":
+                        data.unshift.apply(data, newData);
+                        labels.unshift.apply(labels, newLabels);
+                        break;
+                    default:
+                        return null;
+                }
+                _this.setState({
+                    data: data,
+                    labels: labels,
+                });
+            }
+            else {
+                _this.setState({
+                    data: newData,
+                    labels: newLabels,
+                });
+            }
         });
     };
     return Chart;
