@@ -193,7 +193,7 @@ export default class Chart extends React.Component<IProps, IState> {
             case "plus":
                 dateFrom = moment(this.state.dataMeta.lastDate)
                     .format(this.state.dbDateFormat);
-                dateTo = moment(this.state.dateRange.dateTo)
+                dateTo = moment(this.state.dataMeta.lastDate)
                     .add(diff, "minutes")
                     .format(this.state.dbDateFormat);
                 break;
