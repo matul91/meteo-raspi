@@ -10,11 +10,16 @@ moment.locale("cs");
 
 interface IState {
     data: number[];
+    dataMeta: {
+        firstDate: string,
+        lastDate: string,
+    };
     dateRange: {
         dateFrom: string,
         dateTo: string,
     };
     dbDateFormat: string;
+    initialDate: string;
     initialValue: number;
     labels: string[];
     showedDateFormat: string;
@@ -31,11 +36,16 @@ interface IProps {
 export default class Chart extends React.Component<IProps, IState> {
     public state = {
         data: [],
+        dataMeta: {
+            firstDate: null,
+            lastDate: null,
+        },
         dateRange: {
             dateFrom: null,
             dateTo: null,
         },
         dbDateFormat: "YYYY-MM-DD HH:mm:ss",
+        initialDate: null,
         initialValue: null,
         labels: [],
         showedDateFormat: "HH:mm:MM",
@@ -151,7 +161,7 @@ export default class Chart extends React.Component<IProps, IState> {
     private loadNewDataByDateHandler(e): void {
         e.preventDefault();
         if (this.state.dateRange.dateFrom !== null && this.state.dateRange.dateTo !== null) {
-            this.loadData();
+            this.loadData(this.state.dateRange.dateFrom, this.state.dateRange.dateTo);
         }
     }
 
@@ -161,41 +171,37 @@ export default class Chart extends React.Component<IProps, IState> {
     }
 
     private loadNewDataToChart(direction: string = null): void {
-        console.log(direction);
+        let dateFrom;
+        let dateTo;
+        let diff = 0;
+
         if (this.state.dateRange.dateFrom !== null && this.state.dateRange.dateTo !== null) {
-            let dateFrom = null;
-            let dateTo = null;
-            const diff = moment(this.state.dateRange.dateTo)
-                .diff(this.state.dateRange.dateFrom) / 1000;
-
-            switch (direction) {
-                case "minus":
-                    dateTo = moment(this.state.dateRange.dateFrom)
-                        .format(this.state.dbDateFormat);
-                    dateFrom = moment(this.state.dateRange.dateFrom)
-                        .subtract(diff, "seconds")
-                        .format(this.state.dbDateFormat);
-                    break;
-                case "plus":
-                    dateFrom = moment(this.state.dateRange.dateTo)
-                        .format(this.state.dbDateFormat);
-                    dateTo = moment(this.state.dateRange.dateTo)
-                        .add(diff, "seconds")
-                        .format(this.state.dbDateFormat);
-                    break;
-                default:
-                    return null;
-            }
-
-            this.setState({
-                ...this.state,
-                dateRange: {
-                    ...this.state.dateRange,
-                    dateFrom,
-                    dateTo,
-                },
-            }, () => this.loadData(direction));
+            diff = moment(this.state.dateRange.dateTo)
+                .diff(this.state.dateRange.dateFrom) / 1000 / 60;
+        } else {
+            diff = 30;
         }
+
+        switch (direction) {
+            case "minus":
+                dateTo = moment(this.state.dataMeta.firstDate)
+                    .format(this.state.dbDateFormat);
+                dateFrom = moment(this.state.dataMeta.firstDate)
+                    .subtract(diff, "minutes")
+                    .format(this.state.dbDateFormat);
+                break;
+            case "plus":
+                dateFrom = moment(this.state.dataMeta.lastDate)
+                    .format(this.state.dbDateFormat);
+                dateTo = moment(this.state.dateRange.dateTo)
+                    .add(diff, "minutes")
+                    .format(this.state.dbDateFormat);
+                break;
+            default:
+                return null;
+        }
+
+        this.loadData(dateFrom, dateTo, direction);
     }
 
     private loadInitialData(): void {
@@ -204,29 +210,20 @@ export default class Chart extends React.Component<IProps, IState> {
         axios.get(url).then((response: any) => {
             this.setState({
                 ...this.state,
+                initialDate: response.data.date,
                 initialValue: response.data[this.props.columnName],
             });
 
-            const dateTo = response.data.date;
+            const dateTo = this.state.initialDate;
             const dateFrom = moment(dateTo).subtract(30, "minutes").format(this.state.dbDateFormat);
 
-            this.setState({
-                ...this.state,
-                dateRange: {
-                    ...this.state.dateRange,
-                    dateFrom,
-                    dateTo,
-                },
-            });
-
-            this.loadData();
+            this.loadData(dateFrom, dateTo);
         });
     }
 
-    private loadData(direction: string = null): void {
+    private loadData(dateFrom: string, dateTo: string, direction: string = null): void {
         let url = this.props.url;
-        const dateFrom = this.state.dateRange.dateFrom;
-        const dateTo = this.state.dateRange.dateTo;
+        let dataMeta;
 
         if (dateFrom !== null && dateTo !== null) {
             url = `${url}/?start_date=${dateFrom}&end_date=${dateTo}`;
@@ -237,8 +234,12 @@ export default class Chart extends React.Component<IProps, IState> {
             const newData: number[] = [];
 
             for (const row of response.data) {
-                newLabels.push(moment(row.date).format(this.state.showedDateFormat));
+                newLabels.push(row.date);
                 newData.push(row[this.props.columnName]);
+            }
+
+            if (newLabels[0] === this.state.initialDate) {
+                return;
             }
 
             if (direction) {
@@ -258,13 +259,25 @@ export default class Chart extends React.Component<IProps, IState> {
                         return null;
                 }
 
+                dataMeta = {
+                    firstDate: labels[0],
+                    lastDate: labels[labels.length - 1],
+                };
+
                 this.setState({
                     data,
+                    dataMeta,
                     labels,
                 });
             } else {
+                dataMeta = {
+                    firstDate: newLabels[0],
+                    lastDate: newLabels[newLabels.length - 1],
+                };
+
                 this.setState({
                     data: newData,
+                    dataMeta,
                     labels: newLabels,
                 });
             }
