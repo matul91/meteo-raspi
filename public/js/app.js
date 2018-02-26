@@ -61943,20 +61943,26 @@ var Chart = /** @class */ (function (_super) {
     function Chart(props) {
         var _this = _super.call(this, props) || this;
         _this.state = {
-            data: null,
+            data: [],
+            dataMeta: {
+                firstDate: null,
+                lastDate: null,
+            },
             dateRange: {
                 dateFrom: null,
                 dateTo: null,
             },
             dbDateFormat: "YYYY-MM-DD HH:mm:ss",
+            initialDate: null,
             initialValue: null,
-            labels: null,
+            labels: [],
             showedDateFormat: "HH:mm:MM",
         };
         _this.datetimeChangedHandler = _this.datetimeChangedHandler.bind(_this);
         _this.loadNewDataByDateHandler = _this.loadNewDataByDateHandler.bind(_this);
-        _this.loadNewDataByMoveHandler = _this.loadNewDataByMoveHandler.bind(_this);
+        _this.loadNewDataByEventHandler = _this.loadNewDataByEventHandler.bind(_this);
         _this.onSwipedLeft = _this.onSwipedLeft.bind(_this);
+        _this.onSwipedRight = _this.onSwipedRight.bind(_this);
         return _this;
     }
     Chart.prototype.componentDidMount = function () {
@@ -61965,7 +61971,7 @@ var Chart = /** @class */ (function (_super) {
     Chart.prototype.render = function () {
         var content = React.createElement(Loading_1.default, { text: "Načítá se" });
         var suffix = this.props.suffix ? " " + this.props.suffix : "";
-        if (this.state.data) {
+        if (this.state.data.length > 0) {
             var data = {
                 datasets: [
                     {
@@ -61997,8 +62003,8 @@ var Chart = /** @class */ (function (_super) {
                 React.createElement(Swipeable, { onSwipedLeft: this.onSwipedLeft, onSwipedRight: this.onSwipedRight, trackMouse: true },
                     React.createElement(react_chartjs_2_1.Line, { data: data })),
                 React.createElement("div", { className: "text-right chart-buttons" },
-                    React.createElement("button", { name: "minus", className: "btn btn-default btn-space", onClick: this.loadNewDataByMoveHandler }, "P\u0159edchoz\u00ED"),
-                    React.createElement("button", { name: "plus", className: "btn btn-default", onClick: this.loadNewDataByMoveHandler }, "Dal\u0161\u00ED"))));
+                    React.createElement("button", { name: "minus", className: "btn btn-default btn-space", onClick: this.loadNewDataByEventHandler }, "P\u0159edchoz\u00ED"),
+                    React.createElement("button", { name: "plus", className: "btn btn-default", onClick: this.loadNewDataByEventHandler }, "Dal\u0161\u00ED"))));
         }
         return (React.createElement("div", { className: "col-md-6" },
             React.createElement("div", { className: "panel panel-default" },
@@ -62010,10 +62016,10 @@ var Chart = /** @class */ (function (_super) {
                 React.createElement("div", { className: "panel-body" }, content))));
     };
     Chart.prototype.onSwipedLeft = function () {
-        console.log("swiped left");
+        this.loadNewDataToChart("plus");
     };
     Chart.prototype.onSwipedRight = function () {
-        console.log("swiped right");
+        this.loadNewDataToChart("minus");
     };
     Chart.prototype.datetimeChangedHandler = function (date, name) {
         this.setState(__assign({}, this.state, { dateRange: __assign({}, this.state.dateRange, (_a = {}, _a[name] = date.format(this.state.dbDateFormat), _a)) }));
@@ -62022,70 +62028,110 @@ var Chart = /** @class */ (function (_super) {
     Chart.prototype.loadNewDataByDateHandler = function (e) {
         e.preventDefault();
         if (this.state.dateRange.dateFrom !== null && this.state.dateRange.dateTo !== null) {
-            this.loadData();
+            this.loadData(this.state.dateRange.dateFrom, this.state.dateRange.dateTo);
         }
     };
-    Chart.prototype.loadNewDataByMoveHandler = function (e) {
-        var _this = this;
+    Chart.prototype.loadNewDataByEventHandler = function (e) {
+        var direction = e.target.name;
+        this.loadNewDataToChart(direction);
+    };
+    Chart.prototype.loadNewDataToChart = function (direction) {
+        if (direction === void 0) { direction = null; }
+        var dateFrom;
+        var dateTo;
+        var diff = 0;
         if (this.state.dateRange.dateFrom !== null && this.state.dateRange.dateTo !== null) {
-            var dateFrom = null;
-            var dateTo = null;
-            var diff = moment(this.state.dateRange.dateTo)
-                .diff(this.state.dateRange.dateFrom) / 1000;
-            switch (e.target.name) {
-                case "minus":
-                    dateTo = moment(this.state.dateRange.dateFrom)
-                        .format(this.state.dbDateFormat);
-                    dateFrom = moment(this.state.dateRange.dateFrom)
-                        .subtract(diff, "seconds")
-                        .format(this.state.dbDateFormat);
-                    break;
-                case "plus":
-                    dateFrom = moment(this.state.dateRange.dateTo)
-                        .format(this.state.dbDateFormat);
-                    dateTo = moment(this.state.dateRange.dateTo)
-                        .add(diff, "seconds")
-                        .format(this.state.dbDateFormat);
-                    break;
-                default:
-                    return null;
-            }
-            this.setState(__assign({}, this.state, { dateRange: __assign({}, this.state.dateRange, { dateFrom: dateFrom,
-                    dateTo: dateTo }) }), function () { return _this.loadData(); });
+            diff = moment(this.state.dateRange.dateTo)
+                .diff(this.state.dateRange.dateFrom) / 1000 / 60;
         }
+        else {
+            diff = 30;
+        }
+        switch (direction) {
+            case "minus":
+                dateTo = moment(this.state.dataMeta.firstDate)
+                    .format(this.state.dbDateFormat);
+                dateFrom = moment(this.state.dataMeta.firstDate)
+                    .subtract(diff, "minutes")
+                    .format(this.state.dbDateFormat);
+                break;
+            case "plus":
+                dateFrom = moment(this.state.dataMeta.lastDate)
+                    .format(this.state.dbDateFormat);
+                dateTo = moment(this.state.dataMeta.lastDate)
+                    .add(diff, "minutes")
+                    .format(this.state.dbDateFormat);
+                break;
+            default:
+                return null;
+        }
+        this.loadData(dateFrom, dateTo, direction);
     };
     Chart.prototype.loadInitialData = function () {
         var _this = this;
         var url = this.props.url + "/latest";
         axios_1.default.get(url).then(function (response) {
-            _this.setState(__assign({}, _this.state, { initialValue: response.data[_this.props.columnName] }));
-            var dateTo = response.data.date;
+            _this.setState(__assign({}, _this.state, { initialDate: response.data.date, initialValue: response.data[_this.props.columnName] }));
+            var dateTo = _this.state.initialDate;
             var dateFrom = moment(dateTo).subtract(30, "minutes").format(_this.state.dbDateFormat);
-            _this.setState(__assign({}, _this.state, { dateRange: __assign({}, _this.state.dateRange, { dateFrom: dateFrom,
-                    dateTo: dateTo }) }));
-            _this.loadData();
+            _this.loadData(dateFrom, dateTo);
         });
     };
-    Chart.prototype.loadData = function () {
+    Chart.prototype.loadData = function (dateFrom, dateTo, direction) {
         var _this = this;
+        if (direction === void 0) { direction = null; }
         var url = this.props.url;
-        var dateFrom = this.state.dateRange.dateFrom;
-        var dateTo = this.state.dateRange.dateTo;
+        var dataMeta;
         if (dateFrom !== null && dateTo !== null) {
             url = url + "/?start_date=" + dateFrom + "&end_date=" + dateTo;
         }
         axios_1.default.get(url).then(function (response) {
-            var labels = [];
-            var data = [];
+            var newLabels = [];
+            var newData = [];
             for (var _i = 0, _a = response.data; _i < _a.length; _i++) {
                 var row = _a[_i];
-                labels.push(moment(row.date).format(_this.state.showedDateFormat));
-                data.push(row[_this.props.columnName]);
+                newLabels.push(row.date);
+                newData.push(row[_this.props.columnName]);
             }
-            _this.setState({
-                data: data,
-                labels: labels,
-            });
+            if (newLabels[0] === _this.state.initialDate) {
+                return;
+            }
+            if (direction) {
+                var data = _this.state.data.slice();
+                var labels = _this.state.labels.slice();
+                switch (direction) {
+                    case "plus":
+                        data.push.apply(data, newData);
+                        labels.push.apply(labels, newLabels);
+                        break;
+                    case "minus":
+                        data.unshift.apply(data, newData);
+                        labels.unshift.apply(labels, newLabels);
+                        break;
+                    default:
+                        return null;
+                }
+                dataMeta = {
+                    firstDate: labels[0],
+                    lastDate: labels[labels.length - 1],
+                };
+                _this.setState({
+                    data: data,
+                    dataMeta: dataMeta,
+                    labels: labels,
+                });
+            }
+            else {
+                dataMeta = {
+                    firstDate: newLabels[0],
+                    lastDate: newLabels[newLabels.length - 1],
+                };
+                _this.setState({
+                    data: newData,
+                    dataMeta: dataMeta,
+                    labels: newLabels,
+                });
+            }
         });
     };
     return Chart;
