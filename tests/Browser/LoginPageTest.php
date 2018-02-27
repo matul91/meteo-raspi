@@ -26,6 +26,7 @@ class LoginPageTest extends DuskTestCase
                 ->type('password', 'secret')
                 ->press('Submit')
                 ->waitForLocation('/login')
+                ->pause(2000)
                 ->assertSee('Neplatné přilašovací údaje');
         });
     }
@@ -40,6 +41,7 @@ class LoginPageTest extends DuskTestCase
                 ->type('password', 'secret')
                 ->press('Submit')
                 ->waitForLocation('/')
+                ->pause(2000)
                 ->assertSee('Přihlášen jako');
         });
     }

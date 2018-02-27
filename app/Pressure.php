@@ -38,7 +38,7 @@ class Pressure extends Model
 
     }
 
-    private static function getSettingMaxValuesPerGraph(){
+    public static function getSettingMaxValuesPerGraph(){
         return Setting::getByID("max_data_per_graph")->value;
     }
 
