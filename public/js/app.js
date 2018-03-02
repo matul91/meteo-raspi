@@ -41503,7 +41503,7 @@ exports.default = Loading;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(389);
-module.exports = __webpack_require__(783);
+module.exports = __webpack_require__(784);
 
 
 /***/ }),
@@ -41519,7 +41519,7 @@ var react_redux_1 = __webpack_require__(47);
 var redux_1 = __webpack_require__(271);
 var redux_thunk_1 = __webpack_require__(428);
 var App_1 = __webpack_require__(429);
-var auth_1 = __webpack_require__(782);
+var auth_1 = __webpack_require__(783);
 var composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || redux_1.compose;
 var rootReducer = redux_1.combineReducers({
     auth: auth_1.default,
@@ -61556,11 +61556,11 @@ var react_redux_1 = __webpack_require__(47);
 var react_router_dom_1 = __webpack_require__(69);
 var AccessDenied_1 = __webpack_require__(475);
 var Index_1 = __webpack_require__(476);
-var LoggedUser_1 = __webpack_require__(775);
-var Login_1 = __webpack_require__(777);
-var Logout_1 = __webpack_require__(779);
-var PageNotFound_1 = __webpack_require__(780);
-var Navbar_1 = __webpack_require__(781);
+var LoggedUser_1 = __webpack_require__(776);
+var Login_1 = __webpack_require__(778);
+var Logout_1 = __webpack_require__(780);
+var PageNotFound_1 = __webpack_require__(781);
+var Navbar_1 = __webpack_require__(782);
 var Layout = function (props) {
     var loggedRoutes = (React.createElement(react_router_dom_1.Route, { path: "/logged", component: AccessDenied_1.default }));
     if (props.isAuthenticated) {
@@ -64609,6 +64609,7 @@ var Swipeable = __webpack_require__(479);
 var recharts_1 = __webpack_require__(481);
 var DateTimeRangePicker_1 = __webpack_require__(766);
 var Loading_1 = __webpack_require__(387);
+var CustomTooltip_1 = __webpack_require__(775);
 moment.locale("cs");
 var Chart = /** @class */ (function (_super) {
     __extends(Chart, _super);
@@ -64658,7 +64659,7 @@ var Chart = /** @class */ (function (_super) {
                             React.createElement(recharts_1.Line, { type: "monotone", dataKey: "value", stroke: "#8884d8" }),
                             React.createElement(recharts_1.XAxis, { dataKey: "date" }),
                             React.createElement(recharts_1.YAxis, null),
-                            React.createElement(recharts_1.Tooltip, null)))),
+                            React.createElement(recharts_1.Tooltip, { content: React.createElement(CustomTooltip_1.default, { payload: external }) })))),
                 React.createElement("div", { className: "text-right chart-buttons" },
                     React.createElement("button", { name: "minus", className: "btn btn-default btn-space", onClick: this.loadNewDataByEventHandler }, "P\u0159edchoz\u00ED"),
                     React.createElement("button", { name: "plus", className: "btn btn-default", onClick: this.loadNewDataByEventHandler }, "Dal\u0161\u00ED"))));
@@ -82490,9 +82491,58 @@ module.exports = DateTimePickerTime;
 
 "use strict";
 
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(1);
-var react_web_notifications_1 = __webpack_require__(776);
+var Chart = /** @class */ (function (_super) {
+    __extends(Chart, _super);
+    function Chart() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    Chart.prototype.render = function () {
+        var content = null;
+        var finalStyle = {
+            backgroundColor: "#fff",
+            border: "1px solid #ccc",
+            margin: 0,
+            padding: 10,
+            whiteSpace: "nowrap",
+        };
+        var payload = this.props.payload;
+        if (payload && payload.length) {
+            content = (React.createElement("div", null,
+                React.createElement("p", null,
+                    React.createElement("strong", null, payload[0].payload.date)),
+                React.createElement("p", null,
+                    "Hodnota: ",
+                    payload[0].payload.value,
+                    payload[0].payload.unit)));
+        }
+        return (React.createElement("div", { style: finalStyle }, payload && payload.length ? content : ""));
+    };
+    return Chart;
+}(React.Component));
+exports.default = Chart;
+
+
+/***/ }),
+/* 776 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(1);
+var react_web_notifications_1 = __webpack_require__(777);
 var LoggedUser = function () {
     return (React.createElement("div", { className: "row" },
         React.createElement(react_web_notifications_1.default, { title: "Hello, World!", body: "This is a web notification", timeout: 9000 }),
@@ -82503,13 +82553,13 @@ exports.default = LoggedUser;
 
 
 /***/ }),
-/* 776 */
+/* 777 */
 /***/ (function(module, exports, __webpack_require__) {
 
 !function(t,e){ true?module.exports=e(__webpack_require__(1)):"function"==typeof define&&define.amd?define(["react"],e):"object"==typeof exports?exports.ReactWebNotification=e(require("react")):t.ReactWebNotification=e(t.React)}(this,function(t){return function(t){function e(o){if(n[o])return n[o].exports;var r=n[o]={i:o,l:!1,exports:{}};return t[o].call(r.exports,r,r.exports,e),r.l=!0,r.exports}var n={};return e.m=t,e.c=n,e.i=function(t){return t},e.d=function(t,n,o){e.o(t,n)||Object.defineProperty(t,n,{configurable:!1,enumerable:!0,get:o})},e.n=function(t){var n=t&&t.__esModule?function(){return t.default}:function(){return t};return e.d(n,"a",n),n},e.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},e.p="dist/",e(e.s=3)}([function(t,e,n){(function(e){var n;n="undefined"!=typeof window?window:void 0!==e?e:"undefined"!=typeof self?self:{},t.exports=n}).call(e,n(8))},function(t,e,n){t.exports=n(6)()},function(e,n){e.exports=t},function(t,e,n){"use strict";function o(t){return t&&t.__esModule?t:{default:t}}function r(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}function i(t,e){if(!t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!e||"object"!=typeof e&&"function"!=typeof e?t:e}function u(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function, not "+typeof e);t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,enumerable:!1,writable:!0,configurable:!0}}),e&&(Object.setPrototypeOf?Object.setPrototypeOf(t,e):t.__proto__=e)}Object.defineProperty(e,"__esModule",{value:!0});var c=function(){function t(t,e){for(var n=0;n<e.length;n++){var o=e[n];o.enumerable=o.enumerable||!1,o.configurable=!0,"value"in o&&(o.writable=!0),Object.defineProperty(t,o.key,o)}}return function(e,n,o){return n&&t(e.prototype,n),o&&t(e,o),e}}(),f=n(2),a=(o(f),n(1)),s=o(a),l=n(0),p=o(l),d=function(t){function e(){var t,n,o,u;r(this,e);for(var c=arguments.length,f=Array(c),a=0;a<c;a++)f[a]=arguments[a];return n=o=i(this,(t=e.__proto__||Object.getPrototypeOf(e)).call.apply(t,[this].concat(f))),o.notification={},u=n,i(o,u)}return u(e,t),c(e,[{key:"componentDidMount",value:function(){var t=this;p.default.Notification&&p.default.Notification.requestPermission(function(e){"granted"===e&&t.show()})}},{key:"show",value:function(){var t=this,e=this.props,n=e.title,o=e.icon,r=e.body,i=e.timeout,u=e.onClickFn;if(n){var c={};o&&Object.assign(c,{icon:o}),r&&Object.assign(c,{body:r}),this.notification=new p.default.Notification(n,c),u&&this.notification.addEventListener("click",u,!1),p.default.setTimeout(function(){t.notification.close()},i||5e3)}}},{key:"render",value:function(){return null}}]),e}(f.Component);d.propTypes={title:s.default.string.isRequired,icon:s.default.string,body:s.default.string,timeout:s.default.number,onClickFn:s.default.func},e.default=d},function(t,e,n){"use strict";function o(t){return function(){return t}}var r=function(){};r.thatReturns=o,r.thatReturnsFalse=o(!1),r.thatReturnsTrue=o(!0),r.thatReturnsNull=o(null),r.thatReturnsThis=function(){return this},r.thatReturnsArgument=function(t){return t},t.exports=r},function(t,e,n){"use strict";function o(t,e,n,o,i,u,c,f){if(r(e),!t){var a;if(void 0===e)a=new Error("Minified exception occurred; use the non-minified dev environment for the full error message and additional helpful warnings.");else{var s=[n,o,i,u,c,f],l=0;a=new Error(e.replace(/%s/g,function(){return s[l++]})),a.name="Invariant Violation"}throw a.framesToPop=1,a}}var r=function(t){};t.exports=o},function(t,e,n){"use strict";var o=n(4),r=n(5),i=n(7);t.exports=function(){function t(t,e,n,o,u,c){c!==i&&r(!1,"Calling PropTypes validators directly is not supported by the `prop-types` package. Use PropTypes.checkPropTypes() to call them. Read more at http://fb.me/use-check-prop-types")}function e(){return t}t.isRequired=t;var n={array:t,bool:t,func:t,number:t,object:t,string:t,symbol:t,any:t,arrayOf:e,element:t,instanceOf:e,node:t,objectOf:e,oneOf:e,oneOfType:e,shape:e};return n.checkPropTypes=o,n.PropTypes=n,n}},function(t,e,n){"use strict";t.exports="SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED"},function(t,e){var n;n=function(){return this}();try{n=n||Function("return this")()||(0,eval)("this")}catch(t){"object"==typeof window&&(n=window)}t.exports=n}])});
 
 /***/ }),
-/* 777 */
+/* 778 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -82537,7 +82587,7 @@ var React = __webpack_require__(1);
 var react_redux_1 = __webpack_require__(47);
 var react_router_dom_1 = __webpack_require__(69);
 var actions = __webpack_require__(98);
-var Alert_1 = __webpack_require__(778);
+var Alert_1 = __webpack_require__(779);
 var Loading_1 = __webpack_require__(387);
 var Login = /** @class */ (function (_super) {
     __extends(Login, _super);
@@ -82603,7 +82653,7 @@ exports.default = react_redux_1.connect(mapStateToProps, mapDispatchToProps)(Log
 
 
 /***/ }),
-/* 778 */
+/* 779 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -82626,7 +82676,7 @@ exports.default = Alert;
 
 
 /***/ }),
-/* 779 */
+/* 780 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -82668,7 +82718,7 @@ exports.default = react_redux_1.connect(null, mapDispatchToProps)(Logout);
 
 
 /***/ }),
-/* 780 */
+/* 781 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -82682,7 +82732,7 @@ exports.default = PageNotFound;
 
 
 /***/ }),
-/* 781 */
+/* 782 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -82718,7 +82768,7 @@ exports.default = Navbar;
 
 
 /***/ }),
-/* 782 */
+/* 783 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -82766,7 +82816,7 @@ exports.default = reducer;
 
 
 /***/ }),
-/* 783 */
+/* 784 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

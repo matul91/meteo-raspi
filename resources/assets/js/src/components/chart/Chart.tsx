@@ -5,6 +5,7 @@ import * as Swipeable from "react-swipeable";
 import { Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import DatetimeRangePicker from "../datetimeRangePicker/DateTimeRangePicker";
 import Loading from "../loading/Loading";
+import CustomTooltip from "./customTooltip/CustomTooltip";
 
 moment.locale("cs");
 
@@ -86,10 +87,10 @@ export default class Chart extends React.Component<IProps, IState> {
                     >
                         <ResponsiveContainer width="100%" height={300}>
                             <LineChart width={830} height={400} data={data}>
-                                <Line type="monotone" dataKey="value" stroke="#8884d8" />
+                                <Line type="monotone" dataKey="value" />
                                 <XAxis dataKey="date" />
                                 <YAxis />
-                                <Tooltip />
+                                <Tooltip content={<CustomTooltip payload={external} />} />
                             </LineChart>
                         </ResponsiveContainer>
                     </Swipeable>
