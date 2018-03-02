@@ -2,7 +2,7 @@ import axios from "axios";
 import * as moment from "moment";
 import * as React from "react";
 import * as Swipeable from "react-swipeable";
-import {HorizontalGridLines, LineMarkSeries, XAxis, XYPlot, YAxis} from "react-vis";
+import { Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import DatetimeRangePicker from "../datetimeRangePicker/DateTimeRangePicker";
 import Loading from "../loading/Loading";
 
@@ -46,7 +46,7 @@ export default class Chart extends React.Component<IProps, IState> {
         dbDateFormat: "YYYY-MM-DD HH:mm:ss",
         initialDate: null,
         initialValue: null,
-        showedDateFormat: "HH:mm:MM",
+        showedDateFormat: "HH:mm",
     };
 
     constructor(props) {
@@ -63,8 +63,14 @@ export default class Chart extends React.Component<IProps, IState> {
     }
 
     public render(): JSX.Element {
-        let content = <Loading text={"Načítá se"} />;
+        let content = <Loading text={"Načítá se..."} />;
         const suffix = this.props.suffix ? ` ${this.props.suffix}` : "";
+        const data = this.state.data.map((obj) => {
+            return {
+                date: moment(obj.date).format(this.state.showedDateFormat),
+                value: obj.value,
+            };
+        });
 
         if (this.state.data.length > 0) {
             content = (
@@ -78,19 +84,14 @@ export default class Chart extends React.Component<IProps, IState> {
                         onSwipedRight={this.onSwipedRight}
                         trackMouse={true}
                     >
-                        <XYPlot
-                            width={700}
-                            height={300}
-                            xType={"time"}
-                        >
-                            <XAxis />
-                            <YAxis title={`${this.props.name}${suffix}`}/>
-                            <HorizontalGridLines />
-                            <LineMarkSeries
-                                data={this.state.data}
-                            />
-                        </XYPlot>
-
+                        <ResponsiveContainer width="100%" height={300}>
+                            <LineChart width={830} height={400} data={data}>
+                                <Line type="monotone" dataKey="value" stroke="#8884d8" />
+                                <XAxis dataKey="date" />
+                                <YAxis />
+                                <Tooltip />
+                            </LineChart>
+                        </ResponsiveContainer>
                     </Swipeable>
                     <div className="text-right chart-buttons">
                         <button
@@ -216,14 +217,14 @@ export default class Chart extends React.Component<IProps, IState> {
         axios.get(url).then((response: any) => {
             const newData = [];
 
-            for (const row of response.data) {
+            for (let i = 0; i < response.data.length - 1; i++) {
                 newData.push({
-                    x: moment(row.date).toDate(),
-                    y: row[this.props.columnName],
+                    date: response.data[i].date,
+                    value: response.data[i][this.props.columnName],
                 });
             }
 
-            if (newData[0].x === this.state.initialDate) {
+            if (newData[0].date === this.state.initialDate) {
                 return;
             }
 
@@ -242,8 +243,8 @@ export default class Chart extends React.Component<IProps, IState> {
                 }
 
                 dataMeta = {
-                    firstDate: newData[0].x,
-                    lastDate: newData[newData.length - 1].x,
+                    firstDate: newData[0].date,
+                    lastDate: newData[newData.length - 1].date,
                 };
 
                 this.setState({
@@ -252,8 +253,8 @@ export default class Chart extends React.Component<IProps, IState> {
                 });
             } else {
                 dataMeta = {
-                    firstDate: newData[0].x,
-                    lastDate: newData[newData.length - 1].x,
+                    firstDate: newData[0].date,
+                    lastDate: newData[newData.length - 1].date,
                 };
 
                 this.setState({
