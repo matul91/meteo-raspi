@@ -1,15 +1,16 @@
 import axios from "axios";
 import * as moment from "moment";
 import * as React from "react";
-import {Line} from "react-chartjs-2";
 import * as Swipeable from "react-swipeable";
+import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import DatetimeRangePicker from "../datetimeRangePicker/DateTimeRangePicker";
 import Loading from "../loading/Loading";
+import CustomTooltip from "./customTooltip/CustomTooltip";
 
 moment.locale("cs");
 
 interface IState {
-    data: number[];
+    data: any;
     dataMeta: {
         firstDate: string,
         lastDate: string,
@@ -21,7 +22,6 @@ interface IState {
     dbDateFormat: string;
     initialDate: string;
     initialValue: number;
-    labels: string[];
     showedDateFormat: string;
 }
 
@@ -47,8 +47,7 @@ export default class Chart extends React.Component<IProps, IState> {
         dbDateFormat: "YYYY-MM-DD HH:mm:ss",
         initialDate: null,
         initialValue: null,
-        labels: [],
-        showedDateFormat: "HH:mm:MM",
+        showedDateFormat: "HH:mm",
     };
 
     constructor(props) {
@@ -65,36 +64,16 @@ export default class Chart extends React.Component<IProps, IState> {
     }
 
     public render(): JSX.Element {
-        let content = <Loading text={"Načítá se"} />;
+        let content = <Loading text={"Načítá se..."} />;
         const suffix = this.props.suffix ? ` ${this.props.suffix}` : "";
+        const data = this.state.data.map((obj) => {
+            return {
+                date: moment(obj.date).format(this.state.showedDateFormat),
+                value: obj.value,
+            };
+        });
 
         if (this.state.data.length > 0) {
-            const data = {
-                datasets: [
-                    {
-                        backgroundColor: "rgba(75,192,192,0.4)",
-                        borderCapStyle: "butt",
-                        borderColor: "rgba(75,192,192,1)",
-                        borderDash: [],
-                        borderDashOffset: 0.0,
-                        borderJoinStyle: "miter",
-                        data: this.state.data,
-                        fill: true,
-                        label: `${this.props.name}${suffix}`,
-                        lineTension: 0.2,
-                        pointBackgroundColor: "#fff",
-                        pointBorderColor: "rgba(75,192,192,1)",
-                        pointBorderWidth: 1,
-                        pointHitRadius: 10,
-                        pointHoverBackgroundColor: "rgba(75,192,192,1)",
-                        pointHoverBorderColor: "rgba(220,220,220,1)",
-                        pointHoverBorderWidth: 2,
-                        pointHoverRadius: 5,
-                        pointRadius: 1,
-                    },
-                ],
-                labels: this.state.labels,
-            };
             content = (
                 <div className="chart">
                     <DatetimeRangePicker
@@ -106,7 +85,15 @@ export default class Chart extends React.Component<IProps, IState> {
                         onSwipedRight={this.onSwipedRight}
                         trackMouse={true}
                     >
-                        <Line data={data} />
+                        <ResponsiveContainer width="100%" height={300}>
+                            <LineChart width={830} height={400} data={data}>
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="date" />
+                                <YAxis />
+                                <Line type="monotone" dataKey="value" />
+                                <Tooltip content={<CustomTooltip payload={external} />} />
+                            </LineChart>
+                        </ResponsiveContainer>
                     </Swipeable>
                     <div className="text-right chart-buttons">
                         <button
@@ -230,55 +217,52 @@ export default class Chart extends React.Component<IProps, IState> {
         }
 
         axios.get(url).then((response: any) => {
-            const newLabels: string[] = [];
-            const newData: number[] = [];
+            const newData = [];
+            const length = this.state.data.length > 0 ? response.data.length - 1 : response.data.length;
 
-            for (const row of response.data) {
-                newLabels.push(row.date);
-                newData.push(row[this.props.columnName]);
+            for (let i = 0; i < length; i++) {
+                newData.push({
+                    date: response.data[i].date,
+                    value: response.data[i][this.props.columnName],
+                });
             }
 
-            if (newLabels[0] === this.state.initialDate) {
+            if (newData[0].date === this.state.initialDate) {
                 return;
             }
 
             if (direction) {
                 const data = [...this.state.data];
-                const labels = [...this.state.labels];
 
                 switch (direction) {
                     case "plus":
                         data.push(...newData);
-                        labels.push(...newLabels);
                         break;
                     case "minus":
                         data.unshift(...newData);
-                        labels.unshift(...newLabels);
                         break;
                     default:
                         return null;
                 }
 
                 dataMeta = {
-                    firstDate: labels[0],
-                    lastDate: labels[labels.length - 1],
+                    firstDate: newData[0].date,
+                    lastDate: newData[newData.length - 1].date,
                 };
 
                 this.setState({
                     data,
                     dataMeta,
-                    labels,
                 });
             } else {
                 dataMeta = {
-                    firstDate: newLabels[0],
-                    lastDate: newLabels[newLabels.length - 1],
+                    firstDate: newData[0].date,
+                    lastDate: newData[newData.length - 1].date,
                 };
 
                 this.setState({
                     data: newData,
                     dataMeta,
-                    labels: newLabels,
                 });
             }
         });
