@@ -64656,7 +64656,7 @@ var Chart = /** @class */ (function (_super) {
                 React.createElement(Swipeable, { onSwipedLeft: this.onSwipedLeft, onSwipedRight: this.onSwipedRight, trackMouse: true },
                     React.createElement(recharts_1.ResponsiveContainer, { width: "100%", height: 300 },
                         React.createElement(recharts_1.LineChart, { width: 830, height: 400, data: data },
-                            React.createElement(recharts_1.Line, { type: "monotone", dataKey: "value", stroke: "#8884d8" }),
+                            React.createElement(recharts_1.Line, { type: "monotone", dataKey: "value" }),
                             React.createElement(recharts_1.XAxis, { dataKey: "date" }),
                             React.createElement(recharts_1.YAxis, null),
                             React.createElement(recharts_1.Tooltip, { content: React.createElement(CustomTooltip_1.default, { payload: external }) })))),
@@ -64745,7 +64745,8 @@ var Chart = /** @class */ (function (_super) {
         }
         axios_1.default.get(url).then(function (response) {
             var newData = [];
-            for (var i = 0; i < response.data.length - 1; i++) {
+            var length = _this.state.data.length > 0 ? response.data.length - 1 : response.data.length;
+            for (var i = 0; i < length; i++) {
                 newData.push({
                     date: response.data[i].date,
                     value: response.data[i][_this.props.columnName],

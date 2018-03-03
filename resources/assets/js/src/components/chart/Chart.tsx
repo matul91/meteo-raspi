@@ -217,8 +217,9 @@ export default class Chart extends React.Component<IProps, IState> {
 
         axios.get(url).then((response: any) => {
             const newData = [];
+            const length = this.state.data.length > 0 ? response.data.length - 1 : response.data.length;
 
-            for (let i = 0; i < response.data.length - 1; i++) {
+            for (let i = 0; i < length; i++) {
                 newData.push({
                     date: response.data[i].date,
                     value: response.data[i][this.props.columnName],
