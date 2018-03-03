@@ -2,7 +2,7 @@ import axios from "axios";
 import * as moment from "moment";
 import * as React from "react";
 import * as Swipeable from "react-swipeable";
-import { Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import DatetimeRangePicker from "../datetimeRangePicker/DateTimeRangePicker";
 import Loading from "../loading/Loading";
 import CustomTooltip from "./customTooltip/CustomTooltip";
@@ -87,9 +87,10 @@ export default class Chart extends React.Component<IProps, IState> {
                     >
                         <ResponsiveContainer width="100%" height={300}>
                             <LineChart width={830} height={400} data={data}>
-                                <Line type="monotone" dataKey="value" />
+                                <CartesianGrid strokeDasharray="3 3" />
                                 <XAxis dataKey="date" />
                                 <YAxis />
+                                <Line type="monotone" dataKey="value" />
                                 <Tooltip content={<CustomTooltip payload={external} />} />
                             </LineChart>
                         </ResponsiveContainer>
