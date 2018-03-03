@@ -45,20 +45,20 @@ export const auth = (email, password) => {
     return (dispatch) => {
         dispatch(authStart());
         const data = {
-            client_id: 2,
-            client_secret: "zLVQUdDRTPwmaXEouLlbTbX5knSFcPKrUNHTSDt7",
-            grant_type: "password",
+            client_id: process.env.MIX_CLIENT_ID,
+            client_secret: process.env.MIX_CLIENT_SECRET,
+            grant_type: process.env.MIX_GRANT_TYPE,
             password,
             username: email,
         };
-        axios.post("/oauth/token", data)
+        axios.post(process.env.MIX_OAUTH_ADD, data)
             .then((response) => {
                 const accessToken = response.data.access_token;
                 const expirationDate = new Date(new Date().getTime() + response.data.expires_in * 1000);
                 const headerData = {
                     Authorization: `Bearer ${accessToken}`,
                 };
-                axios.get("/api/user", {headers: headerData}).then((res) => {
+                axios.get(process.env.MIX_USER_PROFILE_ADD, {headers: headerData}).then((res) => {
                     localStorage.setItem("token", accessToken);
                     localStorage.setItem("expirationDate", expirationDate.toString());
                     localStorage.setItem("userId", res.data.id);

@@ -60609,7 +60609,7 @@ exports.auth = function (email, password) {
     return function (dispatch) {
         dispatch(exports.authStart());
         var data = {
-            client_id: 2,
+            client_id: "2",
             client_secret: "zLVQUdDRTPwmaXEouLlbTbX5knSFcPKrUNHTSDt7",
             grant_type: "password",
             password: password,
