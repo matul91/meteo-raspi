@@ -11,8 +11,16 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/pressures', 'PressureController@index');
+Route::get('/pressures/latest', 'PressureController@latest');
+Route::get('/settings', 'SettingController@index');
+Route::get('/temperatures', 'TemperatureController@index');
+Route::get('/temperatures/latest', 'TemperatureController@latest');
 
-Route::get('/data', 'PressureController@data');
+Route::get('/winds', 'WindController@index');
+Route::get('/winds/latest', 'WindController@latest');
+
+Route::any('{all}', function () {
+    return view('index');
+})
+->where(['all' => '.*']);

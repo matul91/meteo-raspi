@@ -2,12 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Pressure;
+
 
 class PressureController extends Controller
 {
-    public function data()
+    public function index()
     {
-        return \App\Pressure::limit(1000)->get();
+        return Pressure::loadData(request()->query('start_date'), request()->query('end_date'));
     }
+
+    public function latest()
+    {
+        return Pressure::getLastRecord();
+    }
+
 }

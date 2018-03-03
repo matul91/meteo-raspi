@@ -1,0 +1,12 @@
+{
+    "rulesDirectory": [
+        "./resources/assets/js"
+    ],
+    "extends": [
+        "tslint:latest",
+        "tslint-react"
+    ],
+    "rules": {
+        "no-console": [false]
+    }
+}
