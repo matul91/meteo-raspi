@@ -15,3 +15,4 @@ yarn-error.log
 .env
 yarn.lock
 package-lock.json
+/public/js/app.js
