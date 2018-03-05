@@ -1,6 +1,7 @@
 {
     "private": true,
     "scripts": {
+        "postinstall": "npm run prod",
         "dev": "npm run development",
         "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
         "watch": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
@@ -28,6 +29,7 @@
     "dependencies": {
         "axios": "^0.17.0",
         "moment": "^2.19.2",
+        "production": "0.0.2",
         "prop-types": "^15.6.0",
         "react": "^16.0.0",
         "react-datetime": "^2.11.0",
