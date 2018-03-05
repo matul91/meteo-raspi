@@ -18,7 +18,7 @@ class easySetup extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Command for automatic easy setup';
 
     /**
      * Create a new command instance.
