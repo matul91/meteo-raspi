@@ -32,4 +32,5 @@ before_script:
   - php artisan serve &
 
 script:
+  - vendor/bin/phpcs --standard=PSR2 --ignore="vendor,resources,storage,public,database,bootstrap" ./
   - php artisan dusk
