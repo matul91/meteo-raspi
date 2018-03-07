@@ -30,4 +30,9 @@ mix.react('resources/assets/js/src/App.tsx', 'public/js')
             chunkFilename: 'js/[name].[chunkhash].js',
             publicPath: '/',
         }
-    });
+    })
+    .extract(['react', 'redux', 'axios', 'recharts', 'moment']);
+
+if (mix.inProduction()) {
+    mix.version();
+}

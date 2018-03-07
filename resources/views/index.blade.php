@@ -7,15 +7,17 @@
 
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
-    
+
         <title>{{ config('app.name', 'Laravel') }}</title>
-    
+
         <!-- Styles -->
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     </head>
     <body>
         <div id="app"></div>
         <!-- Scripts -->
-        <script src="{{ asset('js/App.js') }}"></script>
+        <script src="{{ mix('js/manifest.js') }}"></script>
+        <script src="{{ mix('js/vendor.js') }}"></script>
+        <script src="{{ mix('js/App.js') }}"></script>
     </body>
 </html>
