@@ -1,4 +1,5 @@
 let mix = require('laravel-mix');
+let webpack = require("webpack");
 
 /*
  |--------------------------------------------------------------------------
@@ -29,7 +30,10 @@ mix.react('resources/assets/js/src/App.tsx', 'public/js')
         output: {
             chunkFilename: 'js/[name].[chunkhash].js',
             publicPath: '/',
-        }
+        },
+        plugins: [
+            new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /cs/)
+        ]
     })
     .extract(['react', 'redux', 'axios', 'recharts', 'moment']);
 
