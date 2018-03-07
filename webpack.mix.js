@@ -17,7 +17,7 @@ mix.react('resources/assets/js/src/App.tsx', 'public/js')
         module: {
             rules: [
                 {
-                    test: /\.tsx?$/,
+                    test: /\.(ts|tsx)$/,
                     loader: 'ts-loader',
                     exclude: /node_modules/,
                 },
@@ -26,4 +26,8 @@ mix.react('resources/assets/js/src/App.tsx', 'public/js')
         resolve: {
             extensions: ['*', '.js', '.jsx', '.vue', '.ts', '.tsx'],
         },
+        output: {
+            chunkFilename: 'js/[name].[chunkhash].js',
+            publicPath: '/',
+        }
     });
