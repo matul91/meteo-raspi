@@ -11,12 +11,7 @@ use Illuminate\Http\Request;
 |
 */
 
-
-Route::middleware('auth:api')->get('/testController', function (Request $request) {
-    return $request->user()->id;
-});
-
-
+Route::get('/testController', 'TestController@index');
 Route::get('/pressures', 'PressureController@index');
 Route::get('/pressures/latest', 'PressureController@latest');
 Route::get('/settings', 'SettingController@index');
