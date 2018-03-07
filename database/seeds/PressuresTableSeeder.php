@@ -16,7 +16,7 @@ class PressuresTableSeeder extends Seeder
         $faker = Faker\Factory::create();
         $pressureValue = $faker->numberBetween(800, 2000);
 
-        for ($i = 0; $i < 1000; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             if (random_int(1, 6) <= 3) {
                 $max = ($pressureValue + 100 <= 2000) ? $pressureValue + 100 : 2000;
                 $pressureValue = $faker->numberBetween($pressureValue, $max);
