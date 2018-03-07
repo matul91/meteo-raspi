@@ -32,5 +32,12 @@ class UsersTableSeeder extends Seeder
 
 
         factory(App\User::class, 10)->create();
+        $user = factory(App\User::class)->make([
+            'email' => 'info@osu.cz',
+            'name' => 'Jiri Matula',
+
+        ]);
+
+        $user->save();
     }
 }
