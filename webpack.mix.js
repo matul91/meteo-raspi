@@ -1,5 +1,6 @@
 let mix = require('laravel-mix');
-let webpack = require("webpack");
+const webpack = require('webpack');
+const CompressionPlugin = require('compression-webpack-plugin');
 
 /*
  |--------------------------------------------------------------------------
@@ -32,7 +33,14 @@ mix.react('resources/assets/js/src/App.tsx', 'public/js')
             publicPath: '/',
         },
         plugins: [
-            new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /cs/)
+            new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /cs/),
+            new CompressionPlugin({
+                asset: '[path].gz[query]',
+                algorithm: 'gzip',
+                test: /\.js$|\.css$|\.html$|\.svg$/,
+                threshold: 10240,
+                minRatio: 0.8
+            })
         ]
     })
     .extract(['react', 'redux', 'axios', 'recharts', 'moment']);
