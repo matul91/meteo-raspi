@@ -5,13 +5,13 @@ const Index = () => {
     return (
         <div className="row">
             <div className="col-md-6">
-                <Chart name={"Tlak"} url={"/pressures"} columnName={"pressure"} suffix={"hPa"} />
+                <Chart name={"Tlak"} url={"pressures"} columnName={"pressure"} suffix={"hPa"} />
             </div>
             <div className="col-md-6">
-                <Chart name={"Teplota"} url={"/temperatures"} columnName={"temperature"} suffix={"°C"} />
+                <Chart name={"Teplota"} url={"temperatures"} columnName={"temperature"} suffix={"°C"} />
             </div>
             <div className="col-md-6">
-                <Chart name={"Rychlost větru"} url={"/winds"} columnName={"speed"} suffix={"m/s"} />
+                <Chart name={"Rychlost větru"} url={"winds"} columnName={"speed"} suffix={"m/s"} />
             </div>
         </div>
     );
