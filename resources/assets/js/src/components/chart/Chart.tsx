@@ -148,8 +148,6 @@ export default class Chart extends React.Component<IProps, IState> {
     }
 
     private loadNewDataToChart(direction: string = null): void {
-        let dateFrom;
-        let dateTo;
         let diff = 0;
 
         if (this.state.dateRange.dateFrom !== null && this.state.dateRange.dateTo !== null) {
@@ -159,23 +157,40 @@ export default class Chart extends React.Component<IProps, IState> {
             diff = INITIAL_DURATION;
         }
 
+        const dates = this.calculateDiffBetweenDates(direction, diff);
+        const dateFrom = this.formatDateToShowedFormat(dates.dateFrom);
+        const dateTo = this.formatDateToShowedFormat(dates.dateTo);
+
+        this.loadData(dateFrom, dateTo, direction);
+    }
+
+    private calculateDiffBetweenDates(direction: string, diff: number): {dateFrom: string, dateTo: string} {
+        const firstDate = this.state.dataMeta.firstDate;
+        const lastDate = this.state.dataMeta.lastDate;
+        let dateFrom;
+        let dateTo;
+
         switch (direction) {
             case "minus":
-                dateTo = moment(this.state.dataMeta.firstDate);
-                dateFrom = moment(this.state.dataMeta.firstDate).subtract(diff, "minutes");
+                dateTo = moment(firstDate);
+                dateFrom = moment(firstDate).subtract(diff, "minutes");
                 break;
             case "plus":
-                dateFrom = moment(this.state.dataMeta.lastDate);
-                dateTo = moment(this.state.dataMeta.lastDate).add(diff, "minutes");
+                dateFrom = moment(lastDate);
+                dateTo = moment(lastDate).add(diff, "minutes");
                 break;
             default:
                 return null;
         }
 
-        dateFrom = moment(dateFrom).format(this.state.dbDateFormat);
-        dateTo = moment(dateTo).format(this.state.dbDateFormat);
+        return {
+            dateFrom,
+            dateTo,
+        };
+    }
 
-        this.loadData(dateFrom, dateTo, direction);
+    private formatDateToShowedFormat(date: string): string {
+        return moment(date).format(this.state.showedDateFormat);
     }
 
     private loadInitialData(): void {
@@ -220,7 +235,6 @@ export default class Chart extends React.Component<IProps, IState> {
 
             if (direction) {
                 const data = [...this.state.data];
-
                 switch (direction) {
                     case "plus":
                         data.push(...newData);
@@ -231,12 +245,10 @@ export default class Chart extends React.Component<IProps, IState> {
                     default:
                         return null;
                 }
-
                 dataMeta = {
                     firstDate: newData[0].date,
                     lastDate: newData[newData.length - 1].date,
                 };
-
                 this.setState({
                     data,
                     dataMeta,
@@ -246,7 +258,6 @@ export default class Chart extends React.Component<IProps, IState> {
                     firstDate: newData[0].date,
                     lastDate: newData[newData.length - 1].date,
                 };
-
                 this.setState({
                     data: newData,
                     dataMeta,
