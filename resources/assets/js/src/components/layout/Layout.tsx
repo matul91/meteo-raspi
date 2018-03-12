@@ -1,13 +1,16 @@
 import * as React from "react";
+import * as Loadable from "react-loadable";
 import {connect} from "react-redux";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
-import AccessDenied from "../pages/AccessDenied";
-import Index from "../pages/Index";
-import LoggedUser from "../pages/LoggedUser";
-import Login from "../pages/Login";
-import Logout from "../pages/Logout";
-import PageNotFound from "../pages/PageNotFound";
+import PageLoading from "../loading/PageLoading";
 import Navbar from "./UI/Navbar";
+
+const AccessDenied = Loadable({ loader: () => import("../pages/AccessDenied"), loading: PageLoading });
+const Index = Loadable({ loader: () => import("../pages/Index"), loading: PageLoading });
+const Login = Loadable({ loader: () => import("../pages/Login"), loading: PageLoading });
+const LoggedUser = Loadable({ loader: () => import("../pages/LoggedUser"), loading: PageLoading });
+const Logout = Loadable({ loader: () => import("../pages/Logout"), loading: PageLoading });
+const PageNotFound = Loadable({ loader: () => import("../pages/PageNotFound"), loading: PageLoading });
 
 const Layout = (props) => {
     let loggedRoutes = (
