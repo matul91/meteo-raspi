@@ -8,6 +8,7 @@ import DateUtil from "../../utils/DateUtil";
 import DatetimeRangePicker from "../datetimeRangePicker/DateTimeRangePicker";
 import Loading from "../loading/Loading";
 import ButtonPanel from "./buttonPanel/ButtonPanel";
+import ChartPanel from "./chartPanel/ChartPanel";
 import CustomTooltip from "./customTooltip/CustomTooltip";
 
 moment.locale("cs");
@@ -101,12 +102,9 @@ export default class Chart extends React.Component<IProps, IState> {
         }
 
         return (
-            <div className="panel panel-default">
-                <div className="panel-heading">{this.props.name}: {this.state.initialValue}{this.state.suffix}</div>
-                <div className="panel-body">
-                    {content}
-                </div>
-            </div>
+            <ChartPanel heading={`${this.props.name}: ${this.state.initialValue}${this.state.suffix}`}>
+                {content}
+            </ChartPanel>
         );
     }
 
