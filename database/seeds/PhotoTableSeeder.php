@@ -11,26 +11,25 @@ class PhotoTableSeeder extends Seeder
      */
     public function run()
     {
-        self::deleteDir('./images');
-        mkdir('./images');
+        self::rrmdir('public/images/photoFromRaspi');
+        mkdir('public/images/photoFromRaspi/');
+        mkdir('public/images/photoFromRaspi/' . date("Y") . "/");
+        mkdir('public/images/photoFromRaspi/' . date("Y") . "/" . date("m"));
         factory(App\Photo::class, 20)->create();
     }
 
-    public static function deleteDir($dirPath) {
-        if (! is_dir($dirPath)) {
-            throw new InvalidArgumentException("$dirPath must be a directory");
-        }
-        if (substr($dirPath, strlen($dirPath) - 1, 1) != '/') {
-            $dirPath .= '/';
-        }
-        $files = glob($dirPath . '*', GLOB_MARK);
-        foreach ($files as $file) {
-            if (is_dir($file)) {
-                self::deleteDir($file);
-            } else {
-                unlink($file);
+    public static function rrmdir($dir) {
+        if (is_dir($dir)) {
+            $objects = scandir($dir);
+            foreach ($objects as $object) {
+                if ($object != "." && $object != "..") {
+                    if (filetype($dir."/".$object) == "dir")
+                        self::rrmdir($dir."/".$object);
+                    else unlink   ($dir."/".$object);
+                }
             }
+            reset($objects);
+            rmdir($dir);
         }
-        rmdir($dirPath);
     }
 }

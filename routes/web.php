@@ -12,6 +12,8 @@ use Illuminate\Http\Request;
 */
 Route::get('/photoController', 'PhotoController@index');
 Route::get('/photoController/all', 'PhotoController@all');
+Route::post('/photoController/savePhoto', 'PhotoController@savePhoto');
+
 
 Route::get('/pressures', 'PressureController@index');
 Route::get('/pressures/latest', 'PressureController@latest');

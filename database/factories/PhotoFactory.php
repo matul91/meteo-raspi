@@ -16,7 +16,7 @@ use Faker\Generator as Faker;
 $factory->define(App\Photo::class, function (Faker $faker) {
 
     return [
-        'name' => $faker->image("./images", 600, 600, 'cats'),
+        'name' => $faker->image("public/images/photoFromRaspi/" . date("Y") . "/" . date("m"), 600, 600),
         'metaInfo' => 'none'
     ];
 });
