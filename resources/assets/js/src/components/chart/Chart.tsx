@@ -73,6 +73,8 @@ export default class Chart extends React.Component<IProps, IState> {
 
     public render(): JSX.Element {
         let content = <Loading text={"Načítá se..."} />;
+        const heading = (this.state.initialValue) ?
+            `${this.props.name}: ${this.state.initialValue}${this.state.suffix}` : "Načítání";
 
         if (this.state.data.length > 0) {
             content = (
@@ -102,7 +104,7 @@ export default class Chart extends React.Component<IProps, IState> {
         }
 
         return (
-            <ChartPanel heading={`${this.props.name}: ${this.state.initialValue}${this.state.suffix}`}>
+            <ChartPanel heading={heading}>
                 {content}
             </ChartPanel>
         );
