@@ -214,7 +214,6 @@ export default class Chart extends React.Component<IProps, IState> {
 
         axios.get(url).then((response: any) => {
             const newData = this.processResponse(response);
-
             if (!newData.length || newData[0].date === this.state.initialDate) {
                 return;
             }
