@@ -213,42 +213,26 @@ export default class Chart extends React.Component<IProps, IState> {
         let dataMeta;
 
         axios.get(url).then((response: any) => {
-            const newData: Array<{date: string, value: any}> = this.processResponse(response);
+            const newData = this.processResponse(response);
 
             if (!newData.length || newData[0].date === this.state.initialDate) {
                 return;
             }
 
             if (direction) {
-                let data;
-                switch (direction) {
-                    case "plus":
-                        data = [...this.state.data, ...newData];
-                        break;
-                    case "minus":
-                        data =  [...newData, ...this.state.data];
-                        break;
-                    default:
-                        return null;
-                }
+                let data = (direction === "plus") ? [...this.state.data, ...newData] : [...newData, ...this.state.data];
                 data = ArrayUtil.removeDuplicities(data);
                 dataMeta = {
                     firstDate: data[0].date,
                     lastDate: data[data.length - 1].date,
                 };
-                this.setState({
-                    data,
-                    dataMeta,
-                });
+                this.setState({ data, dataMeta });
             } else {
                 dataMeta = {
                     firstDate: newData[0].date,
                     lastDate: newData[newData.length - 1].date,
                 };
-                this.setState({
-                    data: newData,
-                    dataMeta,
-                });
+                this.setState({ data: newData, dataMeta });
             }
         });
     }
