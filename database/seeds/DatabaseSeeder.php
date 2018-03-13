@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             TemperaturesTableSeeder::class,
             WindsTableSeeder::class,
             SettingsTableSeeder::class,
+            PhotoTableSeeder::class,
         ]);
     }
 }

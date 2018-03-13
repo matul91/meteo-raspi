@@ -14,30 +14,26 @@ class UsersTableSeeder extends Seeder
 
         $user = factory(App\User::class)->make([
             'name' => 'Jiří Matula',
-            'email' => 'jiri@osu.cz'
+            'email' => 'jiri@osu.cz',
+            'role' => 'Admin'
         ]);
         $user->save();
 
         $user = factory(App\User::class)->make([
             'name' => 'Vladimír Fojtík',
-            'email' => 'vladimir@osu.cz'
+            'email' => 'vladimir@osu.cz',
+            'role' => 'Admin'
         ]);
         $user->save();
 
         $user = factory(App\User::class)->make([
             'name' => 'Lukáš Antl',
-            'email' => 'lukas@osu.cz'
+            'email' => 'lukas@osu.cz',
+            'role' => 'Admin'
         ]);
         $user->save();
 
 
         factory(App\User::class, 10)->create();
-        $user = factory(App\User::class)->make([
-            'email' => 'info@osu.cz',
-            'name' => 'Jiri Matula',
-
-        ]);
-
-        $user->save();
     }
 }

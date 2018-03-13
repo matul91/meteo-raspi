@@ -29,29 +29,53 @@ class User extends Authenticatable
     ];
 
     public static function getUserIdFromToken(\Illuminate\Http\Request $request){
-        $header = $request->header('Authorization');
-        if ($header){
-            $client = new \GuzzleHttp\Client(['http_errors' => false]);
-            $res = $client->request('GET', 'http://meteostanice.test/api/user',[
-                'headers' => [
-                    'Authorization' => $header,
-                    'Accept'     => 'application/json'
-                ]
-            ]);
-
-
-            if($res->getStatusCode() == 401){
-                $result = response()->json(['authorized' => 'none', 'code' => '401']);
-            }else{
-                $user = json_decode($res->getBody());
-                $result = $user->id;
+        $result = 0;
+        if ($request->header('Authorization')){
+            $res = self::sendTokenToPassport($request);
+            if($res->getStatusCode() != 401){
+                $result = json_decode($res->getBody())->id;
             }
-
-            return $result;
-        }else{
-            return response()->json(['authorized' => 'none', 'code' => '401']);
         }
+        return $result;
+    }
 
+    public static function sendTokenToPassport(\Illuminate\Http\Request $request){
+        $client = new \GuzzleHttp\Client(['http_errors' => false]);
+        $res = $client->request('GET', $_ENV['APP_URL'] . '/api/user',[
+            'headers' => [
+                'Authorization' => $request->header('Authorization'),
+                'Accept'     => 'application/json'
+            ]
+        ]);
+        return $res;
+    }
 
+    public static function isAdminById(int $id){
+        $result = false;
+        if($id != 0){
+            $role = self::where('id', '=', $id)->get()->first();
+            if($role->role == "Admin"){
+                $result = true;
+            }
+        }
+        return $result;
+    }
+
+    public static function isModelarById(int $id){
+        $result = false;
+        if($id != 0){
+            $role = self::where('id', '=', $id)->get()->first();
+            if($role->role == "Modelar"){
+                $result = true;
+            }
+        }
+        return $result;
+    }
+
+    public static function unauthorizedAccess(){
+        return array(
+            'code'      => 401,
+            'message'   => 'unauthorized Access'
+        );
     }
 }
