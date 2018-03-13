@@ -158,8 +158,8 @@ export default class Chart extends React.Component<IProps, IState> {
         }
 
         const dates = this.calculateDiffBetweenDates(direction, diff);
-        const dateFrom = this.formatDateToShowedFormat(dates.dateFrom);
-        const dateTo = this.formatDateToShowedFormat(dates.dateTo);
+        const dateFrom = this.formatDateToDbFormat(dates.dateFrom);
+        const dateTo = this.formatDateToDbFormat(dates.dateTo);
 
         this.loadData(dateFrom, dateTo, direction);
     }
@@ -189,8 +189,8 @@ export default class Chart extends React.Component<IProps, IState> {
         };
     }
 
-    private formatDateToShowedFormat(date: string): string {
-        return moment(date).format(this.state.showedDateFormat);
+    private formatDateToDbFormat(date: string): string {
+        return moment(date).format(this.state.dbDateFormat);
     }
 
     private loadInitialData(): void {
@@ -211,25 +211,13 @@ export default class Chart extends React.Component<IProps, IState> {
     }
 
     private loadData(dateFrom: string, dateTo: string, direction: string = null): void {
-        let url = this.props.url;
+        const url = this.createRequestURL(dateFrom, dateTo);
         let dataMeta;
 
-        if (dateFrom !== null && dateTo !== null) {
-            url = `${url}/?start_date=${dateFrom}&end_date=${dateTo}`;
-        }
-
         axios.get(url).then((response: any) => {
-            const newData = [];
-            const length = this.state.data.length > 0 ? response.data.length - 1 : response.data.length;
+            const newData: Array<{date: string, value: any}> = this.processResponse(response);
 
-            for (let i = 0; i < length; i++) {
-                newData.push({
-                    date: response.data[i].date,
-                    value: response.data[i][this.props.columnName],
-                });
-            }
-
-            if (newData[0].date === this.state.initialDate) {
+            if (!newData.length || newData[0].date === this.state.initialDate) {
                 return;
             }
 
@@ -264,5 +252,29 @@ export default class Chart extends React.Component<IProps, IState> {
                 });
             }
         });
+    }
+
+    private processResponse(response: any): Array<{date: string, value: any}> {
+        const newData: Array<{date: string, value: any}> = [];
+        const length = this.state.data.length > 0 ? response.data.length - 1 : response.data.length;
+
+        for (let i = 0; i < length; i++) {
+            newData.push({
+                date: response.data[i].date,
+                value: response.data[i][this.props.columnName],
+            });
+        }
+
+        return newData;
+    }
+
+    private createRequestURL(dateFrom: string, dateTo: string): string {
+        let url = this.props.url;
+
+        if (dateFrom !== null && dateTo !== null) {
+            url = `${url}/?start_date=${dateFrom}&end_date=${dateTo}`;
+        }
+
+        return url;
     }
 }
