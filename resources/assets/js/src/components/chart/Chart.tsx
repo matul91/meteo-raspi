@@ -3,6 +3,8 @@ import * as moment from "moment";
 import * as React from "react";
 import * as Swipeable from "react-swipeable";
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import ArrayUtil from "../../utils/ArrayUtil";
+import DateUtil from "../../utils/DateUtil";
 import DatetimeRangePicker from "../datetimeRangePicker/DateTimeRangePicker";
 import Loading from "../loading/Loading";
 import ButtonPanel from "./buttonPanel/ButtonPanel";
@@ -158,8 +160,8 @@ export default class Chart extends React.Component<IProps, IState> {
         }
 
         const dates = this.calculateDiffBetweenDates(direction, diff);
-        const dateFrom = this.formatDateToDbFormat(dates.dateFrom);
-        const dateTo = this.formatDateToDbFormat(dates.dateTo);
+        const dateFrom = DateUtil.formatDateByFormat(dates.dateFrom, this.state.dbDateFormat);
+        const dateTo = DateUtil.formatDateByFormat(dates.dateTo, this.state.dbDateFormat);
 
         this.loadData(dateFrom, dateTo, direction);
     }
@@ -187,10 +189,6 @@ export default class Chart extends React.Component<IProps, IState> {
             dateFrom,
             dateTo,
         };
-    }
-
-    private formatDateToDbFormat(date: string): string {
-        return moment(date).format(this.state.dbDateFormat);
     }
 
     private loadInitialData(): void {
@@ -222,20 +220,21 @@ export default class Chart extends React.Component<IProps, IState> {
             }
 
             if (direction) {
-                const data = [...this.state.data];
+                let data;
                 switch (direction) {
                     case "plus":
-                        data.push(...newData);
+                        data = [...this.state.data, ...newData];
                         break;
                     case "minus":
-                        data.unshift(...newData);
+                        data =  [...newData, ...this.state.data];
                         break;
                     default:
                         return null;
                 }
+                data = ArrayUtil.removeDuplicities(data);
                 dataMeta = {
-                    firstDate: newData[0].date,
-                    lastDate: newData[newData.length - 1].date,
+                    firstDate: data[0].date,
+                    lastDate: data[data.length - 1].date,
                 };
                 this.setState({
                     data,
@@ -255,17 +254,12 @@ export default class Chart extends React.Component<IProps, IState> {
     }
 
     private processResponse(response: any): Array<{date: string, value: any}> {
-        const newData: Array<{date: string, value: any}> = [];
-        const length = this.state.data.length > 0 ? response.data.length - 1 : response.data.length;
-
-        for (let i = 0; i < length; i++) {
-            newData.push({
-                date: response.data[i].date,
-                value: response.data[i][this.props.columnName],
-            });
-        }
-
-        return newData;
+        return response.data.map((row) => {
+            return {
+                date: row.date,
+                value: row[this.props.columnName],
+            };
+        });
     }
 
     private createRequestURL(dateFrom: string, dateTo: string): string {
