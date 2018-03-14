@@ -3,7 +3,7 @@ import * as Loadable from "react-loadable";
 import {connect} from "react-redux";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import PageLoading from "../loading/PageLoading";
-import Navbar from "./UI/Navbar";
+import Navbar from "./UI/UINavbar";
 
 const AccessDenied = Loadable({ loader: () => import("../pages/AccessDenied"), loading: PageLoading });
 const Index = Loadable({ loader: () => import("../pages/Index"), loading: PageLoading });
