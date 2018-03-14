@@ -46,7 +46,7 @@ class Login extends React.Component<any> {
             content = (
                 <form onSubmit={this.submitHandler}>
                     {inputs}
-                    <Button type="submit">Přihlásit</Button>
+                    <Button type="submit">Submit</Button>
                 </form>
             );
         }
