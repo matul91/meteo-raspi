@@ -55,23 +55,27 @@ export const auth = (email, password) => {
             .then((response) => {
                 const accessToken = response.data.access_token;
                 const expirationDate = new Date(new Date().getTime() + response.data.expires_in * 1000);
-                const headerData = {
-                    Authorization: `Bearer ${accessToken}`,
-                };
-                axios.get(process.env.MIX_USER_PROFILE_ADD, {headers: headerData}).then((res) => {
-                    localStorage.setItem("token", accessToken);
-                    localStorage.setItem("expirationDate", expirationDate.toString());
-                    localStorage.setItem("userId", res.data.id);
-                    localStorage.setItem("name", res.data.name);
-                    dispatch(authSuccess(accessToken, res.data.id, res.data.name));
-                    dispatch(checkAuthTimeout(response.data.expires_in));
-                }).catch((err) => {
-                    dispatch(authFail(err.response.data.error));
-                });
+                const headerData = { Authorization: `Bearer ${accessToken}` };
+                dispatch(authGetUserInfo(headerData, accessToken, expirationDate, response.data.expires_in));
             })
             .catch((err) => {
                 dispatch(authFail(err.response.data.error));
             });
+    };
+};
+
+export const authGetUserInfo = (headerData, accessToken, expirationDate, expiresIn) => {
+    return (dispatch) => {
+        axios.get(process.env.MIX_USER_PROFILE_ADD, {headers: headerData}).then((res) => {
+            localStorage.setItem("token", accessToken);
+            localStorage.setItem("expirationDate", expirationDate.toString());
+            localStorage.setItem("userId", res.data.id);
+            localStorage.setItem("name", res.data.name);
+            dispatch(authSuccess(accessToken, res.data.id, res.data.name));
+            dispatch(checkAuthTimeout(expiresIn));
+        }).catch((err) => {
+            dispatch(authFail(err.response.data.error));
+        });
     };
 };
 
