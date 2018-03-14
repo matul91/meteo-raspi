@@ -80,16 +80,18 @@ export const authCheckState = () => {
         const token = localStorage.getItem("token");
         if (!token) {
             dispatch(logout());
-        } else {
-            const expirationDate = new Date(localStorage.getItem("expirationDate"));
-            if (expirationDate <= new Date()) {
-                dispatch(logout());
-            } else {
-                const userId = localStorage.getItem("userId");
-                const name = localStorage.getItem("name");
-                dispatch(authSuccess(token, userId, name));
-                dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000));
-            }
+            return;
         }
+
+        const expirationDate = new Date(localStorage.getItem("expirationDate"));
+        if (expirationDate <= new Date()) {
+            dispatch(logout());
+            return;
+        }
+
+        const userId = localStorage.getItem("userId");
+        const name = localStorage.getItem("name");
+        dispatch(authSuccess(token, userId, name));
+        dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000));
     };
 };
