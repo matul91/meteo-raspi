@@ -1,4 +1,5 @@
 import * as React from "react";
+import {Col, Row} from "react-bootstrap";
 import Chart from "../chart/Chart";
 
 const chartData = [
@@ -25,15 +26,15 @@ const chartData = [
 const Index = () => {
     const charts = chartData.map((chart) => {
         return (
-            <div className="col-md-6" key={chart.columnName}>
+            <Col md={6} key={chart.columnName}>
                 <Chart name={chart.name} url={chart.url} columnName={chart.columnName} suffix={chart.suffix} />
-            </div>
+            </Col>
         );
     });
     return (
-        <div className="row">
+        <Row>
             {charts}
-        </div>
+        </Row>
     );
 };
 
