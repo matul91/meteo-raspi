@@ -17,12 +17,17 @@ class UINavbar extends React.Component<IProps, IState> {
         isOpen: false,
     };
 
+    constructor(props) {
+        super(props);
+        this.toggleNav = this.toggleNav.bind(this);
+    }
+
     public render(): JSX.Element {
         const userLinks = this.getUserLinks();
         const userInfo = this.getUserInfo();
 
         return (
-            <Navbar fluid={true}>
+            <Navbar fluid={true} onToggle={this.toggleNav}>
                 <Navbar.Header>
                     <Navbar.Brand>
                         <Link to="/">Letiště Baška - LKBASK</Link>
@@ -64,6 +69,12 @@ class UINavbar extends React.Component<IProps, IState> {
         }
 
         return userInfo;
+    }
+
+    private toggleNav(): void {
+        this.setState({
+            isOpen: !this.state.isOpen,
+        });
     }
 }
 
