@@ -16,7 +16,7 @@ class WindsTableSeeder extends Seeder
         $faker = Faker\Factory::create();
         $speed = $faker->numberBetween(5, 50);
 
-        for ($i = 0; $i < 1000; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             if (random_int(1, 6) <= 3) {
                 $max = ($speed + 10 <= 100) ? $speed + 10 : 100;
                 $speed = $faker->numberBetween($speed, $max);

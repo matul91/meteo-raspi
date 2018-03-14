@@ -1,5 +1,5 @@
 <?php
-
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,10 +10,16 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/photoController', 'PhotoController@index');
+Route::get('/photoController/all', 'PhotoController@all');
+Route::post('/photoController/savePhoto', 'PhotoController@savePhoto');
+
 
 Route::get('/pressures', 'PressureController@index');
 Route::get('/pressures/latest', 'PressureController@latest');
+
 Route::get('/settings', 'SettingController@index');
+
 Route::get('/temperatures', 'TemperatureController@index');
 Route::get('/temperatures/latest', 'TemperatureController@latest');
 
