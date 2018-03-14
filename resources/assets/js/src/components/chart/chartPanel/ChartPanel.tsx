@@ -1,13 +1,14 @@
 import * as React from "react";
+import {Panel} from "react-bootstrap";
 
 const ChartPanel = (props) => {
     return (
-        <div className="panel panel-default">
-            <div className="panel-heading">{props.heading}</div>
-            <div className="panel-body">
-                {props.children}
-            </div>
-        </div>
+        <Panel className="panel panel-default">
+            <Panel.Heading>
+                <Panel.Title>{props.heading}</Panel.Title>
+            </Panel.Heading>
+            <Panel.Body>{props.children}</Panel.Body>
+        </Panel>
     );
 };
 

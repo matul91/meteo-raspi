@@ -55,7 +55,7 @@ class Login extends React.Component<any> {
             <Row>
                 <Col xs={12}>
                     {authRedirect}
-                    {this.props.error && <Alert type={this.props.error} cls={"danger"} />}
+                    {this.props.error && <Alert type={this.props.error} cls="danger" />}
                     {content}
                 </Col>
             </Row>
@@ -81,6 +81,7 @@ class Login extends React.Component<any> {
             );
         });
     }
+
     private inputChangeHandler(e: any): void {
         this.setState({
             ...this.state,

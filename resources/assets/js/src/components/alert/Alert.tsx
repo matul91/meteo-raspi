@@ -1,6 +1,7 @@
 import * as React from "react";
+import {Alert as RBAlert} from "react-bootstrap";
 
-const Alert: any = (props) => {
+const Alert = (props) => {
     let text = "";
 
     switch (props.type) {
@@ -11,10 +12,10 @@ const Alert: any = (props) => {
             text = "Neznámá chyba";
     }
 
-    const cls = `alert alert-${props.cls}`;
-
     return (
-        <div className={cls} role="alert">{text}</div>
+        <RBAlert bsStyle={props.cls}>
+            {text}
+        </RBAlert>
     );
 };
 

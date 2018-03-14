@@ -1,22 +1,21 @@
 import * as React from "react";
+import {Button} from "react-bootstrap";
 
 const ButtonPanel = (props) => {
     return (
         <div className="text-right chart-buttons">
-            <button
+            <Button
                 name="minus"
-                className="btn btn-default btn-space"
                 onClick={props.clickHandler}
             >
                 Předchozí
-            </button>
-            <button
+            </Button>
+            <Button
                 name="plus"
-                className="btn btn-default"
                 onClick={props.clickHandler}
             >
                 Další
-            </button>
+            </Button>
         </div>
     );
 };
