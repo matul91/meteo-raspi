@@ -92,7 +92,7 @@ export default class Chart extends React.Component<IProps, IState> {
                         trackMouse={true}
                     >
                         <ResponsiveContainer width="100%" height={300}>
-                            <LineChart width={830} height={400} data={this.mapDatesToShowingFormat(this.state.data)}>
+                            <LineChart data={this.mapDatesToShowingFormat(this.state.data)}>
                                 <CartesianGrid strokeDasharray="3 3" />
                                 <XAxis dataKey="date" />
                                 <YAxis />
