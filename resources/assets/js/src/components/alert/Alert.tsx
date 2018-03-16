@@ -6,10 +6,10 @@ const Alert = (props) => {
 
     switch (props.type) {
         case "invalid_credentials":
-            text = "Neplatné přilašovací údaje";
+            text = "Invalid credentials.";
             break;
         default:
-            text = "Neznámá chyba";
+            text = "Unknown error.";
     }
 
     return (

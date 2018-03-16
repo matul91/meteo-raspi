@@ -1,10 +1,16 @@
+import * as Directions from "../config/constants/directions";
+
 class ArrayUtil {
     public static removeDuplicities(array: any): any {
-        return array.filter((elem, index, self) => {
+        return array.filter((element, index, self) => {
             return self.findIndex((t) => {
-                return (t.date === elem.date && t.value === elem.value);
+                return (t.date === element.date && t.value === element.value);
             }) === index;
         });
+    }
+
+    public static destructureDataArrays(direction, data, newData): any {
+        return (direction === Directions.PLUS) ? [...data, ...newData] : [...newData, ...data];
     }
 }
 

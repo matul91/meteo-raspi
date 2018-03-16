@@ -3,8 +3,11 @@ import * as moment from "moment";
 import * as React from "react";
 import * as Swipeable from "react-swipeable";
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import * as Directions from "../../config/constants/directions";
+import * as Positions from "../../config/constants/positions";
 import ArrayUtil from "../../utils/ArrayUtil";
 import DateUtil from "../../utils/DateUtil";
+import URLUtil from "../../utils/URLUtil";
 import DatetimeRangePicker from "../datetimeRangePicker/DateTimeRangePicker";
 import Loading from "../loading/Loading";
 import ButtonPanel from "./buttonPanel/ButtonPanel";
@@ -61,14 +64,14 @@ export default class Chart extends React.Component<IProps, IState> {
     constructor(props) {
         super(props);
         this.datetimeChangedHandler = this.datetimeChangedHandler.bind(this);
-        this.loadNewDataByDateHandler = this.loadNewDataByDateHandler.bind(this);
-        this.loadNewDataByEventHandler = this.loadNewDataByEventHandler.bind(this);
+        this.refreshDataByDateChangeHandler = this.refreshDataByDateChangeHandler.bind(this);
+        this.refreshDataByEventHandler = this.refreshDataByEventHandler.bind(this);
         this.onSwipedLeft = this.onSwipedLeft.bind(this);
         this.onSwipedRight = this.onSwipedRight.bind(this);
     }
 
     public componentDidMount(): void {
-        this.loadInitialData();
+        this.initializeComponentData();
     }
 
     public render(): JSX.Element {
@@ -80,7 +83,7 @@ export default class Chart extends React.Component<IProps, IState> {
             content = (
                 <div className="chart">
                     <DatetimeRangePicker
-                        onSubmit={this.loadNewDataByDateHandler}
+                        onSubmit={this.refreshDataByDateChangeHandler}
                         onInputChange={this.datetimeChangedHandler}
                     />
                     <Swipeable
@@ -98,7 +101,7 @@ export default class Chart extends React.Component<IProps, IState> {
                             </LineChart>
                         </ResponsiveContainer>
                     </Swipeable>
-                    <ButtonPanel clickHandler={this.loadNewDataByEventHandler} />
+                    <ButtonPanel clickHandler={this.refreshDataByEventHandler} />
                 </div>
             );
         }
@@ -120,11 +123,11 @@ export default class Chart extends React.Component<IProps, IState> {
     }
 
     private onSwipedLeft(): void {
-        this.loadNewDataToChart("plus");
+        this.loadNewDataToChart(Directions.PLUS);
     }
 
     private onSwipedRight(): void {
-        this.loadNewDataToChart("minus");
+        this.loadNewDataToChart(Directions.MINUS);
     }
 
     private datetimeChangedHandler(date, name): void {
@@ -137,14 +140,14 @@ export default class Chart extends React.Component<IProps, IState> {
         });
     }
 
-    private loadNewDataByDateHandler(e): void {
+    private refreshDataByDateChangeHandler(e): void {
         e.preventDefault();
         if (this.state.dateRange.dateFrom !== null && this.state.dateRange.dateTo !== null) {
             this.loadData(this.state.dateRange.dateFrom, this.state.dateRange.dateTo);
         }
     }
 
-    private loadNewDataByEventHandler(e): void {
+    private refreshDataByEventHandler(e): void {
         const direction = e.target.name;
         this.loadNewDataToChart(direction);
     }
@@ -173,11 +176,11 @@ export default class Chart extends React.Component<IProps, IState> {
         let dateTo;
 
         switch (direction) {
-            case "minus":
+            case Directions.MINUS:
                 dateTo = moment(firstDate);
                 dateFrom = moment(firstDate).subtract(diff, "minutes");
                 break;
-            case "plus":
+            case Directions.PLUS:
                 dateFrom = moment(lastDate);
                 dateTo = moment(lastDate).add(diff, "minutes");
                 break;
@@ -191,8 +194,8 @@ export default class Chart extends React.Component<IProps, IState> {
         };
     }
 
-    private loadInitialData(): void {
-        const url = `${this.props.url}/latest`;
+    private initializeComponentData(): void {
+        const url = URLUtil.generateURLByPosition(this.props.url, Positions.LATEST);
 
         axios.get(url).then((response: any) => {
             this.setState({
@@ -209,7 +212,7 @@ export default class Chart extends React.Component<IProps, IState> {
     }
 
     private loadData(dateFrom: string, dateTo: string, direction: string = null): void {
-        const url = this.createRequestURL(dateFrom, dateTo);
+        const url = URLUtil.generateURLByDates(this.props.url, dateFrom, dateTo);
         let dataMeta;
 
         axios.get(url).then((response: any) => {
@@ -219,7 +222,7 @@ export default class Chart extends React.Component<IProps, IState> {
             }
 
             if (direction) {
-                let data = (direction === "plus") ? [...this.state.data, ...newData] : [...newData, ...this.state.data];
+                let data = ArrayUtil.destructureDataArrays(direction, this.state.data, newData);
                 data = ArrayUtil.removeDuplicities(data);
                 dataMeta = {
                     firstDate: data[0].date,
@@ -243,15 +246,5 @@ export default class Chart extends React.Component<IProps, IState> {
                 value: row[this.props.columnName],
             };
         });
-    }
-
-    private createRequestURL(dateFrom: string, dateTo: string): string {
-        let url = this.props.url;
-
-        if (dateFrom !== null && dateTo !== null) {
-            url = `${url}/?start_date=${dateFrom}&end_date=${dateTo}`;
-        }
-
-        return url;
     }
 }
