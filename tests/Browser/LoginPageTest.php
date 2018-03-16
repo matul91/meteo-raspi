@@ -10,7 +10,7 @@ class LoginPageTest extends DuskTestCase
 
     public function testShowLoginPage()
     {
-        $this->browse(function ($browser){
+        $this->browse(function ($browser) {
             $browser->visit('/login')
                 ->assertSee('Letiště Baška');
         });

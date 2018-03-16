@@ -22,7 +22,7 @@ mix.react('resources/assets/js/src/App.tsx', 'public/js')
                     test: /\.(ts|tsx)$/,
                     loader: 'ts-loader',
                     exclude: /node_modules/,
-                },
+            },
             ],
         },
         resolve: {
@@ -48,3 +48,4 @@ mix.react('resources/assets/js/src/App.tsx', 'public/js')
 if (mix.inProduction()) {
     mix.version();
 }
+

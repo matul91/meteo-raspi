@@ -42,24 +42,23 @@ class SetVariables extends Command
         $this->changeEnvironmentVariable('MIX_CLIENT_SECRET', $clientRow->secret);
     }
 
-    public function changeEnvironmentVariable($key,$value)
+    public function changeEnvironmentVariable($key, $value)
     {
         $path = base_path($this->argument('file'));
 
-        if(is_bool(env($key)))
-        {
+        if (is_bool(env($key))) {
             $old = env($key)? 'true' : 'false';
-        }
-        elseif(env($key)===null){
+        } elseif (env($key)===null) {
             $old = 'null';
-        }
-        else{
+        } else {
             $old = env($key);
         }
 
         if (file_exists($path)) {
             file_put_contents($path, str_replace(
-                "$key=".$old, "$key=".$value, file_get_contents($path)
+                "$key=".$old,
+                "$key=".$value,
+                file_get_contents($path)
             ));
         }
     }
