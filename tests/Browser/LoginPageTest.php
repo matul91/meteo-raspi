@@ -27,7 +27,7 @@ class LoginPageTest extends DuskTestCase
                 ->press('Submit')
                 ->waitForLocation('/login')
                 ->pause(2000)
-                ->assertSee('Neplatné přilašovací údaje');
+                ->assertSee('Invalid credentials.');
         });
     }
 

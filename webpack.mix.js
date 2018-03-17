@@ -43,7 +43,7 @@ mix.react('resources/assets/js/src/App.tsx', 'public/js')
             })
         ]
     })
-    .extract(['react', 'redux', 'axios', 'recharts', 'moment']);
+    .extract(['react', 'redux', 'axios', 'recharts', 'moment', 'react-bootstrap', 'react-router-bootstrap']);
 
 if (mix.inProduction()) {
     mix.version();

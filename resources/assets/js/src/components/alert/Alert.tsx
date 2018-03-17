@@ -1,20 +1,21 @@
 import * as React from "react";
+import {Alert as RBAlert} from "react-bootstrap";
 
-const Alert: any = (props) => {
+const Alert = (props) => {
     let text = "";
 
     switch (props.type) {
         case "invalid_credentials":
-            text = "Neplatné přilašovací údaje";
+            text = "Invalid credentials.";
             break;
         default:
-            text = "Neznámá chyba";
+            text = "Unknown error.";
     }
 
-    const cls = `alert alert-${props.cls}`;
-
     return (
-        <div className={cls} role="alert">{text}</div>
+        <RBAlert bsStyle={props.cls}>
+            {text}
+        </RBAlert>
     );
 };
 
