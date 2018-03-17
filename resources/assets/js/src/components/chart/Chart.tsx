@@ -101,7 +101,11 @@ export default class Chart extends React.Component<IProps, IState> {
                             </LineChart>
                         </ResponsiveContainer>
                     </Swipeable>
-                    <ButtonPanel clickHandler={this.refreshDataByEventHandler} />
+                    <ButtonPanel
+                        clickHandler={this.refreshDataByEventHandler}
+                        initialDate={this.state.initialDate}
+                        lastDate={this.state.data[this.state.data.length - 1].date}
+                    />
                 </div>
             );
         }

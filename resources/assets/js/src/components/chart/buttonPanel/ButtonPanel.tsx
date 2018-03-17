@@ -1,6 +1,6 @@
 import * as React from "react";
 import {Button} from "react-bootstrap";
-import * as Directions from "../../../config/constants/directions";;
+import * as Directions from "../../../config/constants/directions";
 
 const ButtonPanel = (props) => {
     return (
@@ -14,6 +14,7 @@ const ButtonPanel = (props) => {
             <Button
                 name={Directions.PLUS}
                 onClick={props.clickHandler}
+                disabled={props.initialDate === props.lastDate}
             >
                 Další
             </Button>
