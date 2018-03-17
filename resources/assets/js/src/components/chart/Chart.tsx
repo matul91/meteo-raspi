@@ -123,11 +123,11 @@ export default class Chart extends React.Component<IProps, IState> {
     }
 
     private onSwipedLeft(): void {
-        this.loadNewDataToChart(Directions.PLUS);
+        this.loadDataToChart(Directions.PLUS);
     }
 
     private onSwipedRight(): void {
-        this.loadNewDataToChart(Directions.MINUS);
+        this.loadDataToChart(Directions.MINUS);
     }
 
     private datetimeChangedHandler(date, name): void {
@@ -149,10 +149,10 @@ export default class Chart extends React.Component<IProps, IState> {
 
     private refreshDataByEventHandler(e): void {
         const direction = e.target.name;
-        this.loadNewDataToChart(direction);
+        this.loadDataToChart(direction);
     }
 
-    private loadNewDataToChart(direction: string = null): void {
+    private loadDataToChart(direction: string = null): void {
         let diff = 0;
 
         if (this.state.dateRange.dateFrom !== null && this.state.dateRange.dateTo !== null) {
