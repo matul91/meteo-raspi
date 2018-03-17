@@ -10,14 +10,14 @@ const ButtonPanel = (props) => {
                     name={Directions.MINUS}
                     onClick={props.clickHandler}
                 >
-                    Předchozí
+                    Previous
                 </Button>
                 <Button
                     name={Directions.PLUS}
                     onClick={props.clickHandler}
                     disabled={props.initialDate === props.lastDate}
                 >
-                    Další
+                    Next
                 </Button>
             </ButtonGroup>
         </div>
