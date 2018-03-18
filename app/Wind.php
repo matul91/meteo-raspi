@@ -12,17 +12,29 @@ class Wind extends Model
     {
         $result = null;
         if ($from != '' && $to != '') {
-            if (self::getSettingMaxValuesPerGraph() <= self::getCountRowsByDate($from, $to)) {
-                $result = self::getOptimizedDataByDate($from, $to);
-            } else {
-                $result = self::getDataByDate($from, $to);
-            }
+            $result = self::loadDataWithDate($from, $to);
         } else {
-            if (self::getSettingMaxValuesPerGraph() <= self::getCountRows()) {
-                $result = self::whereRaw('id mod ' . self::getNthRows(self::getCountRows()) . ' = 0')->get();
-            } else {
-                $result = self::get();
-            }
+            $result = self::loadDataWithoutDate();
+        }
+        return $result;
+    }
+
+    private static function loadDataWithDate($from, $to)
+    {
+        if (self::getSettingMaxValuesPerGraph() <= self::getCountRowsByDate($from, $to)) {
+            $result = self::getOptimizedDataByDate($from, $to);
+        } else {
+            $result = self::getDataByDate($from, $to);
+        }
+        return $result;
+    }
+
+    private static function loadDataWithoutDate()
+    {
+        if (self::getSettingMaxValuesPerGraph() <= self::getCountRows()) {
+            $result = self::whereRaw('id mod ' . self::getNthRows(self::getCountRows()) . ' = 0')->get();
+        } else {
+            $result = self::get();
         }
         return $result;
     }
