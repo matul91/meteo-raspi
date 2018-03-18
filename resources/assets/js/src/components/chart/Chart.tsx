@@ -3,7 +3,9 @@ import * as moment from "moment";
 import * as React from "react";
 import * as Swipeable from "react-swipeable";
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import * as AlertStyles from "../../config/constants/alertStyles";
 import * as Directions from "../../config/constants/directions";
+import * as Errors from "../../config/constants/errors";
 import * as Positions from "../../config/constants/positions";
 import ArrayUtil from "../../utils/ArrayUtil";
 import DateUtil from "../../utils/DateUtil";
@@ -254,7 +256,7 @@ export default class Chart extends React.Component<IProps, IState> {
         let ret: boolean = true;
 
         if (!data.length) {
-            this.setError("no_data", "danger");
+            this.setError(Errors.NO_DATA, AlertStyles.DANGER);
             ret = false;
         } else if (data[0].date === this.state.initialDate) {
             ret = false;

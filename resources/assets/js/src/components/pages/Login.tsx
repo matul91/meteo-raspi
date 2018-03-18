@@ -2,6 +2,7 @@ import * as React from "react";
 import {Button, Col, ControlLabel, form, FormControl, FormGroup, Row} from "react-bootstrap";
 import {connect} from "react-redux";
 import { Redirect } from "react-router-dom";
+import * as AlertStyles from "../../config/constants/alertStyles";
 import * as actions from "../../store/actions";
 import Alert from "../alert/Alert";
 import Loading from "../loading/Loading";
@@ -55,7 +56,7 @@ class Login extends React.Component<any> {
             <Row>
                 <Col xs={12}>
                     {authRedirect}
-                    {this.props.error && <Alert type={this.props.error} cls="danger" />}
+                    {this.props.error && <Alert type={this.props.error} cls={AlertStyles.DANGER} />}
                     {content}
                 </Col>
             </Row>
