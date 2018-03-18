@@ -19,7 +19,8 @@ class Pressure extends Model
         return $result;
     }
 
-    private static function loadDataWithDate($from, $to){
+    private static function loadDataWithDate($from, $to)
+    {
         if (self::getSettingMaxValuesPerGraph() <= self::getCountRowsByDate($from, $to)) {
             $result = self::getOptimizedDataByDate($from, $to);
         } else {
@@ -28,7 +29,8 @@ class Pressure extends Model
         return $result;
     }
 
-    private static function loadDataWithoutDate(){
+    private static function loadDataWithoutDate()
+    {
         if (self::getSettingMaxValuesPerGraph() <= self::getCountRows()) {
             $result = self::whereRaw('id mod ' . self::getNthRows(self::getCountRows()) . ' = 0')->get();
         } else {
