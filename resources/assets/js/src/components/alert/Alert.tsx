@@ -8,6 +8,9 @@ const Alert = (props) => {
         case "invalid_credentials":
             text = "Invalid credentials.";
             break;
+        case "no_data":
+            text = "There are no data for this date input.";
+            break;
         default:
             text = "Unknown error.";
     }
