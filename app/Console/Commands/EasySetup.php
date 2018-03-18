@@ -37,31 +37,21 @@ class EasySetup extends Command
      */
     public function handle()
     {
-        $this->info("Command in progress...");
-        $this->info(" ");
         $this->info("Start migrate databse...");
             exec('php artisan migrate:fresh --seed', $output);
         $this->info("[100%] migrate database complete");
-        $this->info(" ");
         $this->info("Start passport install...");
             exec('php artisan passport:install --force', $output);
         $this->info("[100%] passport install complete");
-        $this->info(" ");
         $this->info("Start changing client secret...");
             exec('php artisan set:client_secret .env', $output);
         $this->info("[100%] changing client secret complete");
-        $this->info(" ");
         $this->info("Start key generating...");
             exec('php artisan key:generate', $output);
         $this->info("[100%] key:generate complete");
-        $this->info(" ");
-        $this->info("Start npm install...");
-            exec('npm install', $output);
-        $this->info("[100%] npm install complete");
-        $this->info(" ");
-        $this->info("Start building frontend...");
-            exec('npm run dev', $output);
-        $this->info("[100%] frontend building complete");
+        $this->info("Start building frontend by yarn...");
+            exec('yarn', $output);
+        $this->info("[100%] yarn building complete");
         $this->info("Generated succesfull");
     }
 }
