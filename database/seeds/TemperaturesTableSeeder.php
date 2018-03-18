@@ -16,7 +16,7 @@ class TemperaturesTableSeeder extends Seeder
         $faker = Faker\Factory::create();
         $tempValue = $faker->numberBetween(10, 36);
 
-        for ($i = 0; $i < 1000; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             if (random_int(1, 6) <= 3) {
                 $max = ($tempValue + 5 <= 40) ? $tempValue + 5 : 40;
                 $tempValue = $faker->numberBetween($tempValue, $max);

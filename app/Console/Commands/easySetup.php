@@ -37,7 +37,6 @@ class easySetup extends Command
      */
     public function handle()
     {
-
         $this->info("Command in progress...");
         $this->info(" ");
         $this->info("Start migrate databse...");
@@ -64,6 +63,5 @@ class easySetup extends Command
             exec('npm run dev', $output);
         $this->info("[100%] frontend building complete");
         $this->info("Generated succesfull");
-
     }
 }
