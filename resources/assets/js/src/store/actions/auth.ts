@@ -38,7 +38,7 @@ export const checkAuthTimeout = (expirationTime) => {
     return (dispatch) => {
         setTimeout(() => {
             dispatch(logout());
-        }, expirationTime * 1000);
+        }, expirationTime);
     };
 };
 
@@ -55,9 +55,9 @@ export const auth = (email, password) => {
         axios.post(process.env.MIX_OAUTH_ADD, data)
             .then((response) => {
                 const accessToken = response.data.access_token;
-                const expirationDate = new Date(new Date().getTime() + response.data.expires_in * 1000);
+                const expiresIn = response.data.expires_in;
                 const headerData = { Authorization: `Bearer ${accessToken}` };
-                dispatch(authGetUserInfo(headerData, accessToken, expirationDate));
+                dispatch(authGetUserInfo(headerData, accessToken, expiresIn));
             })
             .catch((err) => {
                 dispatch(authFail(err.response.data.error));
@@ -65,15 +65,16 @@ export const auth = (email, password) => {
     };
 };
 
-export const authGetUserInfo = (headerData, accessToken, expirationDate) => {
+export const authGetUserInfo = (headerData, accessToken, expiresIn) => {
     return (dispatch) => {
+        const expirationDate = new Date(new Date().getTime() + expiresIn);
         axios.get(process.env.MIX_USER_PROFILE_ADD, {headers: headerData}).then((res) => {
             localStorage.setItem(localStorageKeys.TOKEN, accessToken);
             localStorage.setItem(localStorageKeys.EXPIRATION_DATE, expirationDate.toString());
             localStorage.setItem(localStorageKeys.USER_ID, res.data.id);
             localStorage.setItem(localStorageKeys.NAME, res.data.name);
             dispatch(authSuccess(accessToken, res.data.id, res.data.name));
-            dispatch(checkAuthTimeout(expirationDate));
+            dispatch(checkAuthTimeout(expiresIn));
         }).catch((err) => {
             dispatch(authFail(err.response.data.error));
         });
@@ -97,6 +98,6 @@ export const authCheckState = () => {
         const userId = localStorage.getItem(localStorageKeys.USER_ID);
         const name = localStorage.getItem(localStorageKeys.NAME);
         dispatch(authSuccess(token, userId, name));
-        dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000));
+        dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime())));
     };
 };
