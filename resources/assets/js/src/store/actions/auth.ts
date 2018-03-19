@@ -55,10 +55,9 @@ export const auth = (email, password) => {
         axios.post(process.env.MIX_OAUTH_ADD, data)
             .then((response) => {
                 const accessToken = response.data.access_token;
-                const expirationDate = new Date(new Date().getTime() + response.data.expires_in);
                 const expiresIn = response.data.expires_in;
                 const headerData = { Authorization: `Bearer ${accessToken}` };
-                dispatch(authGetUserInfo(headerData, accessToken, expirationDate, expiresIn));
+                dispatch(authGetUserInfo(headerData, accessToken, expiresIn));
             })
             .catch((err) => {
                 dispatch(authFail(err.response.data.error));
@@ -66,8 +65,9 @@ export const auth = (email, password) => {
     };
 };
 
-export const authGetUserInfo = (headerData, accessToken, expirationDate, expiresIn) => {
+export const authGetUserInfo = (headerData, accessToken, expiresIn) => {
     return (dispatch) => {
+        const expirationDate = new Date(new Date().getTime() + expiresIn);
         axios.get(process.env.MIX_USER_PROFILE_ADD, {headers: headerData}).then((res) => {
             localStorage.setItem(localStorageKeys.TOKEN, accessToken);
             localStorage.setItem(localStorageKeys.EXPIRATION_DATE, expirationDate.toString());
