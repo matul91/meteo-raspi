@@ -163,8 +163,9 @@ export default class Chart extends React.Component<IProps, IState> {
 
     private loadDataToChart(direction: string = null): void {
         let diff = 0;
+        let { dateFrom, dateTo } = this.state.dateRange;
 
-        if (this.state.dateRange.dateFrom !== null && this.state.dateRange.dateTo !== null && !this.state.error) {
+        if (DateUtil.areDatesNull(dateFrom, dateTo) && !this.state.error) {
             diff = moment(this.state.dateRange.dateTo)
                 .diff(this.state.dateRange.dateFrom) / 1000 / 60;
         } else {
@@ -172,8 +173,8 @@ export default class Chart extends React.Component<IProps, IState> {
         }
 
         const dates = this.calculateDiffBetweenDates(direction, diff);
-        const dateFrom = DateUtil.formatDateByFormat(dates.dateFrom, this.state.dbDateFormat);
-        const dateTo = DateUtil.formatDateByFormat(dates.dateTo, this.state.dbDateFormat);
+        dateFrom = DateUtil.formatDateByFormat(dates.dateFrom, this.state.dbDateFormat);
+        dateTo = DateUtil.formatDateByFormat(dates.dateTo, this.state.dbDateFormat);
 
         this.loadData(dateFrom, dateTo, direction);
     }
