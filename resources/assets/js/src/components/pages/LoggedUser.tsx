@@ -1,11 +1,15 @@
 import * as React from "react";
-import {Col, Row} from "react-bootstrap";
+import {Col, PageHeader, Row} from "react-bootstrap";
+import PhotosHistory from "../photosHistory/PhotosHistory";
 
 const LoggedUser = () => {
     return (
         <Row>
             <Col xs={12}>
-                <h1>Uživatelská stránka</h1>
+                <PageHeader>
+                    User's page
+                </PageHeader>
+                <PhotosHistory />
             </Col>
         </Row>
     );
