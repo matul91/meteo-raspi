@@ -55,7 +55,7 @@ export const auth = (email, password) => {
         axios.post(process.env.MIX_OAUTH_ADD, data)
             .then((response) => {
                 const accessToken = response.data.access_token;
-                const expirationDate = new Date(new Date().getTime() + response.data.expires_in * 1000 * 60);
+                const expirationDate = new Date(new Date().getTime() + response.data.expires_in);
                 const headerData = { Authorization: `Bearer ${accessToken}` };
                 dispatch(authGetUserInfo(headerData, accessToken, expirationDate));
             })
@@ -97,6 +97,6 @@ export const authCheckState = () => {
         const userId = localStorage.getItem(localStorageKeys.USER_ID);
         const name = localStorage.getItem(localStorageKeys.NAME);
         dispatch(authSuccess(token, userId, name));
-        dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000));
+        dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime())));
     };
 };
