@@ -38,7 +38,7 @@ export const checkAuthTimeout = (expirationTime) => {
     return (dispatch) => {
         setTimeout(() => {
             dispatch(logout());
-        }, expirationTime * 1000);
+        }, expirationTime);
     };
 };
 
@@ -56,8 +56,9 @@ export const auth = (email, password) => {
             .then((response) => {
                 const accessToken = response.data.access_token;
                 const expirationDate = new Date(new Date().getTime() + response.data.expires_in);
+                const expiresIn = response.data.expires_in;
                 const headerData = { Authorization: `Bearer ${accessToken}` };
-                dispatch(authGetUserInfo(headerData, accessToken, expirationDate));
+                dispatch(authGetUserInfo(headerData, accessToken, expirationDate, expiresIn));
             })
             .catch((err) => {
                 dispatch(authFail(err.response.data.error));
@@ -65,7 +66,7 @@ export const auth = (email, password) => {
     };
 };
 
-export const authGetUserInfo = (headerData, accessToken, expirationDate) => {
+export const authGetUserInfo = (headerData, accessToken, expirationDate, expiresIn) => {
     return (dispatch) => {
         axios.get(process.env.MIX_USER_PROFILE_ADD, {headers: headerData}).then((res) => {
             localStorage.setItem(localStorageKeys.TOKEN, accessToken);
@@ -73,7 +74,7 @@ export const authGetUserInfo = (headerData, accessToken, expirationDate) => {
             localStorage.setItem(localStorageKeys.USER_ID, res.data.id);
             localStorage.setItem(localStorageKeys.NAME, res.data.name);
             dispatch(authSuccess(accessToken, res.data.id, res.data.name));
-            dispatch(checkAuthTimeout(expirationDate));
+            dispatch(checkAuthTimeout(expiresIn));
         }).catch((err) => {
             dispatch(authFail(err.response.data.error));
         });
