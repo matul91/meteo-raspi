@@ -55,7 +55,7 @@ export const auth = (email, password) => {
         axios.post(process.env.MIX_OAUTH_ADD, data)
             .then((response) => {
                 const accessToken = response.data.access_token;
-                const expirationDate = new Date(new Date().getTime() + response.data.expires_in * 1000);
+                const expirationDate = new Date(new Date().getTime() + response.data.expires_in * 1000 * 60);
                 const headerData = { Authorization: `Bearer ${accessToken}` };
                 dispatch(authGetUserInfo(headerData, accessToken, expirationDate));
             })
