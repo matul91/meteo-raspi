@@ -158,7 +158,6 @@ export default class Chart extends React.Component<IProps, IState> {
 
         const { dateFrom, dateTo } = this.state.dateRange;
         if (DateUtil.areDatesNull(dateFrom, dateTo) !== true) {
-            console.log(DateUtil.areDatesNull(dateFrom, dateTo));
             this.loadData(this.state.dateRange.dateFrom, this.state.dateRange.dateTo);
         }
     }
