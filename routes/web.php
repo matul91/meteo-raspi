@@ -20,6 +20,10 @@ Route::get('/temperatures/latest', 'TemperatureController@latest');
 Route::get('/winds', 'WindController@index');
 Route::get('/winds/latest', 'WindController@latest');
 
+Route::get('/photoController', 'PhotoController@index');
+Route::get('/photoController/all', 'PhotoController@all');
+Route::post('/photoController/savePhoto', 'PhotoController@savePhoto');
+
 Route::any('{all}', function () {
     return view('index');
 })
