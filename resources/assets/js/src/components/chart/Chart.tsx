@@ -155,7 +155,10 @@ export default class Chart extends React.Component<IProps, IState> {
 
     private refreshDataByDateChangeHandler(e): void {
         e.preventDefault();
-        if (this.state.dateRange.dateFrom !== null && this.state.dateRange.dateTo !== null) {
+
+        const { dateFrom, dateTo } = this.state.dateRange;
+        if (DateUtil.areDatesNull(dateFrom, dateTo) !== false) {
+            console.log(DateUtil.areDatesNull(dateFrom, dateTo));
             this.loadData(this.state.dateRange.dateFrom, this.state.dateRange.dateTo);
         }
     }
@@ -169,7 +172,7 @@ export default class Chart extends React.Component<IProps, IState> {
         let diff = 0;
         let { dateFrom, dateTo } = this.state.dateRange;
 
-        if (DateUtil.areDatesNull(dateFrom, dateTo) && !this.state.error) {
+        if (DateUtil.areDatesNull(dateFrom, dateTo) !== false && !this.state.error) {
             diff = moment(this.state.dateRange.dateTo)
                 .diff(this.state.dateRange.dateFrom) / 1000 / 60;
         } else {

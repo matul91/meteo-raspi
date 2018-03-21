@@ -5,7 +5,7 @@ class DateUtil {
         return moment(date).format(format);
     }
     public static areDatesNull(dateFrom: string, dateTo: string): boolean {
-        return (dateFrom !== null && dateTo !== null);
+        return (dateFrom === null && dateTo === null);
     }
 }
 
