@@ -13,15 +13,16 @@ class DateUtil {
     public static calcDiffBetweenDates(dates: {firstDate: string, lastDate: string}, direction: string, diff: number) {
         let dateFrom;
         let dateTo;
+        const { firstDate, lastDate } = dates;
 
         switch (direction) {
             case Directions.MINUS:
-                dateTo = moment(dates.firstDate);
-                dateFrom = moment(dates.firstDate).subtract(diff, "minutes");
+                dateTo = moment(firstDate);
+                dateFrom = moment(firstDate).subtract(diff, "minutes");
                 break;
             case Directions.PLUS:
-                dateFrom = moment(dates.lastDate);
-                dateTo = moment(dates.lastDate).add(diff, "minutes");
+                dateFrom = moment(lastDate);
+                dateTo = moment(lastDate).add(diff, "minutes");
                 break;
             default:
                 return null;
