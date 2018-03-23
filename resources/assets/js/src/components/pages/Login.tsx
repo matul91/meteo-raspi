@@ -3,6 +3,7 @@ import {Button, Col, ControlLabel, form, FormControl, FormGroup, Row} from "reac
 import {connect} from "react-redux";
 import { Redirect } from "react-router-dom";
 import * as AlertStyles from "../../config/constants/alertStyles";
+import * as Errors from "../../config/constants/errors";
 import * as actions from "../../store/actions";
 import Alert from "../alert/Alert";
 import Loading from "../loading/Loading";
@@ -12,13 +13,15 @@ const formInputs = [
         label: "E-mail",
         name: "email",
         placeholder: "E-mailová adresa",
-        type: "text",
+        type: "email",
+        validationState: null,
     },
     {
         label: "Heslo",
         name: "password",
         placeholder: "Heslo",
         type: "password",
+        validationState: null,
     },
 ];
 
@@ -77,6 +80,7 @@ class Login extends React.Component<any> {
                         value={this.state.formValues[input.name]}
                         placeholder={input.placeholder}
                         onChange={this.inputChangeHandler}
+                        validationState={input.validationState}
                     />
                 </FormGroup>
             );
@@ -95,6 +99,12 @@ class Login extends React.Component<any> {
 
     private submitHandler(e: any): void {
         e.preventDefault();
+
+        if (!this.state.formValues.email || !this.state.formValues.password) {
+            this.props.authFail(Errors.NO_ALL_CREDENTIALS_FILLED);
+            return;
+        }
+
         this.props.onAuth(this.state.formValues.email, this.state.formValues.password);
     }
 }
@@ -109,6 +119,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        authFail: (error) => dispatch(actions.authFail(error)),
         onAuth: (email, password) => dispatch(actions.auth(email, password)),
     };
 };
