@@ -72,6 +72,7 @@ class Login extends React.Component<any> {
                 <FormGroup
                     controlId={input.name}
                     key={input.name}
+                    validationState={input.validationState}
                 >
                     <ControlLabel>{input.label}</ControlLabel>
                     <FormControl
@@ -80,7 +81,6 @@ class Login extends React.Component<any> {
                         value={this.state.formValues[input.name]}
                         placeholder={input.placeholder}
                         onChange={this.inputChangeHandler}
-                        validationState={input.validationState}
                     />
                 </FormGroup>
             );
@@ -88,6 +88,8 @@ class Login extends React.Component<any> {
     }
 
     private inputChangeHandler(e: any): void {
+        this.setInputValidationState(e.target.name);
+
         this.setState({
             ...this.state,
             formValues: {
@@ -101,11 +103,31 @@ class Login extends React.Component<any> {
         e.preventDefault();
 
         if (!this.state.formValues.email || !this.state.formValues.password) {
+            this.setWarnToBlankFields();
             this.props.authFail(Errors.NO_ALL_CREDENTIALS_FILLED);
             return;
         }
 
         this.props.onAuth(this.state.formValues.email, this.state.formValues.password);
+    }
+
+    private setWarnToBlankFields(): void {
+        for (const inputValue in this.state.formValues) {
+            if (!this.state.formValues[inputValue]) {
+                this.setInputValidationState(inputValue, "error");
+            }
+        }
+    }
+
+    private setInputValidationState(name, value = null): void {
+        const item = this.getFormInputIndex(name);
+        formInputs[item].validationState = value;
+    }
+
+    private getFormInputIndex(name: string): number {
+        return formInputs.findIndex((input) => {
+            return input.name === name;
+        });
     }
 }
 
