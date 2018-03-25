@@ -1,3 +1,6 @@
+[![Maintainability](https://api.codeclimate.com/v1/badges/0c3b4196d6e79e834614/maintainability)](https://codeclimate.com/github/matul91/meteo-raspi/maintainability)
+[![Build Status](https://travis-ci.org/matul91/meteo-raspi.svg?branch=develop)](https://travis-ci.org/matul91/meteo-raspi)
+
 Prerequiresities:
 1.  Installed PHP&MySQL server on your machine (for Windows I recommend https://laragon.org/, for OSX https://laravel.com/docs/5.5/valet)
 2.  Installed composer (https://getcomposer.org/)

@@ -3,11 +3,14 @@ import * as moment from "moment";
 import * as React from "react";
 import * as Swipeable from "react-swipeable";
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import * as AlertStyles from "../../config/constants/alertStyles";
 import * as Directions from "../../config/constants/directions";
+import * as Errors from "../../config/constants/errors";
 import * as Positions from "../../config/constants/positions";
 import ArrayUtil from "../../utils/ArrayUtil";
 import DateUtil from "../../utils/DateUtil";
 import URLUtil from "../../utils/URLUtil";
+import Alert from "../alert/Alert";
 import DatetimeRangePicker from "../datetimeRangePicker/DateTimeRangePicker";
 import Loading from "../loading/Loading";
 import ButtonPanel from "./buttonPanel/ButtonPanel";
@@ -29,6 +32,10 @@ interface IState {
         dateTo: string,
     };
     dbDateFormat: string;
+    error: {
+        type: string,
+        style: string,
+    };
     initialDate: string;
     initialValue: number;
     showedDateFormat: string;
@@ -55,6 +62,7 @@ export default class Chart extends React.Component<IProps, IState> {
             dateTo: null,
         },
         dbDateFormat: "YYYY-MM-DD HH:mm:ss",
+        error: null,
         initialDate: null,
         initialValue: null,
         showedDateFormat: "HH:mm",
@@ -82,6 +90,7 @@ export default class Chart extends React.Component<IProps, IState> {
         if (this.state.data.length > 0) {
             content = (
                 <div className="chart">
+                    {this.state.error && <Alert type={this.state.error.type} cls={this.state.error.style}/>}
                     <DatetimeRangePicker
                         onSubmit={this.refreshDataByDateChangeHandler}
                         onInputChange={this.datetimeChangedHandler}
@@ -101,7 +110,11 @@ export default class Chart extends React.Component<IProps, IState> {
                             </LineChart>
                         </ResponsiveContainer>
                     </Swipeable>
-                    <ButtonPanel clickHandler={this.refreshDataByEventHandler} />
+                    <ButtonPanel
+                        clickHandler={this.refreshDataByEventHandler}
+                        initialDate={this.state.initialDate}
+                        lastDate={this.state.data[this.state.data.length - 1].date}
+                    />
                 </div>
             );
         }
@@ -154,8 +167,9 @@ export default class Chart extends React.Component<IProps, IState> {
 
     private loadDataToChart(direction: string = null): void {
         let diff = 0;
+        let { dateFrom, dateTo } = this.state.dateRange;
 
-        if (this.state.dateRange.dateFrom !== null && this.state.dateRange.dateTo !== null) {
+        if (DateUtil.areDatesNull(dateFrom, dateTo) && !this.state.error) {
             diff = moment(this.state.dateRange.dateTo)
                 .diff(this.state.dateRange.dateFrom) / 1000 / 60;
         } else {
@@ -163,8 +177,8 @@ export default class Chart extends React.Component<IProps, IState> {
         }
 
         const dates = this.calculateDiffBetweenDates(direction, diff);
-        const dateFrom = DateUtil.formatDateByFormat(dates.dateFrom, this.state.dbDateFormat);
-        const dateTo = DateUtil.formatDateByFormat(dates.dateTo, this.state.dbDateFormat);
+        dateFrom = DateUtil.formatDateByFormat(dates.dateFrom, this.state.dbDateFormat);
+        dateTo = DateUtil.formatDateByFormat(dates.dateTo, this.state.dbDateFormat);
 
         this.loadData(dateFrom, dateTo, direction);
     }
@@ -212,28 +226,23 @@ export default class Chart extends React.Component<IProps, IState> {
     }
 
     private loadData(dateFrom: string, dateTo: string, direction: string = null): void {
+        this.setError();
         const url = URLUtil.generateURLByDates(this.props.url, dateFrom, dateTo);
         let dataMeta;
 
         axios.get(url).then((response: any) => {
             const newData = this.processResponse(response);
-            if (!newData.length || newData[0].date === this.state.initialDate) {
+            if (!this.checkData(newData)) {
                 return;
             }
 
             if (direction) {
                 let data = ArrayUtil.destructureDataArrays(direction, this.state.data, newData);
                 data = ArrayUtil.removeDuplicities(data);
-                dataMeta = {
-                    firstDate: data[0].date,
-                    lastDate: data[data.length - 1].date,
-                };
+                dataMeta = { firstDate: data[0].date, lastDate: data[data.length - 1].date };
                 this.setState({ data, dataMeta });
             } else {
-                dataMeta = {
-                    firstDate: newData[0].date,
-                    lastDate: newData[newData.length - 1].date,
-                };
+                dataMeta = { firstDate: newData[0].date, lastDate: newData[newData.length - 1].date };
                 this.setState({ data: newData, dataMeta });
             }
         });
@@ -246,5 +255,33 @@ export default class Chart extends React.Component<IProps, IState> {
                 value: row[this.props.columnName],
             };
         });
+    }
+
+    private checkData(data): boolean {
+        let ret: boolean = true;
+
+        if (!data.length) {
+            this.setError(Errors.NO_DATA, AlertStyles.DANGER);
+            ret = false;
+        } else if (data[0].date === this.state.initialDate) {
+            ret = false;
+        }
+
+        return ret;
+    }
+
+    private setError(type: string = null, style: string = null): void {
+        if (type && style) {
+            this.setState({
+                error: {
+                    style,
+                    type,
+                },
+            });
+        } else {
+            this.setState({
+                error: null,
+            });
+        }
     }
 }
