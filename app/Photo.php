@@ -4,10 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-define("DATE_FORMAT_IMAGE_NAME", date("Y-m-d-G-i-s"));
-define("DATE_FORMAT_SORTING_BY_DATE", date("Y") . "/" . date("m"));
+
 class Photo extends Model
 {
+    const DATE_FORMAT_IMAGE_NAME = "Y-m-d-G-i-s";
+    const DATE_FORMAT_SORTING_BY_DATE = "Y/m";
     public static function getCountRows()
     {
         return self::get()->count();
@@ -25,9 +26,9 @@ class Photo extends Model
 
     private static function saveImageFromRaspi(\Illuminate\Http\Request $request)
     {
-        $destinationPath = env('RASPI_PHOTO_FOLDER_PATH') . DATE_FORMAT_SORTING_BY_DATE;
+        $destinationPath = env('RASPI_PHOTO_FOLDER_PATH') . date(self::DATE_FORMAT_SORTING_BY_DATE);
         $file = $request->file('photo');
-        $filename = DATE_FORMAT_IMAGE_NAME . "." . $file->getClientOriginalExtension();
+        $filename = date(self::DATE_FORMAT_IMAGE_NAME) . "." . $file->getClientOriginalExtension();
         $file = $request->file('photo')->move($destinationPath, $filename);
         return $file;
     }
