@@ -1,5 +1,5 @@
 import * as React from "react";
-import {Carousel, Col, Panel, Row} from "react-bootstrap";
+import {Carousel, Panel} from "react-bootstrap";
 
 const photos = [
     {
