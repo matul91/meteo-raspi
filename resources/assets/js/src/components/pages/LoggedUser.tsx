@@ -9,7 +9,11 @@ const LoggedUser = () => {
                 <PageHeader>
                     User's page
                 </PageHeader>
-                <PhotosHistory />
+                <Row>
+                    <Col sm={6}>
+                        <PhotosHistory />
+                    </Col>
+                </Row>
             </Col>
         </Row>
     );
