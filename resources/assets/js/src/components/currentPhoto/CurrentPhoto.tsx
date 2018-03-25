@@ -6,7 +6,7 @@ const CurrentPhoto = (props) => {
     return (
         <Panel className="current-photo">
             <Panel.Heading>
-                <Panel.Title componentClass="h2">Current photo and wind direction marker</Panel.Title>
+                <Panel.Title>Current photo and wind direction marker</Panel.Title>
             </Panel.Heading>
             <Panel.Body>
                 <WindDirection direction={props.direction} speed={props.speed} />

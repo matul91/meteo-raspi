@@ -21,7 +21,7 @@ export default class PhotosHistory extends React.Component {
         return (
             <Panel>
                 <Panel.Heading>
-                    <Panel.Title componentClass="h2">Photos history viewer</Panel.Title>
+                    <Panel.Title>Photos history viewer</Panel.Title>
                 </Panel.Heading>
                 <Panel.Body>
                     <Carousel>
