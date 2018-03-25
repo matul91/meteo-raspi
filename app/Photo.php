@@ -4,11 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-
 class Photo extends Model
 {
     const DATE_FORMAT_IMAGE_NAME = "Y-m-d-G-i-s";
     const DATE_FORMAT_SORTING_BY_DATE = "Y/m";
+
     public static function getCountRows()
     {
         return self::get()->count();
