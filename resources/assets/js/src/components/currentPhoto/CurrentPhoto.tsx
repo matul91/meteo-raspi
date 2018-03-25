@@ -1,7 +1,7 @@
 import * as React from "react";
 import {Panel} from "react-bootstrap";
 
-const WindDirection = (props) => {
+const CurrentPhoto = (props) => {
     return (
         <Panel>
             <Panel.Heading>
@@ -14,4 +14,4 @@ const WindDirection = (props) => {
     );
 };
 
-export default WindDirection;
+export default CurrentPhoto;

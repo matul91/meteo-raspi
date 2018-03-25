@@ -1,7 +1,7 @@
 import * as React from "react";
 import {Col, PageHeader, Row} from "react-bootstrap";
+import CurrentPhoto from "../currentPhoto/CurrentPhoto";
 import PhotosHistory from "../photosHistory/PhotosHistory";
-import WindDirection from "../windDirection/WindDirection";
 
 const LoggedUser = () => {
     return (
@@ -12,7 +12,7 @@ const LoggedUser = () => {
                 </PageHeader>
                 <Row>
                     <Col sm={6}>
-                        <WindDirection />
+                        <CurrentPhoto />
                     </Col>
                     <Col sm={6}>
                         <PhotosHistory />
