@@ -157,7 +157,7 @@ export default class Chart extends React.Component<IProps, IState> {
         e.preventDefault();
 
         const { dateFrom, dateTo } = this.state.dateRange;
-        if (DateUtil.areDatesNull(dateFrom, dateTo) !== true) {
+        if (!DateUtil.areDatesNull(dateFrom, dateTo)) {
             this.loadData(this.state.dateRange.dateFrom, this.state.dateRange.dateTo);
         }
     }
@@ -171,14 +171,14 @@ export default class Chart extends React.Component<IProps, IState> {
         let diff = 0;
         let { dateFrom, dateTo } = this.state.dateRange;
 
-        if (DateUtil.areDatesNull(dateFrom, dateTo) !== true && !this.state.error) {
+        if (!DateUtil.areDatesNull(dateFrom, dateTo) && !this.state.error) {
             diff = moment(this.state.dateRange.dateTo)
                 .diff(this.state.dateRange.dateFrom) / 1000 / 60;
         } else {
             diff = INITIAL_DURATION;
         }
 
-        const dates = DateUtil.calcDiffBetweenDates(this.state.dataMeta, direction, diff);
+        const dates = DateUtil.differenceBetweenDates(this.state.dataMeta, direction, diff);
         dateFrom = DateUtil.formatDateByFormat(dates.dateFrom, this.state.dbDateFormat);
         dateTo = DateUtil.formatDateByFormat(dates.dateTo, this.state.dbDateFormat);
 

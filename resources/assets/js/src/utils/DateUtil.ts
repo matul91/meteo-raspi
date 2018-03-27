@@ -7,10 +7,10 @@ class DateUtil {
     }
 
     public static areDatesNull(dateFrom: string, dateTo: string): boolean {
-        return (dateFrom === null && dateTo === null);
+        return (dateFrom === null || dateTo === null);
     }
 
-    public static calcDiffBetweenDates(dates: {firstDate: string, lastDate: string}, direction: string, diff: number) {
+    public static differenceBetweenDates(dates: {firstDate: string, lastDate: string}, direction, diff) {
         let dateFrom;
         let dateTo;
         const { firstDate, lastDate } = dates;
