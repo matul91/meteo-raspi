@@ -17,14 +17,14 @@ const formInputs = [
         name: "email",
         placeholder: "E-mailová adresa",
         type: "email",
-        validationState: null,
+        validations: [required, email],
     },
     {
         label: "Heslo",
         name: "password",
         placeholder: "Heslo",
         type: "password",
-        validationState: null,
+        validations: [required],
     },
 ];
 
@@ -76,7 +76,6 @@ class Login extends React.Component<any> {
                 <FormGroup
                     controlId={input.name}
                     key={input.name}
-                    validationState={input.validationState}
                 >
                     <ControlLabel>{input.label}</ControlLabel>
                     <Input
@@ -86,7 +85,7 @@ class Login extends React.Component<any> {
                         placeholder={input.placeholder}
                         onChange={this.inputChangeHandler}
                         className="form-control"
-                        validations={[required, email]}
+                        validations={input.validations}
                     />
                 </FormGroup>
             );
