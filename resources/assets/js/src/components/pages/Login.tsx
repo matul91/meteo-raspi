@@ -1,12 +1,27 @@
 import * as React from "react";
-import {Button, Col, ControlLabel, form, FormControl, FormGroup, Row} from "react-bootstrap";
+import {Button, Col, ControlLabel, FormControl, FormGroup, Row} from "react-bootstrap";
 import {connect} from "react-redux";
 import { Redirect } from "react-router-dom";
+import Form from "react-validation/build/form";
+import Input from "react-validation/build/input";
+import validator from "validator";
 import * as AlertStyles from "../../config/constants/alertStyles";
 import * as Errors from "../../config/constants/errors";
 import * as actions from "../../store/actions";
 import Alert from "../alert/Alert";
 import Loading from "../loading/Loading";
+
+const required = (value) => {
+    if (!value.toString().trim().length) {
+        return "require";
+    }
+};
+
+const email = (value) => {
+    if (!validator.isEmail(value)) {
+        return `${value} is not a valid email.`;
+    }
+};
 
 const formInputs = [
     {
@@ -32,6 +47,7 @@ class Login extends React.Component<any> {
             password: "",
         },
     };
+    private form = null;
 
     constructor(props) {
         super(props);
@@ -48,10 +64,10 @@ class Login extends React.Component<any> {
         } else {
             const inputs = this.getFormInputs();
             content = (
-                <form onSubmit={this.submitHandler}>
+                <Form ref={(c) => { this.form = c; }} onSubmit={this.submitHandler}>
                     {inputs}
                     <Button type="submit">Submit</Button>
-                </form>
+                </Form>
             );
         }
 
@@ -75,12 +91,14 @@ class Login extends React.Component<any> {
                     validationState={input.validationState}
                 >
                     <ControlLabel>{input.label}</ControlLabel>
-                    <FormControl
+                    <Input
                         type={input.type}
                         name={input.name}
                         value={this.state.formValues[input.name]}
                         placeholder={input.placeholder}
                         onChange={this.inputChangeHandler}
+                        className="form-control"
+                        validations={[required, email]}
                     />
                 </FormGroup>
             );
@@ -88,8 +106,6 @@ class Login extends React.Component<any> {
     }
 
     private inputChangeHandler(e: any): void {
-        this.setInputValidationState(e.target.name);
-
         this.setState({
             ...this.state,
             formValues: {
@@ -102,32 +118,13 @@ class Login extends React.Component<any> {
     private submitHandler(e: any): void {
         e.preventDefault();
 
+        this.form.validateAll();
         if (!this.state.formValues.email || !this.state.formValues.password) {
-            this.setWarnToBlankFields();
             this.props.authFail(Errors.NO_ALL_CREDENTIALS_FILLED);
             return;
         }
 
         this.props.onAuth(this.state.formValues.email, this.state.formValues.password);
-    }
-
-    private setWarnToBlankFields(): void {
-        for (const inputValue in this.state.formValues) {
-            if (!this.state.formValues[inputValue]) {
-                this.setInputValidationState(inputValue, "error");
-            }
-        }
-    }
-
-    private setInputValidationState(name, value = null): void {
-        const item = this.getFormInputIndex(name);
-        formInputs[item].validationState = value;
-    }
-
-    private getFormInputIndex(name: string): number {
-        return formInputs.findIndex((input) => {
-            return input.name === name;
-        });
     }
 }
 
