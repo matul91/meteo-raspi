@@ -4,24 +4,12 @@ import {connect} from "react-redux";
 import { Redirect } from "react-router-dom";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
-import validator from "validator";
 import * as AlertStyles from "../../config/constants/alertStyles";
 import * as Errors from "../../config/constants/errors";
+import { email, required } from "../../config/validators";
 import * as actions from "../../store/actions";
 import Alert from "../alert/Alert";
 import Loading from "../loading/Loading";
-
-const required = (value) => {
-    if (!value.toString().trim().length) {
-        return "require";
-    }
-};
-
-const email = (value) => {
-    if (!validator.isEmail(value)) {
-        return `${value} is not a valid email.`;
-    }
-};
 
 const formInputs = [
     {
