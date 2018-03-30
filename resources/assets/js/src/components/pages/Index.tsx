@@ -39,7 +39,7 @@ const Index = () => {
             </Row>
             <Row>
                 <Col md={6}>
-                    <AerialPhoto />
+                    <AerialPhoto direction="NNE" speed="40" suffix="m/s" />
                 </Col>
             </Row>
         </React.Fragment>
