@@ -11,10 +11,7 @@ const LoggedUser = () => {
                     User's page
                 </PageHeader>
                 <Row>
-                    <Col sm={6}>
-                        <CurrentPhoto direction="WWE" speed="40 m/s" />
-                    </Col>
-                    <Col sm={6}>
+                    <Col sm={12}>
                         <PhotosHistory />
                     </Col>
                 </Row>
