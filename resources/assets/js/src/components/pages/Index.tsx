@@ -1,5 +1,6 @@
 import * as React from "react";
 import {Col, Row} from "react-bootstrap";
+import AerialPhoto from "../aerialPhoto/AerialPhoto";
 import Chart from "../chart/Chart";
 
 const chartData = [
@@ -32,9 +33,16 @@ const Index = () => {
         );
     });
     return (
-        <Row>
-            {charts}
-        </Row>
+        <React.Fragment>
+            <Row>
+                {charts}
+            </Row>
+            <Row>
+                <Col md={6}>
+                    <AerialPhoto />
+                </Col>
+            </Row>
+        </React.Fragment>
     );
 };
 
