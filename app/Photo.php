@@ -24,12 +24,11 @@ class Photo extends Model
         return self::orderBy('id', 'desc')->first();
     }
 
-    private static function saveImageFromRaspi(\Illuminate\Http\Request $request)
+    private static function saveImage($file)
     {
         $destinationPath = env('RASPI_PHOTO_FOLDER_PATH') . date(self::DATE_FORMAT_SORTING_BY_DATE);
-        $file = $request->file('photo');
         $filename = date(self::DATE_FORMAT_IMAGE_NAME) . "." . $file->getClientOriginalExtension();
-        $file = $request->file('photo')->move($destinationPath, $filename);
+        $file = $file->move($destinationPath, $filename);
         return $file;
     }
 
@@ -48,7 +47,7 @@ class Photo extends Model
     public static function processImageFromApi(\Illuminate\Http\Request $request)
     {
         if ($request->hasFile('photo')) {
-            $file = self::saveImageFromRaspi($request);
+            $file = self::saveImage($request->file('photo'));
             self::saveInfoToDatabase($file->getPathInfo(), $file->getBasename(), $request);
             $result = "Complete!";
         } else {
