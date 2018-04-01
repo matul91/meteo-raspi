@@ -22,7 +22,7 @@ Route::get('/winds/latest', 'WindController@latest');
 
 Route::get('/photo', 'PhotoController@index');
 Route::get('/photo/all', 'PhotoController@all');
-Route::post('/photo/savePhoto', 'PhotoController@savePhoto');
+Route::post('/photo/save', 'PhotoController@savePhoto');
 
 Route::any('{all}', function () {
     return view('index');
