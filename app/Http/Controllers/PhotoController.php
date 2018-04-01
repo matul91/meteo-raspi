@@ -21,9 +21,9 @@ class PhotoController extends Controller
     {
         $value = Photo::processImageFromApi($request);
 
-        if($value == true){
+        if ($value == true) {
             return "ALL OK!";
-        }else{
+        } else {
             return "Error";
         }
     }
