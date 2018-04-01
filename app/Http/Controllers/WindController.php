@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Wind;
-
 
 class WindController extends Controller
 {

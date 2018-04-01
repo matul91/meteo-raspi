@@ -13,6 +13,4 @@ class Setting extends Model
     {
         return Setting::where('name', $name)->first();
     }
-
-
 }

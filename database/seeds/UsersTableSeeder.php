@@ -14,34 +14,28 @@ class UsersTableSeeder extends Seeder
     {
         $role_admin  = Role::where('name', 'admin')->first();
         $role_modeller = Role::where('name', 'modeller')->first();
-
-        $user = factory(App\User::class)->make([
-            'name' => 'Jiří Matula',
-            'email' => 'jiri@osu.cz'
-        ]);
+        $user = self::createUser('Lukáš Antl', 'lukas@osu.cz');
         $user->save();
         $user->roles()->attach($role_admin);
 
-        $user = factory(App\User::class)->make([
-            'name' => 'Vladimír Fojtík',
-            'email' => 'vladimir@osu.cz'
-        ]);
+        $user = self::createUser('Vladimír Fojtík', 'vladimir@osu.cz');
         $user->save();
         $user->roles()->attach($role_admin);
 
-        $user = factory(App\User::class)->make([
-            'name' => 'Lukáš Antl',
-            'email' => 'lukas@osu.cz'
-        ]);
+        $user = self::createUser('Jiří Matula', 'jiri@osu.cz');
         $user->save();
         $user->roles()->attach($role_admin);
 
-        $user = factory(App\User::class)->make([
-            'name' => 'Normální uživatel',
-            'email' => 'test@osu.cz'
-        ]);
+        $user = self::createUser('Normální Uživatel', 'info@osu.cz');
         $user->save();
         $user->roles()->attach($role_modeller);
+    }
 
+    private function createUser($name, $email){
+        $user = factory(App\User::class)->make([
+            'name' => $name,
+            'email' => $email
+        ]);
+        return $user;
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Middleware;
+
 use Illuminate\Http\Request;
 use Closure;
 use App\Role;
@@ -18,36 +19,31 @@ class CheckPermissions
     public function handle($request, Closure $next, $role)
     {
         $userId = self::getUserIdFromToken($request);
-        if($userId == 0){
-            return response('unathorized', 401);
-        }else{
+        if ($userId == 0) {
+            return self::getUnauthorized();
+        } else {
             $userPermissions = User::find($userId)->roles;
             $roleArray = explode(";", $role);
-            foreach ($userPermissions as $userRole){
-                foreach ($roleArray as $pageRole){
-                    if($userRole->name == $pageRole){
-                        return $next($request);
-                    }
-                }
-            }
-            return response('unathorized', 401);
+            return self::compareUserPermissions($userPermissions, $roleArray, $next, $request);
         }
     }
 
-    public static function getUserIdFromToken(Request $request){
+    private static function getUserIdFromToken(Request $request)
+    {
         $result = 0;
-        if ($request->header('Authorization')){
+        if ($request->header('Authorization')) {
             $res = self::sendTokenToPassport($request);
-            if($res->getStatusCode() != 401){
+            if ($res->getStatusCode() != 401) {
                 $result = json_decode($res->getBody())->id;
             }
         }
         return $result;
     }
 
-    public static function sendTokenToPassport(Request $request){
+    private static function sendTokenToPassport(Request $request)
+    {
         $client = new \GuzzleHttp\Client(['http_errors' => false]);
-        $res = $client->request('GET', $_ENV['APP_URL'] . '/api/user',[
+        $res = $client->request('GET', $_ENV['APP_URL'] . '/api/user', [
             'headers' => [
                 'Authorization' => $request->header('Authorization'),
                 'Accept'     => 'application/json'
@@ -56,4 +52,37 @@ class CheckPermissions
         return $res;
     }
 
+    private static function getUnauthorized()
+    {
+        return response('unauthorized', 401);
+    }
+
+    // použít nějakou funkci co najde
+    private static function compareUserPermissions($userPermissions, $roleArray, $next, $request)
+    {
+        $result = self::getUnauthorized();
+
+        foreach ($userPermissions as $userRole) {
+            foreach ($roleArray as $pageRole) {
+
+                $result = self::compareTwoPermissions($userRole, $pageRole, $next, $request);
+
+            }
+        }
+
+        return $result;
+    }
+
+
+    // Dodělat že se vrátí true a následně udělat Next
+    private static function compareTwoPermissions($userRole, $pageRole, $next, $request)
+    {
+        $result = null;
+        if ($userRole->name == $pageRole) {
+            $result = $next($request);
+        } else {
+            $result = self::getUnauthorized();
+        }
+        return $result;
+    }
 }
