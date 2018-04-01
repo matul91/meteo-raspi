@@ -19,6 +19,12 @@ class PhotoController extends Controller
 
     public function savePhoto(\Illuminate\Http\Request $request)
     {
-        return Photo::processImageFromApi($request);
+        $value = Photo::processImageFromApi($request);
+
+        if($value == true){
+            return "ALL OK!";
+        }else{
+            return "Error";
+        }
     }
 }

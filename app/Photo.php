@@ -8,6 +8,7 @@ class Photo extends Model
 {
     const DATE_FORMAT_IMAGE_NAME = "Y-m-d-G-i-s";
     const DATE_FORMAT_SORTING_BY_DATE = "Y/m";
+    const PUBLIC_FOLDER = "public";
 
     public static function getCountRows()
     {
@@ -35,7 +36,7 @@ class Photo extends Model
     private static function saveInfoToDatabase(string $pathInfo, string $baseName, \Illuminate\Http\Request $request)
     {
         $photo = new Photo;
-        $photo->name = "public/" . $pathInfo . "/" . $baseName;
+        $photo->name = self::PUBLIC_FOLDER . "/" . $pathInfo . "/" . $baseName;
         if ($request->input("metaInfo")) {
             $photo->metaInfo = $request->input("metaInfo");
         } else {
