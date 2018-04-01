@@ -11,12 +11,12 @@ class PhotoTableSeeder extends Seeder
      */
     public function run()
     {
-        self::deleteDirectory('public/images/photoFromRaspi');
+        self::deleteDirectory('public/images/photos');
 
         self::createDir('public/images');
-        self::createDir('public/images/photoFromRaspi/');
-        self::createDir('public/images/photoFromRaspi/' . date('Y') . '/');
-        self::createDir('public/images/photoFromRaspi/' . date('Y') . '/' . date('m'));
+        self::createDir('public/images/photos/');
+        self::createDir('public/images/photos/' . date('Y') . '/');
+        self::createDir('public/images/photos/' . date('Y') . '/' . date('m'));
 
         factory(App\Photo::class, 20)->create();
     }
