@@ -49,9 +49,9 @@ class Photo extends Model
         if ($request->hasFile('photo')) {
             $file = self::saveImage($request->file('photo'));
             self::saveInfoToDatabase($file->getPathInfo(), $file->getBasename(), $request);
-            $result = "Complete!";
+            $result = true;
         } else {
-            $result = "Not found image!";
+            $result = false;
         }
         return $result;
     }
