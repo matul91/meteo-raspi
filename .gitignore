@@ -21,3 +21,4 @@ package-lock.json
 /public/css
 /public/fonts
 public/undefined.js
+/public/images/*
