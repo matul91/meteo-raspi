@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import { Redirect } from "react-router-dom";
 import * as AlertStyles from "../../config/constants/alertStyles";
 import * as Errors from "../../config/constants/errors";
+import * as validators from "../../config/validators";
 import * as actions from "../../store/actions";
 import Alert from "../alert/Alert";
 import Loading from "../loading/Loading";
@@ -15,6 +16,7 @@ const formInputs = [
         placeholder: "E-mailová adresa",
         type: "email",
         validationState: null,
+        validations: ["required", "email"],
     },
     {
         label: "Heslo",
@@ -22,6 +24,7 @@ const formInputs = [
         placeholder: "Heslo",
         type: "password",
         validationState: null,
+        validations: ["required"],
     },
 ];
 
@@ -102,8 +105,8 @@ class Login extends React.Component<any> {
     private submitHandler(e: any): void {
         e.preventDefault();
 
-        if (!this.state.formValues.email || !this.state.formValues.password) {
-            this.setWarnToBlankFields();
+        const error = this.validate();
+        if (error) {
             this.props.authFail(Errors.NO_ALL_CREDENTIALS_FILLED);
             return;
         }
@@ -111,12 +114,35 @@ class Login extends React.Component<any> {
         this.props.onAuth(this.state.formValues.email, this.state.formValues.password);
     }
 
-    private setWarnToBlankFields(): void {
+    private validate(): boolean {
+        let isError = false;
         for (const inputValue in this.state.formValues) {
-            if (!this.state.formValues[inputValue]) {
-                this.setInputValidationState(inputValue, "error");
+            if (this.validateInput(inputValue)) {
+                isError = true;
             }
         }
+        return isError;
+    }
+
+    private validateInput(name: string): boolean {
+        let isError = false;
+        const item = this.getFormInputIndex(name);
+        for (const rule of formInputs[item].validations) {
+            switch (rule) {
+                case "required":
+                    isError = validators.required(this.state.formValues[name]);
+                    break;
+                case "email":
+                    isError = validators.email(this.state.formValues[name]);
+                    break;
+                default:
+                    return;
+            }
+        }
+        if (isError) {
+            this.setInputValidationState(name, "error");
+        }
+        return isError;
     }
 
     private setInputValidationState(name, value = null): void {
