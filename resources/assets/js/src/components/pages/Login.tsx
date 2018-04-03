@@ -1,5 +1,5 @@
 import * as React from "react";
-import {Button, Col, ControlLabel, form, FormControl, FormGroup, Row} from "react-bootstrap";
+import {Button, Col, ControlLabel, Form, FormControl, FormGroup, HelpBlock, Row} from "react-bootstrap";
 import {connect} from "react-redux";
 import { Redirect } from "react-router-dom";
 import * as AlertStyles from "../../config/constants/alertStyles";
@@ -11,20 +11,22 @@ import Loading from "../loading/Loading";
 
 const formInputs = [
     {
+        helperText: null,
         label: "E-mail",
         name: "email",
         placeholder: "E-mailová adresa",
         type: "email",
         validationState: null,
-        validations: ["required", "email"],
+        validations: [validators.required],
     },
     {
+        helperText: null,
         label: "Heslo",
         name: "password",
         placeholder: "Heslo",
         type: "password",
         validationState: null,
-        validations: ["required"],
+        validations: [validators.required],
     },
 ];
 
@@ -85,6 +87,7 @@ class Login extends React.Component<any> {
                         placeholder={input.placeholder}
                         onChange={this.inputChangeHandler}
                     />
+                    <HelpBlock>{input.helperText}</HelpBlock>
                 </FormGroup>
             );
         });
@@ -92,6 +95,7 @@ class Login extends React.Component<any> {
 
     private inputChangeHandler(e: any): void {
         this.setInputValidationState(e.target.name);
+        this.setInputHelperText(e.target.name);
 
         this.setState({
             ...this.state,
@@ -126,21 +130,15 @@ class Login extends React.Component<any> {
 
     private validateInput(name: string): boolean {
         let isError = false;
+        let error = null;
         const item = this.getFormInputIndex(name);
-        for (const rule of formInputs[item].validations) {
-            switch (rule) {
-                case "required":
-                    isError = validators.required(this.state.formValues[name]);
-                    break;
-                case "email":
-                    isError = validators.email(this.state.formValues[name]);
-                    break;
-                default:
-                    return;
-            }
+        for (const validation of formInputs[item].validations) {
+            error = validation(this.state.formValues[name]);
         }
-        if (isError) {
+        if (error) {
+            isError = true;
             this.setInputValidationState(name, "error");
+            this.setInputHelperText(name, error);
         }
         return isError;
     }
@@ -148,6 +146,11 @@ class Login extends React.Component<any> {
     private setInputValidationState(name, value = null): void {
         const item = this.getFormInputIndex(name);
         formInputs[item].validationState = value;
+    }
+
+    private setInputHelperText(name, value = null): void {
+        const item = this.getFormInputIndex(name);
+        formInputs[item].helperText = value;
     }
 
     private getFormInputIndex(name: string): number {
