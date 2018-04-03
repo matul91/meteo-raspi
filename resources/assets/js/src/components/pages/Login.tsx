@@ -143,14 +143,14 @@ class Login extends React.Component<any> {
         return isError;
     }
 
-    private setInputValidationState(name, value = null): void {
-        const item = this.getFormInputIndex(name);
-        formInputs[item].validationState = value;
+    private setInputValidationState(name, state = null): void {
+        const stateIndex = this.getFormInputIndex(name);
+        formInputs[stateIndex].validationState = state;
     }
 
-    private setInputHelperText(name, value = null): void {
-        const item = this.getFormInputIndex(name);
-        formInputs[item].helperText = value;
+    private setInputHelperText(name, text = null): void {
+        const textIndex = this.getFormInputIndex(name);
+        formInputs[textIndex].helperText = text;
     }
 
     private getFormInputIndex(name: string): number {
