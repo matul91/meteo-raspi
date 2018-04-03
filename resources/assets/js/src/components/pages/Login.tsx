@@ -94,8 +94,8 @@ class Login extends React.Component<any> {
     }
 
     private inputChangeHandler(e: any): void {
-        this.setInputValidationState(e.target.name);
-        this.setInputHelperText(e.target.name);
+        this.setInputProperty(e.target.name, "validationState");
+        this.setInputProperty(e.target.name, "helperText");
 
         this.setState({
             ...this.state,
@@ -137,20 +137,15 @@ class Login extends React.Component<any> {
         }
         if (error) {
             isError = true;
-            this.setInputValidationState(name, "error");
-            this.setInputHelperText(name, error);
+            this.setInputProperty(name, "validationState", "error");
+            this.setInputProperty(name, "helperText", error);
         }
         return isError;
     }
 
-    private setInputValidationState(name, state = null): void {
-        const stateIndex = this.getFormInputIndex(name);
-        formInputs[stateIndex].validationState = state;
-    }
-
-    private setInputHelperText(name, text = null): void {
-        const textIndex = this.getFormInputIndex(name);
-        formInputs[textIndex].helperText = text;
+    private setInputProperty(input, property, value = null): void {
+        const index = this.getFormInputIndex(input);
+        formInputs[index][property] = value;
     }
 
     private getFormInputIndex(name: string): number {
