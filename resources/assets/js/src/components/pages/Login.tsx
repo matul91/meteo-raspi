@@ -119,13 +119,13 @@ class Login extends React.Component<any> {
     }
 
     private validate(): boolean {
-        let isError = false;
+        let hasErrors = false;
         for (const inputValue in this.state.formValues) {
             if (this.validateInput(inputValue)) {
-                isError = true;
+                hasErrors = true;
             }
         }
-        return isError;
+        return hasErrors;
     }
 
     private validateInput(name: string): boolean {
