@@ -11,7 +11,7 @@ import Loading from "../loading/Loading";
 
 const formInputs = [
     {
-        helperText: null,
+        errorText: null,
         label: "E-mail",
         name: "email",
         placeholder: "E-mailová adresa",
@@ -20,7 +20,7 @@ const formInputs = [
         validations: [validators.required],
     },
     {
-        helperText: null,
+        errorText: null,
         label: "Heslo",
         name: "password",
         placeholder: "Heslo",
@@ -87,7 +87,7 @@ class Login extends React.Component<any> {
                         placeholder={input.placeholder}
                         onChange={this.inputChangeHandler}
                     />
-                    <HelpBlock>{input.helperText}</HelpBlock>
+                    <HelpBlock>{input.errorText}</HelpBlock>
                 </FormGroup>
             );
         });
@@ -95,7 +95,7 @@ class Login extends React.Component<any> {
 
     private inputChangeHandler(e: any): void {
         this.setInputProperty(e.target.name, "validationState");
-        this.setInputProperty(e.target.name, "helperText");
+        this.setInputProperty(e.target.name, "errorText");
 
         this.setState({
             ...this.state,
@@ -138,7 +138,7 @@ class Login extends React.Component<any> {
         if (error) {
             isError = true;
             this.setInputProperty(name, "validationState", "error");
-            this.setInputProperty(name, "helperText", error);
+            this.setInputProperty(name, "errorText", error);
         }
         return isError;
     }
