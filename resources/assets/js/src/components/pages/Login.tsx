@@ -119,13 +119,10 @@ class Login extends React.Component<any> {
     }
 
     private validate(): boolean {
-        let hasErrors = false;
-        for (const inputValue in this.state.formValues) {
-            if (this.validateInput(inputValue)) {
-                hasErrors = true;
-            }
-        }
-        return hasErrors;
+        const errors = Object.keys(this.state.formValues).filter((key) => {
+            return this.validateInput(key) === true;
+        });
+        return !!(errors.length);
     }
 
     private validateInput(name: string): boolean {
