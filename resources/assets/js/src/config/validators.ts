@@ -5,5 +5,5 @@ export const required = (value) => {
 };
 
 export const email = (value) => {
-    return (!validator.isEmail(value)) ? `${value} is not e-email address.` : null;
+    return (!validator.isEmail(value)) ? `${value} is not e-mail address.` : null;
 };
