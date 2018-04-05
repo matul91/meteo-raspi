@@ -10,7 +10,7 @@ const AerialPhoto = (props) => {
             </Panel.Heading>
             <Panel.Body>
                 <WindDirection direction={props.direction} speed={props.speed} suffix={props.suffix} />
-                <img src="../../../../images/map-google.JPG" alt="Aerial Photo" className="img-responsive" />
+                <img src="/images/map-google.JPG" alt="Aerial Photo" className="img-responsive" />
             </Panel.Body>
         </Panel>
     );
