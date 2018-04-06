@@ -1,4 +1,4 @@
-import validator from "validator";
+import * as validator from "validator";
 
 export const required = (value) => {
     return (!value.toString().trim().length) ? "This value is required." : null;
