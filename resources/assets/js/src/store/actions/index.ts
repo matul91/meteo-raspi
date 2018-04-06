@@ -4,3 +4,7 @@ export {
     authCheckState,
     authFail,
 } from "./auth";
+
+export {
+    weatherLoad,
+} from "./weather";

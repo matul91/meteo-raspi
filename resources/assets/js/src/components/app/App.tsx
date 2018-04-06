@@ -5,11 +5,13 @@ import Layout from "../layout/Layout";
 
 interface IProps {
     onTryAutoSignup: any;
+    onWeatherLoad: any;
 }
 
 class App extends React.Component<IProps, null> {
     public componentDidMount(): void {
         this.props.onTryAutoSignup();
+        this.props.onWeatherLoad();
     }
 
     public render(): JSX.Element {
@@ -22,6 +24,7 @@ class App extends React.Component<IProps, null> {
 const mapDispatchToProps = (dispatch) => {
     return {
         onTryAutoSignup: () => dispatch(actions.authCheckState()),
+        onWeatherLoad: () => dispatch(actions.weatherLoad()),
     };
 };
 

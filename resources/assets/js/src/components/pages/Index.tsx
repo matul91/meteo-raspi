@@ -1,5 +1,7 @@
 import * as React from "react";
-import {Col, Row} from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
+import { connect } from "react-redux";
+import * as actions from "../../store/actions";
 import AerialPhoto from "../aerialPhoto/AerialPhoto";
 import Chart from "../chart/Chart";
 import CurrentPhoto from "../currentPhoto/CurrentPhoto";
@@ -50,4 +52,15 @@ const Index = () => {
     );
 };
 
-export default Index;
+const mapStateToProps = (state) => {
+    return {
+        error: state.weather.error,
+        loading: state.weather.loading,
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return null;
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Index);

@@ -5,11 +5,13 @@ import { applyMiddleware, combineReducers, compose, createStore } from "redux";
 import thunk from "redux-thunk";
 import App from "./components/app/App";
 import authReducer from "./store/reducers/auth";
+import weatherReducer from "./store/reducers/weather";
 
 const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
     auth: authReducer,
+    weather: weatherReducer,
 });
 
 const store = createStore(
