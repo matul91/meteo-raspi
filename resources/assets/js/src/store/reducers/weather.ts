@@ -5,10 +5,8 @@ const initialState = {
         pressure: {
             columnName: "pressure",
             data: null,
-            initialData: {
-                initialDate: null,
-                initialValue: null,
-            },
+            initialDate: null,
+            initialValue: null,
             name: "Tlak",
             suffix: "hPa",
             url: "pressures",
