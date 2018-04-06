@@ -126,18 +126,18 @@ class Login extends React.Component<any> {
     }
 
     private validateInput(name: string): boolean {
-        let isError = false;
+        let hasError = false;
         let error = null;
         const item = this.getFormInputIndex(name);
         for (const validation of formInputs[item].validations) {
             error = validation(this.state.formValues[name]);
         }
         if (error) {
-            isError = true;
+            hasError = true;
             this.setInputProperty(name, "validationState", "error");
             this.setInputProperty(name, "errorMessage", error);
         }
-        return isError;
+        return hasError;
     }
 
     private setInputProperty(input, property, value = null): void {
