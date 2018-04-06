@@ -1,6 +1,6 @@
 import * as React from "react";
-import {Button, Col, ControlLabel, Form, FormControl, FormGroup, HelpBlock, Row} from "react-bootstrap";
-import {connect} from "react-redux";
+import { Button, Col, ControlLabel, Form, FormControl, FormGroup, HelpBlock, Row } from "react-bootstrap";
+import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import * as AlertStyles from "../../config/constants/alertStyles";
 import * as Errors from "../../config/constants/errors";
