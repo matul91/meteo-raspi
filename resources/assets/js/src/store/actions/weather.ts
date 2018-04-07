@@ -1,4 +1,7 @@
 import axios from "axios";
+import * as moment from "moment";
+import * as AlertStyles from "../../config/constants/alertStyles";
+import * as Errors from "../../config/constants/errors";
 import * as Positions from "../../config/constants/positions";
 import ArrayUtil from "../../utils/ArrayUtil";
 import URLUtil from "../../utils/URLUtil";
@@ -10,9 +13,8 @@ export const weatherLoadStart = () => {
     };
 };
 
-export const weatherLoadSuccess = (charts) => {
+export const weatherLoadSuccess = () => {
     return {
-        charts,
         type: actionTypes.AUTH_SUCCESS,
     };
 };
@@ -24,47 +26,89 @@ export const weatherLoadFail = (error) => {
     };
 };
 
+export const chartLoadSuccess = (chartName, chart) => {
+    return {
+        chart,
+        chartName,
+        type: actionTypes.CHART_LOAD_SUCCESS,
+    };
+};
+
 export const weatherLoad = () => {
     return (dispatch, getState) => {
         dispatch(weatherLoadStart());
         Object.keys(getState().weather.charts).map((chartName) => {
-            dispatch(loadChartData(getState().weather.charts[chartName]));
+            dispatch(initializeChartData(chartName, getState().weather.charts[chartName]));
         });
+        dispatch(weatherLoadSuccess());
     };
 };
 
-export const loadChartData = (chart) => {
-    return (dispatch) => {
-        console.log(chart);
+export const initializeChartData = (chartName, chart) => {
+    return (dispatch, getState) => {
         const url = URLUtil.generateURLByPosition(chart.url, Positions.LATEST);
         axios.get(url).then((response: any) => {
-            const newChartData = {
+            let newData = {
                 ...chart,
                 initialDate: response.data.date,
-                initialValue: response.data[this.props.columnName],
+                initialValue: response.data[chart.columnName],
             };
+            const dateTo = newData.initialDate;
+            const dateFrom = moment(dateTo).subtract(30, "minutes").format(getState().weather.dbDateFormat);
+            loadData(dateFrom, dateTo, chart).then((loadedData) => {
+                newData = {
+                    ...newData,
+                    data: loadedData.data,
+                    dataMeta: loadedData.dataMeta,
+                };
+                dispatch(chartLoadSuccess(chartName, newData));
+            });
         });
     };
 };
 
-const loadData = (dateFrom: string, dateTo: string, direction: string = null) => {
-    const url = URLUtil.generateURLByDates(this.props.url, dateFrom, dateTo);
-    let dataMeta;
+const loadData = (dateFrom, dateTo, chart, direction = null) => {
+    const url = URLUtil.generateURLByDates(chart.url, dateFrom, dateTo);
+    return axios.get(url).then((response: any) => {
+        let dataMeta;
+        let data;
+        const newData = processResponse(response, chart.columnName);
 
-    axios.get(url).then((response: any) => {
-        const newData = this.processResponse(response);
-        if (!this.checkData(newData)) {
+        if (checkData(newData, chart.initialDate)) {
             return;
         }
 
         if (direction) {
-            let data = ArrayUtil.destructureDataArrays(direction, this.state.data, newData);
+            data = ArrayUtil.destructureDataArrays(direction, chart.data, newData);
             data = ArrayUtil.removeDuplicities(data);
             dataMeta = { firstDate: data[0].date, lastDate: data[data.length - 1].date };
-            this.setState({ data, dataMeta });
         } else {
+            data = newData;
             dataMeta = { firstDate: newData[0].date, lastDate: newData[newData.length - 1].date };
-            this.setState({ data: newData, dataMeta });
         }
+
+        return { data, dataMeta };
     });
+};
+
+const processResponse = (response: any, columnName: string): Array<{date: string, value: any}> => {
+    return response.data.map((row) => {
+        return {
+            date: row.date,
+            value: row[columnName],
+        };
+    });
+};
+
+const checkData = (data, initialDate): boolean => {
+    let hasError = false;
+
+    if (!data.length) {
+        // this.setError(Errors.NO_DATA, AlertStyles.DANGER);
+        hasError = true;
+    } else if (data[0].date === initialDate) {
+        hasError = true;
+    }
+
+    return hasError;
 };
