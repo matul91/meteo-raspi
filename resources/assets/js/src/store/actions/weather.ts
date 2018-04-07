@@ -38,14 +38,15 @@ export const weatherLoad = () => {
     return (dispatch, getState) => {
         dispatch(weatherLoadStart());
         Object.keys(getState().weather.charts).map((chartName) => {
-            dispatch(initializeChartData(chartName, getState().weather.charts[chartName]));
+            dispatch(initializeChartData(chartName));
         });
         dispatch(weatherLoadSuccess());
     };
 };
 
-export const initializeChartData = (chartName, chart) => {
+export const initializeChartData = (chartName) => {
     return (dispatch, getState) => {
+        const chart = getState().weather.charts[chartName];
         const url = URLUtil.generateURLByPosition(chart.url, Positions.LATEST);
         axios.get(url).then((response: any) => {
             let newData = {
@@ -63,6 +64,20 @@ export const initializeChartData = (chartName, chart) => {
                 };
                 dispatch(chartLoadSuccess(chartName, newData));
             });
+        });
+    };
+};
+
+export const refreshChartData = (dateFrom: string, dateTo: string, chartName: string, direction = null) => {
+    return (dispatch, getState) => {
+        const chart = getState().weather.charts[chartName];
+        loadData(dateFrom, dateTo, chart, direction).then((loadedData) => {
+            const newData = {
+                ...chart,
+                data: loadedData.data,
+                dataMeta: loadedData.dataMeta,
+            };
+            dispatch(chartLoadSuccess(chartName, newData));
         });
     };
 };

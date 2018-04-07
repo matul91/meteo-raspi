@@ -1,15 +1,11 @@
-import axios from "axios";
 import * as moment from "moment";
 import * as React from "react";
+import { connect } from "react-redux";
 import * as Swipeable from "react-swipeable";
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import * as AlertStyles from "../../config/constants/alertStyles";
 import * as Directions from "../../config/constants/directions";
-import * as Errors from "../../config/constants/errors";
-import * as Positions from "../../config/constants/positions";
-import ArrayUtil from "../../utils/ArrayUtil";
+import * as actions from "../../store/actions";
 import DateUtil from "../../utils/DateUtil";
-import URLUtil from "../../utils/URLUtil";
 import Alert from "../alert/Alert";
 import DatetimeRangePicker from "../datetimeRangePicker/DateTimeRangePicker";
 import Loading from "../loading/Loading";
@@ -26,7 +22,6 @@ interface IState {
         dateFrom: string,
         dateTo: string,
     };
-    dbDateFormat: string;
     error: {
         type: string,
         style: string,
@@ -36,27 +31,29 @@ interface IState {
 }
 
 interface IProps {
+    chartName: string;
     data: any;
     dataMeta: {
         firstDate: string,
         lastDate: string,
     };
+    dbDateFormat: string;
     initialDate: string;
     initialValue: number;
     name: string;
     url: string;
     columnName: string;
+    onRefreshData: any;
     showedDateFormat?: string;
     suffix?: string;
 }
 
-export default class Chart extends React.Component<IProps, IState> {
+class Chart extends React.Component<IProps, IState> {
     public state = {
         dateRange: {
             dateFrom: null,
             dateTo: null,
         },
-        dbDateFormat: "YYYY-MM-DD HH:mm:ss",
         error: null,
         showedDateFormat: "HH:mm",
         suffix: this.props.suffix ? ` ${this.props.suffix}` : "",
@@ -137,7 +134,7 @@ export default class Chart extends React.Component<IProps, IState> {
             ...this.state,
             dateRange: {
                 ...this.state.dateRange,
-                [name]: date.format(this.state.dbDateFormat),
+                [name]: date.format(this.props.dbDateFormat),
             },
         });
     }
@@ -147,7 +144,7 @@ export default class Chart extends React.Component<IProps, IState> {
 
         const { dateFrom, dateTo } = this.state.dateRange;
         if (!DateUtil.areDatesNull(dateFrom, dateTo)) {
-            this.loadData(this.state.dateRange.dateFrom, this.state.dateRange.dateTo);
+            this.props.onRefreshData(dateFrom, dateTo, this.props.chartName);
         }
     }
 
@@ -168,47 +165,25 @@ export default class Chart extends React.Component<IProps, IState> {
         }
 
         const dates = DateUtil.differenceBetweenDates(this.props.dataMeta, direction, diff);
-        dateFrom = DateUtil.formatDateByFormat(dates.dateFrom, this.state.dbDateFormat);
-        dateTo = DateUtil.formatDateByFormat(dates.dateTo, this.state.dbDateFormat);
+        dateFrom = DateUtil.formatDateByFormat(dates.dateFrom, this.props.dbDateFormat);
+        dateTo = DateUtil.formatDateByFormat(dates.dateTo, this.props.dbDateFormat);
 
-        this.loadData(dateFrom, dateTo, direction);
-    }
-
-    private loadData(dateFrom: string, dateTo: string, direction: string = null): void {
-        this.setError();
-        const url = URLUtil.generateURLByDates(this.props.url, dateFrom, dateTo);
-        let dataMeta;
-
-        /* axios.get(url).then((response: any) => {
-            const newData = this.processResponse(response);
-            if (!this.checkData(newData)) {
-                return;
-            }
-
-            if (direction) {
-                let data = ArrayUtil.destructureDataArrays(direction, this.state.data, newData);
-                data = ArrayUtil.removeDuplicities(data);
-                dataMeta = { firstDate: data[0].date, lastDate: data[data.length - 1].date };
-                this.setState({ data, dataMeta });
-            } else {
-                dataMeta = { firstDate: newData[0].date, lastDate: newData[newData.length - 1].date };
-                this.setState({ data: newData, dataMeta });
-            }
-        }); */
-    }
-
-    private setError(type: string = null, style: string = null): void {
-        if (type && style) {
-            this.setState({
-                error: {
-                    style,
-                    type,
-                },
-            });
-        } else {
-            this.setState({
-                error: null,
-            });
-        }
+        this.props.onRefreshData(dateFrom, dateTo, this.props.chartName, direction);
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        dbDateFormat: state.weather.dbDateFormat,
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onRefreshData: (dateFrom, dateTo, chartName, direction = null) => {
+            dispatch(actions.refreshChartData(dateFrom, dateTo, chartName, direction));
+        },
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Chart);
