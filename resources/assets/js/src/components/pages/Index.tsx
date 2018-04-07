@@ -1,46 +1,62 @@
 import * as React from "react";
 import { Col, Row } from "react-bootstrap";
 import { connect } from "react-redux";
-import * as actions from "../../store/actions";
 import AerialPhoto from "../aerialPhoto/AerialPhoto";
 import Chart from "../chart/Chart";
 import CurrentPhoto from "../currentPhoto/CurrentPhoto";
+import Loading from "../loading/Loading";
 
-const Index = (props) => {
-    const charts = Object.keys(props.charts).map((chartName) => {
-        return (
-            <Col md={6} key={props.charts[chartName].columnName}>
-                <Chart
-                    name={props.charts[chartName].name}
-                    url={props.charts[chartName].url}
-                    columnName={props.charts[chartName].columnName}
-                    suffix={props.charts[chartName].suffix}
-                />
-            </Col>
-        );
-    });
-    return (
-        <React.Fragment>
-            <Row>
-                {charts}
-            </Row>
-            <Row>
-                <Col md={6}>
-                    <AerialPhoto direction="NNE" speed="40" suffix="m/s" />
+interface IProps {
+    charts: any;
+    error: any;
+    isLoaded: boolean;
+}
+
+class Index extends React.Component<IProps, void> {
+    public render(): JSX.Element {
+        let content = <Loading text="Loading..."/>;
+        const charts = this.getCharts();
+        if (this.props.isLoaded) {
+            content = (
+                <React.Fragment>
+                    <Row>
+                        {charts}
+                    </Row>
+                    <Row>
+                        <Col md={6}>
+                            <AerialPhoto direction="NNE" speed="40" suffix="m/s" />
+                        </Col>
+                        <Col md={6}>
+                            <CurrentPhoto />
+                        </Col>
+                    </Row>
+                </React.Fragment>
+            );
+        }
+        return content;
+    }
+
+    private getCharts(): JSX.Element[] {
+        return Object.keys(this.props.charts).map((chartName) => {
+            return (
+                <Col md={6} key={this.props.charts[chartName].columnName}>
+                    <Chart
+                        name={this.props.charts[chartName].name}
+                        url={this.props.charts[chartName].url}
+                        columnName={this.props.charts[chartName].columnName}
+                        suffix={this.props.charts[chartName].suffix}
+                    />
                 </Col>
-                <Col sm={6}>
-                    <CurrentPhoto />
-                </Col>
-            </Row>
-        </React.Fragment>
-    );
-};
+            );
+        });
+    }
+}
 
 const mapStateToProps = (state) => {
     return {
         charts: state.weather.charts,
         error: state.weather.error,
-        loading: state.weather.loading,
+        isLoaded: state.weather.loading !== true,
     };
 };
 
