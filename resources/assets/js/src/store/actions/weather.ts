@@ -15,7 +15,7 @@ export const weatherLoadStart = () => {
 
 export const weatherLoadSuccess = () => {
     return {
-        type: actionTypes.AUTH_SUCCESS,
+        type: actionTypes.WEATHER_LOAD_SUCCESS,
     };
 };
 
