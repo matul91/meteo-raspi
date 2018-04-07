@@ -41,6 +41,10 @@ class Index extends React.Component<IProps, void> {
             return (
                 <Col md={6} key={this.props.charts[chartName].columnName}>
                     <Chart
+                        data={this.props.charts[chartName].data}
+                        dataMeta={this.props.charts[chartName].dataMeta}
+                        initialDate={this.props.charts[chartName].initialDate}
+                        initialValue={this.props.charts[chartName].initialValue}
                         name={this.props.charts[chartName].name}
                         url={this.props.charts[chartName].url}
                         columnName={this.props.charts[chartName].columnName}
