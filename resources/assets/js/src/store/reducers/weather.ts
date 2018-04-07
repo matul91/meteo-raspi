@@ -100,12 +100,13 @@ const dataSetLoadFail = (state, action) => {
 };
 
 const dataSetResetError = (state, action) => {
+    const originalDataSet = state.dataSets[action.setName];
     return {
         ...state,
         dataSets: {
             ...state.dataSets,
             [action.setName]: {
-                ...[action.setName],
+                ...originalDataSet,
                 error: null,
             },
         },
