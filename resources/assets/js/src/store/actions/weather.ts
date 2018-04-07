@@ -97,8 +97,8 @@ export const refreshDataSet = (dateFrom: string, dateTo: string, setName: string
             };
             dispatch(dataSetLoadSuccess(setName, newData));
         }).catch((error) => {
-            if (error === Errors.NO_DATA) {
-                dispatch(dataSetLoadFail(setName, { style: AlertStyles.DANGER, type: error }));
+            if (error.message === Errors.NO_DATA) {
+                dispatch(dataSetLoadFail(setName, { style: AlertStyles.DANGER, type: error.message }));
             }
         });
     };
