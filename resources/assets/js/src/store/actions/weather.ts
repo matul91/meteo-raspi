@@ -104,7 +104,6 @@ const checkData = (data, initialDate): boolean => {
     let hasError = false;
 
     if (!data.length) {
-        // this.setError(Errors.NO_DATA, AlertStyles.DANGER);
         hasError = true;
     } else if (data[0].date === initialDate) {
         hasError = true;
