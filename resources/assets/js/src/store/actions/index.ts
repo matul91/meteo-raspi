@@ -6,6 +6,6 @@ export {
 } from "./auth";
 
 export {
-    refreshChartData,
+    refreshDataSet,
     weatherLoad,
 } from "./weather";

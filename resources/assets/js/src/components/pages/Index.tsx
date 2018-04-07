@@ -7,7 +7,7 @@ import CurrentPhoto from "../currentPhoto/CurrentPhoto";
 import Loading from "../loading/Loading";
 
 interface IProps {
-    charts: any;
+    dataSets: any;
     error: any;
     isLoaded: boolean;
 }
@@ -37,19 +37,19 @@ class Index extends React.Component<IProps, void> {
     }
 
     private getCharts(): JSX.Element[] {
-        return Object.keys(this.props.charts).map((chartName) => {
+        return Object.keys(this.props.dataSets).map((setName) => {
             return (
-                <Col md={6} key={this.props.charts[chartName].columnName}>
+                <Col md={6} key={this.props.dataSets[setName].columnName}>
                     <Chart
-                        chartName={chartName}
-                        data={this.props.charts[chartName].data}
-                        dataMeta={this.props.charts[chartName].dataMeta}
-                        initialDate={this.props.charts[chartName].initialDate}
-                        initialValue={this.props.charts[chartName].initialValue}
-                        name={this.props.charts[chartName].name}
-                        url={this.props.charts[chartName].url}
-                        columnName={this.props.charts[chartName].columnName}
-                        suffix={this.props.charts[chartName].suffix}
+                        setName={setName}
+                        data={this.props.dataSets[setName].data}
+                        dataMeta={this.props.dataSets[setName].dataMeta}
+                        initialDate={this.props.dataSets[setName].initialDate}
+                        initialValue={this.props.dataSets[setName].initialValue}
+                        name={this.props.dataSets[setName].name}
+                        url={this.props.dataSets[setName].url}
+                        columnName={this.props.dataSets[setName].columnName}
+                        suffix={this.props.dataSets[setName].suffix}
                     />
                 </Col>
             );
@@ -59,7 +59,7 @@ class Index extends React.Component<IProps, void> {
 
 const mapStateToProps = (state) => {
     return {
-        charts: state.weather.charts,
+        dataSets: state.weather.dataSets,
         error: state.weather.error,
         isLoaded: state.weather.loading !== true,
     };

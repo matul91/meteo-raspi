@@ -1,7 +1,7 @@
 import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
-    charts: {
+    dataSets: {
         pressure: {
             columnName: "pressure",
             data: null,
@@ -71,12 +71,12 @@ const weatherLoadFail = (state, action) => {
     };
 };
 
-const chartLoadSuccess = (state, action) => {
+const dataSetLoadSuccess = (state, action) => {
     return {
         ...state,
-        charts: {
-            ...state.charts,
-            [action.chartName]: action.chart,
+        dataSets: {
+            ...state.dataSets,
+            [action.setName]: action.dataSet,
         },
         loading: false,
     };
@@ -87,7 +87,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.WEATHER_LOAD_START: return weatherLoadStart(state, action);
         case actionTypes.WEATHER_LOAD_SUCCESS: return weatherLoadSuccess(state, action);
         case actionTypes.WEATHER_LOAD_FAIL: return weatherLoadFail(state, action);
-        case actionTypes.CHART_LOAD_SUCCESS: return chartLoadSuccess(state, action);
+        case actionTypes.DATASET_LOAD_SUCCESS: return dataSetLoadSuccess(state, action);
         default: return state;
     }
 };

@@ -31,7 +31,7 @@ interface IState {
 }
 
 interface IProps {
-    chartName: string;
+    setName: string;
     data: any;
     dataMeta: {
         firstDate: string,
@@ -144,7 +144,7 @@ class Chart extends React.Component<IProps, IState> {
 
         const { dateFrom, dateTo } = this.state.dateRange;
         if (!DateUtil.areDatesNull(dateFrom, dateTo)) {
-            this.props.onRefreshData(dateFrom, dateTo, this.props.chartName);
+            this.props.onRefreshData(dateFrom, dateTo, this.props.setName);
         }
     }
 
@@ -168,7 +168,7 @@ class Chart extends React.Component<IProps, IState> {
         dateFrom = DateUtil.formatDateByFormat(dates.dateFrom, this.props.dbDateFormat);
         dateTo = DateUtil.formatDateByFormat(dates.dateTo, this.props.dbDateFormat);
 
-        this.props.onRefreshData(dateFrom, dateTo, this.props.chartName, direction);
+        this.props.onRefreshData(dateFrom, dateTo, this.props.setName, direction);
     }
 }
 
@@ -180,8 +180,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onRefreshData: (dateFrom, dateTo, chartName, direction = null) => {
-            dispatch(actions.refreshChartData(dateFrom, dateTo, chartName, direction));
+        onRefreshData: (dateFrom, dateTo, setName, direction = null) => {
+            dispatch(actions.refreshDataSet(dateFrom, dateTo, setName, direction));
         },
     };
 };
