@@ -67,7 +67,7 @@ export const initializeChartData = (chartName, chart) => {
     };
 };
 
-const loadData = (dateFrom, dateTo, chart, direction = null) => {
+const loadData = (dateFrom: string, dateTo: string, chart: any, direction = null) => {
     const url = URLUtil.generateURLByDates(chart.url, dateFrom, dateTo);
     return axios.get(url).then((response: any) => {
         let dataMeta;
