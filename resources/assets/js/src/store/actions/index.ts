@@ -7,5 +7,6 @@ export {
 
 export {
     refreshDataSet,
+    dataSetResetError,
     weatherLoad,
 } from "./weather";

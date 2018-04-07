@@ -44,6 +44,7 @@ interface IProps {
     url: string;
     columnName: string;
     onRefreshData: any;
+    onResetError: any;
     showedDateFormat?: string;
     suffix?: string;
 }
@@ -143,6 +144,7 @@ class Chart extends React.Component<IProps, IState> {
 
         const { dateFrom, dateTo } = this.state.dateRange;
         if (!DateUtil.areDatesNull(dateFrom, dateTo)) {
+            this.props.onResetError(this.props.setName);
             this.props.onRefreshData(dateFrom, dateTo, this.props.setName);
         }
     }
@@ -167,6 +169,7 @@ class Chart extends React.Component<IProps, IState> {
         dateFrom = DateUtil.formatDateByFormat(dates.dateFrom, this.props.dbDateFormat);
         dateTo = DateUtil.formatDateByFormat(dates.dateTo, this.props.dbDateFormat);
 
+        this.props.onResetError(this.props.setName);
         this.props.onRefreshData(dateFrom, dateTo, this.props.setName, direction);
     }
 }
@@ -182,6 +185,7 @@ const mapDispatchToProps = (dispatch) => {
         onRefreshData: (dateFrom, dateTo, setName, direction = null) => {
             dispatch(actions.refreshDataSet(dateFrom, dateTo, setName, direction));
         },
+        onResetError: (setName) => dispatch(actions.dataSetResetError(setName)),
     };
 };
 

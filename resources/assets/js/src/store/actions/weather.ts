@@ -88,7 +88,6 @@ export const initializeDataSet = (setName) => {
 export const refreshDataSet = (dateFrom: string, dateTo: string, setName: string, direction = null) => {
     return (dispatch, getState) => {
         const dataSet = getState().weather.dataSets[setName];
-        dispatch(dataSetResetError(setName));
         loadData(dateFrom, dateTo, dataSet, direction).then((loadedData) => {
             const newData = {
                 ...dataSet,
