@@ -22,10 +22,6 @@ interface IState {
         dateFrom: string,
         dateTo: string,
     };
-    error: {
-        type: string,
-        style: string,
-    };
     showedDateFormat: string;
     suffix: string;
 }
@@ -38,6 +34,10 @@ interface IProps {
         lastDate: string,
     };
     dbDateFormat: string;
+    error: {
+        type: string,
+        style: string,
+    };
     initialDate: string;
     initialValue: number;
     name: string;
@@ -54,7 +54,6 @@ class Chart extends React.Component<IProps, IState> {
             dateFrom: null,
             dateTo: null,
         },
-        error: null,
         showedDateFormat: "HH:mm",
         suffix: this.props.suffix ? ` ${this.props.suffix}` : "",
     };
@@ -76,7 +75,7 @@ class Chart extends React.Component<IProps, IState> {
         if (this.props.data && this.props.data.length > 1) {
             content = (
                 <div className="chart">
-                    {this.state.error && <Alert type={this.state.error.type} cls={this.state.error.style}/>}
+                    {this.props.error && <Alert type={this.props.error.type} cls={this.props.error.style}/>}
                     <DatetimeRangePicker
                         onSubmit={this.refreshDataByDateChangeHandler}
                         onInputChange={this.datetimeChangedHandler}
@@ -157,7 +156,7 @@ class Chart extends React.Component<IProps, IState> {
         let diff = 0;
         let { dateFrom, dateTo } = this.state.dateRange;
 
-        if (!DateUtil.areDatesNull(dateFrom, dateTo) && !this.state.error) {
+        if (!DateUtil.areDatesNull(dateFrom, dateTo) && !this.props.error) {
             diff = moment(this.state.dateRange.dateTo)
                 .diff(this.state.dateRange.dateFrom) / 1000 / 60;
         } else {

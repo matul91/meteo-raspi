@@ -50,6 +50,7 @@ class Index extends React.Component<IProps, void> {
                         url={this.props.dataSets[setName].url}
                         columnName={this.props.dataSets[setName].columnName}
                         suffix={this.props.dataSets[setName].suffix}
+                        error={this.props.dataSets[setName].error}
                     />
                 </Col>
             );

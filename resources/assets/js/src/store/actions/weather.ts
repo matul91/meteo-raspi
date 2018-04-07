@@ -34,17 +34,32 @@ export const dataSetLoadSuccess = (setName, dataSet) => {
     };
 };
 
+export const dataSetLoadFail = (setName, error) => {
+    return {
+        error,
+        setName,
+        type: actionTypes.DATASET_LOAD_FAIL,
+    };
+};
+
+export const dataSetResetError = (setName) => {
+    return {
+        setName,
+        type: actionTypes.DATASET_RESET_ERROR,
+    };
+};
+
 export const weatherLoad = () => {
     return (dispatch, getState) => {
         dispatch(weatherLoadStart());
         Object.keys(getState().weather.dataSets).map((setName) => {
-            dispatch(initializeChartData(setName));
+            dispatch(initializeDataSet(setName));
         });
         dispatch(weatherLoadSuccess());
     };
 };
 
-export const initializeChartData = (setName) => {
+export const initializeDataSet = (setName) => {
     return (dispatch, getState) => {
         const dataSet = getState().weather.dataSets[setName];
         const url = URLUtil.generateURLByPosition(dataSet.url, Positions.LATEST);
@@ -63,6 +78,8 @@ export const initializeChartData = (setName) => {
                     dataMeta: loadedData.dataMeta,
                 };
                 dispatch(dataSetLoadSuccess(setName, newData));
+            }).catch((error) => {
+                dispatch(weatherLoadFail(error));
             });
         });
     };
@@ -71,6 +88,7 @@ export const initializeChartData = (setName) => {
 export const refreshDataSet = (dateFrom: string, dateTo: string, setName: string, direction = null) => {
     return (dispatch, getState) => {
         const dataSet = getState().weather.dataSets[setName];
+        dispatch(dataSetResetError(setName));
         loadData(dateFrom, dateTo, dataSet, direction).then((loadedData) => {
             const newData = {
                 ...dataSet,
@@ -78,6 +96,10 @@ export const refreshDataSet = (dateFrom: string, dateTo: string, setName: string
                 dataMeta: loadedData.dataMeta,
             };
             dispatch(dataSetLoadSuccess(setName, newData));
+        }).catch((error) => {
+            if (error === Errors.NO_DATA) {
+                dispatch(dataSetLoadFail(setName, { style: AlertStyles.DANGER, type: error }));
+            }
         });
     };
 };
@@ -87,19 +109,20 @@ const loadData = (dateFrom: string, dateTo: string, dataSet: any, direction = nu
     return axios.get(url).then((response: any) => {
         let dataMeta;
         let data;
-        const newData = processResponse(response, dataSet.columnName);
+        const processedData = processResponse(response, dataSet.columnName);
 
-        if (checkData(newData, dataSet.initialDate)) {
-            return;
+        const error = checkData(processedData, dataSet.initialDate);
+        if (error) {
+            throw new Error(error);
         }
 
         if (direction) {
-            data = ArrayUtil.destructureDataArrays(direction, dataSet.data, newData);
+            data = ArrayUtil.destructureDataArrays(direction, dataSet.data, processedData);
             data = ArrayUtil.removeDuplicities(data);
             dataMeta = { firstDate: data[0].date, lastDate: data[data.length - 1].date };
         } else {
-            data = newData;
-            dataMeta = { firstDate: newData[0].date, lastDate: newData[newData.length - 1].date };
+            data = processedData;
+            dataMeta = { firstDate: processedData[0].date, lastDate: processedData[processedData.length - 1].date };
         }
 
         return { data, dataMeta };
@@ -115,14 +138,14 @@ const processResponse = (response: any, columnName: string): Array<{date: string
     });
 };
 
-const checkData = (data, initialDate): boolean => {
-    let hasError = false;
+const checkData = (data, initialDate): string => {
+    let error = null;
 
     if (!data.length) {
-        hasError = true;
+        error = Errors.NO_DATA;
     } else if (data[0].date === initialDate) {
-        hasError = true;
+        error = Errors.NO_MORE_DATA;
     }
 
-    return hasError;
+    return error;
 };

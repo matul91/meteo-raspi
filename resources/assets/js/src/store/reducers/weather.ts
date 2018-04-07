@@ -9,6 +9,7 @@ const initialState = {
                 firstDate: null,
                 lastDate: null,
             },
+            error: null,
             initialDate: null,
             initialValue: null,
             name: "Pressure",
@@ -22,6 +23,7 @@ const initialState = {
                 firstDate: null,
                 lastDate: null,
             },
+            error: null,
             initialDate: null,
             initialValue: null,
             name: "Temperature",
@@ -35,6 +37,7 @@ const initialState = {
                 firstDate: null,
                 lastDate: null,
             },
+            error: null,
             initialDate: null,
             initialValue: null,
             name: "Wind speed",
@@ -82,12 +85,42 @@ const dataSetLoadSuccess = (state, action) => {
     };
 };
 
+const dataSetLoadFail = (state, action) => {
+    return {
+        ...state,
+        dataSets: {
+            ...state.dataSets,
+            [action.setName]: {
+                ...[action.setName],
+                error: action.error,
+            },
+        },
+        loading: false,
+    };
+};
+
+const dataSetResetError = (state, action) => {
+    return {
+        ...state,
+        dataSets: {
+            ...state.dataSets,
+            [action.setName]: {
+                ...[action.setName],
+                error: null,
+            },
+        },
+        loading: false,
+    };
+};
+
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.WEATHER_LOAD_START: return weatherLoadStart(state, action);
         case actionTypes.WEATHER_LOAD_SUCCESS: return weatherLoadSuccess(state, action);
         case actionTypes.WEATHER_LOAD_FAIL: return weatherLoadFail(state, action);
         case actionTypes.DATASET_LOAD_SUCCESS: return dataSetLoadSuccess(state, action);
+        case actionTypes.DATASET_LOAD_FAIL: return dataSetLoadFail(state, action);
+        case actionTypes.DATASET_RESET_ERROR: return dataSetResetError(state, action);
         default: return state;
     }
 };
