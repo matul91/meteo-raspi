@@ -16,17 +16,16 @@ class CheckWeatherStationToken
      */
     public function handle($request, Closure $next)
     {
-        if($request->header('Authorization')){
-            if($request->header('Authorization') == env('PASSWORD_WEATHER_STATION')){
+        if ($request->header('Authorization')) {
+            if ($request->header('Authorization') == env('PASSWORD_WEATHER_STATION')) {
                 $result = $next($request);
-            }else{
+            } else {
                 $result = self::getUnauthorized();
             }
-
-        }else{
+        } else {
             $result = self::getUnauthorized();
         }
-    return $result;
+        return $result;
     }
 
     private static function getUnauthorized()
