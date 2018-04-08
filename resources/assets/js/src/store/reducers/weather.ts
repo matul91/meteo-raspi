@@ -57,7 +57,6 @@ const dataSetLoadSuccess = (state, action) => {
             ...state.dataSets,
             [action.setName]: action.dataSet,
         },
-        loading: false,
     };
 };
 
