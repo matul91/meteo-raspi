@@ -1,5 +1,5 @@
 import * as React from "react";
-import {Carousel, Col, Panel, Row} from "react-bootstrap";
+import {Carousel, Panel} from "react-bootstrap";
 
 const photos = [
     {
@@ -19,20 +19,16 @@ export default class PhotosHistory extends React.Component {
         const carouselItems = this.getCarouselItems();
 
         return (
-            <Col xs={12}>
-                <Row>
-                    <Panel>
-                        <Panel.Heading>
-                            <Panel.Title componentClass="h2">Current photos</Panel.Title>
-                        </Panel.Heading>
-                        <Panel.Body>
-                            <Carousel>
-                                {carouselItems}
-                            </Carousel>
-                        </Panel.Body>
-                    </Panel>
-                </Row>
-            </Col>
+            <Panel>
+                <Panel.Heading>
+                    <Panel.Title>Photos history viewer</Panel.Title>
+                </Panel.Heading>
+                <Panel.Body>
+                    <Carousel>
+                        {carouselItems}
+                    </Carousel>
+                </Panel.Body>
+            </Panel>
         );
     }
 

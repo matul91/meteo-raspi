@@ -155,7 +155,9 @@ export default class Chart extends React.Component<IProps, IState> {
 
     private refreshDataByDateChangeHandler(e): void {
         e.preventDefault();
-        if (this.state.dateRange.dateFrom !== null && this.state.dateRange.dateTo !== null) {
+
+        const { dateFrom, dateTo } = this.state.dateRange;
+        if (!DateUtil.areDatesNull(dateFrom, dateTo)) {
             this.loadData(this.state.dateRange.dateFrom, this.state.dateRange.dateTo);
         }
     }
@@ -169,43 +171,18 @@ export default class Chart extends React.Component<IProps, IState> {
         let diff = 0;
         let { dateFrom, dateTo } = this.state.dateRange;
 
-        if (DateUtil.areDatesNull(dateFrom, dateTo) && !this.state.error) {
+        if (!DateUtil.areDatesNull(dateFrom, dateTo) && !this.state.error) {
             diff = moment(this.state.dateRange.dateTo)
                 .diff(this.state.dateRange.dateFrom) / 1000 / 60;
         } else {
             diff = INITIAL_DURATION;
         }
 
-        const dates = this.calculateDiffBetweenDates(direction, diff);
+        const dates = DateUtil.differenceBetweenDates(this.state.dataMeta, direction, diff);
         dateFrom = DateUtil.formatDateByFormat(dates.dateFrom, this.state.dbDateFormat);
         dateTo = DateUtil.formatDateByFormat(dates.dateTo, this.state.dbDateFormat);
 
         this.loadData(dateFrom, dateTo, direction);
-    }
-
-    private calculateDiffBetweenDates(direction: string, diff: number): {dateFrom: string, dateTo: string} {
-        const firstDate = this.state.dataMeta.firstDate;
-        const lastDate = this.state.dataMeta.lastDate;
-        let dateFrom;
-        let dateTo;
-
-        switch (direction) {
-            case Directions.MINUS:
-                dateTo = moment(firstDate);
-                dateFrom = moment(firstDate).subtract(diff, "minutes");
-                break;
-            case Directions.PLUS:
-                dateFrom = moment(lastDate);
-                dateTo = moment(lastDate).add(diff, "minutes");
-                break;
-            default:
-                return null;
-        }
-
-        return {
-            dateFrom,
-            dateTo,
-        };
     }
 
     private initializeComponentData(): void {

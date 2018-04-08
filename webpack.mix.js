@@ -43,6 +43,7 @@ mix.react('resources/assets/js/src/App.tsx', 'public/js')
             })
         ]
     })
+    .copy('resources/assets/images', 'public/images', false)
     .extract(['react', 'redux', 'axios', 'recharts', 'moment', 'react-bootstrap', 'react-router-bootstrap']);
 
 if (mix.inProduction()) {

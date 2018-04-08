@@ -1,5 +1,6 @@
 import * as React from "react";
 import {Col, PageHeader, Row} from "react-bootstrap";
+import CurrentPhoto from "../currentPhoto/CurrentPhoto";
 import PhotosHistory from "../photosHistory/PhotosHistory";
 
 const LoggedUser = () => {
@@ -9,7 +10,11 @@ const LoggedUser = () => {
                 <PageHeader>
                     User's page
                 </PageHeader>
-                <PhotosHistory />
+                <Row>
+                    <Col sm={12}>
+                        <PhotosHistory />
+                    </Col>
+                </Row>
             </Col>
         </Row>
     );

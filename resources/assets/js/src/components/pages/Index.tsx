@@ -1,6 +1,8 @@
 import * as React from "react";
 import {Col, Row} from "react-bootstrap";
+import AerialPhoto from "../aerialPhoto/AerialPhoto";
 import Chart from "../chart/Chart";
+import CurrentPhoto from "../currentPhoto/CurrentPhoto";
 
 const chartData = [
     {
@@ -32,9 +34,19 @@ const Index = () => {
         );
     });
     return (
-        <Row>
-            {charts}
-        </Row>
+        <React.Fragment>
+            <Row>
+                {charts}
+            </Row>
+            <Row>
+                <Col md={6}>
+                    <AerialPhoto direction="NNE" speed="40" suffix="m/s" />
+                </Col>
+                <Col sm={6}>
+                    <CurrentPhoto />
+                </Col>
+            </Row>
+        </React.Fragment>
     );
 };
 

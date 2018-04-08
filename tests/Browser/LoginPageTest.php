@@ -22,7 +22,7 @@ class LoginPageTest extends DuskTestCase
 
         $this->browse(function ($browser) {
             $browser->visit('/login')
-                ->type('email', 'emailkterytamneni')
+                ->type('email', 'emailkterytamneni@osu.cz')
                 ->type('password', 'secret')
                 ->press('Submit')
                 ->waitForLocation('/login')
