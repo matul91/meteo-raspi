@@ -5,7 +5,7 @@ const WindDirection = (props) => {
         <div className="wind-direction">
             <img
                 src={`/images/directions/${props.direction}.png`}
-                alt="Wind direction"
+                alt={props.direction}
                 className="img-responsive"
             />
             <p>{props.speed} {props.suffix}</p>
