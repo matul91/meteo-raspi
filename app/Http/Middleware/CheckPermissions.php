@@ -24,10 +24,10 @@ class CheckPermissions
             return self::getUnauthorized();
         } else {
             $userPermissions = User::find($userId)->roles;
-            $roleArray = explode(";", $role);
+            $rolesArray = explode(";", $role);
 
-            return self::compareUserPermissions($userPermissions, $roleArray, $next, $request);
-
+            return self::compareUserPermissions($userPermissions, $rolesArray, $next, $request);
+            
         }
     }
 
