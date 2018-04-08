@@ -20,25 +20,20 @@ class CheckPermissions
     public function handle($request, Closure $next, $role)
     {
         $userId = self::getUserIdFromToken($request);
-        if ($userId == 0) {
+        if ($userId == null) {
             return self::getUnauthorized();
         } else {
             $userPermissions = User::find($userId)->roles;
             $roleArray = explode(";", $role);
 
-            $c = array_intersect($userPermissions, $roleArray);
-            if (count($c) > 0) {
-                $result = $next($request);
-            } else {
-                $result = self::getUnauthorized();
-            }
-            return $result;
+            return self::compareUserPermissions($userPermissions, $roleArray, $next, $request);
+
         }
     }
 
     private static function getUserIdFromToken(Request $request)
     {
-        $result = 0;
+        $result = null;
         if ($request->header('Authorization')) {
             $token = self::sendTokenToPassport($request);
             if ($token->getStatusCode() != Response::HTTP_UNAUTHORIZED) {
@@ -64,4 +59,28 @@ class CheckPermissions
     {
         return response('unauthorized', Response::HTTP_UNAUTHORIZED);
     }
+
+    private static function compareUserPermissions($userPermissions, $roleArray, $next, $request)
+    {
+        $result = self::getUnauthorized();
+
+        foreach ($userPermissions as $userRole) {
+            foreach ($roleArray as $pageRole) {
+                $result = self::compareTwoPermissions($userRole, $pageRole, $next, $request);
+            }
+        }
+        return $result;
+    }
+
+    private static function compareTwoPermissions($userRole, $pageRole, $next, $request)
+    {
+        $result = null;
+        if ($userRole->name == $pageRole) {
+            $result = $next($request);
+        } else {
+            $result = self::getUnauthorized();
+        }
+        return $result;
+    }
+
 }
