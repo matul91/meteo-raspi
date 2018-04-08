@@ -22,21 +22,26 @@ class LoginPageTest extends DuskTestCase
 
         $this->browse(function ($browser) {
             $browser->visit('/login')
-                ->type('email', 'emailkterytamneni')
+                ->type('email', 'emailkterytamneni@osu.cz')
                 ->type('password', 'secret')
                 ->press('Submit')
-                ->assertPathIs('/login');
+                ->waitForLocation('/login')
+                ->pause(2000)
+                ->assertSee('Invalid credentials.');
         });
     }
 
     public function testLoginSuccessfully()
     {
+
+
         $this->browse(function ($browser) {
             $browser->visit('/login')
                 ->type('email', 'info@osu.cz')
                 ->type('password', 'secret')
                 ->press('Submit')
                 ->waitForLocation('/')
+                ->pause(2000)
                 ->assertSee('Přihlášen jako');
         });
     }

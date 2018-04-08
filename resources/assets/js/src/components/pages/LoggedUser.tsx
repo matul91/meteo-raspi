@@ -1,18 +1,22 @@
 import * as React from "react";
-import WebNotification from "react-web-notifications";
+import {Col, PageHeader, Row} from "react-bootstrap";
+import CurrentPhoto from "../currentPhoto/CurrentPhoto";
+import PhotosHistory from "../photosHistory/PhotosHistory";
 
 const LoggedUser = () => {
     return (
-        <div className="row">
-            <WebNotification
-                title="Hello, World!"
-                body="This is a web notification"
-                timeout={9000}
-            />
-            <div className="col-xs-12">
-                <h1>Uživatelská stránka</h1>
-            </div>
-        </div>
+        <Row>
+            <Col xs={12}>
+                <PageHeader>
+                    User's page
+                </PageHeader>
+                <Row>
+                    <Col sm={12}>
+                        <PhotosHistory />
+                    </Col>
+                </Row>
+            </Col>
+        </Row>
     );
 };
 

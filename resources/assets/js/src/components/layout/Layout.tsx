@@ -1,9 +1,10 @@
 import * as React from "react";
+import {Grid} from "react-bootstrap";
 import * as Loadable from "react-loadable";
 import {connect} from "react-redux";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import PageLoading from "../loading/PageLoading";
-import Navbar from "./UI/Navbar";
+import Navbar from "./UI/UINavbar";
 
 const AccessDenied = Loadable({ loader: () => import("../pages/AccessDenied"), loading: PageLoading });
 const Index = Loadable({ loader: () => import("../pages/Index"), loading: PageLoading });
@@ -27,7 +28,7 @@ const Layout = (props) => {
         <BrowserRouter>
             <div id="main">
                 <Navbar isAuthenticated={props.isAuthenticated} user={props.user} />
-                <div className="container-fluid">
+                <Grid fluid={true}>
                     <Switch>
                         <Route path="/login" component={Login} />
                         <Route path="/logout" component={Logout} />
@@ -35,7 +36,7 @@ const Layout = (props) => {
                         <Route path="/" exact={true} component={Index} />
                         <Route component={PageNotFound} />
                     </Switch>
-                </div>
+                </Grid>
             </div>
         </BrowserRouter>
     );

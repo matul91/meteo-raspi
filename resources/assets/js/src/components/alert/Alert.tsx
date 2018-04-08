@@ -1,20 +1,28 @@
 import * as React from "react";
+import {Alert as RBAlert} from "react-bootstrap";
+import * as Errors from "../../config/constants/errors";
 
-const Alert: any = (props) => {
+const Alert = (props) => {
     let text = "";
 
     switch (props.type) {
-        case "invalid_credentials":
-            text = "Neplatné přilašovací údaje";
+        case Errors.INVALID_CREDENTIALS:
+            text = "Invalid credentials.";
+            break;
+        case Errors.NO_DATA:
+            text = "There are no data for this date input.";
+            break;
+        case Errors.NO_ALL_CREDENTIALS_FILLED:
+            text = "One or more fields were not filled. Please fill all fields and try again.";
             break;
         default:
-            text = "Neznámá chyba";
+            text = "Unknown error.";
     }
 
-    const cls = `alert alert-${props.cls}`;
-
     return (
-        <div className={cls} role="alert">{text}</div>
+        <RBAlert bsStyle={props.cls}>
+            {text}
+        </RBAlert>
     );
 };
 
