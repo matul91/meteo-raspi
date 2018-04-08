@@ -6,11 +6,10 @@ use Illuminate\Http\Request;
 use Closure;
 use App\Role;
 use App\User;
+use Illuminate\Http\Response;
 
 class CheckPermissions
 {
-    const CODE401 = 401;
-
     /**
      * Handle an incoming request.
      *
@@ -42,7 +41,7 @@ class CheckPermissions
         $result = 0;
         if ($request->header('Authorization')) {
             $token = self::sendTokenToPassport($request);
-            if ($token->getStatusCode() != self::CODE401) {
+            if ($token->getStatusCode() != Response::HTTP_UNAUTHORIZED) {
                 $result = json_decode($token->getBody())->id;
             }
         }
@@ -63,6 +62,6 @@ class CheckPermissions
 
     private static function getUnauthorized()
     {
-        return response('unauthorized', self::CODE401);
+        return response('unauthorized', Response::HTTP_UNAUTHORIZED);
     }
 }
