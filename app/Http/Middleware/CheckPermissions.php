@@ -64,9 +64,7 @@ class CheckPermissions
 
         foreach ($userPermissions as $userRole) {
             foreach ($roleArray as $pageRole) {
-
                 $result = self::compareTwoPermissions($userRole, $pageRole, $next, $request);
-
             }
         }
 
