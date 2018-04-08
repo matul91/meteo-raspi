@@ -54,5 +54,3 @@ mix.react('resources/assets/js/src/App.tsx', 'public/js')
 if (mix.inProduction()) {
     mix.version();
 }
-
-
