@@ -27,7 +27,6 @@ class CheckPermissions
             $rolesArray = explode(";", $role);
 
             return self::compareUserPermissions($userPermissions, $rolesArray, $next, $request);
-            
         }
     }
 
@@ -82,5 +81,4 @@ class CheckPermissions
         }
         return $result;
     }
-
 }
