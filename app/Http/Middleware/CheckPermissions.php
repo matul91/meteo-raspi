@@ -44,13 +44,13 @@ class CheckPermissions
     private static function sendTokenToPassport(Request $request)
     {
         $client = new \GuzzleHttp\Client(['http_errors' => false]);
-        $res = $client->request('GET', $_ENV['APP_URL'] . '/api/user', [
+        $result = $client->request('GET', $_ENV['APP_URL'] . '/api/user', [
             'headers' => [
                 'Authorization' => $request->header('Authorization'),
                 'Accept'     => 'application/json'
             ]
         ]);
-        return $res;
+        return $result;
     }
 
     private static function getUnauthorized()
