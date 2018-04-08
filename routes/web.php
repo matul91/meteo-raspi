@@ -10,10 +10,9 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/pressures', 'PressureController@index');
 Route::get('/pressures/latest', 'PressureController@latest');
-Route::get('/settings', 'SettingController@index');
+Route::get('/settings', 'SettingController@index')->middleware('permissions:admin');
 Route::get('/temperatures', 'TemperatureController@index');
 Route::get('/temperatures/latest', 'TemperatureController@latest');
 
