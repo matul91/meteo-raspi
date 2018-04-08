@@ -1,6 +1,7 @@
 let mix = require('laravel-mix');
 const webpack = require('webpack');
 const CompressionPlugin = require('compression-webpack-plugin');
+const path = require('path');
 
 /*
  |--------------------------------------------------------------------------
@@ -27,6 +28,10 @@ mix.react('resources/assets/js/src/App.tsx', 'public/js')
         },
         resolve: {
             extensions: ['*', '.js', '.jsx', '.vue', '.ts', '.tsx'],
+            modules: [
+                path.resolve(__dirname, 'node_modules'),
+                path.resolve(__dirname, './resources/assets/js/src'),
+            ]
         },
         output: {
             chunkFilename: 'js/[name].[chunkhash].js',
