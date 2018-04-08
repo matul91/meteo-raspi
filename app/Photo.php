@@ -27,7 +27,7 @@ class Photo extends Model
 
     private static function saveImage($file)
     {
-        $destinationPath = env('RASPI_PHOTO_FOLDER_PATH') . date(self::DATE_FORMAT_SORTING_BY_DATE);
+        $destinationPath = env('PHOTO_FOLDER_PATH') . date(self::DATE_FORMAT_SORTING_BY_DATE);
         $filename = date(self::DATE_FORMAT_IMAGE_NAME) . "." . $file->getClientOriginalExtension();
         $file = $file->move($destinationPath, $filename);
         return $file;
