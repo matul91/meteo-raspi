@@ -10,11 +10,12 @@ use App\User;
 class CheckPermissions
 {
     const CODE401 = 401;
+
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param  \Illuminate\Http\Request $request
+     * @param  \Closure $next
      * @return mixed
      */
     public function handle($request, Closure $next, $role)
@@ -25,7 +26,14 @@ class CheckPermissions
         } else {
             $userPermissions = User::find($userId)->roles;
             $roleArray = explode(";", $role);
-            return self::compareUserPermissions($userPermissions, $roleArray, $next, $request);
+
+            $c = array_intersect($userPermissions, $roleArray);
+            if (count($c) > 0) {
+                $result = $next($request);
+            } else {
+                $result = self::getUnauthorized();
+            }
+            return $result;
         }
     }
 
@@ -47,7 +55,7 @@ class CheckPermissions
         $result = $client->request('GET', $_ENV['APP_URL'] . '/api/user', [
             'headers' => [
                 'Authorization' => $request->header('Authorization'),
-                'Accept'     => 'application/json'
+                'Accept' => 'application/json'
             ]
         ]);
         return $result;
@@ -56,32 +64,5 @@ class CheckPermissions
     private static function getUnauthorized()
     {
         return response('unauthorized', self::CODE401);
-    }
-
-    // použít nějakou funkci co najde
-    private static function compareUserPermissions($userPermissions, $roleArray, $next, $request)
-    {
-        $result = self::getUnauthorized();
-
-        foreach ($userPermissions as $userRole) {
-            foreach ($roleArray as $pageRole) {
-                $result = self::compareTwoPermissions($userRole, $pageRole, $next, $request);
-            }
-        }
-
-        return $result;
-    }
-
-
-    // Dodělat že se vrátí true a následně udělat Next
-    private static function compareTwoPermissions($userRole, $pageRole, $next, $request)
-    {
-        $result = null;
-        if ($userRole->name == $pageRole) {
-            $result = $next($request);
-        } else {
-            $result = self::getUnauthorized();
-        }
-        return $result;
     }
 }
