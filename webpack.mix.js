@@ -1,7 +1,6 @@
 let mix = require('laravel-mix');
 const webpack = require('webpack');
 const CompressionPlugin = require('compression-webpack-plugin');
-const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const path = require('path');
 
 /*
@@ -32,9 +31,6 @@ mix.react('resources/assets/js/src/App.tsx', 'public/js')
             modules: [
                 path.resolve(__dirname, 'node_modules'),
                 path.resolve(__dirname, './resources/assets/js/src'),
-            ],
-            plugins: [
-                new TsconfigPathsPlugin()
             ]
         },
         output: {
