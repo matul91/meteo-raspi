@@ -9,6 +9,7 @@ use App\User;
 
 class CheckPermissions
 {
+    const CODE401 = 401;
     /**
      * Handle an incoming request.
      *
@@ -33,7 +34,7 @@ class CheckPermissions
         $result = 0;
         if ($request->header('Authorization')) {
             $token = self::sendTokenToPassport($request);
-            if ($token->getStatusCode() != 401) {
+            if ($token->getStatusCode() != self::CODE401) {
                 $result = json_decode($token->getBody())->id;
             }
         }
@@ -54,7 +55,7 @@ class CheckPermissions
 
     private static function getUnauthorized()
     {
-        return response('unauthorized', 401);
+        return response('unauthorized', self::CODE401);
     }
 
     // použít nějakou funkci co najde
