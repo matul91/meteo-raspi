@@ -32,9 +32,9 @@ class CheckPermissions
     {
         $result = 0;
         if ($request->header('Authorization')) {
-            $res = self::sendTokenToPassport($request);
-            if ($res->getStatusCode() != 401) {
-                $result = json_decode($res->getBody())->id;
+            $token = self::sendTokenToPassport($request);
+            if ($token->getStatusCode() != 401) {
+                $result = json_decode($token->getBody())->id;
             }
         }
         return $result;
