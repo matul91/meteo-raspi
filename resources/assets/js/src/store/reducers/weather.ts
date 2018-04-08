@@ -4,42 +4,18 @@ const initialState = {
     dataSets: {
         pressure: {
             columnName: "pressure",
-            data: null,
-            dataMeta: {
-                firstDate: null,
-                lastDate: null,
-            },
-            error: null,
-            initialDate: null,
-            initialValue: null,
             name: "Pressure",
             suffix: "hPa",
             url: "pressures",
         },
         temperature: {
             columnName: "temperature",
-            data: null,
-            dataMeta: {
-                firstDate: null,
-                lastDate: null,
-            },
-            error: null,
-            initialDate: null,
-            initialValue: null,
             name: "Temperature",
             suffix: "°C",
             url: "temperatures",
         },
         wind: {
             columnName: "speed",
-            data: null,
-            dataMeta: {
-                firstDate: null,
-                lastDate: null,
-            },
-            error: null,
-            initialDate: null,
-            initialValue: null,
             name: "Wind speed",
             suffix: "m/s",
             url: "winds",
