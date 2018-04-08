@@ -1,9 +1,9 @@
+import * as AlertStyles from "constants/alertStyles";
+import * as Errors from "constants/errors";
 import * as React from "react";
 import { Button, Col, ControlLabel, Form, FormControl, FormGroup, HelpBlock, Row } from "react-bootstrap";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
-import * as AlertStyles from "../../config/constants/alertStyles";
-import * as Errors from "../../config/constants/errors";
 import * as validators from "../../config/validators";
 import * as actions from "../../store/actions";
 import Alert from "../alert/Alert";

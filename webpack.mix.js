@@ -1,6 +1,7 @@
 let mix = require('laravel-mix');
 const webpack = require('webpack');
 const CompressionPlugin = require('compression-webpack-plugin');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 /*
  |--------------------------------------------------------------------------
@@ -27,6 +28,9 @@ mix.react('resources/assets/js/src/App.tsx', 'public/js')
         },
         resolve: {
             extensions: ['*', '.js', '.jsx', '.vue', '.ts', '.tsx'],
+            plugins: [
+                new TsconfigPathsPlugin()
+            ]
         },
         output: {
             chunkFilename: 'js/[name].[chunkhash].js',

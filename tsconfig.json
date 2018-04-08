@@ -9,7 +9,13 @@
         "moduleResolution": "node",
         "noImplicitAny": false,
         "sourceMap": false,
-        "jsx": "react"
+        "jsx": "react",
+        "baseUrl": "./resources/assets/js/src",
+        "paths": {
+            "constants/*": [
+                "config/constants/*"
+            ]
+        }
     },
     "include": [
         "./resources/assets/js/**/*"
