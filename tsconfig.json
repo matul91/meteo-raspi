@@ -10,12 +10,7 @@
         "noImplicitAny": false,
         "sourceMap": false,
         "jsx": "react",
-        "baseUrl": "./resources/assets/js/src",
-        "paths": {
-            "constants/*": [
-                "config/constants/*"
-            ]
-        }
+        "baseUrl": "./resources/assets/js/src"
     },
     "include": [
         "./resources/assets/js/**/*"
