@@ -52,10 +52,12 @@ export const dataSetResetError = (setName) => {
 export const weatherLoad = () => {
     return (dispatch, getState) => {
         dispatch(weatherLoadStart());
-        Object.keys(getState().weather.dataSets).map((setName) => {
-            dispatch(initializeDataSet(setName));
+        const promises = Object.keys(getState().weather.dataSets).map((setName) => {
+            return dispatch(initializeDataSet(setName));
         });
-        dispatch(weatherLoadSuccess());
+        Promise.all(promises).then(() => {
+            dispatch(weatherLoadSuccess());
+        });
     };
 };
 
@@ -63,7 +65,7 @@ export const initializeDataSet = (setName) => {
     return (dispatch, getState) => {
         const dataSet = getState().weather.dataSets[setName];
         const url = URLUtil.generateURLByPosition(dataSet.url, Positions.LATEST);
-        axios.get(url).then((response: any) => {
+        return axios.get(url).then((response) => {
             let newData = {
                 ...dataSet,
                 initialDate: response.data.date,
@@ -71,7 +73,7 @@ export const initializeDataSet = (setName) => {
             };
             const dateTo = newData.initialDate;
             const dateFrom = moment(dateTo).subtract(30, "minutes").format(getState().weather.dbDateFormat);
-            loadData(dateFrom, dateTo, dataSet).then((loadedData) => {
+            return loadData(dateFrom, dateTo, dataSet).then((loadedData) => {
                 newData = {
                     ...newData,
                     data: loadedData.data,
