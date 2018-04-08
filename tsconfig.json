@@ -9,7 +9,8 @@
         "moduleResolution": "node",
         "noImplicitAny": false,
         "sourceMap": false,
-        "jsx": "react"
+        "jsx": "react",
+        "baseUrl": "./resources/assets/js/src"
     },
     "include": [
         "./resources/assets/js/**/*"
