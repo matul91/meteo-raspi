@@ -71,6 +71,9 @@ export const initializeDataSet = (setName) => {
                 initialDate: response.data.date,
                 initialValue: response.data[dataSet.columnName],
             };
+            if (setName === "wind") {
+                newData.initialDirection = response.data.direction;
+            }
             const dateTo = newData.initialDate;
             const dateFrom = moment(dateTo).subtract(30, "minutes").format(getState().weather.dbDateFormat);
             return loadData(dateFrom, dateTo, dataSet).then((loadedData) => {
@@ -80,9 +83,7 @@ export const initializeDataSet = (setName) => {
                     dataMeta: loadedData.dataMeta,
                 };
                 dispatch(dataSetLoadSuccess(setName, newData));
-            }).catch((error) => {
-                dispatch(weatherLoadFail(error));
-            });
+            }).catch((error) => dispatch(weatherLoadFail(error)));
         });
     };
 };
