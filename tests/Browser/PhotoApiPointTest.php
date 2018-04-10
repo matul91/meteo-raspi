@@ -3,10 +3,6 @@
 namespace Tests\Browser;
 
 use Tests\DuskTestCase;
-use Laravel\Dusk\Browser;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
 
 class PhotoApiPointTest extends DuskTestCase
 {
@@ -24,7 +20,8 @@ class PhotoApiPointTest extends DuskTestCase
 
     public function testSendEmptyImage()
     {
-        $response = $this->post('/photo/save', ['body' => ['metaInfo' => 'people']], ['Authorization' => env('PASSWORD_WEATHER_STATION')]);
+        $response = $this->post('/photo/save', ['body' => ['metaInfo' => 'people']],
+            ['Authorization' => env('PASSWORD_WEATHER_STATION')]);
         $response->assertStatus(500);
     }
 
