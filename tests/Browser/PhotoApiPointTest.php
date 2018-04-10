@@ -20,8 +20,11 @@ class PhotoApiPointTest extends DuskTestCase
 
     public function testSendEmptyImage()
     {
-        $response = $this->post('/photo/save', ['body' => ['metaInfo' => 'people']],
-            ['Authorization' => env('PASSWORD_WEATHER_STATION')]);
+        $response = $this->post(
+            '/photo/save',
+            ['body' => ['metaInfo' => 'people']],
+            ['Authorization' => env('PASSWORD_WEATHER_STATION')]
+        );
         $response->assertStatus(500);
     }
 
@@ -36,5 +39,4 @@ class PhotoApiPointTest extends DuskTestCase
         $response = $this->get('/photo/all');
         $response->assertStatus(200);
     }
-
 }
