@@ -4,21 +4,12 @@ import {Col, PageHeader, Row} from "react-bootstrap";
 import PhotosHistory from "../photosHistory/PhotosHistory";
 
 interface IState {
-    config: any;
     userToken: string;
     isSubscribed: boolean;
 }
 
 class LoggedUser extends React.Component<null, IState> {
     public state = {
-        config: {
-            apiKey: process.env.MIX_FIREBASE_API_KEY,
-            authDomain: process.env.MIX_FIREBASE_AUTH_DOMAIN,
-            databaseURL: process.env.MIX_FIREBASE_DATABASE_URL,
-            messagingSenderId: process.env.MIX_FIREBASE_MESSAGING_SENDER_ID,
-            projectId: process.env.MIX_FIREBASE_PROJECT_ID,
-            storageBucket: process.env.MIX_FIREBASE_STORAGE_BUCKET,
-        },
         isSubscribed: false,
         userToken: localStorage.getItem("pushToken"),
     };
