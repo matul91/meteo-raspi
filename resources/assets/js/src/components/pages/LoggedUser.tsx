@@ -9,7 +9,7 @@ interface IState {
     isSubscribed: boolean;
 }
 
-class LoggedUser extends React.Component {
+class LoggedUser extends React.Component<null, IState> {
     public state = {
         config: {
             apiKey: process.env.MIX_FIREBASE_API_KEY,
