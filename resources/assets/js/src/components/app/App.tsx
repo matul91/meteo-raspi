@@ -1,3 +1,4 @@
+import firebase from "config/firebase";
 import * as React from "react";
 import { connect } from "react-redux";
 import * as actions from "../../store/actions";

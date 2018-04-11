@@ -1,4 +1,4 @@
-import * as firebase from "firebase";
+import firebase from "config/firebase";
 import * as React from "react";
 import {Col, PageHeader, Row} from "react-bootstrap";
 import PhotosHistory from "../photosHistory/PhotosHistory";
@@ -27,7 +27,6 @@ class LoggedUser extends React.Component<null, IState> {
         this.setState({
             isSubscribed: this.state.userToken !== null,
         });
-        firebase.initializeApp(this.state.config);
         this.subscribeUser();
     }
 
@@ -50,7 +49,6 @@ class LoggedUser extends React.Component<null, IState> {
 
     private subscribeUser(): void {
         const messaging = firebase.messaging();
-        messaging.usePublicVapidKey(process.env.MIX_FIREBASE_VAPID_KEY);
         messaging.requestPermission()
             .then(() => messaging.getToken())
             .then((token) => {
