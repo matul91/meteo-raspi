@@ -71,6 +71,7 @@ export default class Chart extends React.Component<IProps, IState> {
 
     constructor(props) {
         super(props);
+        axios.defaults.baseURL = window.location.origin
         this.datetimeChangedHandler = this.datetimeChangedHandler.bind(this);
         this.refreshDataByDateChangeHandler = this.refreshDataByDateChangeHandler.bind(this);
         this.refreshDataByEventHandler = this.refreshDataByEventHandler.bind(this);
@@ -188,7 +189,7 @@ export default class Chart extends React.Component<IProps, IState> {
     private initializeComponentData(): void {
         const url = URLUtil.generateURLByPosition(this.props.url, Positions.LATEST);
 
-        axios.get(url).then((response: any) => {
+        axios.get(url, {baseURL: window.location.origin}).then((response: any) => {
             this.setState({
                 ...this.state,
                 initialDate: response.data.date,
@@ -207,7 +208,7 @@ export default class Chart extends React.Component<IProps, IState> {
         const url = URLUtil.generateURLByDates(this.props.url, dateFrom, dateTo);
         let dataMeta;
 
-        axios.get(url).then((response: any) => {
+        axios.get(url, {baseURL: window.location.origin}).then((response: any) => {
             const newData = this.processResponse(response);
             if (!this.checkData(newData)) {
                 return;
