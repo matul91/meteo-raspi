@@ -10,9 +10,6 @@ interface IProps {
     dataSets: any;
     error: any;
     isLoaded: boolean;
-    windDirection: string;
-    windSpeed: number;
-    windSuffix: string;
 }
 
 class Index extends React.Component<IProps, void> {
@@ -27,11 +24,7 @@ class Index extends React.Component<IProps, void> {
                     </Row>
                     <Row>
                         <Col md={6}>
-                            <AerialPhoto
-                                direction={this.props.windDirection}
-                                speed={this.props.windSpeed}
-                                suffix={this.props.windSuffix}
-                            />
+                            <AerialPhoto />
                         </Col>
                         <Col md={6}>
                             <CurrentPhoto />
@@ -70,9 +63,6 @@ const mapStateToProps = (state) => {
         dataSets: state.weather.dataSets,
         error: state.weather.error,
         isLoaded: state.weather.loading !== true,
-        windDirection: state.weather.dataSets.wind.initialDirection,
-        windSpeed: state.weather.dataSets.wind.initialValue,
-        windSuffix: state.weather.dataSets.wind.suffix,
     };
 };
 
