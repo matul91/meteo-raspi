@@ -9,7 +9,7 @@ class URLUtil {
 
     public static generateURLByDates(url: string, dateFrom: string = null, dateTo: string = null): string {
         if (dateFrom && dateTo) {
-            url = `${url}/?start_date=${dateFrom}&end_date=${dateTo}`;
+            url = `${url}?start_date=${dateFrom}&end_date=${dateTo}`;
         }
 
         return url;
