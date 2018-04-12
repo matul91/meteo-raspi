@@ -12,6 +12,6 @@ describe("URLUtil", () => {
     });
     it("check if it's returned URL with start_date and end_date params", () => {
         const generatedURL = URLUtil.generateURLByDates("pressures", "2018-03-03", "2018-03-04");
-        expect(generatedURL).toBe("pressures/?start_date=2018-03-03&end_date=2018-03-04");
+        expect(generatedURL).toBe("pressures?start_date=2018-03-03&end_date=2018-03-04");
     });
 });
