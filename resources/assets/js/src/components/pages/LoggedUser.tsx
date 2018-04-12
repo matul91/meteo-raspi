@@ -1,6 +1,6 @@
-import firebase from "config/firebase";
 import * as React from "react";
 import {Col, PageHeader, Row} from "react-bootstrap";
+import firebase from "services/firebase";
 import PhotosHistory from "../photosHistory/PhotosHistory";
 
 interface IState {
@@ -50,7 +50,7 @@ class LoggedUser extends React.Component<null, IState> {
                 });
                 localStorage.setItem("pushToken", token);
             })
-            .catch((err) => console.log("Denied", err));
+            .catch((err) => new Error(err));
     }
 
     private updateSubscriptionOnServer(token: any) {
@@ -68,13 +68,11 @@ class LoggedUser extends React.Component<null, IState> {
                 snapshots.forEach((childSnapshot) => {
                     if (childSnapshot.val() === token) {
                         deviceExists = true;
-                        return console.log("Device already registered.");
+                        return;
                     }
-
                 });
 
                 if (!deviceExists) {
-                    console.log("Device subscribed");
                     return database.ref("device_ids").push(token);
                 }
             });
