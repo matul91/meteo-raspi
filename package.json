@@ -2,7 +2,7 @@
     "private": true,
     "scripts": {
         "test": "jest",
-        "cleanup": "rimraf public/css public/fonts public/images public/js public/mix-manifest.json",
+        "cleanup": "rimraf public/css public/fonts \"public/images/!(photos)\" public/js public/mix-manifest.json",
         "predevelopment": "npm run cleanup",
         "prewatch": "npm run cleanup",
         "prehot": "npm run cleanup",
@@ -30,6 +30,7 @@
         "cross-env": "^5.0.1",
         "laravel-mix": "^2.0.0",
         "lodash": "^4.17.4",
+        "rimraf": "^2.6.2",
         "ts-jest": "^22.4.2",
         "ts-loader": "3.5",
         "tslint": "^5.8.0",
@@ -56,7 +57,6 @@
         "recharts": "^1.0.0-beta.10",
         "redux": "^3.7.2",
         "redux-thunk": "^2.2.0",
-        "rimraf": "^2.6.2",
         "validator": "^9.4.1"
     },
     "jest": {
