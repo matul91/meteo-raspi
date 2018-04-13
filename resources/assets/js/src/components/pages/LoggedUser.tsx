@@ -1,3 +1,4 @@
+import * as localStorageKeys from "config/constants/localStorage";
 import * as React from "react";
 import {Col, PageHeader, Row} from "react-bootstrap";
 import firebase from "services/firebase";
@@ -11,7 +12,7 @@ interface IState {
 class LoggedUser extends React.Component<null, IState> {
     public state = {
         isSubscribed: false,
-        userToken: localStorage.getItem("pushToken"),
+        userToken: localStorage.getItem(localStorageKeys.FIREBASE_TOKEN),
     };
 
     public componentDidMount(): void {
@@ -48,7 +49,7 @@ class LoggedUser extends React.Component<null, IState> {
                     isSubscribed: true,
                     userToken: token,
                 });
-                localStorage.setItem("pushToken", token);
+                localStorage.setItem(localStorageKeys.FIREBASE_TOKEN, token);
             })
             .catch((err) => new Error(err));
     }
