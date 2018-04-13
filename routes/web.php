@@ -10,15 +10,18 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/pressures', 'PressureController@index');
 Route::get('/pressures/latest', 'PressureController@latest');
-Route::get('/settings', 'SettingController@index');
+Route::get('/settings', 'SettingController@index')->middleware('permissions:admin');
 Route::get('/temperatures', 'TemperatureController@index');
 Route::get('/temperatures/latest', 'TemperatureController@latest');
 
 Route::get('/winds', 'WindController@index');
 Route::get('/winds/latest', 'WindController@latest');
+
+Route::get('/photo', 'PhotoController@index');
+Route::get('/photo/all', 'PhotoController@all');
+Route::post('/photo/save', 'PhotoController@savePhoto');
 
 Route::any('{all}', function () {
     return view('index');

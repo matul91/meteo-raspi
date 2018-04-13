@@ -1,10 +1,16 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
-        "target": "es5",
+        "lib": [
+            "dom",
+            "es2015"
+        ],
+        "target": "es2015",
+        "module": "esnext",
+        "moduleResolution": "node",
         "noImplicitAny": false,
         "sourceMap": false,
-        "jsx": "react"
+        "jsx": "react",
+        "baseUrl": "./resources/assets/js/src"
     },
     "include": [
         "./resources/assets/js/**/*"

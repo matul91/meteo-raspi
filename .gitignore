@@ -13,5 +13,13 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 .env
+.env.dusk.local
 yarn.lock
 package-lock.json
+/public/js
+/public/mix-manifest.json
+/public/firebase-messaging-sw.js
+/public/css
+/public/fonts
+/public/undefined.js
+/public/images/*

@@ -10,7 +10,7 @@ class LoginPageTest extends DuskTestCase
 
     public function testShowLoginPage()
     {
-        $this->browse(function ($browser){
+        $this->browse(function ($browser) {
             $browser->visit('/login')
                 ->assertSee('Letiště Baška');
         });
@@ -22,12 +22,12 @@ class LoginPageTest extends DuskTestCase
 
         $this->browse(function ($browser) {
             $browser->visit('/login')
-                ->type('email', 'emailkterytamneni')
+                ->type('email', 'emailkterytamneni@osu.cz')
                 ->type('password', 'secret')
                 ->press('Submit')
                 ->waitForLocation('/login')
                 ->pause(2000)
-                ->assertSee('Neplatné přilašovací údaje');
+                ->assertSee('Invalid credentials.');
         });
     }
 
@@ -37,7 +37,7 @@ class LoginPageTest extends DuskTestCase
 
         $this->browse(function ($browser) {
             $browser->visit('/login')
-                ->type('email', 'info@osu.cz')
+                ->type('email', 'lukas@osu.cz')
                 ->type('password', 'secret')
                 ->press('Submit')
                 ->waitForLocation('/')

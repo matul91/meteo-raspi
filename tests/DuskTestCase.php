@@ -36,8 +36,10 @@ abstract class DuskTestCase extends BaseTestCase
 
         return RemoteWebDriver::create(
 
-            env("DUSK-IP"), DesiredCapabilities::chrome()->setCapability(
-                ChromeOptions::CAPABILITY, $options
+            env("DUSK-IP"),
+            DesiredCapabilities::chrome()->setCapability(
+                ChromeOptions::CAPABILITY,
+                $options
             )
         );
     }

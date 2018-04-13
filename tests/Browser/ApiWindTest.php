@@ -19,9 +19,9 @@ class ApiWindTest extends DuskTestCase
     public function testExistLastRecord()
     {
         $lastRecordFromDatabase = Wind::getLastRecord();
-        if($lastRecordFromDatabase != NULL){
+        if ($lastRecordFromDatabase != null) {
             $result = true;
-        }else{
+        } else {
             $result = false;
         }
         $this->assertTrue($result);
@@ -30,21 +30,22 @@ class ApiWindTest extends DuskTestCase
     public function testMaxRowsFromDatabase()
     {
         $maxRowsPerGraph = Wind::getSettingMaxValuesPerGraph();
-        if($maxRowsPerGraph != NULL AND $maxRowsPerGraph != 0 AND $maxRowsPerGraph > 0){
+        if ($maxRowsPerGraph != null and $maxRowsPerGraph != 0 and $maxRowsPerGraph > 0) {
             $result = true;
-        }else{
+        } else {
             $result = false;
         }
         $this->assertTrue($result);
     }
 
 
-    public function testMaxDataPerGraph(){
+    public function testMaxDataPerGraph()
+    {
         $dataFromDtabase = count(Wind::loadData());
 
-        if($dataFromDtabase != 0 AND $dataFromDtabase > 0 AND $dataFromDtabase <= 100){
+        if ($dataFromDtabase != 0 and $dataFromDtabase > 0 and $dataFromDtabase <= 100) {
             $result = true;
-        }else{
+        } else {
             $result = false;
         }
 

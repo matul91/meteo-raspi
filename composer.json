@@ -17,7 +17,8 @@
         "barryvdh/laravel-debugbar": "^3.1",
         "filp/whoops": "~2.0",
         "mockery/mockery": "~1.0",
-        "phpunit/phpunit": "~6.0"
+        "phpunit/phpunit": "~6.0",
+        "squizlabs/php_codesniffer": "3.2.*"
     },
     "autoload": {
         "classmap": [
@@ -50,7 +51,8 @@
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover"
-        ]
+        ],
+        "post-install-cmd": [ "php artisan passport:keys" ]
     },
     "config": {
         "preferred-install": "dist",

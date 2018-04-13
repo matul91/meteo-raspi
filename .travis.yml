@@ -1,18 +1,36 @@
 language: php
 
+sudo: required
+
 dist: trusty
-sudo: false
 
 php:
     - 7.1
+
+services:
+  - mysql
 
 cache:
   directories:
     - $HOME/.composer/cache
 
 before_script:
-    - travis_retry composer self-update
-    - travis_retry composer install --no-interaction --prefer-dist
+  - travis_retry composer self-update
+  - travis_retry composer install --no-interaction --prefer-dist
+  - vendor/bin/phpcs -p --standard=PSR2 --ignore="vendor,resources,storage,public,node_modules,database,bootstrap" ./
+  - mysql -e 'create database meteoraspi;'
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+  - ./vendor/laravel/dusk/bin/chromedriver-linux &
+  - cp .env.dusk.testing .env
+  - php artisan key:generate
+  - php artisan migrate --force
+  - php artisan db:seed
+  - php artisan passport:install
+  - php artisan set:client_secret .env
+  - npm install
+  - npm run production
+  - php artisan serve &
 
 script:
-  - echo "CI passed succesfully"
+  - php artisan dusk

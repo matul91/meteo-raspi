@@ -8,7 +8,7 @@ export default class Chart extends React.Component<IProps, null> {
     public render(): JSX.Element {
         let content = null;
 
-        const finalStyle = {
+        const finalStyle: React.CSSProperties = {
             backgroundColor: "#fff",
             border: "1px solid #ccc",
             margin: 0,

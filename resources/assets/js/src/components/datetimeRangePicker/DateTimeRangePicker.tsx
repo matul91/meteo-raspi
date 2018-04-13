@@ -1,4 +1,5 @@
 import * as React from "react";
+import {Button, Col, Form, FormGroup, Row} from "react-bootstrap";
 import DateTimeField from "./dateTimeField/dateTimeField";
 
 interface IProps {
@@ -6,30 +7,47 @@ interface IProps {
     onSubmit: any;
 }
 
+const formInputs = [
+    {
+        name: "dateFrom",
+        placeholder: "Počáteční datum",
+    },
+    {
+        name: "dateTo",
+        placeholder: "Koncové datum",
+    },
+];
+
 export default class DateTimeRangePicker extends React.Component<IProps, null> {
     public render(): JSX.Element {
+        const inputs = this.getFormInputs();
+
         return (
-            <div className="row">
-                <form className="form-inline text-right form-bottom-space col-xs-12" onSubmit={this.props.onSubmit}>
-                    <div className="form-group form-space">
-                        <label className="sr-only">Počáteční datum</label>
-                        <DateTimeField
-                            name="dateFrom"
-                            placeholder="Počáteční datum"
-                            onInputChange={this.props.onInputChange}
-                        />
-                    </div>
-                    <div className="form-group form-space">
-                        <label className="sr-only">Koncové datum</label>
-                        <DateTimeField
-                            name="dateTo"
-                            placeholder="Koncové datum"
-                            onInputChange={this.props.onInputChange}
-                        />
-                    </div>
-                    <button type="submit" className="btn btn-default">Zobrazit</button>
-                </form>
-            </div>
+            <Row>
+                <Col xs={12} className="text-right form-bottom-space">
+                    <Form inline={true}>
+                        {inputs}
+                        <Button onClick={this.props.onSubmit}>Zobrazit</Button>
+                    </Form>
+                </Col>
+            </Row>
         );
+    }
+
+    private getFormInputs(): JSX.Element[] {
+        return formInputs.map((input) => {
+            return (
+                <FormGroup
+                    key={input.name}
+                    className="form-space"
+                >
+                    <DateTimeField
+                        name={input.name}
+                        placeholder={input.placeholder}
+                        onInputChange={this.props.onInputChange}
+                    />
+                </FormGroup>
+            );
+        });
     }
 }

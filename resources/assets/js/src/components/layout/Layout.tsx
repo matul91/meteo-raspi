@@ -1,13 +1,17 @@
 import * as React from "react";
+import {Grid} from "react-bootstrap";
+import * as Loadable from "react-loadable";
 import {connect} from "react-redux";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
-import AccessDenied from "../pages/AccessDenied";
-import Index from "../pages/Index";
-import LoggedUser from "../pages/LoggedUser";
-import Login from "../pages/Login";
-import Logout from "../pages/Logout";
-import PageNotFound from "../pages/PageNotFound";
-import Navbar from "./UI/Navbar";
+import PageLoading from "../loading/PageLoading";
+import Navbar from "./UI/UINavbar";
+
+const AccessDenied = Loadable({ loader: () => import("../pages/AccessDenied"), loading: PageLoading });
+const Index = Loadable({ loader: () => import("../pages/Index"), loading: PageLoading });
+const Login = Loadable({ loader: () => import("../pages/Login"), loading: PageLoading });
+const LoggedUser = Loadable({ loader: () => import("../pages/LoggedUser"), loading: PageLoading });
+const Logout = Loadable({ loader: () => import("../pages/Logout"), loading: PageLoading });
+const PageNotFound = Loadable({ loader: () => import("../pages/PageNotFound"), loading: PageLoading });
 
 const Layout = (props) => {
     let loggedRoutes = (
@@ -24,7 +28,7 @@ const Layout = (props) => {
         <BrowserRouter>
             <div id="main">
                 <Navbar isAuthenticated={props.isAuthenticated} user={props.user} />
-                <div className="container-fluid">
+                <Grid fluid={true}>
                     <Switch>
                         <Route path="/login" component={Login} />
                         <Route path="/logout" component={Logout} />
@@ -32,7 +36,7 @@ const Layout = (props) => {
                         <Route path="/" exact={true} component={Index} />
                         <Route component={PageNotFound} />
                     </Switch>
-                </div>
+                </Grid>
             </div>
         </BrowserRouter>
     );
