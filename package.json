@@ -2,7 +2,7 @@
     "private": true,
     "scripts": {
         "test": "jest",
-        "cleanup": "rimraf public/css public/fonts \"public/images/!(photos)\" public/js public/mix-manifest.json",
+        "cleanup": "rimraf public/css public/fonts \"public/images/!(photos)\" public/js public/mix-manifest.json public/firebase-messaging-sw.js",
         "predevelopment": "npm run cleanup",
         "prewatch": "npm run cleanup",
         "prehot": "npm run cleanup",
@@ -17,6 +17,7 @@
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
     "devDependencies": {
+        "@firebase/app-types": "0.1.0",
         "@types/jest": "^22.2.2",
         "@types/react": "^16.0.22",
         "@types/react-dom": "^16.0.3",
@@ -31,6 +32,7 @@
         "laravel-mix": "^2.0.0",
         "lodash": "^4.17.4",
         "rimraf": "^2.6.2",
+        "sw-precache-webpack-plugin": "^0.11.5",
         "ts-jest": "^22.4.2",
         "ts-loader": "3.5",
         "tslint": "^5.8.0",
@@ -40,6 +42,7 @@
     "dependencies": {
         "axios": "^0.17.0",
         "compression-webpack-plugin": "^1.1.10",
+        "firebase": "^4.12.1",
         "jest": "^22.4.3",
         "moment": "^2.19.2",
         "production": "0.0.2",
