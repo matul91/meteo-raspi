@@ -12,6 +12,9 @@
 
         <!-- Styles -->
         <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+
+        <!-- Manifest -->
+        <link rel="manifest" href="{{ asset('manifest.json') }}">
     </head>
     <body>
         <div id="app"></div>
