@@ -1,5 +1,6 @@
 import * as React from "react";
 import { connect } from "react-redux";
+import firebase from "services/firebase";
 import * as actions from "../../store/actions";
 import Layout from "../layout/Layout";
 
