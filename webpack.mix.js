@@ -1,6 +1,7 @@
 let mix = require('laravel-mix');
 const webpack = require('webpack');
 const CompressionPlugin = require('compression-webpack-plugin');
+const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 const path = require('path');
 
 /*
@@ -45,11 +46,24 @@ mix.react('resources/assets/js/src/App.tsx', 'public/js')
                 test: /\.js$|\.css$|\.html$|\.svg$/,
                 threshold: 10240,
                 minRatio: 0.8
-            })
+            }),
+            new SWPrecacheWebpackPlugin(
+                {
+                    cacheId: 'myapp',
+                    filename: 'firebase-messaging-sw.js',
+                    maximumFileSizeToCacheInBytes: 4194304,
+                    dontCacheBustUrlsMatching: /\.\w{8}\./,
+                    minify: false,
+                    runtimeCaching: [{
+                        handler: 'cacheFirst',
+                        urlPattern: /fonts\/.*$/,
+                    }],
+                }
+            )
         ]
     })
     .copy('resources/assets/images', 'public/images', false)
-    .extract(['react', 'redux', 'axios', 'recharts', 'moment', 'react-bootstrap', 'react-router-bootstrap']);
+    .extract(['react', 'redux', 'axios', 'recharts', 'moment', 'react-bootstrap', 'react-router-bootstrap', 'firebase']);
 
 if (mix.inProduction()) {
     mix.version();

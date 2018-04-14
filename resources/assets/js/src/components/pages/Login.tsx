@@ -116,6 +116,7 @@ class Login extends React.Component<any> {
         }
 
         this.props.onAuth(this.state.formValues.email, this.state.formValues.password);
+        this.clearForm();
     }
 
     private validate(): boolean {
@@ -148,6 +149,17 @@ class Login extends React.Component<any> {
     private getFormInputIndex(name: string): number {
         return formInputs.findIndex((input) => {
             return input.name === name;
+        });
+    }
+
+    private clearForm(): void {
+        const formValues = {};
+        Object.keys(this.state.formValues).map((valueName) => {
+            formValues[valueName] = "";
+        });
+        this.setState({
+            ...this.state,
+            formValues,
         });
     }
 }
