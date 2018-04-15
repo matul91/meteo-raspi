@@ -10,6 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/fcm', 'FcmController@index');
 Route::get('/pressures', 'PressureController@index');
 Route::get('/pressures/latest', 'PressureController@latest');
 Route::get('/settings', 'SettingController@index')->middleware('permissions:admin');
@@ -22,6 +23,9 @@ Route::get('/winds/latest', 'WindController@latest');
 Route::get('/photo', 'PhotoController@index');
 Route::get('/photo/all', 'PhotoController@all');
 Route::post('/photo/save', 'PhotoController@savePhoto');
+
+Route::get('/token', 'TokenController@index');
+Route::post('/token', 'TokenController@addToken')->middleware('permissions:admin');
 
 Route::any('{all}', function () {
     return view('index');
