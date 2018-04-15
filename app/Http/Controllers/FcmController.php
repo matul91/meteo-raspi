@@ -26,7 +26,7 @@ class FcmController extends Controller
         $notification = $notificationBuilder->build();
         $data = $dataBuilder->build();
 
-        $token = "dGW7aaBYxxM:APA91bFpng_zzw7PNa5VF6ZrS1oSu50XsgP3IhqSiPl6Ra89zDKs2zpCTh3VmbcyjW8ulto80jDeWqldV_fRd3MrGxNaBLhrPI_chwX9XgcrfC1OWTRs0n3PKjJJt4UUwz88d7Ay0jMz";
+        $token = "Token Example, only for testing prototype";
 
         $downstreamResponse = FCM::sendTo($token, $option, $notification, $data);
 
