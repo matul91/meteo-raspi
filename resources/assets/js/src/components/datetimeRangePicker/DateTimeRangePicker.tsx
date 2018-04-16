@@ -1,6 +1,6 @@
+import DateTimeField from "components/datetimeRangePicker/dateTimeField/dateTimeField";
 import * as React from "react";
-import {Button, Col, Form, FormGroup, Row} from "react-bootstrap";
-import DateTimeField from "./dateTimeField/dateTimeField";
+import { Button, Col, Form, FormGroup, Row } from "react-bootstrap";
 
 interface IProps {
     onInputChange: any;

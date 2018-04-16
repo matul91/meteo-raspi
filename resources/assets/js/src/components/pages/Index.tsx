@@ -1,10 +1,10 @@
+import AerialPhoto from "components/aerialPhoto/AerialPhoto";
+import Chart from "components/chart/Chart";
+import CurrentPhoto from "components/currentPhoto/CurrentPhoto";
+import Loading from "components/loading/Loading";
 import * as React from "react";
 import { Col, Row } from "react-bootstrap";
 import { connect } from "react-redux";
-import AerialPhoto from "../aerialPhoto/AerialPhoto";
-import Chart from "../chart/Chart";
-import CurrentPhoto from "../currentPhoto/CurrentPhoto";
-import Loading from "../loading/Loading";
 
 interface IProps {
     dataSets: any;

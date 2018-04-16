@@ -1,4 +1,4 @@
-import * as Directions from "../config/constants/directions";
+import * as Directions from "config/constants/directions";
 
 class ArrayUtil {
     public static removeDuplicities(array: any): any {

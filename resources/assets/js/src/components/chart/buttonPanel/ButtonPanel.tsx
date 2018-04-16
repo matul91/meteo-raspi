@@ -1,6 +1,6 @@
+import * as Directions from "config/constants/directions";
 import * as React from "react";
-import {Button, ButtonGroup} from "react-bootstrap";
-import * as Directions from "../../../config/constants/directions";
+import { Button, ButtonGroup } from "react-bootstrap";
 
 const ButtonPanel = (props) => {
     return (

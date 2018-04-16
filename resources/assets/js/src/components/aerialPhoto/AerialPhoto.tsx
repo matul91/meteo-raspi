@@ -1,6 +1,6 @@
+import WindDirection from "components/windDirection/WindDirection";
 import * as React from "react";
-import {Panel} from "react-bootstrap";
-import WindDirection from "../windDirection/WindDirection";
+import { Panel } from "react-bootstrap";
 
 const AerialPhoto = (props) => {
     return (
