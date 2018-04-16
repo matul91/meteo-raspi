@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Nav, Navbar, NavItem } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 interface IState {
     isOpen: boolean;

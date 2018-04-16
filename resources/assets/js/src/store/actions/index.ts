@@ -3,10 +3,10 @@ export {
     logout,
     authCheckState,
     authFail,
-} from "./auth";
+} from "store/actions/auth";
 
 export {
     refreshDataSet,
     dataSetResetError,
     weatherLoad,
-} from "./weather";
+} from "store/actions/weather";

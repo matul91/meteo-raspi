@@ -1,11 +1,11 @@
 import axios from "axios";
+import * as AlertStyles from "config/constants/alertStyles";
+import * as Errors from "config/constants/errors";
+import * as Positions from "config/constants/positions";
 import * as moment from "moment";
-import * as AlertStyles from "../../config/constants/alertStyles";
-import * as Errors from "../../config/constants/errors";
-import * as Positions from "../../config/constants/positions";
-import ArrayUtil from "../../utils/ArrayUtil";
-import URLUtil from "../../utils/URLUtil";
-import * as actionTypes from "./actionTypes";
+import * as actionTypes from "store/actions/actionTypes";
+import ArrayUtil from "utils/ArrayUtil";
+import URLUtil from "utils/URLUtil";
 
 export const weatherLoadStart = () => {
     return {
