@@ -15,8 +15,9 @@ const path = require('path');
  |
  */
 
-mix.react('resources/assets/js/src/App.tsx', 'public/js')
-   .sass('resources/assets/sass/app.sass', 'public/css')
+mix.js('resources/assets/js/src/services/firebase.ts', 'public/js')
+    .react('resources/assets/js/src/App.tsx', 'public/js')
+    .sass('resources/assets/sass/app.sass', 'public/css')
     .webpackConfig({
         module: {
             rules: [
@@ -54,10 +55,10 @@ mix.react('resources/assets/js/src/App.tsx', 'public/js')
                     maximumFileSizeToCacheInBytes: 4194304,
                     dontCacheBustUrlsMatching: /\.\w{8}\./,
                     minify: false,
-                    runtimeCaching: [{
-                        handler: 'cacheFirst',
-                        urlPattern: /fonts\/.*$/,
-                    }],
+                    importScripts: [
+                        'js/vendor.js',
+                        'js/firebase.js'
+                    ]
                 }
             )
         ]
