@@ -6,6 +6,10 @@ import thunk from "redux-thunk";
 import App from "./components/app/App";
 import authReducer from "./store/reducers/auth";
 
+navigator.serviceWorker.register("firebase-messaging-sw.js", {
+    scope: "./",
+});
+
 const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
