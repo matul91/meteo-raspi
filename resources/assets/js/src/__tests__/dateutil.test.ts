@@ -1,6 +1,6 @@
+import * as Directions from "config/constants/directions";
 import {} from "jest";
-import * as Directions from "../config/constants/directions";
-import DateUtil from "../utils/DateUtil";
+import DateUtil from "utils/DateUtil";
 
 describe("DateUtil", () => {
     const dbDateFormat =  "YYYY-MM-DD HH:mm:ss";

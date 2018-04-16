@@ -1,5 +1,5 @@
 import {} from "jest";
-import URLUtil from "../utils/URLUtil";
+import URLUtil from "utils/URLUtil";
 
 describe("URLUtil", () => {
     it("check if URL address is generated in correct format", () => {
