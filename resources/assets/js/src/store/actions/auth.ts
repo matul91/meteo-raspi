@@ -1,6 +1,6 @@
 import axios from "axios";
-import * as localStorageKeys from "../../config/constants/localStorage";
-import * as actionTypes from "./actionTypes";
+import * as localStorageKeys from "config/constants/localStorage";
+import * as actionTypes from "store/actions/actionTypes";
 
 export const authStart = () => {
     return {

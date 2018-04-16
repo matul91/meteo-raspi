@@ -1,11 +1,11 @@
+import App from "components/app/App";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { applyMiddleware, combineReducers, compose, createStore } from "redux";
 import thunk from "redux-thunk";
-import App from "./components/app/App";
-import authReducer from "./store/reducers/auth";
-import weatherReducer from "./store/reducers/weather";
+import authReducer from "store/reducers/auth";
+import weatherReducer from "store/reducers/weather";
 
 navigator.serviceWorker.register("firebase-messaging-sw.js", {
     scope: "./",

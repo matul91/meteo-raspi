@@ -1,6 +1,6 @@
+import * as Directions from "config/constants/directions";
 import {} from "jest";
-import * as Directions from "../config/constants/directions";
-import ArrayUtil from "../utils/ArrayUtil";
+import ArrayUtil from "utils/ArrayUtil";
 
 describe("ArrayUtil", () => {
     it("check if array doesn't contain duplicities", () => {

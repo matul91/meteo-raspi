@@ -1,8 +1,8 @@
+import Layout from "components/layout/Layout";
 import * as React from "react";
 import { connect } from "react-redux";
 import firebase from "services/firebase";
-import * as actions from "../../store/actions";
-import Layout from "../layout/Layout";
+import * as actions from "store/actions";
 
 interface IProps {
     onTryAutoSignup: any;

@@ -33,4 +33,5 @@ before_script:
   - php artisan serve &
 
 script:
+  - npm run test
   - php artisan dusk

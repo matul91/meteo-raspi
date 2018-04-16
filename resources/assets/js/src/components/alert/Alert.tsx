@@ -1,6 +1,6 @@
+import * as Errors from "config/constants/errors";
 import * as React from "react";
-import {Alert as RBAlert} from "react-bootstrap";
-import * as Errors from "../../config/constants/errors";
+import { Alert as RBAlert } from "react-bootstrap";
 
 const Alert = (props) => {
     let text = "";

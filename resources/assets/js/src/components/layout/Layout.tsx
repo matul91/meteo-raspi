@@ -1,17 +1,17 @@
+import Navbar from "components/layout/UI/UINavbar";
+import PageLoading from "components/loading/PageLoading";
 import * as React from "react";
-import {Grid} from "react-bootstrap";
+import { Grid } from "react-bootstrap";
 import * as Loadable from "react-loadable";
-import {connect} from "react-redux";
-import {BrowserRouter, Route, Switch} from "react-router-dom";
-import PageLoading from "../loading/PageLoading";
-import Navbar from "./UI/UINavbar";
+import { connect } from "react-redux";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-const AccessDenied = Loadable({ loader: () => import("../pages/AccessDenied"), loading: PageLoading });
-const Index = Loadable({ loader: () => import("../pages/Index"), loading: PageLoading });
-const Login = Loadable({ loader: () => import("../pages/Login"), loading: PageLoading });
-const LoggedUser = Loadable({ loader: () => import("../pages/LoggedUser"), loading: PageLoading });
-const Logout = Loadable({ loader: () => import("../pages/Logout"), loading: PageLoading });
-const PageNotFound = Loadable({ loader: () => import("../pages/PageNotFound"), loading: PageLoading });
+const AccessDenied = Loadable({ loader: () => import("components/pages/AccessDenied"), loading: PageLoading });
+const Index = Loadable({ loader: () => import("components/pages/Index"), loading: PageLoading });
+const Login = Loadable({ loader: () => import("components/pages/Login"), loading: PageLoading });
+const LoggedUser = Loadable({ loader: () => import("components/pages/LoggedUser"), loading: PageLoading });
+const Logout = Loadable({ loader: () => import("components/pages/Logout"), loading: PageLoading });
+const PageNotFound = Loadable({ loader: () => import("components/pages/PageNotFound"), loading: PageLoading });
 
 const Layout = (props) => {
     let loggedRoutes = (

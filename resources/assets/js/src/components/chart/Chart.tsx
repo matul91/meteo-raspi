@@ -1,17 +1,17 @@
+import Alert from "components/alert/Alert";
+import ButtonPanel from "components/chart/buttonPanel/ButtonPanel";
+import ChartPanel from "components/chart/chartPanel/ChartPanel";
+import CustomTooltip from "components/chart/customTooltip/CustomTooltip";
+import DatetimeRangePicker from "components/datetimeRangePicker/DateTimeRangePicker";
+import Loading from "components/loading/Loading";
+import * as Directions from "config/constants/directions";
 import * as moment from "moment";
 import * as React from "react";
 import { connect } from "react-redux";
 import * as Swipeable from "react-swipeable";
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import * as Directions from "../../config/constants/directions";
-import * as actions from "../../store/actions";
-import DateUtil from "../../utils/DateUtil";
-import Alert from "../alert/Alert";
-import DatetimeRangePicker from "../datetimeRangePicker/DateTimeRangePicker";
-import Loading from "../loading/Loading";
-import ButtonPanel from "./buttonPanel/ButtonPanel";
-import ChartPanel from "./chartPanel/ChartPanel";
-import CustomTooltip from "./customTooltip/CustomTooltip";
+import * as actions from "store/actions";
+import DateUtil from "utils/DateUtil";
 
 moment.locale("cs");
 

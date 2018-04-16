@@ -1,5 +1,5 @@
+import * as Directions from "config/constants/directions";
 import * as moment from "moment";
-import * as Directions from "../config/constants/directions";
 
 class DateUtil {
     public static formatDateByFormat(date: string, format: string): string {
