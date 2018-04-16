@@ -1,7 +1,7 @@
 let mix = require('laravel-mix');
 const webpack = require('webpack');
 const CompressionPlugin = require('compression-webpack-plugin');
-const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
+const {GenerateSW} = require('workbox-webpack-plugin');
 const path = require('path');
 
 /*
@@ -36,8 +36,7 @@ mix.js('resources/assets/js/src/services/firebase.ts', 'public/js')
             ]
         },
         output: {
-            chunkFilename: 'js/[name].[chunkhash].js',
-            publicPath: '/',
+            chunkFilename: './js/[name].[chunkhash].js',
         },
         plugins: [
             new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /cs/),
@@ -48,19 +47,12 @@ mix.js('resources/assets/js/src/services/firebase.ts', 'public/js')
                 threshold: 10240,
                 minRatio: 0.8
             }),
-            new SWPrecacheWebpackPlugin(
-                {
-                    cacheId: 'myapp',
-                    filename: 'firebase-messaging-sw.js',
-                    maximumFileSizeToCacheInBytes: 4194304,
-                    dontCacheBustUrlsMatching: /\.\w{8}\./,
-                    minify: false,
-                    importScripts: [
-                        'js/vendor.js',
-                        'js/firebase.js'
-                    ]
-                }
-            )
+            new GenerateSW({
+                importsDirectory: 'sw-assets',
+                swDest: path.resolve('public', 'firebase-messaging-sw.js'),
+                clientsClaim: true,
+                skipWaiting: true,
+            }),
         ]
     })
     .copy('resources/assets/images', 'public/images', false)
