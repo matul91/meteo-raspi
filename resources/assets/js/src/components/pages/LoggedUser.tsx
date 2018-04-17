@@ -2,7 +2,7 @@ import PhotosHistory from "components/photosHistory/PhotosHistory";
 import * as localStorageKeys from "config/constants/localStorage";
 import * as React from "react";
 import { Col, PageHeader, Row } from "react-bootstrap";
-import firebase from "services/firebase";
+import firebase from "services/fcm/firebase";
 
 interface IState {
     userToken: string;

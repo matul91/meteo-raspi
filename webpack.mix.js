@@ -1,7 +1,7 @@
 let mix = require('laravel-mix');
 const webpack = require('webpack');
 const CompressionPlugin = require('compression-webpack-plugin');
-const {GenerateSW} = require('workbox-webpack-plugin');
+const WorkboxPlugin = require('workbox-webpack-plugin');
 const path = require('path');
 
 /*
@@ -15,8 +15,7 @@ const path = require('path');
  |
  */
 
-mix.js('resources/assets/js/src/services/firebase.ts', 'public/js')
-    .react('resources/assets/js/src/App.tsx', 'public/js')
+mix.react('resources/assets/js/src/App.tsx', 'public/js')
     .sass('resources/assets/sass/app.sass', 'public/css')
     .webpackConfig({
         module: {
@@ -47,11 +46,10 @@ mix.js('resources/assets/js/src/services/firebase.ts', 'public/js')
                 threshold: 10240,
                 minRatio: 0.8
             }),
-            new GenerateSW({
+            new WorkboxPlugin.InjectManifest({
                 importsDirectory: 'sw-assets',
+                swSrc: path.resolve('resources/assets/js/src/services/fcm', 'sw.js'),
                 swDest: path.resolve('public', 'firebase-messaging-sw.js'),
-                clientsClaim: true,
-                skipWaiting: true,
             }),
         ]
     })
