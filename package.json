@@ -29,7 +29,7 @@
         "babel-preset-react": "^6.23.0",
         "bootstrap-sass": "^3.3.7",
         "cross-env": "^5.0.1",
-        "laravel-mix": "^2.0.0",
+        "laravel-mix": "2.1.11",
         "lodash": "^4.17.4",
         "rimraf": "^2.6.2",
         "ts-jest": "^22.4.2",

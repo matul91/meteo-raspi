@@ -35,7 +35,8 @@ mix.react('resources/assets/js/src/App.tsx', 'public/js')
             ]
         },
         output: {
-            chunkFilename: './js/[name].[chunkhash].js',
+            chunkFilename: 'js/[name].[chunkhash].js',
+            publicPath: ''
         },
         plugins: [
             new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /cs/),
