@@ -51,7 +51,7 @@ class LoggedUser extends React.Component<null, IState> {
                 });
                 localStorage.setItem(localStorageKeys.FIREBASE_TOKEN, token);
             })
-            .catch((err) => new Error(err));
+            .catch((err) => console.log(err));
     }
 
     private updateSubscriptionOnServer(token: any) {
