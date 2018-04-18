@@ -10,23 +10,12 @@ workbox.clientsClaim();
 
 const messaging = firebase.messaging();
 messaging.setBackgroundMessageHandler((payload) => {
-    console.log("[firebase-messaging-sw.js] Received background message ", payload);
-    // Customize notification here
-    const notificationTitle = "Background Message Title";
     const notificationOptions = {
-        body: "Background Message body.",
-        icon: "/firebase-logo.png"
+        body: payload.notification.body,
+        ...payload.data
     };
 
-    return self.registration.showNotification(notificationTitle, notificationOptions);
+    return self.registration.showNotification(payload.notification.title, notificationOptions);
 });
-
-/* self.addEventListener('push', (event) => {
-    const title = 'Get Started With Workbox';
-    const options = {
-        body: event.data.text()
-    };
-    event.waitUntil(self.registration.showNotification(title, options));
-}); */
 
 workbox.precaching.precacheAndRoute(self.__precacheManifest);

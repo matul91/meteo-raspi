@@ -15,8 +15,8 @@ class App extends React.Component<IProps, null> {
         this.props.onWeatherLoad();
         try {
             const messaging = firebase.messaging();
-            messaging.onMessage((payload) => {
-                console.log("Message received.", payload);
+            messaging.onMessage((payload: any) => {
+                console.log("Notification recieved", payload);
             });
         } catch (err) {
             console.log(err);
