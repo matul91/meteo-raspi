@@ -5,7 +5,7 @@ sudo: required
 dist: trusty
 
 php:
-    - 7.1
+  - 7.1
 
 services:
   - mysql
@@ -29,6 +29,7 @@ before_script:
   - php artisan passport:install
   - php artisan set:client_secret .env
   - npm install
+  - node_modules/.bin/tslint --project tsconfig.json
   - npm run production
   - php artisan serve &
 
