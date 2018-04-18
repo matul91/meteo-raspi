@@ -47,6 +47,11 @@ mix.react('resources/assets/js/src/App.tsx', 'public/js')
                 threshold: 10240,
                 minRatio: 0.8
             }),
+            new WorkboxPlugin.InjectManifest({
+                importsDirectory: 'sw-assets',
+                swSrc: path.resolve('resources/assets/js/src/services/fcm', 'sw.js'),
+                swDest: path.resolve('public', 'firebase-messaging-sw.js'),
+            }),
         ]
     })
     .copy('resources/assets/images', 'public/images', false)
