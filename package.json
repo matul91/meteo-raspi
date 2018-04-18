@@ -2,7 +2,7 @@
     "private": true,
     "scripts": {
         "test": "jest",
-        "cleanup": "rimraf public/css public/fonts \"public/images/!(photos)\" public/js public/mix-manifest.json public/firebase-messaging-sw.js public/sw-assets",
+        "cleanup": "rimraf public/css public/fonts \"public/images/!(photos)\" public/js public/mix-manifest.json public/sw-assets",
         "predevelopment": "npm run cleanup",
         "prewatch": "npm run cleanup",
         "prehot": "npm run cleanup",
