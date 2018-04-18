@@ -7,9 +7,18 @@ import thunk from "redux-thunk";
 import authReducer from "store/reducers/auth";
 import weatherReducer from "store/reducers/weather";
 
-navigator.serviceWorker.register("firebase-messaging-sw.js", {
-    scope: "./",
-});
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+        navigator.serviceWorker.register("firebase-messaging-sw.js", {
+            scope: "./",
+        })
+        .then((registration) => {
+            console.log("SW registered:", registration);
+        }).catch((registrationError) => {
+            console.log("SW registration failed:", registrationError);
+        });
+    });
+}
 
 const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 

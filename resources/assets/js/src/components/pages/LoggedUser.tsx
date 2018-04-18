@@ -3,6 +3,8 @@ import * as localStorageKeys from "config/constants/localStorage";
 import * as React from "react";
 import { Col, PageHeader, Row } from "react-bootstrap";
 import firebase from "services/fcm/firebase";
+import {Simulate} from "react-dom/test-utils";
+import canPlayThrough = Simulate.canPlayThrough;
 
 interface IState {
     userToken: string;
@@ -19,7 +21,11 @@ class LoggedUser extends React.Component<null, IState> {
         this.setState({
             isSubscribed: this.state.userToken !== null,
         });
-        this.subscribeUser();
+        try {
+            this.subscribeUser();
+        } catch (err) {
+            console.log(err);
+        }
     }
 
     public render(): JSX.Element {

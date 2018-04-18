@@ -13,11 +13,14 @@ class App extends React.Component<IProps, null> {
     public componentDidMount(): void {
         this.props.onTryAutoSignup();
         this.props.onWeatherLoad();
-        const messaging = firebase.messaging();
-        messaging.onMessage((payload) => {
-            console.log("Message received.", payload);
-        });
-
+        try {
+            const messaging = firebase.messaging();
+            messaging.onMessage((payload) => {
+                console.log("Message received.", payload);
+            });
+        } catch (err) {
+            console.log(err);
+        }
     }
 
     public render(): JSX.Element {
