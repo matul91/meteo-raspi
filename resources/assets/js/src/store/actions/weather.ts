@@ -26,6 +26,13 @@ export const weatherLoadFail = (error) => {
     };
 };
 
+export const dataSetLoadStart = (setName) => {
+    return {
+        setName,
+        type: actionTypes.DATASET_LOAD_START,
+    };
+};
+
 export const dataSetLoadSuccess = (setName, dataSet) => {
     return {
         dataSet,
@@ -91,6 +98,7 @@ export const initializeDataSet = (setName) => {
 export const refreshDataSet = (dateFrom: string, dateTo: string, setName: string, direction = null) => {
     return (dispatch, getState) => {
         const dataSet = getState().weather.dataSets[setName];
+        dispatch(dataSetLoadStart(setName));
         loadData(dateFrom, dateTo, dataSet, direction).then((loadedData) => {
             const newData = {
                 ...dataSet,

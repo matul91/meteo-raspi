@@ -51,6 +51,7 @@ class Index extends React.Component<IProps, void> {
                         columnName={this.props.dataSets[setName].columnName}
                         suffix={this.props.dataSets[setName].suffix}
                         error={this.props.dataSets[setName].error}
+                        loading={this.props.dataSets[setName].loading}
                     />
                 </Col>
             );

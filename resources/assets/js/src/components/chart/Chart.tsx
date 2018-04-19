@@ -47,6 +47,7 @@ interface IProps {
     onResetError: any;
     showedDateFormat?: string;
     suffix?: string;
+    loading: boolean;
 }
 
 class Chart extends React.Component<IProps, IState> {
@@ -73,7 +74,7 @@ class Chart extends React.Component<IProps, IState> {
         const heading = (this.props.initialValue) ?
             `${this.props.name}: ${this.props.initialValue}${this.state.suffix}` : "Načítání";
 
-        if (this.props.data && this.props.data.length > 1) {
+        if (!this.props.loading) {
             content = (
                 <div className="chart">
                     {this.props.error && <Alert type={this.props.error.type} cls={this.props.error.style}/>}
