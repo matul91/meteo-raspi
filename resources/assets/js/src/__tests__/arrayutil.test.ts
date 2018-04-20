@@ -34,13 +34,13 @@ describe("ArrayUtil", () => {
         expect(destructuredArray).toEqual(["a", "b"]);
     });
     it("check if downSampled array that has less elements than NUMBER_OF_SAMPLES constant has original length", () => {
-        const testArray = generateTestArray(20);
-        const downSampledArray = ArrayUtil.downSampleArray(testArray);
-        expect(downSampledArray.length).toBe(testArray.length);
+        const smallerTestArray = generateTestArray(20);
+        const equalLengthArray = ArrayUtil.downSampleArray(smallerTestArray);
+        expect(equalLengthArray.length).toBe(smallerTestArray.length);
     });
     it("check if downSampled array has length given by NUMBER_OF_SAMPLES constant", () => {
-        const testArray = generateTestArray(50);
-        const downSampledArray = ArrayUtil.downSampleArray(testArray);
-        expect(downSampledArray.length).toBe(Values.NUMBER_OF_SAMPLES);
+        const biggerTestArray = generateTestArray(50);
+        const maxLengthArray = ArrayUtil.downSampleArray(biggerTestArray);
+        expect(maxLengthArray.length).toBe(Values.NUMBER_OF_SAMPLES);
     });
 });
