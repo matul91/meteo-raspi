@@ -33,12 +33,12 @@ describe("ArrayUtil", () => {
         const destructuredArray = ArrayUtil.destructureDataArrays(Directions.PLUS, firstArray, secondArray);
         expect(destructuredArray).toEqual(["a", "b"]);
     });
-    it("check if downSampled array that has less elements than NUMBER_OF_SAMPLES constant has original length", () => {
+    it("check if array that has less elements than NUMBER_OF_SAMPLES constant has original length", () => {
         const smallerTestArray = generateTestArray(20);
         const equalLengthArray = ArrayUtil.downSampleArray(smallerTestArray);
         expect(equalLengthArray.length).toBe(smallerTestArray.length);
     });
-    it("check if downSampled array has length given by NUMBER_OF_SAMPLES constant", () => {
+    it("check if returned array has length given by NUMBER_OF_SAMPLES constant", () => {
         const biggerTestArray = generateTestArray(50);
         const maxLengthArray = ArrayUtil.downSampleArray(biggerTestArray);
         expect(maxLengthArray.length).toBe(Values.NUMBER_OF_SAMPLES);
