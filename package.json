@@ -42,6 +42,7 @@
     "dependencies": {
         "axios": "^0.17.0",
         "compression-webpack-plugin": "^1.1.10",
+        "downsample-lttb": "^0.0.1",
         "firebase": "^4.12.1",
         "jest": "^22.4.3",
         "moment": "^2.19.2",

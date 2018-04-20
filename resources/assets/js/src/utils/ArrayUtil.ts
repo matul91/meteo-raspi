@@ -1,4 +1,8 @@
+import * as DateFormats from "config/constants/dateFormats";
 import * as Directions from "config/constants/directions";
+import * as Values from "config/constants/values";
+import * as downSampler from "downsample-lttb";
+import * as moment from "moment";
 
 class ArrayUtil {
     public static removeDuplicities(array: any): any {
@@ -11,6 +15,18 @@ class ArrayUtil {
 
     public static destructureDataArrays(direction, data, newData): any {
         return (direction === Directions.PLUS) ? [...data, ...newData] : [...newData, ...data];
+    }
+
+    public static downSampleArray(data): any {
+        const dataPairs = data.map((value) => {
+            return [moment(value.date).valueOf(), value.value];
+        });
+        return downSampler.processData(dataPairs, Values.NUMBER_OF_SAMPLES).map((value) => {
+            return {
+                date: moment(value[0]).format(DateFormats.DB_DATE_FORMAT),
+                value: value[1],
+            };
+        });
     }
 }
 
