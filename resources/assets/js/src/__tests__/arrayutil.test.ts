@@ -3,6 +3,16 @@ import * as Values from "config/constants/values";
 import {} from "jest";
 import ArrayUtil from "utils/ArrayUtil";
 
+function generateTestArray(numOfElements: number): object[] {
+    const testArray = [];
+
+    for (let i = 0; i < numOfElements; i++) {
+        testArray.push({ date: "2018-03-25", value: i });
+    }
+
+    return testArray;
+}
+
 describe("ArrayUtil", () => {
     it("check if array doesn't contain duplicities", () => {
         let testArray = [
@@ -24,19 +34,13 @@ describe("ArrayUtil", () => {
         expect(destructuredArray).toEqual(["a", "b"]);
     });
     it("check if downSampled array that has less elements than NUMBER_OF_SAMPLES constant has original length", () => {
-        const biggerArray = [];
-        for (let i = 0; i < 20; i++) {
-            biggerArray.push({ date: "2018-03-03", value: i * i });
-        }
-        const downSampledArray = ArrayUtil.downSampleArray(biggerArray);
-        expect(downSampledArray.length).toBe(biggerArray.length);
+        const testArray = generateTestArray(20);
+        const downSampledArray = ArrayUtil.downSampleArray(testArray);
+        expect(downSampledArray.length).toBe(testArray.length);
     });
     it("check if downSampled array has length given by NUMBER_OF_SAMPLES constant", () => {
-        const smallerArray = [];
-        for (let j = 0; j < 50; j++) {
-            smallerArray.push({ date: "2017-03-25", value: j + j });
-        }
-        const downSampledArray = ArrayUtil.downSampleArray(smallerArray);
+        const testArray = generateTestArray(50);
+        const downSampledArray = ArrayUtil.downSampleArray(testArray);
         expect(downSampledArray.length).toBe(Values.NUMBER_OF_SAMPLES);
     });
 });
