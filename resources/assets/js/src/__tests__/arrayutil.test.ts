@@ -39,6 +39,7 @@ describe("ArrayUtil", () => {
         expect(equalLengthArray.length).toBe(smallerTestArray.length);
     });
     it("check if downsampled array length is equal to NUMBER_OF_SAMPLES", () => {
-        expect(ArrayUtil.downSampleArray(generateTestArray(50)).length).toBe(Values.NUMBER_OF_SAMPLES);
+        expect(ArrayUtil.downSampleArray(generateTestArray(Values.NUMBER_OF_SAMPLES + 5)).length)
+            .toBe(Values.NUMBER_OF_SAMPLES);
     });
 });
