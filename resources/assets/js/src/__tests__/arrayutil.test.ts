@@ -24,19 +24,19 @@ describe("ArrayUtil", () => {
         expect(destructuredArray).toEqual(["a", "b"]);
     });
     it("check if downSampled array that has less elements than NUMBER_OF_SAMPLES constant has original length", () => {
-        const testArray = [];
+        const biggerArray = [];
         for (let i = 0; i < 20; i++) {
-            testArray.push({ date: "2018-03-25", value: i });
+            biggerArray.push({ date: "2018-03-03", value: i * i });
         }
-        const downSampledArray = ArrayUtil.downSampleArray(testArray);
-        expect(downSampledArray.length).toBe(testArray.length);
+        const downSampledArray = ArrayUtil.downSampleArray(biggerArray);
+        expect(downSampledArray.length).toBe(biggerArray.length);
     });
     it("check if downSampled array has length given by NUMBER_OF_SAMPLES constant", () => {
-        const testArray = [];
-        for (let i = 0; i < 50; i++) {
-            testArray.push({ date: "2018-03-25", value: i });
+        const smallerArray = [];
+        for (let j = 0; j < 50; j++) {
+            smallerArray.push({ date: "2017-03-25", value: j + j });
         }
-        const downSampledArray = ArrayUtil.downSampleArray(testArray);
+        const downSampledArray = ArrayUtil.downSampleArray(smallerArray);
         expect(downSampledArray.length).toBe(Values.NUMBER_OF_SAMPLES);
     });
 });
