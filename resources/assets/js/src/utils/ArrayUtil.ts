@@ -18,13 +18,13 @@ class ArrayUtil {
     }
 
     public static downSampleArray(data): any {
-        const dataPairs = data.map((value) => {
-            return [moment(value.date).valueOf(), value.value];
+        const dataPairs = data.map((element) => {
+            return [moment(element.date).valueOf(), element.value];
         });
-        return downSampler.processData(dataPairs, Values.NUMBER_OF_SAMPLES).map((value) => {
+        return downSampler.processData(dataPairs, Values.NUMBER_OF_SAMPLES).map((element) => {
             return {
-                date: moment(value[0]).format(DateFormats.DB_DATE_FORMAT),
-                value: value[1],
+                date: moment(element[0]).format(DateFormats.DB_DATE_FORMAT),
+                value: element[1],
             };
         });
     }
