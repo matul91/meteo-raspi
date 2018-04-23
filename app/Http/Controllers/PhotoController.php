@@ -25,7 +25,8 @@ class PhotoController extends Controller
                 'Upozornění Meteostanice!',
                 'Někdo je na letišti!',
                 ['url' => 'meteostanice.cz'],
-                ['admin', 'modeller']);
+                ['admin', 'modeller']
+            );
             return response()->json("ok", 200);
         } else {
             return response()->json("error", 500);
