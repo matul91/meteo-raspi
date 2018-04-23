@@ -31,21 +31,21 @@ class Token extends Model
             $logNotification = new LogNotification();
             $logNotification->name = "photo notfication";
             $logNotification->save();
-            $sucess = self::buildFcm($title, $body, $sound, $timeToLive, $data, $groupArray);
+            $sucess = self::buildFcm($title, $body, $data, $groupArray);
             return $sucess;
         } else {
             return "Nedoeslaná notifikace, protože se posílala už";
         }
     }
 
-    private static function buildFcm($title, $body, $sound, $timeToLive, $data, $groupArray)
+    private static function buildFcm($title, $body, $data, $groupArray)
     {
         $groupTokens = self::getTokenForGroups($groupArray);
         $optionBuilder = new OptionsBuilder();
-        $optionBuilder->setTimeToLive($timeToLive);
+        $optionBuilder->setTimeToLive(60 * 20);
 
         $notificationBuilder = new PayloadNotificationBuilder($title);
-        $notificationBuilder->setBody($body)->setSound($sound);
+        $notificationBuilder->setBody($body)->setSound('default');
 
         $dataBuilder = new PayloadDataBuilder();
         $dataBuilder->addData($data);
