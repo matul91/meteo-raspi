@@ -23,8 +23,8 @@ Route::get('/photo', 'PhotoController@index');
 Route::get('/photo/all', 'PhotoController@all');
 Route::post('/photo/save', 'PhotoController@savePhoto');
 
-Route::get('/token', 'TokenController@index');
-Route::post('/token', 'TokenController@addToken')->middleware('permissions:admin');
+Route::get('/token', 'FCMTokenController@index');
+Route::post('/token', 'FCMTokenController@addToken')->middleware('permissions:admin');
 
 
 Route::any('{all}', function () {
