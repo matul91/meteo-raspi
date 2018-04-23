@@ -2,4 +2,11 @@ export {
     auth,
     logout,
     authCheckState,
-} from "./auth";
+    authFail,
+} from "store/actions/auth";
+
+export {
+    refreshDataSet,
+    dataSetResetError,
+    weatherLoad,
+} from "store/actions/weather";

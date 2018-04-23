@@ -1,83 +1,85 @@
-import axios from "axios";
+import Alert from "components/alert/Alert";
+import ButtonPanel from "components/chart/buttonPanel/ButtonPanel";
+import ChartPanel from "components/chart/chartPanel/ChartPanel";
+import CustomTooltip from "components/chart/customTooltip/CustomTooltip";
+import DatetimeRangePicker from "components/datetimeRangePicker/DateTimeRangePicker";
+import Loading from "components/loading/Loading";
+import * as Directions from "config/constants/directions";
 import * as moment from "moment";
 import * as React from "react";
+import { connect } from "react-redux";
 import * as Swipeable from "react-swipeable";
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import DatetimeRangePicker from "../datetimeRangePicker/DateTimeRangePicker";
-import Loading from "../loading/Loading";
-import CustomTooltip from "./customTooltip/CustomTooltip";
+import * as actions from "store/actions";
+import DateUtil from "utils/DateUtil";
 
 moment.locale("cs");
 
+const INITIAL_DURATION = 30;
+
 interface IState {
+    dateRange: {
+        dateFrom: string,
+        dateTo: string,
+    };
+    showedDateFormat: string;
+    suffix: string;
+}
+
+interface IProps {
+    setName: string;
     data: any;
     dataMeta: {
         firstDate: string,
         lastDate: string,
     };
-    dateRange: {
-        dateFrom: string,
-        dateTo: string,
-    };
     dbDateFormat: string;
+    error: {
+        type: string,
+        style: string,
+    };
     initialDate: string;
     initialValue: number;
-    showedDateFormat: string;
-}
-
-interface IProps {
     name: string;
     url: string;
     columnName: string;
+    onRefreshData: any;
+    onResetError: any;
     showedDateFormat?: string;
     suffix?: string;
+    loading: boolean;
 }
 
-export default class Chart extends React.Component<IProps, IState> {
+class Chart extends React.Component<IProps, IState> {
     public state = {
-        data: [],
-        dataMeta: {
-            firstDate: null,
-            lastDate: null,
-        },
         dateRange: {
             dateFrom: null,
             dateTo: null,
         },
-        dbDateFormat: "YYYY-MM-DD HH:mm:ss",
-        initialDate: null,
-        initialValue: null,
         showedDateFormat: "HH:mm",
+        suffix: this.props.suffix ? ` ${this.props.suffix}` : "",
     };
 
     constructor(props) {
         super(props);
         this.datetimeChangedHandler = this.datetimeChangedHandler.bind(this);
-        this.loadNewDataByDateHandler = this.loadNewDataByDateHandler.bind(this);
-        this.loadNewDataByEventHandler = this.loadNewDataByEventHandler.bind(this);
+        this.refreshDataByDateChangeHandler = this.refreshDataByDateChangeHandler.bind(this);
+        this.refreshDataByEventHandler = this.refreshDataByEventHandler.bind(this);
         this.onSwipedLeft = this.onSwipedLeft.bind(this);
         this.onSwipedRight = this.onSwipedRight.bind(this);
     }
 
-    public componentDidMount(): void {
-        this.loadInitialData();
-    }
-
     public render(): JSX.Element {
         let content = <Loading text={"Načítá se..."} />;
-        const suffix = this.props.suffix ? ` ${this.props.suffix}` : "";
-        const data = this.state.data.map((obj) => {
-            return {
-                date: moment(obj.date).format(this.state.showedDateFormat),
-                value: obj.value,
-            };
-        });
+        const heading = (this.props.initialValue) ?
+            `${this.props.name}: ${this.props.initialValue}${this.state.suffix}` : "Načítání";
 
-        if (this.state.data.length > 0) {
+        if (!this.props.loading) {
             content = (
                 <div className="chart">
+                    {this.props.error && <Alert type={this.props.error.type} cls={this.props.error.style}/>}
                     <DatetimeRangePicker
-                        onSubmit={this.loadNewDataByDateHandler}
+                        onSubmit={this.refreshDataByDateChangeHandler}
                         onInputChange={this.datetimeChangedHandler}
                     />
                     <Swipeable
@@ -86,7 +88,7 @@ export default class Chart extends React.Component<IProps, IState> {
                         trackMouse={true}
                     >
                         <ResponsiveContainer width="100%" height={300}>
-                            <LineChart width={830} height={400} data={data}>
+                            <LineChart data={this.mapDatesToShowingFormat(this.props.data)}>
                                 <CartesianGrid strokeDasharray="3 3" />
                                 <XAxis dataKey="date" />
                                 <YAxis />
@@ -95,44 +97,37 @@ export default class Chart extends React.Component<IProps, IState> {
                             </LineChart>
                         </ResponsiveContainer>
                     </Swipeable>
-                    <div className="text-right chart-buttons">
-                        <button
-                            name="minus"
-                            className="btn btn-default btn-space"
-                            onClick={this.loadNewDataByEventHandler}
-                        >
-                            Předchozí
-                        </button>
-                        <button
-                            name="plus"
-                            className="btn btn-default"
-                            onClick={this.loadNewDataByEventHandler}
-                        >
-                            Další
-                        </button>
-                    </div>
+                    <ButtonPanel
+                        clickHandler={this.refreshDataByEventHandler}
+                        initialDate={this.props.initialDate}
+                        lastDate={this.props.data[this.props.data.length - 1].date}
+                    />
                 </div>
             );
         }
 
         return (
-            <div className="col-md-6">
-                <div className="panel panel-default">
-                    <div className="panel-heading">{this.props.name}: {this.state.initialValue}{suffix}</div>
-                    <div className="panel-body">
-                        {content}
-                    </div>
-                </div>
-            </div>
+            <ChartPanel heading={heading}>
+                {content}
+            </ChartPanel>
         );
     }
 
+    private mapDatesToShowingFormat(data: Array<{date: string, value: any}>): object[] {
+        return data.map((obj) => {
+            return {
+                date: moment(obj.date).format(this.state.showedDateFormat),
+                value: obj.value,
+            };
+        });
+    }
+
     private onSwipedLeft(): void {
-        this.loadNewDataToChart("plus");
+        this.loadDataToChart(Directions.PLUS);
     }
 
     private onSwipedRight(): void {
-        this.loadNewDataToChart("minus");
+        this.loadDataToChart(Directions.MINUS);
     }
 
     private datetimeChangedHandler(date, name): void {
@@ -140,131 +135,59 @@ export default class Chart extends React.Component<IProps, IState> {
             ...this.state,
             dateRange: {
                 ...this.state.dateRange,
-                [name]: date.format(this.state.dbDateFormat),
+                [name]: date.format(this.props.dbDateFormat),
             },
         });
     }
 
-    private loadNewDataByDateHandler(e): void {
+    private refreshDataByDateChangeHandler(e): void {
         e.preventDefault();
-        if (this.state.dateRange.dateFrom !== null && this.state.dateRange.dateTo !== null) {
-            this.loadData(this.state.dateRange.dateFrom, this.state.dateRange.dateTo);
+
+        const { dateFrom, dateTo } = this.state.dateRange;
+        if (!DateUtil.areDatesNull(dateFrom, dateTo)) {
+            this.props.onResetError(this.props.setName);
+            this.props.onRefreshData(dateFrom, dateTo, this.props.setName);
         }
     }
 
-    private loadNewDataByEventHandler(e): void {
+    private refreshDataByEventHandler(e): void {
         const direction = e.target.name;
-        this.loadNewDataToChart(direction);
+        this.loadDataToChart(direction);
     }
 
-    private loadNewDataToChart(direction: string = null): void {
-        let dateFrom;
-        let dateTo;
+    private loadDataToChart(direction: string = null): void {
         let diff = 0;
+        let { dateFrom, dateTo } = this.state.dateRange;
 
-        if (this.state.dateRange.dateFrom !== null && this.state.dateRange.dateTo !== null) {
+        if (!DateUtil.areDatesNull(dateFrom, dateTo) && !this.props.error) {
             diff = moment(this.state.dateRange.dateTo)
                 .diff(this.state.dateRange.dateFrom) / 1000 / 60;
         } else {
-            diff = 30;
+            diff = INITIAL_DURATION;
         }
 
-        switch (direction) {
-            case "minus":
-                dateTo = moment(this.state.dataMeta.firstDate)
-                    .format(this.state.dbDateFormat);
-                dateFrom = moment(this.state.dataMeta.firstDate)
-                    .subtract(diff, "minutes")
-                    .format(this.state.dbDateFormat);
-                break;
-            case "plus":
-                dateFrom = moment(this.state.dataMeta.lastDate)
-                    .format(this.state.dbDateFormat);
-                dateTo = moment(this.state.dataMeta.lastDate)
-                    .add(diff, "minutes")
-                    .format(this.state.dbDateFormat);
-                break;
-            default:
-                return null;
-        }
+        const dates = DateUtil.differenceBetweenDates(this.props.dataMeta, direction, diff);
+        dateFrom = DateUtil.formatDateByFormat(dates.dateFrom, this.props.dbDateFormat);
+        dateTo = DateUtil.formatDateByFormat(dates.dateTo, this.props.dbDateFormat);
 
-        this.loadData(dateFrom, dateTo, direction);
-    }
-
-    private loadInitialData(): void {
-        const url = `${this.props.url}/latest`;
-
-        axios.get(url).then((response: any) => {
-            this.setState({
-                ...this.state,
-                initialDate: response.data.date,
-                initialValue: response.data[this.props.columnName],
-            });
-
-            const dateTo = this.state.initialDate;
-            const dateFrom = moment(dateTo).subtract(30, "minutes").format(this.state.dbDateFormat);
-
-            this.loadData(dateFrom, dateTo);
-        });
-    }
-
-    private loadData(dateFrom: string, dateTo: string, direction: string = null): void {
-        let url = this.props.url;
-        let dataMeta;
-
-        if (dateFrom !== null && dateTo !== null) {
-            url = `${url}/?start_date=${dateFrom}&end_date=${dateTo}`;
-        }
-
-        axios.get(url).then((response: any) => {
-            const newData = [];
-            const length = this.state.data.length > 0 ? response.data.length - 1 : response.data.length;
-
-            for (let i = 0; i < length; i++) {
-                newData.push({
-                    date: response.data[i].date,
-                    value: response.data[i][this.props.columnName],
-                });
-            }
-
-            if (newData[0].date === this.state.initialDate) {
-                return;
-            }
-
-            if (direction) {
-                const data = [...this.state.data];
-
-                switch (direction) {
-                    case "plus":
-                        data.push(...newData);
-                        break;
-                    case "minus":
-                        data.unshift(...newData);
-                        break;
-                    default:
-                        return null;
-                }
-
-                dataMeta = {
-                    firstDate: newData[0].date,
-                    lastDate: newData[newData.length - 1].date,
-                };
-
-                this.setState({
-                    data,
-                    dataMeta,
-                });
-            } else {
-                dataMeta = {
-                    firstDate: newData[0].date,
-                    lastDate: newData[newData.length - 1].date,
-                };
-
-                this.setState({
-                    data: newData,
-                    dataMeta,
-                });
-            }
-        });
+        this.props.onResetError(this.props.setName);
+        this.props.onRefreshData(dateFrom, dateTo, this.props.setName, direction);
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        dbDateFormat: state.weather.dbDateFormat,
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onRefreshData: (dateFrom, dateTo, setName, direction = null) => {
+            dispatch(actions.refreshDataSet(dateFrom, dateTo, setName, direction));
+        },
+        onResetError: (setName) => dispatch(actions.dataSetResetError(setName)),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Chart);

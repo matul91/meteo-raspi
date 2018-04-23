@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Pressure;
 
-
 class PressureController extends Controller
 {
     public function index()
@@ -16,5 +15,4 @@ class PressureController extends Controller
     {
         return Pressure::getLastRecord();
     }
-
 }
