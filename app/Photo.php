@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Photo extends Model
 {
@@ -23,6 +24,12 @@ class Photo extends Model
     public static function getLastRecord()
     {
         return self::orderBy('id', 'desc')->first();
+    }
+
+    public static function getLastRowByTime($timeInMinutes)
+    {
+        $formatted_date = Carbon::now()->subMinutes($timeInMinutes)->toDateTimeString();
+        return self::where('created_at', '>', $formatted_date)->get();
     }
 
     private static function saveImage($file)

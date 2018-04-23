@@ -35,6 +35,11 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class);
     }
 
+    public function tokens()
+    {
+        return $this->hasMany(Token::class, 'user_id');
+    }
+
     public static function getUserIdFromToken(Request $request)
     {
         $result = null;
