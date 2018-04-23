@@ -8,7 +8,6 @@ use LaravelFCM\Message\PayloadDataBuilder;
 use LaravelFCM\Message\PayloadNotificationBuilder;
 use FCM;
 use Carbon\Carbon;
-use App\LogNotification;
 
 class Token extends Model
 {
@@ -19,22 +18,18 @@ class Token extends Model
         return $this->hasMany(User::class, 'id', 'user_id');
     }
 
-    public static function sendPhotoNotification($title, $body, $sound, $timeToLive, $data, $groupArray)
+    public static function sendPhotoNotification($title, $body, $data, $groupArray)
     {
         $minutes_per_notification = Setting::getByID('minutes_per_notification_photo')->value;
         $timeTmp = Carbon::now()->subMinutes($minutes_per_notification);
 
         $lastTimeSent = LogNotification::getLastRecord();
 
-
         if ($lastTimeSent == null or $timeTmp > $lastTimeSent->created_at) {
             $logNotification = new LogNotification();
             $logNotification->name = "photo notfication";
             $logNotification->save();
-            $sucess = self::buildFcm($title, $body, $data, $groupArray);
-            return $sucess;
-        } else {
-            return "Nedoeslaná notifikace, protože se posílala už";
+            self::buildFcm($title, $body, $data, $groupArray);
         }
     }
 
@@ -50,15 +45,12 @@ class Token extends Model
         $dataBuilder = new PayloadDataBuilder();
         $dataBuilder->addData($data);
 
-
-        $downstreamResponse = FCM::sendTo(
+        FCM::sendTo(
             $groupTokens,
             $optionBuilder->build(),
             $notificationBuilder->build(),
             $dataBuilder->build()
         );
-
-        return $downstreamResponse->numberSuccess();
     }
 
     private static function getTokenForGroups($arrayGroup)
