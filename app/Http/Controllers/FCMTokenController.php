@@ -20,5 +20,4 @@ class FCMTokenController extends Controller
             return response()->json(["proved" => false, "message" => "Token is empty"], 500);
         }
     }
-    
 }
