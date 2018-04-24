@@ -8,6 +8,7 @@ use LaravelFCM\Message\PayloadDataBuilder;
 use LaravelFCM\Message\PayloadNotificationBuilder;
 use FCM;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class Token extends Model
 {
@@ -54,21 +55,12 @@ class Token extends Model
         );
     }
 
-    private static function getTokenForGroups($arrayGroup)
+    private static function getTokenForGroups(array $arrayGroup)
     {
-        $arraySendUserId = [];
-        $tokenToSend = [];
-        $test = Role::with(['users'])->whereIn('name', $arrayGroup)->get();
-        //Asking how to do it differently
-        foreach ($test as $item) {
-            foreach ($item->users as $user) {
-                $arraySendUserId[] = $user->id;
-            }
-        }
-        $tokensToSendArray = Token::whereIn('user_id', $arraySendUserId)->get();
-        foreach ($tokensToSendArray as $token) {
-            $tokenToSend[] = $token->token;
-        }
-        return $tokenToSend;
+        return DB::table('tokens')
+            ->join('users', 'users.id', '=', 'tokens.user_id')
+            ->join('role_user', 'users.id', '=', 'role_user.user_id')
+            ->join('roles', 'role_user.role_id', '=', 'roles.id')
+            ->whereIn('roles.name', ['admin', 'modeller'])->pluck('token')->toArray();
     }
 }
