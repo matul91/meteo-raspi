@@ -26,12 +26,6 @@ class Photo extends Model
         return self::orderBy('id', 'desc')->first();
     }
 
-    public static function getLastRowByTime($timeInMinutes)
-    {
-        $formattedDate = Carbon::now()->subMinutes($timeInMinutes)->toDateTimeString();
-        return self::where('created_at', '>', $formattedDate)->get();
-    }
-
     private static function saveImage($file)
     {
         $destinationPath = env('PHOTO_FOLDER_PATH') . date(self::DATE_FORMAT_SORTING_BY_DATE);
