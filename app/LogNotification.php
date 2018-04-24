@@ -8,7 +8,7 @@ class LogNotification extends Model
 {
     protected $table = 'log_notifications';
 
-    public static function getLastRecord()
+    public static function getLast()
     {
         return self::orderBy('id', 'desc')->first();
     }

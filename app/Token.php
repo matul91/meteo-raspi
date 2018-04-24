@@ -24,7 +24,7 @@ class Token extends Model
         $minutesPerNotification = Setting::getByID('minutes_per_notification_photo')->value;
         $timeTmp = Carbon::now()->subMinutes($minutesPerNotification);
 
-        $lastTimeSent = LogNotification::getLastRecord();
+        $lastTimeSent = LogNotification::getLast();
 
         if ($lastTimeSent == null or $timeTmp > $lastTimeSent->created_at) {
             $logNotification = new LogNotification();
