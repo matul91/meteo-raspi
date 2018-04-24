@@ -13,11 +13,6 @@ class Token extends Model
 {
     protected $table = 'tokens';
 
-    public function users()
-    {
-        return $this->hasMany(User::class, 'id', 'user_id');
-    }
-
     /**
      * @param $title = title (plain text)
      * @param $body = message (plain text)
