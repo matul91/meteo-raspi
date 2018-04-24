@@ -20,9 +20,9 @@ class Token extends Model
 
     public static function sendPhotoNotification($title, $body, $data, $groupArray)
     {
-        $minutes_per_notification = Setting::getByID('minutes_per_notification_photo')->value;
-        $timeTmp = Carbon::now()->subMinutes($minutes_per_notification);
-
+        $minutesPerNotification = Setting::getByID('minutes_per_notification_photo')->value;
+        $timeTmp = Carbon::now()->subMinutes($minutesPerNotification);
+ 
         $lastTimeSent = LogNotification::getLastRecord();
 
         if ($lastTimeSent == null or $timeTmp > $lastTimeSent->created_at) {

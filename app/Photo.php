@@ -28,8 +28,8 @@ class Photo extends Model
 
     public static function getLastRowByTime($timeInMinutes)
     {
-        $formatted_date = Carbon::now()->subMinutes($timeInMinutes)->toDateTimeString();
-        return self::where('created_at', '>', $formatted_date)->get();
+        $formattedDate = Carbon::now()->subMinutes($timeInMinutes)->toDateTimeString();
+        return self::where('created_at', '>', $formattedDate)->get();
     }
 
     private static function saveImage($file)
