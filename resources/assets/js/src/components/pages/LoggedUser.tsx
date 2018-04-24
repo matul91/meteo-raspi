@@ -2,7 +2,7 @@ import PhotosHistory from "components/photosHistory/PhotosHistory";
 import * as localStorageKeys from "config/constants/localStorage";
 import * as React from "react";
 import { Col, PageHeader, Row } from "react-bootstrap";
-import firebase from "services/firebase";
+import firebase from "services/fcm/firebase";
 
 interface IState {
     userToken: string;
@@ -19,7 +19,11 @@ class LoggedUser extends React.Component<null, IState> {
         this.setState({
             isSubscribed: this.state.userToken !== null,
         });
-        this.subscribeUser();
+        try {
+            this.subscribeUser();
+        } catch (err) {
+            console.log(err);
+        }
     }
 
     public render(): JSX.Element {
@@ -51,7 +55,7 @@ class LoggedUser extends React.Component<null, IState> {
                 });
                 localStorage.setItem(localStorageKeys.FIREBASE_TOKEN, token);
             })
-            .catch((err) => new Error(err));
+            .catch((err) => console.log(err));
     }
 
     private updateSubscriptionOnServer(token: any) {

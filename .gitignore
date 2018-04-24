@@ -19,6 +19,7 @@ package-lock.json
 /public/js
 /public/mix-manifest.json
 /public/firebase-messaging-sw.js
+/public/sw-assets
 /public/css
 /public/fonts
 /public/undefined.js
