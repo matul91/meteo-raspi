@@ -61,6 +61,6 @@ class Token extends Model
             ->join('users', 'users.id', '=', 'tokens.user_id')
             ->join('role_user', 'users.id', '=', 'role_user.user_id')
             ->join('roles', 'role_user.role_id', '=', 'roles.id')
-            ->whereIn('roles.name', ['admin', 'modeller'])->pluck('token')->toArray();
+            ->whereIn('roles.name', $arrayGroup)->pluck('token')->toArray();
     }
 }
