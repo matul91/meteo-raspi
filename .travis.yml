@@ -30,7 +30,6 @@ before_script:
   - php artisan set:client_secret .env
   - npm install
   - node_modules/.bin/tslint --project tsconfig.json
-  - npm run production
   - php artisan serve &
 
 script:
