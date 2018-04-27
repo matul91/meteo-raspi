@@ -2,6 +2,7 @@ import PhotosHistory from "components/photosHistory/PhotosHistory";
 import * as localStorageKeys from "config/constants/localStorage";
 import * as React from "react";
 import { Col, PageHeader, Row } from "react-bootstrap";
+import axios from "services/axios";
 import firebase from "services/fcm/firebase";
 
 interface IState {
@@ -59,27 +60,12 @@ class LoggedUser extends React.Component<null, IState> {
     }
 
     private updateSubscriptionOnServer(token: any) {
-        const database = firebase.database();
-        if (this.state.isSubscribed) {
-            return database.ref("device_ids")
-                .equalTo(token)
-                .on("child_added", (snapshot) => snapshot.ref.remove());
-        }
-
-        database.ref("device_ids").once("value")
-            .then((snapshots) => {
-                let deviceExists = false;
-
-                snapshots.forEach((childSnapshot) => {
-                    if (childSnapshot.val() === token) {
-                        deviceExists = true;
-                        return;
-                    }
-                });
-
-                if (!deviceExists) {
-                    return database.ref("device_ids").push(token);
-                }
+        axios().post("token", { token })
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((error) => {
+                console.log(error);
             });
     }
 }
