@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\FCM\FCMToken;
 use App\Photo;
-use App\Token;
 
 class PhotoController extends Controller
 {
@@ -21,7 +21,7 @@ class PhotoController extends Controller
     {
         $value = Photo::processImageFromApi($request);
         if ($value == true) {
-            Token::sendPhotoNotification(
+            FCMToken::sendPhotoNotification(
                 'Upozornění Meteostanice!',
                 'Někdo je na letišti!',
                 ['url' => 'meteostanice.cz'],

@@ -10,6 +10,11 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::post('/token', 'FCMTokenController@addToken')->middleware('permissions:admin');
+});
+
 Route::get('/pressures', 'PressureController@index');
 Route::get('/pressures/latest', 'PressureController@latest');
 Route::get('/settings', 'SettingController@index')->middleware('permissions:admin');
@@ -23,8 +28,7 @@ Route::get('/photo', 'PhotoController@index');
 Route::get('/photo/all', 'PhotoController@all');
 Route::post('/photo/save', 'PhotoController@savePhoto');
 
-Route::get('/token', 'FCMTokenController@index');
-Route::post('/token', 'FCMTokenController@addToken')->middleware('permissions:admin');
+
 
 
 Route::any('{all}', function () {
