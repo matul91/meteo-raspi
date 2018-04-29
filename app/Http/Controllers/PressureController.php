@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Pressure;
+use Illuminate\Http\Request;
 
 class PressureController extends Controller
 {
@@ -14,5 +15,15 @@ class PressureController extends Controller
     public function latest()
     {
         return Pressure::getLastRecord();
+    }
+
+    public function addData(Request $request)
+    {
+        $value = Pressure::addData($request);
+        if ($value == true) {
+            return response()->json("ok", 200);
+        } else {
+            return response()->json("error", 500);
+        }
     }
 }

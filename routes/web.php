@@ -12,12 +12,17 @@
 */
 Route::get('/pressures', 'PressureController@index');
 Route::get('/pressures/latest', 'PressureController@latest');
+Route::post('/pressures/add', 'PressureController@addData')->middleware('permissions:admin');
+
 Route::get('/settings', 'SettingController@index')->middleware('permissions:admin');
+
 Route::get('/temperatures', 'TemperatureController@index');
 Route::get('/temperatures/latest', 'TemperatureController@latest');
+Route::post('/temperatures/add', 'TemperatureController@addData')->middleware('permissions:admin');
 
 Route::get('/winds', 'WindController@index');
 Route::get('/winds/latest', 'WindController@latest');
+Route::post('/winds/add', 'WindController@addData')->middleware('permissions:admin');
 
 Route::get('/photo', 'PhotoController@index');
 Route::get('/photo/all', 'PhotoController@all');
