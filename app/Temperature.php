@@ -16,7 +16,7 @@ class Temperature extends Model
             $data->date = NOW();
             $data->save();
             return true;
-        }else{
+        } else {
             return false;
         }
     }
