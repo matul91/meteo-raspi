@@ -5,7 +5,6 @@ namespace Tests\Browser;
 use Tests\DuskTestCase;
 use App\Models\Weather\Records\Wind;
 
-
 class ApiWindTest extends DuskTestCase
 {
 
