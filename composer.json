@@ -6,12 +6,13 @@
     "type": "project",
     "require": {
         "php": ">=7.0.0",
+        "brozot/laravel-fcm": "^1.2",
         "fideloper/proxy": "~3.3",
+        "fzaninotto/faker": "~1.4",
         "laravel/dusk": "^2.0",
         "laravel/framework": "5.5.*",
         "laravel/passport": "^4.0",
-        "laravel/tinker": "~1.0",
-        "fzaninotto/faker": "~1.4"
+        "laravel/tinker": "~1.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.1",

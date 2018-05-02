@@ -10,4 +10,9 @@ class Role extends Model
     {
         return $this->belongsToMany(User::class);
     }
+
+    public function tokens()
+    {
+        return $this->hasMany(Token::class);
+    }
 }
