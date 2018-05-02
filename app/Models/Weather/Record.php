@@ -3,6 +3,7 @@
 namespace App\Weather;
 
 use App\Model;
+use App\Setting;
 
 abstract class Record extends Model
 {
