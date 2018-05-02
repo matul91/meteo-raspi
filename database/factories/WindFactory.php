@@ -1,8 +1,9 @@
 <?php
 
 use Faker\Generator as Faker;
+use App\Models\Weather\Records\Wind;
 
-$factory->define(\App\Wind::class, function (Faker $faker) {
+$factory->define(Wind::class, function (Faker $faker) {
     $windDirections = [
         'N',
         'NNE',
