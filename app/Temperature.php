@@ -2,22 +2,16 @@
 
 namespace App;
 
-use App\Model;
-use Illuminate\Http\Request;
-
 class Temperature extends Model
 {
-    public static function addData(Request $request)
+    protected static function boot()
     {
-        if ($request->has('temperatureValue')) {
-            $value = $request->input("temperatureValue");
-            $data = new Temperature();
-            $data->temperature = $value;
-            $data->date = NOW();
-            $data->save();
-            return true;
-        } else {
-            return false;
-        }
+        parent::boot();
+        static::creating(function ($query) {
+            $query->date = now();
+        });
     }
+
+    protected $fillable = ['temperature'];
+
 }

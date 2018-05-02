@@ -17,13 +17,12 @@ class TemperatureController extends Controller
         return Temperature::getLastRecord();
     }
 
-    public function addData(Request $request)
+    public function store(Request $request)
     {
-        $value = Temperature::addData($request);
-        if ($value == true) {
-            return response()->json("ok", 200);
-        } else {
-            return response()->json("error", 500);
-        }
+        $request->validate([
+            'temperature' => 'required|numeric|between:-40.00,80.00',
+        ]);
+        Temperature::create($request->all());
     }
+
 }
