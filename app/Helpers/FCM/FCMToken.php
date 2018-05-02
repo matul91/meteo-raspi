@@ -27,7 +27,7 @@ class FCMToken
 
         if ($lastTimeSent == null or $timeTmp > $lastTimeSent->created_at) {
             $logNotification = new LogNotification();
-            $logNotification->name = "photo notfication";
+            $logNotification->name = "photo notification";
             $logNotification->save();
             self::buildFcm($title, $body, $data, $groupArray);
         }
