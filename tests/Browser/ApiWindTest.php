@@ -18,7 +18,7 @@ class ApiWindTest extends DuskTestCase
 
     public function testExistLastRecord()
     {
-        $lastRecordFromDatabase = Wind::getLastRecord();
+        $lastRecordFromDatabase = Wind::last();
         if ($lastRecordFromDatabase != null) {
             $result = true;
         } else {

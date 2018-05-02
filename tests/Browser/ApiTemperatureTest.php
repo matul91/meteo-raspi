@@ -18,7 +18,7 @@ class ApiTemperatureTest extends DuskTestCase
 
     public function testExistLastRecord()
     {
-        $lastRecordFromDatabase = Temperature::getLastRecord();
+        $lastRecordFromDatabase = Temperature::last();
         if ($lastRecordFromDatabase != null) {
             $result = true;
         } else {

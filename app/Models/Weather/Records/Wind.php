@@ -2,10 +2,9 @@
 
 namespace App;
 
-use App\Model;
-use Illuminate\Http\Request;
+use App\Weather\Record;
 
-class Wind extends Model
+class Wind extends Record
 {
     public static function addData(Request $request)
     {

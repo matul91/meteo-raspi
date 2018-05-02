@@ -14,7 +14,7 @@ class PressureController extends Controller
 
     public function latest()
     {
-        return Pressure::getLastRecord();
+        return Pressure::last();
     }
 
     public function addData(Request $request)

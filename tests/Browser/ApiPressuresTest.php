@@ -17,7 +17,7 @@ class ApiPressuresTest extends TestCase
 
     public function testExistLastRecord()
     {
-        $lastRecordFromDatabase = Pressure::getLastRecord();
+        $lastRecordFromDatabase = Pressure::last();
         if ($lastRecordFromDatabase != null) {
             $result = true;
         } else {

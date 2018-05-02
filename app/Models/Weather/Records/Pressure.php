@@ -2,10 +2,10 @@
 
 namespace App;
 
-use App\Model;
+use App\Weather\Record;
 use Illuminate\Http\Request;
 
-class Pressure extends Model
+class Pressure extends Record
 {
     public static function addData(Request $request)
     {

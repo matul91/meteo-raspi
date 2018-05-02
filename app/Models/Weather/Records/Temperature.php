@@ -1,8 +1,8 @@
 <?php
 
-namespace App;
+use App\Weather\Record;
 
-class Temperature extends Model
+class Temperature extends Record
 {
     protected static function boot()
     {

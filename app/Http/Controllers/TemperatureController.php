@@ -7,14 +7,14 @@ use Illuminate\Http\Request;
 
 class TemperatureController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         return Temperature::loadData(request()->query('start_date'), request()->query('end_date'));
     }
 
     public function latest()
     {
-        return Temperature::getLastRecord();
+        return Temperature::last();
     }
 
     public function store(Request $request)

@@ -14,7 +14,7 @@ class WindController extends Controller
 
     public function latest()
     {
-        return Wind::getLastRecord();
+        return Wind::last();
     }
 
     public function addData(Request $request)
