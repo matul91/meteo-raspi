@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Pressure;
 use Illuminate\Http\Request;
+use App\Models\Weather\Records\Pressure;
 
 class PressureController extends Controller
 {

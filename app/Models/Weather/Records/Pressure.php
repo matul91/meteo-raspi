@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models\Weather\Records;
 
 use App\Weather\Record;
 use Illuminate\Http\Request;

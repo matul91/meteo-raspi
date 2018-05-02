@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Temperature;
 use Illuminate\Http\Request;
+use App\Models\Weather\Records\Temperature;
 
 class TemperatureController extends Controller
 {

@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Models\Weather\Records;
+
 use App\Weather\Record;
 
 class Temperature extends Record

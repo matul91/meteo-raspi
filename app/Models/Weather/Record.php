@@ -2,7 +2,7 @@
 
 namespace App\Weather;
 
-use \App\Model;
+use App\Model;
 
 abstract class Record extends Model
 {

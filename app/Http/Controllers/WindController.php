@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Wind;
 use Illuminate\Http\Request;
+use App\Models\Weather\Records\Wind;
 
 class WindController extends Controller
 {
