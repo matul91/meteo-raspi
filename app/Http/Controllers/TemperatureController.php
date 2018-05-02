@@ -24,5 +24,4 @@ class TemperatureController extends Controller
         ]);
         Temperature::create($request->all());
     }
-
 }

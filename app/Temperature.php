@@ -13,5 +13,4 @@ class Temperature extends Model
     }
 
     protected $fillable = ['temperature'];
-
 }
