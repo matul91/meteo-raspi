@@ -2,10 +2,9 @@
 
 namespace Tests\Browser;
 
-use App\Wind;
 use Tests\DuskTestCase;
-use Laravel\Dusk\Browser;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use App\Models\Weather\Records\Wind;
+
 
 class ApiWindTest extends DuskTestCase
 {

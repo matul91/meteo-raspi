@@ -2,10 +2,8 @@
 
 namespace Tests\Browser;
 
-use App\Temperature;
 use Tests\DuskTestCase;
-use Laravel\Dusk\Browser;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use App\Models\Weather\Records\Temperature;
 
 class ApiTemperatureTest extends DuskTestCase
 {

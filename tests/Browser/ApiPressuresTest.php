@@ -3,8 +3,7 @@
 namespace Tests\Browser;
 
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use App\Pressure;
+use App\Models\Weather\Records\Pressure;
 
 class ApiPressuresTest extends TestCase
 {
