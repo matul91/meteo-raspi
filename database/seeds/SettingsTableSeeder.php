@@ -17,5 +17,12 @@ class SettingsTableSeeder extends Seeder
         ]);
 
         $setting->save();
+
+        $setting = factory(App\Setting::class)->make([
+            'name' => "minutes_per_notification_photo",
+            'value' => 30
+        ]);
+
+        $setting->save();
     }
 }
