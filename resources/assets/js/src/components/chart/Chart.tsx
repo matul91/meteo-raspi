@@ -87,7 +87,7 @@ class Chart extends React.Component<IProps, IState> {
                         trackMouse={true}
                     >
                         <ResponsiveContainer width="100%" height={300}>
-                            <LineChart data={this.getData(this.props.data)}>
+                            <LineChart data={this.mapDatesToShowingFormat(this.props.data)}>
                                 <CartesianGrid strokeDasharray="3 3" />
                                 <XAxis dataKey="date" />
                                 <YAxis />
@@ -110,11 +110,6 @@ class Chart extends React.Component<IProps, IState> {
                 {content}
             </ChartPanel>
         );
-    }
-
-    private getData(data: Array<{date: string, value: any}>): object[] {
-        const downSampledData = ArrayUtil.downSampleArray(data);
-        return this.mapDatesToShowingFormat(downSampledData);
     }
 
     private mapDatesToShowingFormat(data: Array<{date: string, value: any}>): object[] {
