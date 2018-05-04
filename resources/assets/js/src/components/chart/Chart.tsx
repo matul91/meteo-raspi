@@ -4,25 +4,25 @@ import ChartPanel from "components/chart/chartPanel/ChartPanel";
 import CustomTooltip from "components/chart/customTooltip/CustomTooltip";
 import DatetimeRangePicker from "components/datetimeRangePicker/DateTimeRangePicker";
 import Loading from "components/loading/Loading";
+import * as DateFormats from "config/constants/dateFormats";
 import * as Directions from "config/constants/directions";
+import * as Values from "config/constants/values";
 import * as moment from "moment";
 import * as React from "react";
 import { connect } from "react-redux";
 import * as Swipeable from "react-swipeable";
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import * as actions from "store/actions";
+import ArrayUtil from "utils/ArrayUtil";
 import DateUtil from "utils/DateUtil";
 
 moment.locale("cs");
-
-const INITIAL_DURATION = 30;
 
 interface IState {
     dateRange: {
         dateFrom: string,
         dateTo: string,
     };
-    showedDateFormat: string;
     suffix: string;
 }
 
@@ -56,7 +56,6 @@ class Chart extends React.Component<IProps, IState> {
             dateFrom: null,
             dateTo: null,
         },
-        showedDateFormat: "HH:mm",
         suffix: this.props.suffix ? ` ${this.props.suffix}` : "",
     };
 
@@ -116,7 +115,7 @@ class Chart extends React.Component<IProps, IState> {
     private mapDatesToShowingFormat(data: Array<{date: string, value: any}>): object[] {
         return data.map((obj) => {
             return {
-                date: moment(obj.date).format(this.state.showedDateFormat),
+                date: moment(obj.date).format(DateFormats.SHOWED_DATE_FORMAT),
                 value: obj.value,
             };
         });
@@ -163,7 +162,7 @@ class Chart extends React.Component<IProps, IState> {
             diff = moment(this.state.dateRange.dateTo)
                 .diff(this.state.dateRange.dateFrom) / 1000 / 60;
         } else {
-            diff = INITIAL_DURATION;
+            diff = Values.INITIAL_DATETIME_RANGE;
         }
 
         const dates = DateUtil.differenceBetweenDates(this.props.dataMeta, direction, diff);

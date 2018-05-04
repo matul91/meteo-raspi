@@ -1,3 +1,4 @@
+import * as DateFormats from "config/constants/dateFormats";
 import * as actionTypes from "store/actions/actionTypes";
 
 const initialState = {
@@ -24,7 +25,7 @@ const initialState = {
             url: "winds",
         },
     },
-    dbDateFormat: "YYYY-MM-DD HH:mm:ss",
+    dbDateFormat: DateFormats.DB_DATE_FORMAT,
     error: null,
     loading: false,
 };
