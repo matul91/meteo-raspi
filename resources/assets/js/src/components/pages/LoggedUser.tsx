@@ -60,7 +60,7 @@ class LoggedUser extends React.Component<null, IState> {
     }
 
     private updateSubscriptionOnServer(token: any) {
-        axios().post("token", { token })
+        axios().post("token", { FCMToken: token })
             .then((response) => {
                 console.log(response);
             })
