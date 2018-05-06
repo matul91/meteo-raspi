@@ -50,6 +50,6 @@ install:
   - travis_retry composer install --no-interaction --prefer-dist
   - npm install
   - composer require deployer/deployer
-
-after_success:
-  - php vendor/bin/dep deploy production
+#
+#after_success:
+#  - php vendor/bin/dep deploy production
