@@ -14,15 +14,6 @@ cache:
   directories:
     - $HOME/.composer/cache
 
-before_install:
-  - composer self-update
-  - openssl aes-256-cbc -K $encrypted_5b3b069d3210_key -iv $encrypted_5b3b069d3210_iv
-  -in deploy_rsa.enc -out deploy_rsa -d
-
-install:
-  - composer install
-  - npm install
-
 before_script:
   - vendor/bin/phpcs -p --standard=PSR2 --ignore="vendor,resources,storage,public,node_modules,database,bootstrap" ./
   - mysql -e 'create database meteoraspi;'
