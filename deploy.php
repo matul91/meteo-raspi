@@ -59,7 +59,7 @@ task('build', function () {
 
 task('npm:local:build', function () {
     runLocally(
-    "cd {{local_release_path}} && {{local/bin/npm}} run production MIX_CLIENT_SECRET=$MIX_CLIENT_SECRET_IN_TRAVIS_CONF"
+        "cd {{local_release_path}} && {{local/bin/npm}} run production MIX_CLIENT_SECRET=$MIX_CLIENT_SECRET_TRAVIS"
     );
 });
 
