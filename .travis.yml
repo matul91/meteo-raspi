@@ -33,6 +33,7 @@ before_script:
   - php artisan db:seed
   - php artisan passport:install
   - php artisan set:client_secret .env
+  - npm run prod
   - node_modules/.bin/tslint --project tsconfig.json
   - php artisan serve &
 
