@@ -42,6 +42,9 @@ script:
   - npm run test
   - php artisan dusk
 
+after_success:
+  - php vendor/bin/dep deploy production
+
 notifications:
   email: false
   slack:
