@@ -28,9 +28,9 @@ add('rsync', [
 ]);
 
 // RSYNC files from /tmp/deployer instead of vendor/deployer/recipes/
-set('rsync_src', function() {
+set('rsync_src', function () {
     $local_src = get('local_release_path');
-    if(is_callable($local_src)){
+    if (is_callable($local_src)) {
         $local_src = $local_src();
     }
     return $local_src;
@@ -58,7 +58,9 @@ task('build', function () {
 });
 
 task('npm:local:build', function () {
-  runLocally("cd {{local_release_path}} && {{local/bin/npm}} run production MIX_CLIENT_SECRET=$MIX_CLIENT_SECRET_IN_TRAVIS_CONF");
+    runLocally(
+    "cd {{local_release_path}} && {{local/bin/npm}} run production MIX_CLIENT_SECRET=$MIX_CLIENT_SECRET_IN_TRAVIS_CONF"
+    );
 });
 
 task('deploy', [
@@ -92,4 +94,3 @@ after('deploy:failed', 'deploy:unlock');
 // Migrate database before symlink new release.
 
 before('deploy:symlink', 'artisan:migrate');
-
