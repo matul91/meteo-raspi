@@ -17,4 +17,12 @@ class Token extends Model
             ->join('roles', 'role_user.role_id', '=', 'roles.id')
             ->whereIn('roles.name', $arrayGroup)->pluck('token')->toArray();
     }
+
+    public static function saveToken($request, $user){
+        $FCMToken = self::firstOrCreate(['user_id' => $user->id, 'token' => $request->FCMToken]);
+        $FCMToken->user_id = $user->id;
+        $FCMToken->token = $request->FCMToken;
+        $FCMToken->save();
+        return response()->json(["proved" => true, "message" => "Token has been added"], 200);
+    }
 }
