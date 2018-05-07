@@ -18,7 +18,8 @@ class Token extends Model
             ->whereIn('roles.name', $arrayGroup)->pluck('token')->toArray();
     }
 
-    public static function saveToken($request, $user){
+    public static function saveToken($request, $user)
+    {
         $FCMToken = self::firstOrCreate(['user_id' => $user->id, 'token' => $request->FCMToken]);
         $FCMToken->user_id = $user->id;
         $FCMToken->token = $request->FCMToken;
