@@ -70,29 +70,39 @@ task('upload:env', function () {
 })->desc('Environment setup');
 
 task('npm:install', function () {
-    run('cd {{deploy_path}}/current; {{bin/npm}} install');
-    run('mv {{deploy_path}}/current/node_modules {{deploy_path}}/shared');
+    $npm_folder_exists = run(
+        'if [ ! -L {{deploy_path}}/shared/node_modules ] && [ -d {{deploy_path}}/shared/node_modules ]; then echo true; fi'
+    )->toBool();
+
+    if (!$npm_folder_exists) {
+        run('cd {{deploy_path}}/current; {{bin/npm}} install');
+        run('mv {{deploy_path}}/current/node_modules {{deploy_path}}/shared');
+    }
+
     run('ln -s {{deploy_path}}/shared/node_modules {{deploy_path}}/current');
 })->desc('Execute npm install');
 
-task('npm:build', function () {
-    runLocally(
-        "cd {{local_release_path}} && {{local/bin/npm}} run production MIX_CLIENT_SECRET=$MIX_CLIENT_SECRET_TRAVIS"
-    );
-});
+task('npm:build', function() {
+    cd('{{release_path}}');
+    run('{{bin/npm}} run production MIX_CLIENT_SECRET=$MIX_CLIENT_SECRET_TRAVIS');
+})->desc('Assets generation');
 
 task('deploy', [
     'deploy:prepare',
     'deploy:lock',
     'deploy:release',
     'deploy:update_code',
+    'npm:install',
+    'npm:build',
     'deploy:shared',
+    'upload:env',
     'deploy:vendors',
     'deploy:writable',
     'artisan:storage:link',
     'artisan:view:clear',
     'artisan:cache:clear',
     'artisan:config:cache',
+    'artisan:route:cache',
     'artisan:optimize',
     'deploy:symlink',
     'deploy:unlock',
