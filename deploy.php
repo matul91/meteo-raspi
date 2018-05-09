@@ -2,8 +2,8 @@
 namespace Deployer;
 
 require 'recipe/laravel.php';
-require 'vendor/deployer/recipes/recipe/rsync.php';
-require 'vendor/deployer/recipes/recipe/npm.php';
+require 'recipe/rsync.php';
+require 'recipe/npm.php';
 
 // Project name
 set('application', 'meteo-raspi');
@@ -61,29 +61,13 @@ host('raspi.jiri-matula.cz')
     ->forwardAgent(true)
     ->multiplexing(true)
     ->addSshOption('UserKnownHostsFile', '/dev/null')
-    ->addSshOption('StrictHostKeyChecking', 'no')
-    ->set('bin/npm', function () {
-        return run('which npm')->toString();
-    });
+    ->addSshOption('StrictHostKeyChecking', 'no');
 
 // Tasks
 
 task('upload:env', function () {
     upload('.env.production', '{{deploy_path}}/shared/.env');
 })->desc('Environment setup');
-
-task('npm:install', function () {
-    $npm_folder_exists = run(
-        'if [ ! -L {{deploy_path}}/shared/node_modules ] && [ -d {{deploy_path}}/shared/node_modules ]; then echo true; fi' // @codingStandardsIgnoreLine
-    );
-
-    if (!boolval($npm_folder_exists)) {
-        run('cd {{deploy_path}}/current; {{bin/npm}} install');
-        run('mv {{deploy_path}}/current/node_modules {{deploy_path}}/shared');
-    }
-
-    run('ln -s {{deploy_path}}/shared/node_modules {{deploy_path}}/current');
-})->desc('Execute npm install');
 
 task('npm:build', function () {
     cd('{{release_path}}');
