@@ -42,7 +42,7 @@ set('rsync_src', function () {
 host('raspi.jiri-matula.cz')
     ->stage('production')
     ->roles('app')
-    ->set('deploy_path', '~/var/www/html/raspi.jiri-matula.cz')
+    ->set('deploy_path', '/var/www/html/raspi.jiri-matula.cz')
     ->set('branch', 'master')
     ->user('deploy')
     ->port(22)

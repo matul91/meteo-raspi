@@ -14,10 +14,15 @@ cache:
   directories:
     - $HOME/.composer/cache
 
+addons:
+  ssh_known_hosts: $deploy_host
+
 before_install:
   - composer self-update
   - openssl aes-256-cbc -K $encrypted_4d43efaba550_key -iv $encrypted_4d43efaba550_iv -in deploy_rsa.enc -out /tmp/deploy_rsa -d
+  - eval "$(ssh-agent -s)"
   - chmod 600 /tmp/deploy_rsa
+  - ssh-add /tmp/deploy_rsa
 
 install:
   - composer install
@@ -44,7 +49,7 @@ script:
   - php artisan dusk
 
 after_success:
-  - php vendor/bin/dep deploy production
+  - php vendor/bin/dep deploy production -vvv
 
 notifications:
   email: false
