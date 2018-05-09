@@ -12,7 +12,8 @@ class StationValueController extends Controller
         return StationValue::getLastRecord();
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $request->validate([
             'volt' => 'required|numeric|between:0.00,20.00',
         ]);
