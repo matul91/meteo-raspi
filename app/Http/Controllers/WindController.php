@@ -21,7 +21,7 @@ class WindController extends Controller
     {
         $request->validate([
             'speed' => 'required|numeric|between:0.00,160.00',
-            'direction' => 'required|string',
+            'direction' => 'required|in:' . implode(",", Wind::DIRECTIONS)
         ]);
         Wind::create($request->all());
     }
