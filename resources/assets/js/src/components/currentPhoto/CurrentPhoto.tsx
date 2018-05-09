@@ -8,7 +8,7 @@ const CurrentPhoto = (props) => {
                 <Panel.Title>Current photo</Panel.Title>
             </Panel.Heading>
             <Panel.Body>
-                <img src="http://via.placeholder.com/1920x1080" alt="Current photo" className="img-responsive" />
+                <img src="https://via.placeholder.com/1920x1080" alt="Current photo" className="img-responsive" />
             </Panel.Body>
         </Panel>
     );
