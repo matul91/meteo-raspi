@@ -71,8 +71,7 @@ task('upload:env', function () {
 
 task('npm:install', function () {
     $npm_folder_exists = run(
-        'if [ ! -L {{deploy_path}}/shared/node_modules ] &&
-         [ -d {{deploy_path}}/shared/node_modules ]; then echo true; fi'
+        'if [ ! -L {{deploy_path}}/shared/node_modules ] && [ -d {{deploy_path}}/shared/node_modules ]; then echo true; fi' // @codingStandardsIgnoreLine
     )->toBool();
 
     if (!$npm_folder_exists) {
