@@ -2,7 +2,7 @@
 
 namespace App\Models\Weather\Records;
 
-use App\Weather\Record;
+use App\Models\Weather\Record;
 
 class Temperature extends Record
 {

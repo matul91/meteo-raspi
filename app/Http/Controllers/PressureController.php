@@ -17,13 +17,11 @@ class PressureController extends Controller
         return Pressure::last();
     }
 
-    public function addData(Request $request)
+    public function store(Request $request)
     {
-        $value = Pressure::addData($request);
-        if ($value == true) {
-            return response()->json("ok", 200);
-        } else {
-            return response()->json("error", 500);
-        }
+        $request->validate([
+            'pressure' => 'required|numeric|between:900.00,1300.00',
+        ]);
+        Pressure::create($request->all());
     }
 }

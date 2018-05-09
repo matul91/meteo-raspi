@@ -16,9 +16,8 @@ Route::group(['middleware' => 'auth:api'], function () {
 });
 
 Route::get('/pressures', 'PressureController@index');
+Route::post('/pressures', 'PressureController@store')->middleware('permissions:admin');
 Route::get('/pressures/latest', 'PressureController@latest');
-Route::post('/pressures/add', 'PressureController@addData')->middleware('permissions:admin');
-
 Route::get('/settings', 'SettingController@index')->middleware('permissions:admin');
 
 Route::get('/temperatures', 'TemperatureController@index');
@@ -26,8 +25,8 @@ Route::post('/temperatures', 'TemperatureController@store')->middleware('permiss
 Route::get('/temperatures/latest', 'TemperatureController@latest');
 
 Route::get('/winds', 'WindController@index');
+Route::post('/winds', 'WindController@store')->middleware('permissions:admin');
 Route::get('/winds/latest', 'WindController@latest');
-Route::post('/winds/add', 'WindController@addData')->middleware('permissions:admin');
 
 Route::get('/photo', 'PhotoController@index');
 Route::get('/photo/all', 'PhotoController@all');

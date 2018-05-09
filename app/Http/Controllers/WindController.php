@@ -17,13 +17,12 @@ class WindController extends Controller
         return Wind::last();
     }
 
-    public function addData(Request $request)
+    public function store(Request $request)
     {
-        $value = Wind::addData($request);
-        if ($value == true) {
-            return response()->json("ok", 200);
-        } else {
-            return response()->json("error", 500);
-        }
+        $request->validate([
+            'speed' => 'required|numeric|between:0.00,160.00',
+            'direction' => 'required|string',
+        ]);
+        Wind::create($request->all());
     }
 }

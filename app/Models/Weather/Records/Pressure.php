@@ -2,22 +2,17 @@
 
 namespace App\Models\Weather\Records;
 
-use App\Weather\Record;
-use Illuminate\Http\Request;
+use App\Models\Weather\Record;
 
 class Pressure extends Record
 {
-    public static function addData(Request $request)
+    protected static function boot()
     {
-        if ($request->has('pressureValue')) {
-            $value = $request->input("pressureValue");
-            $data = new Pressure();
-            $data->pressure = $value;
-            $data->date = NOW();
-            $data->save();
-            return true;
-        } else {
-            return false;
-        }
+        parent::boot();
+        static::creating(function ($query) {
+            $query->date = now();
+        });
     }
+
+    protected $fillable = ['pressure'];
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Weather;
+namespace App\Models\Weather;
 
 use App\Model;
 use App\Setting;
