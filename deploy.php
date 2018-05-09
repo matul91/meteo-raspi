@@ -6,7 +6,7 @@ require 'vendor/deployer/recipes/recipe/rsync.php';
 require 'vendor/deployer/recipes/recipe/npm.php';
 
 // Project name
-set('application', 'my_project');
+set('application', 'meteo-raspi');
 
 // Configuration
 set('ssh_type', 'native');
@@ -15,11 +15,11 @@ set('writable_mode', 'chmod');
 set('repository', 'https://github.com/matul91/meteo-raspi.git');
 set('git_tty', true);
 set('branch', 'master');
-set('keep_releases', 5);
+set('keep_releases', 10);
 
 add('shared_files', []);
-add('shared_dirs', []);
-add('writable_dirs', []);
+add('shared_dirs', ['storage']);
+add('writable_dirs', ['storage']);
 add('rsync', [
     'exclude' => [
         '.git',
