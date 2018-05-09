@@ -3,8 +3,7 @@
 namespace Tests\Browser;
 
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use App\Pressure;
+use App\Models\Weather\Records\Pressure;
 
 class ApiPressuresTest extends TestCase
 {
@@ -17,7 +16,7 @@ class ApiPressuresTest extends TestCase
 
     public function testExistLastRecord()
     {
-        $lastRecordFromDatabase = Pressure::getLastRecord();
+        $lastRecordFromDatabase = Pressure::last();
         if ($lastRecordFromDatabase != null) {
             $result = true;
         } else {
