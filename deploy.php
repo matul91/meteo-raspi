@@ -2,9 +2,8 @@
 namespace Deployer;
 
 require 'recipe/laravel.php';
-require 'vendor/deployer/recipes/local.php';
-require 'vendor/deployer/recipes/rsync.php';
-require 'vendor/deployer/recipes/npm.php';
+require 'vendor/deployer/recipes/recipe/rsync.php';
+require 'vendor/deployer/recipes/recipe/npm.php';
 
 // Project name
 set('application', 'my_project');
@@ -13,8 +12,10 @@ set('application', 'my_project');
 set('ssh_type', 'native');
 set('ssh_multiplexing', true);
 set('writable_mode', 'chmod');
-set('default_stage', 'dev');
 set('repository', 'https://github.com/matul91/meteo-raspi.git');
+set('git_tty', true);
+set('branch', 'master');
+set('keep_releases', 5);
 
 add('shared_files', []);
 add('shared_dirs', []);
@@ -53,39 +54,39 @@ host('195.181.212.105')
 
 // Tasks
 
-task('build', function () {
-    run('cd {{release_path}} && build');
-});
+task('environment', function () {
+    upload('.env', '{{release_path}}/.env');
+    // dodělat že načte proměnné z travisu
+})->desc('Environment setup');
 
-task('npm:local:build', function () {
+task('npm:install', function () {
+    run('cd {{deploy_path}}/current; {{bin/npm}} install');
+    run('mv {{deploy_path}}/current/node_modules {{deploy_path}}/shared');
+    run('ln -s {{deploy_path}}/shared/node_modules {{deploy_path}}/current');
+})->desc('Execute npm install');
+
+task('npm:build', function () {
     runLocally(
         "cd {{local_release_path}} && {{local/bin/npm}} run production MIX_CLIENT_SECRET=$MIX_CLIENT_SECRET_TRAVIS"
     );
 });
 
 task('deploy', [
-    'local:prepare',        // Create dirs locally
-    'local:release',        // Release number locally
-    'local:update_code',    // git clone locally
-    'local:vendors',        // composer install locally
-    'npm:local:install',    // npm install locally
-    'npm:local:build',      // Build locally
-    'local:symlink',        // Symlink /current locally
-    'deploy:prepare',       // Create dirs on server
-    'deploy:lock',          // Lock deploys on server
-    'deploy:release',       // Release number on server
-    'rsync',                // Send files to server
-    'deploy:writable',      // Ensure paths are writable on server
-    'deploy:shared',        // Shared and .env linking on server
-    'artisan:view:clear',   // Optimze on server
-    'artisan:cache:clear',  // Optimze on server
-    'artisan:config:cache', // Optimze on server
-    'artisan:optimize',     // Optimze on server
-    'artisan:migrate',      // Migrate DB on server
-    'deploy:symlink',       // Symlink /current on server
-    'deploy:unlock',        // Unlock deploys on server
-    'cleanup',              // Cleanup old releases on server
-    'local:cleanup'         // Cleanup old releases locally
+    'deploy:prepare',
+    'deploy:lock',
+    'deploy:release',
+    'deploy:update_code',
+    'deploy:shared',
+    'deploy:vendors',
+    'deploy:writable',
+    'artisan:storage:link',
+    'artisan:view:clear',
+    'artisan:cache:clear',
+    'artisan:config:cache',
+    'artisan:optimize',
+    'deploy:symlink',
+    'deploy:unlock',
+    'cleanup',
 ])->desc('Deploy project');
 
 // [Optional] if deploy fails automatically unlock.
