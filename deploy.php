@@ -13,14 +13,26 @@ set('ssh_type', 'native');
 set('ssh_multiplexing', true);
 set('writable_mode', 'chmod');
 set('repository', 'https://github.com/matul91/meteo-raspi.git');
-set('git_tty', true);
 set('branch', 'master');
 set('keep_releases', 5);
-
-add('shared_files', []);
-add('shared_dirs', []);
-add('writable_dirs', []);
-add('rsync', [
+set('shared_files', [
+    '.env'
+]);
+set('shared_dirs', [
+    'storage'
+]);
+set('writable_dirs', [
+    'bootstrap/cache',
+    'storage',
+    'storage/app',
+    'storage/app/public',
+    'storage/framework',
+    'storage/framework/cache',
+    'storage/framework/sessions',
+    'storage/framework/views',
+    'storage/logs',
+]);
+set('rsync', [
     'exclude' => [
         '.git',
         'deploy.php',
@@ -28,7 +40,6 @@ add('rsync', [
     ],
 ]);
 
-// RSYNC files from /tmp/deployer instead of vendor/deployer/recipes/
 set('rsync_src', function () {
     $local_src = get('local_release_path');
     if (is_callable($local_src)) {
@@ -54,9 +65,8 @@ host('raspi.jiri-matula.cz')
 
 // Tasks
 
-task('environment', function () {
-    upload('.env', '{{release_path}}/.env');
-    // dodělat že načte proměnné z travisu
+task('upload:env', function () {
+    upload('.env.production', '{{deploy_path}}/shared/.env');
 })->desc('Environment setup');
 
 task('npm:install', function () {
