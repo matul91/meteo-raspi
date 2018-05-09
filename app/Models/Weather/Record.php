@@ -81,4 +81,12 @@ abstract class Record extends Model
     {
         return self::orderBy('date', 'desc')->first();
     }
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::creating(function ($query) {
+            $query->date = now();
+        });
+    }
 }
