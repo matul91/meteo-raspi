@@ -13,6 +13,7 @@
 
 Route::group(['middleware' => 'auth:api'], function () {
     Route::post('/token', 'FCMTokenController@addToken')->middleware('permissions:admin');
+    Route::post('/stationValue', 'StationValueController@store')->middleware('permissions:admin');
 });
 
 Route::get('/pressures', 'PressureController@index');
@@ -28,6 +29,7 @@ Route::get('/photo', 'PhotoController@index');
 Route::get('/photo/all', 'PhotoController@all');
 Route::post('/photo/save', 'PhotoController@savePhoto')->middleware('chekweatherstation');
 
+Route::get('/stationValue', 'StationValueController@latest');
 
 
 

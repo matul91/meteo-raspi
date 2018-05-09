@@ -13,6 +13,7 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         'photo/save',
-        'token'
+        'token',
+        'stationValue'
     ];
 }
