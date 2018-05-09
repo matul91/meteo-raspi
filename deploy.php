@@ -84,7 +84,7 @@ task('npm:install', function () {
 
 task('npm:build', function () {
     cd('{{release_path}}');
-    run('{{bin/npm}} run production MIX_CLIENT_SECRET=$MIX_CLIENT_SECRET_TRAVIS');
+    run('{{bin/npm}} run production');
 })->desc('Assets generation');
 
 task('deploy', [
