@@ -61,7 +61,10 @@ host('raspi.jiri-matula.cz')
     ->forwardAgent(true)
     ->multiplexing(true)
     ->addSshOption('UserKnownHostsFile', '/dev/null')
-    ->addSshOption('StrictHostKeyChecking', 'no');
+    ->addSshOption('StrictHostKeyChecking', 'no')
+    ->set('bin/npm', function () {
+        return run('which npm')->toString();
+    });
 
 // Tasks
 
