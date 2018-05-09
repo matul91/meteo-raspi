@@ -39,12 +39,12 @@ set('rsync_src', function () {
 
 // Hosts
 
-host('195.181.212.105')
+host('raspi.jiri-matula.cz')
     ->stage('production')
     ->roles('app')
     ->set('deploy_path', '~/var/www/html/raspi.jiri-matula.cz')
     ->set('branch', 'master')
-    ->user('meteo-raspi')
+    ->user('deploy')
     ->port(22)
     ->identityFile('deploy_rsa')
     ->forwardAgent(true)
