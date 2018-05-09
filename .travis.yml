@@ -17,6 +17,8 @@ cache:
 before_install:
   - composer self-update
   - openssl aes-256-cbc -K $encrypted_4d43efaba550_key -iv $encrypted_4d43efaba550_iv -in deploy_rsa.enc -out /tmp/deploy_rsa -d
+  - chmod 600 /tmp/deploy.rsa
+  - ssh-add /tmp/deploy.rsa
 
 install:
   - composer install
