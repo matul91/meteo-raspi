@@ -71,7 +71,8 @@ task('upload:env', function () {
 
 task('npm:install', function () {
     $npm_folder_exists = run(
-        'if [ ! -L {{deploy_path}}/shared/node_modules ] && [ -d {{deploy_path}}/shared/node_modules ]; then echo true; fi'
+        'if [ ! -L {{deploy_path}}/shared/node_modules ] &&
+         [ -d {{deploy_path}}/shared/node_modules ]; then echo true; fi'
     )->toBool();
 
     if (!$npm_folder_exists) {
@@ -82,7 +83,7 @@ task('npm:install', function () {
     run('ln -s {{deploy_path}}/shared/node_modules {{deploy_path}}/current');
 })->desc('Execute npm install');
 
-task('npm:build', function() {
+task('npm:build', function () {
     cd('{{release_path}}');
     run('{{bin/npm}} run production MIX_CLIENT_SECRET=$MIX_CLIENT_SECRET_TRAVIS');
 })->desc('Assets generation');
