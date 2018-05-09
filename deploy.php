@@ -6,7 +6,7 @@ require 'vendor/deployer/recipes/recipe/rsync.php';
 require 'vendor/deployer/recipes/recipe/npm.php';
 
 // Project name
-set('application', 'my_project');
+set('application', 'meteo-raspi');
 
 // Configuration
 set('ssh_type', 'native');
