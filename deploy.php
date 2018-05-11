@@ -12,6 +12,7 @@ set('application', 'meteo-raspi');
 set('ssh_type', 'native');
 set('ssh_multiplexing', true);
 set('writable_mode', 'chmod');
+set('writable_chmod_mode', '0775');
 set('repository', 'https://github.com/matul91/meteo-raspi.git');
 set('branch', 'master');
 set('keep_releases', 5);
@@ -23,15 +24,7 @@ set('shared_dirs', [
 ]);
 set('writable_dirs', [
     'bootstrap/cache',
-    'vendor',
-    'storage',
-    'storage/app',
-    'storage/app/public',
-    'storage/framework',
-    'storage/framework/cache',
-    'storage/framework/sessions',
-    'storage/framework/views',
-    'storage/logs',
+    'vendor'
 ]);
 set('rsync', [
     'exclude' => [
