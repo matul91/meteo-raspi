@@ -23,6 +23,7 @@ set('shared_dirs', [
 ]);
 set('writable_dirs', [
     'bootstrap/cache',
+    'vendor',
     'storage',
     'storage/app',
     'storage/app/public',
