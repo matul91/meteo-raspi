@@ -13,7 +13,8 @@ class FCMTokenController extends Controller
     {
         $user = Auth::user();
         if ($request->has('FCMToken')) {
-            return Token::saveToken($request, $user);
+            Token::saveToken($request, $user);
+            return response()->json(["proved" => true, "message" => "Token has been added"], 200);
         } else {
             return response()->json(["proved" => false, "message" => "Token is empty"], 500);
         }

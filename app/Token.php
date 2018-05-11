@@ -24,6 +24,5 @@ class Token extends Model
         $FCMToken->user_id = $user->id;
         $FCMToken->token = $request->FCMToken;
         $FCMToken->save();
-        return response()->json(["proved" => true, "message" => "Token has been added"], 200);
     }
 }
