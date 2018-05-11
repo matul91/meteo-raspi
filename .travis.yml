@@ -35,6 +35,7 @@ before_script:
   - sh -e /etc/init.d/xvfb start
   - ./vendor/laravel/dusk/bin/chromedriver-linux &
   - cp .env.dusk.testing .env
+  - cp .env.example .env.production
   - php artisan key:generate
   - php artisan migrate --force
   - php artisan db:seed
