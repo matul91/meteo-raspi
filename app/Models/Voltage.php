@@ -3,7 +3,7 @@ namespace App\Models;
 
 use App\Model;
 
-class StationValue extends Model
+class Voltage extends Model
 {
     protected $table = 'station_values';
 

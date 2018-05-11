@@ -18,7 +18,7 @@ class StationValuesTableSeeder extends Seeder
         for ($i = 0; $i < 1000; $i++) {
 
             $voltValue = $faker->randomFloat(NULL, 0, 20);
-            $stationValue = factory(App\Models\StationValue::class)->make([
+            $stationValue = factory(App\Models\Voltage::class)->make([
                 'date' => $dateTime,
                 'volt' => $voltValue
             ]);
