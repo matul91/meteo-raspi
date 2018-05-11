@@ -83,7 +83,6 @@ task('deploy', [
     'npm:install',
     'npm:build',
     'deploy:shared',
-    'upload:env',
     'deploy:vendors',
     'deploy:writable',
     'artisan:storage:link',
