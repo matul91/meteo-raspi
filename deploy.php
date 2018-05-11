@@ -11,7 +11,7 @@ set('application', 'meteo-raspi');
 // Configuration
 set('ssh_type', 'native');
 set('ssh_multiplexing', true);
-set('writable_mode', 'chmod');
+set('writable_mode', 'chown');
 set('repository', 'https://github.com/matul91/meteo-raspi.git');
 set('branch', 'master');
 set('keep_releases', 5);
