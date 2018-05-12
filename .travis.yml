@@ -49,7 +49,7 @@ script:
   - php artisan dusk
 
 after_success:
-  - php vendor/bin/dep deploy production
+  - php vendor/bin/dep initialize production
 
 notifications:
   email: false

@@ -20,7 +20,8 @@ set('shared_files', [
     '.env'
 ]);
 set('shared_dirs', [
-    'storage'
+    'storage',
+    'public/images/photos'
 ]);
 set('writable_dirs', [
     'bootstrap/cache',
@@ -33,7 +34,6 @@ set('rsync', [
         'node_modules',
     ],
 ]);
-
 set('rsync_src', function () {
     $local_src = get('local_release_path');
     if (is_callable($local_src)) {
@@ -63,6 +63,22 @@ task('npm:build', function () {
     run('{{bin/npm}} run production');
 })->desc('Assets generation');
 
+task('db:seed', function () {
+    run('php artisan db:seed --class=ProductionUsersTableSeeder');
+})->desc('Seed database');
+
+task('passport:install', function () {
+    run('php artisan passport:install --force');
+})->desc('Integrate passport');
+
+task('set:secret', function () {
+    run('php artisan set:client_secret .env');
+})->desc('Set client secret in .env file');
+
+task('key:generate', function () {
+    run('php artisan key:generate');
+})->desc('Generate application key');
+
 task('deploy', [
     'deploy:prepare',
     'deploy:lock',
@@ -82,6 +98,30 @@ task('deploy', [
     'deploy:unlock',
     'cleanup',
 ])->desc('Deploy project');
+
+task('initialize', [
+    'deploy:prepare',
+    'deploy:lock',
+    'deploy:release',
+    'deploy:update_code',
+    'deploy:shared',
+    'deploy:vendors',
+    'deploy:writable',
+    'artisan:migrate:fresh', // make clean version of db
+    'db:seed', // seed production data
+    'passport:install', // install passport
+    'set:secret', // set client secret
+    'key:generate', // generate application key
+    'npm:install',
+    'npm:build',
+    'artisan:storage:link',
+    'artisan:view:clear',
+    'artisan:cache:clear',
+    'artisan:config:cache',
+    'artisan:optimize',
+    'deploy:unlock',
+    'cleanup',
+])->desc('Initialize project');
 
 // [Optional] if deploy fails automatically unlock.
 after('deploy:failed', 'deploy:unlock');
