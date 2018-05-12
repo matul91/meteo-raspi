@@ -58,11 +58,6 @@ host('raspi.jiri-matula.cz')
     ->addSshOption('StrictHostKeyChecking', 'no');
 
 // Tasks
-
-task('upload:env', function () {
-    upload('.env.production', '{{deploy_path}}/shared/.env');
-})->desc('Environment setup');
-
 task('npm:build', function () {
     cd('{{release_path}}');
     run('{{bin/npm}} run production');
