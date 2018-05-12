@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Role;
 
 class ProductionUsersTableSeeder extends Seeder
 {
