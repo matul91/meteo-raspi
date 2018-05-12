@@ -123,8 +123,14 @@ task('initialize', [
     'cleanup',
 ])->desc('Initialize project');
 
+task('initialize:failed', function () {
+})->setPrivate();
+
+fail('initialize', 'initialize:failed');
+
 // [Optional] if deploy fails automatically unlock.
 after('deploy:failed', 'deploy:unlock');
+after('initialize:failed', 'deploy:unlock');
 
 // Migrate database before symlink new release.
 
