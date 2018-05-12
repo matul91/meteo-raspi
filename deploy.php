@@ -64,19 +64,19 @@ task('npm:build', function () {
 })->desc('Assets generation');
 
 task('db:seed', function () {
-    run('php artisan db:seed --class=ProductionUsersTableSeeder');
+    run('{{bin/php}} {{release_path}}/artisan db:seed --class=ProductionUsersTableSeeder');
 })->desc('Seed database');
 
 task('passport:install', function () {
-    run('php artisan passport:install --force');
+    run('{{bin/php}} {{release_path}}/artisan passport:install --force');
 })->desc('Integrate passport');
 
 task('set:secret', function () {
-    run('php artisan set:client_secret .env');
+    run('{{bin/php}} {{release_path}}/artisan set:client_secret .env');
 })->desc('Set client secret in .env file');
 
 task('key:generate', function () {
-    run('php artisan key:generate');
+    run('{{bin/php}} {{release_path}}/artisan key:generate');
 })->desc('Generate application key');
 
 task('deploy', [
