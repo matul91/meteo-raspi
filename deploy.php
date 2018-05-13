@@ -94,6 +94,7 @@ task('deploy', [
     'artisan:cache:clear',
     'artisan:config:cache',
     'artisan:optimize',
+    'artisan:migrate'
     'deploy:symlink',
     'deploy:unlock',
     'cleanup',
@@ -119,6 +120,7 @@ task('initialize', [
     'artisan:cache:clear',
     'artisan:config:cache',
     'artisan:optimize',
+    'deploy:symlink',
     'deploy:unlock',
     'cleanup',
 ])->desc('Initialize project');
@@ -131,7 +133,3 @@ fail('initialize', 'initialize:failed');
 // [Optional] if deploy fails automatically unlock.
 after('deploy:failed', 'deploy:unlock');
 after('initialize:failed', 'deploy:unlock');
-
-// Migrate database before symlink new release.
-
-before('deploy:symlink', 'artisan:migrate');
