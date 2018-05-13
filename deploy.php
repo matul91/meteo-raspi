@@ -108,7 +108,7 @@ task('initialize', [
     'deploy:vendors',
     'deploy:writable',
     'artisan:migrate:fresh', // make clean version of db
-    'db:seed', // seed production data
+    'artisan:db:seed', // seed production data
     'passport:install', // install passport
     'set:secret', // set client secret
     'key:generate', // generate application key
