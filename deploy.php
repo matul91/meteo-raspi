@@ -26,7 +26,8 @@ set('shared_dirs', [
 set('writable_dirs', [
     'bootstrap/cache',
     'vendor',
-    'shared/storage'
+    'storage',
+    'public/images/photos'
 ]);
 set('rsync', [
     'exclude' => [
