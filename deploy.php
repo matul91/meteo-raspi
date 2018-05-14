@@ -65,7 +65,9 @@ task('npm:build', function () {
 })->desc('Assets generation');
 
 task('db:seed', function () {
+    run('{{bin/php}} {{release_path}}/artisan db:seed --class=RolesTableSeeder');
     run('{{bin/php}} {{release_path}}/artisan db:seed --class=ProductionUsersTableSeeder');
+    run('{{bin/php}} {{release_path}}/artisan db:seed --class=SettingsTableSeeder');
 })->desc('Seed database');
 
 task('passport:install', function () {
@@ -85,17 +87,17 @@ task('deploy', [
     'deploy:lock',
     'deploy:release',
     'deploy:update_code',
-    'npm:install',
-    'npm:build',
     'deploy:shared',
     'deploy:vendors',
     'deploy:writable',
+    'artisan:migrate',
+    'npm:install',
+    'npm:build',
     'artisan:storage:link',
     'artisan:view:clear',
     'artisan:cache:clear',
     'artisan:config:cache',
     'artisan:optimize',
-    'artisan:migrate',
     'deploy:symlink',
     'deploy:unlock',
     'cleanup',
@@ -109,8 +111,8 @@ task('initialize', [
     'deploy:shared',
     'deploy:vendors',
     'deploy:writable',
-    //'artisan:migrate:fresh', // make clean version of db
-    //'artisan:db:seed', // seed production data
+    'artisan:migrate:fresh', // make clean version of db
+    'artisan:db:seed', // seed production data
     'passport:install', // install passport
     'set:secret', // set client secret
     'key:generate', // generate application key
