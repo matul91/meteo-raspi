@@ -15,7 +15,8 @@ class ProductionUsersTableSeeder extends Seeder
         $adminRole  = Role::where('name', 'admin')->first();
         $user = factory(App\User::class)->make([
             'name' => 'Administrator',
-            'email' => 'admin@osu.cz'
+            'email' => 'admin@osu.cz',
+            'password' => env('ADMIN_PASSWORD')
         ]);
         $user->save();
         $user->roles()->attach($adminRole);
