@@ -2,13 +2,13 @@
 
 namespace Tests\Browser;
 
-use App\Wind;
 use Tests\DuskTestCase;
-use Laravel\Dusk\Browser;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use App\Models\Weather\Records\Wind;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
 
 class ApiWindTest extends DuskTestCase
 {
+    use WithoutMiddleware;
 
     public function testApiWorking()
     {
@@ -18,7 +18,7 @@ class ApiWindTest extends DuskTestCase
 
     public function testExistLastRecord()
     {
-        $lastRecordFromDatabase = Wind::getLastRecord();
+        $lastRecordFromDatabase = Wind::last();
         if ($lastRecordFromDatabase != null) {
             $result = true;
         } else {
@@ -50,5 +50,28 @@ class ApiWindTest extends DuskTestCase
         }
 
         $this->assertTrue($result);
+    }
+
+    public function testStore()
+    {
+        $this->withoutMiddleware(['permissions']);
+
+        $testCases = [
+            ['speed' => 40, 'direction' => "ENE", 'result' => 200],
+            ['speed' => 30.286, 'direction' => "ENE", 'result' => 200],
+            ['speed' => 30.286, 'direction' => "EEE", 'result' => 422],
+            ['speed' => 90, 'direction' => "EEE", 'result' => 422],
+            ['speed' => -128, 'direction' => "ENE", 'result' => 422],
+            ['speed' => -128.6, 'direction' => "ENE", 'result' => 422]
+        ];
+
+        foreach ($testCases as $case) {
+            $response = $this->json(
+                'POST',
+                '/winds',
+                ['speed' => $case['speed'], 'direction' => $case['direction']]
+            );
+            $response->assertStatus($case['result']);
+        }
     }
 }

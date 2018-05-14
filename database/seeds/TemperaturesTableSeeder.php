@@ -2,6 +2,7 @@
 
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
+use App\Models\Weather\Records\Temperature;
 
 class TemperaturesTableSeeder extends Seeder
 {
@@ -25,7 +26,7 @@ class TemperaturesTableSeeder extends Seeder
                 $tempValue = $faker->numberBetween($min, $tempValue);
             }
 
-            $temperature = factory(App\Temperature::class)->make([
+            $temperature = factory(Temperature::class)->make([
                 'date' => $dateTime,
                 'temperature' => $tempValue
             ]);

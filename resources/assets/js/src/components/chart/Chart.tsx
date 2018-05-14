@@ -74,7 +74,7 @@ class Chart extends React.Component<IProps, IState> {
             `${this.props.name}: ${this.props.initialValue}${this.state.suffix}` : "Načítání";
 
         if (!this.props.loading) {
-            content = (
+            content = (!this.props.data) ? <p>There are no data to show.</p> : (
                 <div className="chart">
                     {this.props.error && <Alert type={this.props.error.type} cls={this.props.error.style}/>}
                     <DatetimeRangePicker
