@@ -14,7 +14,6 @@ set('ssh_multiplexing', true);
 set('writable_mode', 'chmod');
 set('writable_chmod_mode', '0775');
 set('repository', 'https://github.com/matul91/meteo-raspi.git');
-set('branch', 'feature/AT54-travis-deploy');
 set('keep_releases', 5);
 set('shared_files', [
     '.env'
@@ -50,7 +49,7 @@ host('raspi.jiri-matula.cz')
     ->stage('production')
     ->roles('app')
     ->set('deploy_path', '/var/www/html/raspi.jiri-matula.cz')
-    ->set('branch', 'master')
+    ->set('branch', 'feature/AT54-travis-deploy')
     ->user('deploy')
     ->port(22)
     ->identityFile('/tmp/deploy_rsa')
