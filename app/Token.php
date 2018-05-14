@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 class Token extends Model
 {
     protected $table = 'tokens';
+    protected $fillable = ['user_id', 'token'];
 
     public static function getTokenForGroups(array $arrayGroup)
     {
@@ -20,9 +21,6 @@ class Token extends Model
 
     public static function saveToken($request, $user)
     {
-        $FCMToken = self::firstOrCreate(['user_id' => $user->id, 'token' => $request->FCMToken]);
-        $FCMToken->user_id = $user->id;
-        $FCMToken->token = $request->FCMToken;
-        $FCMToken->save();
+        self::firstOrCreate(['user_id' => $user->id, 'token' => $request->FCMToken]);
     }
 }
