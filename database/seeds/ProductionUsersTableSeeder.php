@@ -16,7 +16,7 @@ class ProductionUsersTableSeeder extends Seeder
         $user = factory(App\User::class)->make([
             'name' => 'Administrator',
             'email' => 'admin@osu.cz',
-            'password' => env('ADMIN_PASSWORD')
+            'password' => bcrypt(config('database.password'))
         ]);
         $user->save();
         $user->roles()->attach($adminRole);

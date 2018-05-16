@@ -117,4 +117,15 @@ return [
 
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Production seeders values
+    |--------------------------------------------------------------------------
+    |
+    | These variables are used to generate production tables with secret passwords etc.
+    |
+    */
+
+    'password' => env('ADMIN_PASSWORD', 'secret'),
+
 ];
