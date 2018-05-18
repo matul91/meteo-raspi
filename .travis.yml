@@ -16,7 +16,7 @@ cache:
     - $HOME/.composer/cache
 
 addons:
-  ssh_known_hosts: $deploy_host
+  ssh_known_hosts: $DEPLOY_HOST
 
 before_install:
   - composer self-update

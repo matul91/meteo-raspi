@@ -45,11 +45,11 @@ set('rsync_src', function () {
 
 // Hosts
 
-host('raspi.jiri-matula.cz')
+host($_ENV['DEPLOY_HOST'])
     ->stage('production')
     ->roles('app')
-    ->set('deploy_path', '/var/www/html/raspi.jiri-matula.cz')
-    ->set('branch', 'feature/AT54-travis-deploy')
+    ->set('deploy_path', $_ENV['DEPLOY_PATH'])
+    ->set('branch', $_ENV['DEPLOY_BRANCH'])
     ->user('deploy')
     ->port(22)
     ->identityFile('/tmp/deploy_rsa')
