@@ -64,10 +64,14 @@ task('npm:build', function () {
     run('{{bin/npm}} run production');
 })->desc('Assets generation');
 
-task('db:seed', function () {
-    run('{{bin/php}} {{release_path}}/artisan db:seed --class=RolesTableSeeder');
-    run('{{bin/php}} {{release_path}}/artisan db:seed --class=ProductionUsersTableSeeder');
-    run('{{bin/php}} {{release_path}}/artisan db:seed --class=SettingsTableSeeder');
+task('production:migrate', function () {
+    run('{{bin/php}} {{release_path}}/artisan migrate:fresh --force');
+})->desc('Migrate clean database');
+
+task('production:seed', function () {
+    run('{{bin/php}} {{release_path}}/artisan db:seed --class=RolesTableSeeder --force');
+    run('{{bin/php}} {{release_path}}/artisan db:seed --class=ProductionUsersTableSeeder --force');
+    run('{{bin/php}} {{release_path}}/artisan db:seed --class=SettingsTableSeeder --force');
 })->desc('Seed database');
 
 task('passport:install', function () {
@@ -111,8 +115,8 @@ task('initialize', [
     'deploy:shared',
     'deploy:vendors',
     'deploy:writable',
-    'artisan:migrate:fresh', // make clean version of db
-    'db:seed', // seed production data
+    'production:migrate', // make clean version of db
+    'production:seed', // seed production data
     'passport:install', // install passport
     'set:secret', // set client secret
     'key:generate', // generate application key
