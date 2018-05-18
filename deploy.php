@@ -45,11 +45,11 @@ set('rsync_src', function () {
 
 // Hosts
 
-host($_ENV['DEPLOY_HOST'])
+host(getenv('DEPLOY_HOST'))
     ->stage('production')
     ->roles('app')
-    ->set('deploy_path', $_ENV['DEPLOY_PATH'])
-    ->set('branch', $_ENV['DEPLOY_BRANCH'])
+    ->set('deploy_path', getenv('DEPLOY_PATH'))
+    ->set('branch', getenv('DEPLOY_BRANCH'))
     ->user('deploy')
     ->port(22)
     ->identityFile('/tmp/deploy_rsa')
