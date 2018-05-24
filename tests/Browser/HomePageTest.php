@@ -13,7 +13,7 @@ class HomePageTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/')
-                    ->assertSee('Letiště Baška');
+                    ->assertSee('Lubno');
         });
     }
 }

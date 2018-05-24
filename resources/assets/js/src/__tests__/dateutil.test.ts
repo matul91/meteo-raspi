@@ -1,5 +1,5 @@
+/// <reference types="jest" />
 import * as Directions from "config/constants/directions";
-import {} from "jest";
 import DateUtil from "utils/DateUtil";
 
 describe("DateUtil", () => {
