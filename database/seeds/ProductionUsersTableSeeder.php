@@ -14,8 +14,8 @@ class ProductionUsersTableSeeder extends Seeder
     {
         $adminRole  = Role::where('name', 'admin')->first();
         $user = factory(App\User::class)->make([
-            'name' => 'Administrator',
-            'email' => 'admin@osu.cz',
+            'name' => config('database.name'),
+            'email' => config('database.email'),
             'password' => bcrypt(config('database.password'))
         ]);
         $user->save();

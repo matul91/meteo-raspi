@@ -127,5 +127,6 @@ return [
     */
 
     'password' => env('ADMIN_PASSWORD', 'secret'),
-
+    'name' => env('ADMIN_NAME', 'Administrator'),
+    'email' => env('ADMIN_EMAIL', 'admin@osu.cz'),
 ];
