@@ -1,6 +1,6 @@
+/// <reference types="jest" />
 import * as Directions from "config/constants/directions";
 import * as Values from "config/constants/values";
-import {} from "jest";
 import ArrayUtil from "utils/ArrayUtil";
 
 function generateTestArray(numOfElements: number): object[] {

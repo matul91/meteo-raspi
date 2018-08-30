@@ -75,7 +75,7 @@ class Chart extends React.Component<IProps, IState> {
 
         if (!this.props.loading) {
             content = (!this.props.data) ? <p>There are no data to show.</p> : (
-                <div className="chart">
+                <div className="chart mb-4">
                     {this.props.error && <Alert type={this.props.error.type} cls={this.props.error.style}/>}
                     <DatetimeRangePicker
                         onSubmit={this.refreshDataByDateChangeHandler}

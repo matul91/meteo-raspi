@@ -7,19 +7,16 @@ use Tests\DuskTestCase;
 
 class LoginPageTest extends DuskTestCase
 {
-
     public function testShowLoginPage()
     {
         $this->browse(function ($browser) {
             $browser->visit('/login')
-                ->assertSee('Letiště Baška');
+                ->assertSee('Lubno');
         });
     }
 
     public function testLoginUnsuccessful()
     {
-
-
         $this->browse(function ($browser) {
             $browser->visit('/login')
                 ->type('email', 'emailkterytamneni@osu.cz')
@@ -33,8 +30,6 @@ class LoginPageTest extends DuskTestCase
 
     public function testLoginSuccessfully()
     {
-
-
         $this->browse(function ($browser) {
             $browser->visit('/login')
                 ->type('email', 'lukas@osu.cz')

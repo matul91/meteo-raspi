@@ -1,7 +1,7 @@
+import HeaderClock from "components/clock/HeaderClock";
 import * as React from "react";
-import { Nav, Navbar, NavItem } from "react-bootstrap";
-import { LinkContainer } from "react-router-bootstrap";
 import { Link } from "react-router-dom";
+import { Col, Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink} from "reactstrap";
 
 interface IState {
     isOpen: boolean;
@@ -27,44 +27,49 @@ class UINavbar extends React.Component<IProps, IState> {
         const userInfo = this.getUserInfo();
 
         return (
-            <Navbar fluid={true} onToggle={this.toggleNav}>
-                <Navbar.Header>
-                    <Navbar.Brand>
-                        <Link to="/">Letiště Baška - LKBASK</Link>
-                    </Navbar.Brand>
-                    <Navbar.Toggle />
-                </Navbar.Header>
-                <Navbar.Collapse>
-                    {this.props.isAuthenticated && userLinks}
-                    {userInfo}
-                </Navbar.Collapse>
+            <Navbar color="light" light={true} expand="md">
+                <Col xs={3}>
+                    <Link to="/" className="navbar-brand"><strong>METEO </strong> RasPi - Lubno </Link>
+                </Col>
+                <Col xs={6} className={"text-center"}>
+                    <HeaderClock/>
+                </Col>
+                <Col xs={3}>
+                    <NavbarToggler onClick={this.toggleNav} />
+                    <Collapse isOpen={this.state.isOpen} navbar={true}>
+                        <Nav navbar={true}>
+                            {this.props.isAuthenticated && userLinks}
+                        </Nav>
+                        <Nav className="ml-auto" navbar={true}>
+                            {userInfo}
+                        </Nav>
+                    </Collapse>
+                </Col>
             </Navbar>
         );
     }
 
     private getUserLinks(): JSX.Element {
         return (
-            <Nav>
-                <LinkContainer to="/logged">
-                    <NavItem eventKey={1}>Uživatelská stránka</NavItem>
-                </LinkContainer>
-            </Nav>
+            <NavItem>
+                <Link to="/logged">Uživatelská stránka</Link>
+            </NavItem>
         );
     }
 
     private getUserInfo(): JSX.Element {
         let userInfo = (
-            <Nav pullRight={true}>
-                <LinkContainer to="/login">
-                    <NavItem eventKey={2}>Přihlásit se</NavItem>
-                </LinkContainer>
-            </Nav>
+            <NavItem>
+                <Link to="/login">Login</Link>
+            </NavItem>
         );
+
         if (this.props.isAuthenticated) {
             userInfo = (
-                <Navbar.Text pullRight={true}>
-                    Přihlášen jako: {this.props.user} <Link to="/logout" >Odhlásit se</Link>
-                </Navbar.Text>
+                <NavItem>
+                    Přihlášen jako: {this.props.user}
+                    <Link to="/logout">&nbsp; Odhlásit se</Link>
+                </NavItem>
             );
         }
 

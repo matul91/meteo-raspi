@@ -5,6 +5,8 @@ import { Grid } from "react-bootstrap";
 import * as Loadable from "react-loadable";
 import { connect } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { Col, Container, Row } from "reactstrap";
+import Footer from "./Footer";
 
 const AccessDenied = Loadable({ loader: () => import("components/pages/AccessDenied"), loading: PageLoading });
 const Index = Loadable({ loader: () => import("components/pages/Index"), loading: PageLoading });
@@ -13,34 +15,41 @@ const LoggedUser = Loadable({ loader: () => import("components/pages/LoggedUser"
 const Logout = Loadable({ loader: () => import("components/pages/Logout"), loading: PageLoading });
 const PageNotFound = Loadable({ loader: () => import("components/pages/PageNotFound"), loading: PageLoading });
 
-const Layout = (props) => {
-    let loggedRoutes = (
-        <Route path="/logged" component={AccessDenied} />
-    );
+interface IProps {
+   isAuthenticated: boolean;
+   user: string;
+}
 
-    if (props.isAuthenticated) {
-        loggedRoutes = (
-            <Route path="/logged" component={LoggedUser} />
+class Layout extends React.Component<IProps, null> {
+    public render(): JSX.Element {
+        return (
+            <BrowserRouter>
+                <React.Fragment>
+                    <header>
+                        <Navbar isAuthenticated={this.props.isAuthenticated} user={this.props.user} />
+                    </header>
+                    <Grid id="separator" fluid={true} />
+                    <Grid className="content flex-grow" fluid={true}>
+                        <Switch>
+                            <Route path="/login" component={Login} />
+                            <Route path="/logout" component={Logout} />
+                            {this.getRoutes()}
+                            <Route path="/" exact={true} component={Index} />
+                            <Route component={PageNotFound} />
+                        </Switch>
+                    </Grid>
+                    <Footer/>
+                </React.Fragment>
+            </BrowserRouter>
         );
     }
-
-    return (
-        <BrowserRouter>
-            <div id="main">
-                <Navbar isAuthenticated={props.isAuthenticated} user={props.user} />
-                <Grid fluid={true}>
-                    <Switch>
-                        <Route path="/login" component={Login} />
-                        <Route path="/logout" component={Logout} />
-                        {loggedRoutes}
-                        <Route path="/" exact={true} component={Index} />
-                        <Route component={PageNotFound} />
-                    </Switch>
-                </Grid>
-            </div>
-        </BrowserRouter>
-    );
-};
+    private getRoutes(): JSX.Element {
+        if (this.props.isAuthenticated) {
+            return <Route path="/logged" component={LoggedUser}/>;
+        }
+        return <Route path="/logged" component={AccessDenied} />;
+    }
+}
 
 const mapStateToProps = (state) => {
     return {

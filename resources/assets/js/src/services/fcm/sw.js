@@ -18,4 +18,4 @@ messaging.setBackgroundMessageHandler((payload) => {
     return self.registration.showNotification(payload.notification.title, notificationOptions);
 });
 
-workbox.precaching.precacheAndRoute(self.__precacheManifest);
+//workbox.precaching.precacheAndRoute(self.__precacheManifest);
