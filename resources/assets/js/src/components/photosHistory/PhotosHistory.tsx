@@ -5,12 +5,12 @@ const photos = [
     {
         alt: "photo 1",
         id: 1,
-        src: "http://via.placeholder.com/1920x1080",
+        src: "https://via.placeholder.com/1920x1080",
     },
     {
         alt: "photo 2",
         id: 2,
-        src: "http://via.placeholder.com/1920x1080",
+        src: "https://via.placeholder.com/1920x1080",
     },
 ];
 

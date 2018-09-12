@@ -2,6 +2,7 @@
 
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
+use App\Models\Weather\Records\Pressure;
 
 class PressuresTableSeeder extends Seeder
 {
@@ -25,7 +26,7 @@ class PressuresTableSeeder extends Seeder
                 $pressureValue = $faker->numberBetween($min, $pressureValue);
             }
 
-            $pressure = factory(App\Pressure::class)->make([
+            $pressure = factory(Pressure::class)->make([
                 'date' => $dateTime,
                 'pressure' => $pressureValue
             ]);

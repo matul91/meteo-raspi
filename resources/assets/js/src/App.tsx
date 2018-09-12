@@ -40,6 +40,6 @@ const app = (
     </Provider>
 );
 
-if (document.getElementById("app")) {
-    ReactDOM.render(app, document.getElementById("app"));
+if (document.getElementById("weather-app")) {
+    ReactDOM.render(app, document.getElementById("weather-app"));
 }

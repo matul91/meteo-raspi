@@ -18,19 +18,7 @@ class Index extends React.Component<IProps, void> {
         const charts = this.getCharts();
         if (this.props.isLoaded) {
             content = (
-                <React.Fragment>
-                    <Row>
-                        {charts}
-                    </Row>
-                    <Row>
-                        <Col md={6}>
-                            <AerialPhoto />
-                        </Col>
-                        <Col md={6}>
-                            <CurrentPhoto />
-                        </Col>
-                    </Row>
-                </React.Fragment>
+                <div/>
             );
         }
         return content;
@@ -39,7 +27,7 @@ class Index extends React.Component<IProps, void> {
     private getCharts(): JSX.Element[] {
         return Object.keys(this.props.dataSets).map((setName) => {
             return (
-                <Col md={6} key={this.props.dataSets[setName].columnName}>
+                <Col md={6} className="mb-4" key={this.props.dataSets[setName].columnName}>
                     <Chart
                         setName={setName}
                         data={this.props.dataSets[setName].data}

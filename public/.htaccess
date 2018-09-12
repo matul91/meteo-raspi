@@ -22,15 +22,4 @@
     # Handle static GZIP assets files
     RewriteCond %{HTTP:Accept-encoding} gzip
     RewriteCond %{REQUEST_FILENAME}\.gz -s
-    RewriteRule ^(.*)\.(js|css)$ $1\.$2\.gz [QSA]
-
-    <FilesMatch \.css\.gz$>
-        ForceType text/css
-        Header set Content-Encoding gzip
-    </FilesMatch>
-
-    <FilesMatch \.js\.gz$>
-        ForceType text/javascript
-        Header set Content-Encoding gzip
-    </FilesMatch>
 </IfModule>

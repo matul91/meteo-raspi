@@ -1,5 +1,5 @@
-import axios from "axios";
 import * as localStorageKeys from "config/constants/localStorage";
+import axios from "services/axios";
 import * as actionTypes from "store/actions/actionTypes";
 
 export const authStart = () => {
@@ -52,12 +52,12 @@ export const auth = (email, password) => {
             password,
             username: email,
         };
-        axios.post(process.env.MIX_OAUTH_ADD, data)
+        axios().post(process.env.MIX_OAUTH_ADD, data)
             .then((response) => {
                 const accessToken = response.data.access_token;
                 const expiresIn = response.data.expires_in;
-                const headerData = { Authorization: `Bearer ${accessToken}` };
-                dispatch(authGetUserInfo(headerData, accessToken, expiresIn));
+                localStorage.setItem(localStorageKeys.TOKEN, accessToken);
+                dispatch(authGetUserInfo(accessToken, expiresIn));
             })
             .catch((err) => {
                 dispatch(authFail(err.response.data.error));
@@ -65,15 +65,14 @@ export const auth = (email, password) => {
     };
 };
 
-export const authGetUserInfo = (headerData, accessToken, expiresIn) => {
+export const authGetUserInfo = (accessToken, expiresIn) => {
     return (dispatch) => {
         const expirationDate = new Date(new Date().getTime() + expiresIn);
-        axios.get(process.env.MIX_USER_PROFILE_ADD, {headers: headerData}).then((res) => {
-            localStorage.setItem(localStorageKeys.TOKEN, accessToken);
+        axios().get(process.env.MIX_USER_PROFILE_ADD).then((response) => {
             localStorage.setItem(localStorageKeys.EXPIRATION_DATE, expirationDate.toString());
-            localStorage.setItem(localStorageKeys.USER_ID, res.data.id);
-            localStorage.setItem(localStorageKeys.NAME, res.data.name);
-            dispatch(authSuccess(accessToken, res.data.id, res.data.name));
+            localStorage.setItem(localStorageKeys.USER_ID, response.data.id);
+            localStorage.setItem(localStorageKeys.NAME, response.data.name);
+            dispatch(authSuccess(accessToken, response.data.id, response.data.name));
             dispatch(checkAuthTimeout(expiresIn));
         }).catch((err) => {
             dispatch(authFail(err.response.data.error));

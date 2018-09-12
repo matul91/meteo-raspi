@@ -1,8 +1,8 @@
-import axios from "axios";
 import * as AlertStyles from "config/constants/alertStyles";
 import * as Errors from "config/constants/errors";
 import * as Positions from "config/constants/positions";
 import * as moment from "moment";
+import axios from "services/axios";
 import * as actionTypes from "store/actions/actionTypes";
 import ArrayUtil from "utils/ArrayUtil";
 import URLUtil from "utils/URLUtil";
@@ -72,7 +72,7 @@ export const initializeDataSet = (setName) => {
     return (dispatch, getState) => {
         const dataSet = getState().weather.dataSets[setName];
         const url = URLUtil.generateURLByPosition(dataSet.url, Positions.LATEST);
-        return axios.get(url).then((response) => {
+        return axios().get(url).then((response) => {
             let newData = {
                 ...dataSet,
                 initialDate: response.data.date,
@@ -116,7 +116,7 @@ export const refreshDataSet = (dateFrom: string, dateTo: string, setName: string
 
 const loadData = (dateFrom: string, dateTo: string, dataSet: any, direction = null) => {
     const url = URLUtil.generateURLByDates(dataSet.url, dateFrom, dateTo);
-    return axios.get(url).then((response: any) => {
+    return axios().get(url).then((response: any) => {
         let dataMeta;
         let data;
         const processedData = processResponse(response, dataSet.columnName);

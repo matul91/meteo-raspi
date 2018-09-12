@@ -2,6 +2,7 @@
 
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
+use App\Models\Weather\Records\Wind;
 
 class WindsTableSeeder extends Seeder
 {
@@ -25,7 +26,7 @@ class WindsTableSeeder extends Seeder
                 $speed = $faker->numberBetween($min, $speed);
             }
 
-            $wind = factory(App\Wind::class)->make([
+            $wind = factory(Wind::class)->make([
                 'date' => $dateTime,
                 'speed' => $speed
             ]);

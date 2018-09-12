@@ -7,7 +7,6 @@
         "prewatch": "npm run cleanup",
         "prehot": "npm run cleanup",
         "preproduction": "npm run cleanup",
-        "postinstall": "npm run prod",
         "dev": "npm run development",
         "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
         "watch": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
@@ -18,7 +17,7 @@
     },
     "devDependencies": {
         "@firebase/app-types": "0.1.0",
-        "@types/jest": "^22.2.2",
+        "@types/jest": "^23.1.4",
         "@types/react": "^16.0.22",
         "@types/react-dom": "^16.0.3",
         "@types/react-loadable": "^5.3.3",
@@ -27,7 +26,7 @@
         "@types/react-swipeable": "^4.2.0",
         "@types/validator": "^9.4.0",
         "babel-preset-react": "^6.23.0",
-        "bootstrap-sass": "^3.3.7",
+        "bootstrap": "^4.0.0",
         "cross-env": "^5.0.1",
         "laravel-mix": "2.1.11",
         "lodash": "^4.17.4",
@@ -43,8 +42,9 @@
     "dependencies": {
         "axios": "^0.17.0",
         "compression-webpack-plugin": "^1.1.10",
+        "downsample-lttb": "^0.0.1",
         "firebase": "^4.12.1",
-        "jest": "^22.4.3",
+        "jest": "^23.3.0",
         "moment": "^2.19.2",
         "production": "0.0.2",
         "prop-types": "^15.6.0",
@@ -52,12 +52,14 @@
         "react-bootstrap": "^0.32.1",
         "react-datetime": "^2.11.0",
         "react-dom": "^16.0.0",
+        "react-live-clock": "^2.0.3",
         "react-loadable": "^5.3.1",
         "react-redux": "^5.0.6",
         "react-router": "^4.2.0",
         "react-router-bootstrap": "^0.24.4",
         "react-router-dom": "^4.2.2",
         "react-swipeable": "^4.2.0",
+        "reactstrap": "^6.0.1",
         "recharts": "^1.0.0-beta.10",
         "redux": "^3.7.2",
         "redux-thunk": "^2.2.0",
@@ -80,7 +82,8 @@
             "^.+\\.(ts|tsx)$": "ts-jest"
         },
         "testMatch": [
-            "<rootDir>/resources/assets/js/src/__tests__/*.test.+(ts|tsx|js)"
-        ]
+            "**/__tests__/**/*.ts?(x)"
+        ],
+        "testURL": "http://localhost"
     }
 }

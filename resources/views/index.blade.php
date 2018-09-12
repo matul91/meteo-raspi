@@ -8,7 +8,7 @@
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ config('app.name', 'Meteo RasPi') }}</title>
 
         <!-- Styles -->
         <link href="{{ mix('css/app.css') }}" rel="stylesheet">
@@ -17,7 +17,7 @@
         <link rel="manifest" href="{{ asset('manifest.json') }}">
     </head>
     <body>
-        <div id="app"></div>
+        <div id="weather-app" class="d-flex flex-column"></div>
         <!-- Scripts -->
         <script src="{{ mix('js/manifest.js') }}"></script>
         <script src="{{ mix('js/vendor.js') }}"></script>

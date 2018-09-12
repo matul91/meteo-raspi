@@ -14,9 +14,17 @@ cache:
   directories:
     - $HOME/.composer/cache
 
-before_script:
-  - travis_retry composer self-update
+addons:
+  ssh_known_hosts: $DEPLOY_HOST
+
+before_install:
+  - composer self-update
+
+install:
   - travis_retry composer install --no-interaction --prefer-dist
+  - npm install
+
+before_script:
   - vendor/bin/phpcs -p --standard=PSR2 --ignore="vendor,resources,storage,public,node_modules,database,bootstrap" ./
   - mysql -e 'create database meteoraspi;'
   - export DISPLAY=:99.0
@@ -28,11 +36,31 @@ before_script:
   - php artisan db:seed
   - php artisan passport:install
   - php artisan set:client_secret .env
-  - npm install
+  - npm run prod
   - node_modules/.bin/tslint --project tsconfig.json
-  - npm run production
   - php artisan serve &
 
 script:
   - npm run test
   - php artisan dusk
+
+before_deploy:
+  - openssl aes-256-cbc -K $encrypted_4d43efaba550_key -iv $encrypted_4d43efaba550_iv -in deploy_rsa.enc -out /tmp/deploy_rsa -d
+  - eval "$(ssh-agent -s)"
+  - chmod 600 /tmp/deploy_rsa
+  - ssh-add /tmp/deploy_rsa
+
+deploy:
+  provider: script
+  skip_cleanup: true
+  script: php vendor/bin/dep deploy production
+  on:
+    branch: $DEPLOY_BRANCH
+
+notifications:
+  email: false
+  slack:
+    rooms:
+      secure: QHVrAysZ2zvQVRwG9X3PiX9IZagqxh81k9AhfEKrvFNhfMAzi+EOGon4unsDBYmS0ZWOdt2lsDlHSUXCeCPzRssTYo/Qn/Gbo8YJEECCIZXXInBFPwV5L0rvB61PW4WYf8duWtInSBAfWqB2EuhVuabdNgC8OVcfo7JCibrrnD0z25xo3n1Nl0/IF8OlFOsnp9VhWw4moUHNR1st2Uu+/RPdSe1wotrt+klSwQqDY+INWiV/GKQq/0RLYxynWRk9Yq27ArYn1AA7v3Ha9hT2DzgS/T9pTdCt7P03J17jV6Mebi/XJgKHWcKzNmAxdPgN08d58tgdtUlQxUQJ7oxFgrEiqBVGTzobBi/u68Zr2dr8bOc8c5eI42ktjht7SpLZvIWjPERWAj7XnKw2JUlcHfcEYSAlnbzZ3b2a+UcksYSuCyynVtAEza4cs4XRR2dXx54arK/24njQ/1bCNpbH/kCMopupdyZJnT+0iaPe+1TenDLYpXVYts4xz9P8RyzmOR1s1YQg6ehG/LbpTv8Hq3TN5QzLUV8SCpS/M2xSaREJiIN3nXnDUwvlb7RavCxXQ83ZffCF9r9XYsHv8t8tIUTaTsrzE6Yg9G26vcJUJ6QxnMy9YyYVXScHnEoK63bcJTTP+CEqJRhYJOeeDz87Aobw9azcZVuEeYvGUOvErug=
+    on_success: change
+    on_failure: always

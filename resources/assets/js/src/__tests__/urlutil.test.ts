@@ -1,4 +1,4 @@
-import {} from "jest";
+/// <reference types="jest" />
 import URLUtil from "utils/URLUtil";
 
 describe("URLUtil", () => {
