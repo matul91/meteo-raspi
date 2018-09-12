@@ -2,7 +2,7 @@ import WindDirection from "components/windDirection/WindDirection";
 import * as React from "react";
 import { Panel } from "react-bootstrap";
 
-const AerialPhoto = (props) => {
+const AerialPhoto = () => {
     return (
         <Panel className="current-photo">
             <Panel.Heading>
@@ -10,7 +10,11 @@ const AerialPhoto = (props) => {
             </Panel.Heading>
             <Panel.Body>
                 <WindDirection />
-                <img src="/images/map-google.JPG" alt="Aerial Photo" className="img-responsive" />
+                <img
+                    src="/images/map-seznam-3D-lubno.jpg"
+                    alt="Aerial Photo"
+                    className="img-responsive"
+                />
             </Panel.Body>
         </Panel>
     );

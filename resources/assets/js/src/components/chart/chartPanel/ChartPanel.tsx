@@ -1,14 +1,14 @@
 import * as React from "react";
-import { Panel } from "react-bootstrap";
+import { Card,  CardBody, CardTitle } from "reactstrap";
 
 const ChartPanel = (props) => {
     return (
-        <Panel className="panel panel-default">
-            <Panel.Heading>
-                <Panel.Title>{props.heading}</Panel.Title>
-            </Panel.Heading>
-            <Panel.Body>{props.children}</Panel.Body>
-        </Panel>
+        <Card>
+            <CardBody>
+                <CardTitle>{props.heading}</CardTitle>
+                {props.children}
+            </CardBody>
+        </Card>
     );
 };
 
