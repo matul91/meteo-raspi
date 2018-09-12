@@ -1,5 +1,5 @@
+/// <reference types="jest" />
 import * as validators from "config/validators";
-import {} from "jest";
 
 describe("Validators", () => {
     it("check if required validator returns error text for missing value", () => {
