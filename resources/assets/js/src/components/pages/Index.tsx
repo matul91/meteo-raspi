@@ -3,8 +3,12 @@ import Chart from "components/chart/Chart";
 import CurrentPhoto from "components/currentPhoto/CurrentPhoto";
 import Loading from "components/loading/Loading";
 import * as React from "react";
-import { Col, Row } from "react-bootstrap";
 import { connect } from "react-redux";
+import { Col, Media, Row } from "reactstrap";
+import {Route} from "react-router";
+import StatusAlerts from "../statusAlerts/StatusAlerts";
+import { Alert } from "reactstrap";
+import Icon from "components/svgIcon/SvgIcon";
 
 interface IProps {
     dataSets: any;
@@ -18,7 +22,35 @@ class Index extends React.Component<IProps, void> {
         const charts = this.getCharts();
         if (this.props.isLoaded) {
             content = (
-                <div/>
+                <Row className="no-gutters">
+                    <Col xs={3}>
+                        <Alert color="primary">
+                            <div className="d-flex">
+                                <div className="p-2">
+                                    <span>Poslední <br/> snímky</span>
+                                </div>
+                                <div className="p-2 ml-auto align-self-center" >
+                                    <Icon kind="history" />
+                                </div>
+                            </div>
+                        </Alert>
+                        <div>
+                            <div className="d-flex justify-content-end mb-4">
+                                <img className="img-fluid img-snapshot" src="/images/camera-pic.png" />
+                            </div>
+                            <div className="d-flex justify-content-end mb-4">
+                                <img className="img-fluid img-snapshot" src="/images/camera-pic.png" />
+                            </div>
+                            <div className="d-flex justify-content-end mb-4">
+                                <img className="img-fluid img-snapshot" src="/images/camera-pic.png" />
+                            </div>
+                        </div>
+                    </Col>
+                    <Col xs={6} />
+                    <Col xs={3}>
+                        <StatusAlerts/>
+                    </Col>
+                </Row>
             );
         }
         return content;
