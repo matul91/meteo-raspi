@@ -1,0 +1,8 @@
+exclude_patterns:
+- "config/"
+- "bootstrap/"
+- "storage/"
+- "tests/"
+- "vendor/"
+- "resources/views/vendor/"
+- "resources/assets/js/src/components/svgIcon/SvgIcon.tsx"
