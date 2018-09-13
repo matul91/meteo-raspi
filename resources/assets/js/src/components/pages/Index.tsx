@@ -3,8 +3,9 @@ import Chart from "components/chart/Chart";
 import CurrentPhoto from "components/currentPhoto/CurrentPhoto";
 import Loading from "components/loading/Loading";
 import * as React from "react";
-import { Col, Row } from "react-bootstrap";
 import { connect } from "react-redux";
+import { Alert, Col, Media, Row } from "reactstrap";
+import StatusAlerts from "../statusAlerts/StatusAlerts";
 
 interface IProps {
     dataSets: any;
@@ -18,7 +19,13 @@ class Index extends React.Component<IProps, void> {
         const charts = this.getCharts();
         if (this.props.isLoaded) {
             content = (
-                <div/>
+                <Row className="no-gutters">
+                    <Col xs={3}/>
+                    <Col xs={6}/>
+                    <Col xs={3}>
+                        <StatusAlerts/>
+                    </Col>
+                </Row>
             );
         }
         return content;

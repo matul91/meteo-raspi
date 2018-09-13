@@ -29,7 +29,7 @@ class Layout extends React.Component<IProps, null> {
                         <Navbar isAuthenticated={this.props.isAuthenticated} user={this.props.user} />
                     </header>
                     <Grid id="separator" fluid={true} />
-                    <Grid className="content flex-grow" fluid={true}>
+                    <Grid className="content flex-grow px-0" fluid={true}>
                         <Switch>
                             <Route path="/login" component={Login} />
                             <Route path="/logout" component={Logout} />
