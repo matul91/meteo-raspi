@@ -82,6 +82,13 @@ abstract class Record extends Model
         return self::orderBy('date', 'desc')->first();
     }
 
+    public static function latest(int $limit = 5)
+    {
+        return self::limit($limit)
+            ->orderBy('date', 'desc')
+            ->get();
+    }
+
     protected static function boot()
     {
         parent::boot();
