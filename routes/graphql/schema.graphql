@@ -1,4 +1,4 @@
-#import ./Weather/weatherMetrics.graphql
+#import ./Weather/weatherRecordsTypes.graphql
 
 type Query {
     latestPressures: [Pressure]
