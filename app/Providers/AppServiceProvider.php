@@ -14,7 +14,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if ($this->app->environment('production')) {
+        if ($this->app->environment() === 'production') {
             \URL::forceScheme('https');
         }
     }
@@ -26,8 +26,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        if ($this->app->environment('testing', 'local')) {
-            $this->app->register(DuskServiceProvider::class);
-        }
+        $this->app->register(DuskServiceProvider::class);
     }
 }

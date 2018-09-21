@@ -26,6 +26,8 @@ install:
 
 before_script:
   - vendor/bin/phpcs -p --standard=PSR2 --ignore="vendor,resources,storage,public,node_modules,database,bootstrap" ./
+  - php artisan code:analyse
+  - node_modules/.bin/tslint --project tsconfig.json
   - mysql -e 'create database meteoraspi;'
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
@@ -37,7 +39,6 @@ before_script:
   - php artisan passport:install
   - php artisan set:client_secret .env
   - npm run prod
-  - node_modules/.bin/tslint --project tsconfig.json
   - php artisan serve &
 
 script:
