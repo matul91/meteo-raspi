@@ -2,12 +2,10 @@
 
 return [
     // Route for the frontend
-    'route' => 'api',
+    'route' => 'graphql-playground',
     
     // Which middleware to apply, if any
-    'middleware' => [
-        // 'web',
-    ],
+    'middleware' => [],
     
     // Route for the GraphQL endpoint
     'endpoint' => 'graphql',
