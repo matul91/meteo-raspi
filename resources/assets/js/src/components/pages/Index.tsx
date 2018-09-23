@@ -1,14 +1,9 @@
-import AerialPhoto from "components/aerialPhoto/AerialPhoto";
 import Chart from "components/chart/Chart";
-import CurrentPhoto from "components/currentPhoto/CurrentPhoto";
 import Loading from "components/loading/Loading";
+import Icon from "components/svgIcon/SvgIcon";
 import * as React from "react";
 import { connect } from "react-redux";
-import { Col, Media, Row } from "reactstrap";
-import {Route} from "react-router";
-import StatusAlerts from "../statusAlerts/StatusAlerts";
-import { Alert } from "reactstrap";
-import Icon from "components/svgIcon/SvgIcon";
+import { Alert, Col, Media, Row } from "reactstrap";
 
 interface IProps {
     dataSets: any;
@@ -48,7 +43,6 @@ class Index extends React.Component<IProps, void> {
                     </Col>
                     <Col xs={6} />
                     <Col xs={3}>
-                        <StatusAlerts/>
                     </Col>
                 </Row>
             );
