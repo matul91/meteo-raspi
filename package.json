@@ -2,6 +2,7 @@
     "private": true,
     "scripts": {
         "test": "jest",
+        "tslint-fix": "tslint --fix --project tsconfig.json",
         "cleanup": "rimraf public/css public/fonts \"public/images/!(photos)\" public/js public/mix-manifest.json public/firebase-messaging-sw.js public/sw-assets",
         "predevelopment": "npm run cleanup",
         "prewatch": "npm run cleanup",
@@ -40,15 +41,18 @@
         "workbox-webpack-plugin": "^3.1.0"
     },
     "dependencies": {
+        "apollo-boost": "^0.1.16",
         "axios": "^0.17.0",
         "compression-webpack-plugin": "^1.1.10",
         "downsample-lttb": "^0.0.1",
         "firebase": "^4.12.1",
+        "graphql": "^14.0.2",
         "jest": "^23.3.0",
         "moment": "^2.19.2",
         "production": "0.0.2",
         "prop-types": "^15.6.0",
         "react": "^16.0.0",
+        "react-apollo": "^2.1.11",
         "react-bootstrap": "^0.32.1",
         "react-datetime": "^2.11.0",
         "react-dom": "^16.0.0",
