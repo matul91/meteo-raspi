@@ -12,12 +12,6 @@ use LaravelFCM\Facades\FCM;
 
 class FCMToken
 {
-    /**
-     * @param $title = title (plain text)
-     * @param $body = message (plain text)
-     * @param $data = array example: ['key' => 'value', 'key2' => 'value2'] this is for future use
-     * @param $groupArray = array example: ['admin', 'modeller']
-     */
     public static function sendPhotoNotification($title, $body, $data, $groupArray)
     {
         $minutesPerNotification = Setting::getByID('minutes_per_notification_photo')->value;
