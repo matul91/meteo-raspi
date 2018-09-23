@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 class LatestTemperatures
 {
-    /** @return Temperatures[]|Collection */
+    /** @return Temperature[]|Collection */
     public function resolve(): Collection
     {
         return Temperature::latest();
