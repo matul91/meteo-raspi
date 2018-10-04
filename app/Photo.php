@@ -25,6 +25,15 @@ class Photo extends Model
     {
         return self::orderBy('id', 'desc')->first();
     }
+    public static function getLastDetectionRecord()
+    {
+        $detectionRecord = self::where('metaInfo', 'like', '%Person%')
+            ->orWhere('metaInfo', 'like', '%Car%')
+            ->orderBy('id', 'desc')->first();
+
+        $detectionRecord->lastPhoto = self::isLastRecord($detectionRecord->id);
+        return $detectionRecord;
+    }
 
     private static function saveImage($file)
     {
@@ -56,5 +65,16 @@ class Photo extends Model
             $result = false;
         }
         return $result;
+    }
+
+    private static function isLastRecord($id)
+    {
+        $lastRecord = self::orderBy('id', 'desc')->first();
+        if ($lastRecord->id == $id) {
+            $return = true;
+        } else {
+            $return = false;
+        }
+        return $return;
     }
 }

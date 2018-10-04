@@ -17,6 +17,16 @@ class PhotoController extends Controller
         return Photo::getAllRows();
     }
 
+    public function last()
+    {
+        return Photo::getLastRecord();
+    }
+
+    public function lastDetection()
+    {
+        return Photo::getLastDetectionRecord();
+    }
+
     public function savePhoto(\Illuminate\Http\Request $request)
     {
         $value = Photo::processImageFromApi($request);

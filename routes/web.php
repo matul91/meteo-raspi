@@ -28,6 +28,9 @@ Route::get('/winds', 'WindController@index');
 Route::post('/winds', 'WindController@store')->middleware('permissions:admin');
 Route::get('/winds/latest', 'WindController@latest');
 
+
+Route::get('/photo/detection/last', 'PhotoController@lastDetection');
+Route::get('/photo/last', 'PhotoController@last');
 Route::get('/photo', 'PhotoController@index');
 Route::get('/photo/all', 'PhotoController@all');
 Route::post('/photo/save', 'PhotoController@savePhoto')->middleware('chekweatherstation');
