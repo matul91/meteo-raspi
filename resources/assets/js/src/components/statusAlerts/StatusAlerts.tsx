@@ -14,7 +14,7 @@ const StatusAlerts = () => {
             <Alert color="warning" className="float-right pr-4">
                 <Icon kind="warning" size={25} />
                 <span className={"pl-2 align-middle"}>
-                A do prdele, dneska je to spíše na trenažér.
+                    Dneska je to spíše na trenažér.
                 </span>
             </Alert>
             <Alert color="danger" className="float-right pr-4 ">
