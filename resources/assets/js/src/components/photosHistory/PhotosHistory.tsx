@@ -1,43 +1,47 @@
+import Icon from "components/svgIcon/SvgIcon";
 import * as React from "react";
-import { Carousel, Panel } from "react-bootstrap";
+import { Alert } from "reactstrap";
 
-const photos = [
-    {
-        alt: "photo 1",
-        id: 1,
-        src: "https://via.placeholder.com/1920x1080",
-    },
-    {
-        alt: "photo 2",
-        id: 2,
-        src: "https://via.placeholder.com/1920x1080",
-    },
-];
+interface IProps {
+    imageLinks?: string[];
+}
 
-export default class PhotosHistory extends React.Component {
+export default class PhotosHistory extends React.Component<IProps> {
+
+    private static defaultProps = {
+        imageLinks: [
+            "/images/camera-picture.png",
+            "/images/camera-picture.png",
+            "/images/camera-picture.png",
+        ],
+    };
+
     public render(): JSX.Element {
-        const carouselItems = this.getCarouselItems();
-
         return (
-            <Panel>
-                <Panel.Heading>
-                    <Panel.Title>Photos history viewer</Panel.Title>
-                </Panel.Heading>
-                <Panel.Body>
-                    <Carousel>
-                        {carouselItems}
-                    </Carousel>
-                </Panel.Body>
-            </Panel>
+            <React.Fragment>
+                <Alert color="primary">
+                    <div className="d-flex">
+                        <div className="p-2">
+                            <span className="text-uppercase">Poslední <br/> snímky</span>
+                        </div>
+                        <div className="p-2 ml-auto align-self-center" >
+                            <Icon kind="history" />
+                        </div>
+                    </div>
+                </Alert>
+                <div>
+                    {this.getImages()}
+                </div>
+            </React.Fragment>
         );
     }
 
-    private getCarouselItems(): JSX.Element[] {
-        return photos.map((photo) => {
+    private getImages(): JSX.Element[] {
+        return this.props.imageLinks.map((imageLink, index) => {
             return (
-                <Carousel.Item key={photo.id}>
-                    <img alt={photo.alt} src={photo.src} className="img-responsive" />
-                </Carousel.Item>
+                <div key={index} className="d-flex justify-content-end mb-4">
+                    <img className="img-fluid img-snapshot" src={imageLink} />
+                </div>
             );
         });
     }

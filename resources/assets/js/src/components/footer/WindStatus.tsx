@@ -2,6 +2,7 @@ import * as React from "react";
 import { Col, Container, Row } from "reactstrap";
 
 export default class WindStatus extends React.PureComponent {
+
     public render(): JSX.Element {
         return (
             <React.Fragment>

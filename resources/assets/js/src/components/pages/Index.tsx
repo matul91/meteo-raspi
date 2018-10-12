@@ -1,4 +1,5 @@
 import Loading from "components/loading/Loading";
+import PhotosHistory from "components/photosHistory/PhotosHistory";
 import StatusAlerts from "components/statusAlerts/StatusAlerts";
 import * as React from "react";
 import { connect } from "react-redux";
@@ -16,7 +17,9 @@ class Index extends React.Component<IProps, void> {
         if (this.props.isLoaded) {
             content = (
                 <Row className="no-gutters">
-                    <Col xs={3}/>
+                    <Col xs={3}>
+                        <PhotosHistory/>
+                    </Col>
                     <Col xs={6}/>
                     <Col xs={3}>
                         <StatusAlerts/>
