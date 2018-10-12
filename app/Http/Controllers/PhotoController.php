@@ -14,7 +14,7 @@ class PhotoController extends Controller
 
     public function all(\Illuminate\Http\Request $request)
     {
-        return Photo::getAllRows($request);
+        return Photo::getAllRows();
     }
 
     public function savePhoto(\Illuminate\Http\Request $request)

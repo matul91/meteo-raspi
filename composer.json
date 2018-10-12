@@ -12,7 +12,9 @@
         "laravel/dusk": "^3.0",
         "laravel/framework": "5.6.*",
         "laravel/passport": "^5.0",
-        "laravel/tinker": "~1.0"
+        "laravel/tinker": "~1.0",
+        "mll-lab/laravel-graphql-playground": "^0.3.1",
+        "nuwave/lighthouse": "^2.1"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.1",
@@ -20,6 +22,7 @@
         "deployer/recipes": "^6.1",
         "filp/whoops": "~2.0",
         "mockery/mockery": "~1.0",
+        "nunomaduro/larastan": "^0.2.10",
         "phpunit/phpunit": "^7.0",
         "squizlabs/php_codesniffer": "3.2.*"
     },
