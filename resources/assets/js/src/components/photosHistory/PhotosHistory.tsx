@@ -1,6 +1,6 @@
-import Alert from "components/alert/Alert";
 import Icon from "components/svgIcon/SvgIcon";
 import * as React from "react";
+import { Alert } from "reactstrap";
 
 interface IProps {
     imageLinks?: string[];
@@ -22,7 +22,7 @@ export default class PhotosHistory extends React.Component<IProps> {
                 <Alert color="primary">
                     <div className="d-flex">
                         <div className="p-2">
-                            <span>Poslední <br/> snímky</span>
+                            <span className="text-uppercase">Poslední <br/> snímky</span>
                         </div>
                         <div className="p-2 ml-auto align-self-center" >
                             <Icon kind="history" />
