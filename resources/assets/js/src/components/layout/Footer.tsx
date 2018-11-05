@@ -13,13 +13,57 @@ interface Response {
     latestTemperatures: TemperatureRecord[];
 }
 
+const LATEST_WEATHER_RECORD_QUERY = gql`
+    {
+        latestTemperatures {
+            temperature
+            date
+        }
+
+        latestWinds {
+            speed
+            direction
+            date
+        }
+
+        latestPressures {
+            pressure
+            date
+        }
+    }
+`;
+
 class Footer extends React.PureComponent<ChildProps<{}, Response>> {
 
     public render(): JSX.Element {
         const {latestPressures, latestTemperatures, latestWinds, loading} = this.props.data;
-        const pressures = (<PressureOverview loading={loading} pressureRecords={latestPressures}/>);
-        const winds = (<WindOverview loading={loading} windRecords={latestWinds}/>);
-        const temperatures = (<TemperatureOverview loading={loading} temperatureRecords={latestTemperatures}/>);
+
+        const temperatures = (
+            <TemperatureOverview
+                requiredCellCount={4}
+                records={latestTemperatures}
+                loaderColor={"#6e96f2"}
+                isLoading={loading}
+            />
+        );
+
+        const pressures = (
+            <PressureOverview
+                requiredCellCount={3}
+                records={latestPressures}
+                loaderColor={"#66f000"}
+                isLoading={loading}
+            />
+        );
+
+        const winds = (
+            <WindOverview
+                requiredCellCount={4}
+                records={latestWinds}
+                loaderColor={"#ffb400"}
+                isLoading={loading}
+            />
+        );
 
         return (
             <Container fluid={true} className="mx-0 px-0">
@@ -42,26 +86,6 @@ class Footer extends React.PureComponent<ChildProps<{}, Response>> {
         );
     }
 }
-
-const LATEST_WEATHER_RECORD_QUERY = gql`
-    {
-        latestTemperatures {
-            temperature
-            date
-        }
-
-        latestWinds {
-            speed
-            direction
-            date
-        }
-
-        latestPressures {
-            pressure
-            date
-        }
-    }
-`;
 
 export default graphql(LATEST_WEATHER_RECORD_QUERY, {
     options: {

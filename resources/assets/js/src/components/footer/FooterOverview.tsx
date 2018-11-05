@@ -1,0 +1,49 @@
+import * as React from "react";
+import { connect } from "react-redux";
+import { Col, Container, Row } from "reactstrap";
+import {PressureRecord, TemperatureRecord, WindRecord} from "types/weather/WeatherRecords";
+
+interface Props {
+    records: TemperatureRecord[] | WindRecord[] | PressureRecord[];
+    requiredCellCount: number;
+    renderMainColumn: (
+        records: TemperatureRecord | WindRecord | PressureRecord,
+        unit: string,
+    ) => JSX.Element;
+    renderColumn: (
+        records: TemperatureRecord | WindRecord | PressureRecord,
+        unit: string,
+        last: boolean,
+    ) => JSX.Element;
+    unit: string;
+}
+
+export default class FooterOverview extends React.Component<Props> {
+
+    public render(): JSX.Element {
+        const {records, unit} = this.props;
+        return (
+            <React.Fragment>
+                {this.props.renderMainColumn(records[0], unit)}
+                {this.renderColumns()}
+            </React.Fragment>
+        );
+    }
+
+    protected  renderColumns() {
+        return [...Array(this.props.requiredCellCount)].map(
+            (value, index) => {
+                const {requiredCellCount, renderColumn, records, unit} = this.props;
+                if (index === 0) {
+                    return;
+                }
+                const last = index === requiredCellCount - 1;
+                return (
+                    <React.Fragment key={index}>
+                        {renderColumn(records[index], unit, last)}
+                    </React.Fragment>
+                );
+            },
+        );
+    }
+}
