@@ -13,5 +13,6 @@ type Temperature {
 type Wind {
     id: ID!
     speed: Float
+    direction: String
     date: String
 }

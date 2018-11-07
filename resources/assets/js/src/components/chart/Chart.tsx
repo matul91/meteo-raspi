@@ -115,7 +115,7 @@ class Chart extends React.Component<IProps, IState> {
     private mapDatesToShowingFormat(data: Array<{date: string, value: any}>): object[] {
         return data.map((obj) => {
             return {
-                date: moment(obj.date).format(DateFormats.SHOWED_DATE_FORMAT),
+                date: moment(obj.date).format(DateFormats.HOURS_AND_MINUTES),
                 value: obj.value,
             };
         });
