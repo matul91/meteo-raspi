@@ -7,8 +7,9 @@
         "tslint-react"
     ],
     "rules": {
+        "interface-name": false,
         "no-console": [false],
         "no-implicit-dependencies": false,
-        "no-submodule-imports": [true, "config", "store", "components", "utils", "services"]
+        "no-submodule-imports": [true, "config", "store", "components", "utils", "services", "types"]
     }
 }
