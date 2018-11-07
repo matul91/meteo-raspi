@@ -4,8 +4,9 @@ import { Col, Container, Row } from "reactstrap";
 import {PressureRecord, TemperatureRecord, WindRecord} from "types/weather/WeatherRecords";
 
 interface Props {
-    records: TemperatureRecord[] | WindRecord[] | PressureRecord[];
     requiredCellCount: number;
+    records: TemperatureRecord[] | WindRecord[] | PressureRecord[];
+    unit: string;
     renderMainColumn: (
         records: TemperatureRecord | WindRecord | PressureRecord,
         unit: string,
@@ -15,7 +16,6 @@ interface Props {
         unit: string,
         last: boolean,
     ) => JSX.Element;
-    unit: string;
 }
 
 export default class FooterOverview extends React.Component<Props> {

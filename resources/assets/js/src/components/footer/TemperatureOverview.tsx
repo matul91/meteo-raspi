@@ -10,14 +10,10 @@ import FooterOverview from "./FooterOverview";
 interface Props {
     requiredCellCount: number;
     records: TemperatureRecord[];
-    unit?: string;
+    unit: string;
 }
 
 class TemperatureOverview extends React.Component<Props> {
-
-    private static defaultProps = {
-        unit: "°C",
-    };
 
     constructor(props: Props, context: any) {
         super(props, context);

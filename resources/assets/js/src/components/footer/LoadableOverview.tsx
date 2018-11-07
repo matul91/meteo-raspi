@@ -7,7 +7,7 @@ interface Props {
     loaderColor: string;
     requiredCellCount: number;
     isLoading: boolean;
-    unit?: string;
+    unit: string;
 }
 
 const loadableOverview = (FooterOverview) =>

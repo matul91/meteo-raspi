@@ -10,14 +10,10 @@ import FooterOverview from "./FooterOverview";
 interface Props {
     requiredCellCount: number;
     records: PressureRecord[];
-    unit?: string;
+    unit: string;
 }
 
 class PressureOverview extends React.Component<Props> {
-
-    private static defaultProps = {
-        unit: "hPa",
-    };
 
     constructor(props: Props, context: any) {
         super(props, context);
@@ -43,7 +39,7 @@ class PressureOverview extends React.Component<Props> {
         return(
            <FooterMainColumn
                value={record.pressure}
-               digits={1}
+               digits={0}
                unit={unit}
                resolveClassModifier={this.resolveClassModifier}
                className={"pressure"}
@@ -55,7 +51,7 @@ class PressureOverview extends React.Component<Props> {
         return (
             <FooterColumn
                 value={record.pressure}
-                digits={1}
+                digits={0}
                 date={record.date}
                 unit={unit}
                 resolveClassModifier={this.resolveClassModifier}

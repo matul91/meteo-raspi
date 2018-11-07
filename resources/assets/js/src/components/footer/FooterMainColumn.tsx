@@ -12,11 +12,11 @@ interface Props {
 export default class FooterMainColumn extends React.Component<Props> {
 
     public render(): JSX.Element {
-        const {className, resolveClassModifier, value, unit} = this.props;
+        const {className, resolveClassModifier, value, digits, unit} = this.props;
         const classModifier = resolveClassModifier(value);
         return (
             <Col xs={6} className={`${classModifier} ${className}-main text-normal separator py-4`}>
-                {value.toFixed(0)} <span className="text-smaller">{unit}</span>
+                {value.toFixed(digits)} <span className="text-smaller">{unit}</span>
             </Col>
         );
     }

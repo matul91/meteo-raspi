@@ -36,41 +36,12 @@ const LATEST_WEATHER_RECORD_QUERY = gql`
 class Footer extends React.PureComponent<ChildProps<{}, Response>> {
 
     public render(): JSX.Element {
-        const {latestPressures, latestTemperatures, latestWinds, loading} = this.props.data;
-
-        const temperatures = (
-            <TemperatureOverview
-                requiredCellCount={4}
-                records={latestTemperatures}
-                loaderColor={"#6e96f2"}
-                isLoading={loading}
-            />
-        );
-
-        const pressures = (
-            <PressureOverview
-                requiredCellCount={3}
-                records={latestPressures}
-                loaderColor={"#66f000"}
-                isLoading={loading}
-            />
-        );
-
-        const winds = (
-            <WindOverview
-                requiredCellCount={4}
-                records={latestWinds}
-                loaderColor={"#ffb400"}
-                isLoading={loading}
-            />
-        );
-
         return (
             <Container fluid={true} className="mx-0 px-0">
                 <Row className="mx-0 px-0">
-                    {this.renderCol(temperatures, "temperature-overview")}
-                    {this.renderCol(winds, "wind-overview")}
-                    {this.renderCol(pressures, "pressure-overview")}
+                    {this.renderCol(this.temperatures(), "temperature-overview")}
+                    {this.renderCol(this.winds(), "wind-overview")}
+                    {this.renderCol(this.pressures(), "pressure-overview")}
                 </Row>
             </Container>
         );
@@ -83,6 +54,45 @@ class Footer extends React.PureComponent<ChildProps<{}, Response>> {
                     {children}
                 </Row>
             </Col>
+        );
+    }
+
+    protected temperatures(): JSX.Element {
+        const {latestTemperatures, loading} = this.props.data;
+        return (
+            <TemperatureOverview
+                requiredCellCount={4}
+                records={latestTemperatures}
+                unit={"°C"}
+                loaderColor={"#6e96f2"}
+                isLoading={loading}
+            />
+        );
+    }
+
+    protected winds(): JSX.Element {
+        const {latestWinds, loading} = this.props.data;
+        return (
+            <WindOverview
+                requiredCellCount={4}
+                records={latestWinds}
+                unit={"m/s"}
+                loaderColor={"#ffb400"}
+                isLoading={loading}
+            />
+        );
+    }
+
+    protected pressures(): JSX.Element {
+        const {latestPressures, loading} = this.props.data;
+        return (
+            <PressureOverview
+                requiredCellCount={3}
+                records={latestPressures}
+                unit={"hPa"}
+                loaderColor={"#66f000"}
+                isLoading={loading}
+            />
         );
     }
 }

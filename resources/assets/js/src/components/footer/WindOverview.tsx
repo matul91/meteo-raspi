@@ -10,14 +10,10 @@ import FooterMainColumn from "./FooterMainColumn";
 interface Props {
     requiredCellCount: number;
     records: WindRecord[];
-    unit?: string;
+    unit: string;
 }
 
 class WindOverview extends React.Component<Props> {
-
-    private static defaultProps = {
-        unit: "m/s",
-    };
 
     constructor(props: Props, context: any) {
         super(props, context);
