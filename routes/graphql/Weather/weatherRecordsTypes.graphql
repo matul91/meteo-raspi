@@ -13,6 +13,24 @@ type Temperature {
 type Wind {
     id: ID!
     speed: Float
-    direction: String
+    direction: WindDirection
     date: String
+}
+enum WindDirection {
+    N @enum(value: "N"),
+    NNE @enum(value: "NNE"),
+    NE @enum(value: "NE"),
+    ENE @enum(value: "ENE"),
+    E @enum(value: "E"),
+    ESE @enum(value: "ESE"),
+    SE @enum(value: "SE"),
+    SSE @enum(value: "SSE"),
+    S @enum(value: "S"),
+    SSW @enum(value: "SSW"),
+    SW @enum(value: "SW"),
+    WSW @enum(value: "WSW"),
+    W @enum(value: "W"),
+    WNW @enum(value: "WNW"),
+    NW @enum(value: "NW"),
+    NNW @enum(value: "NNW")
 }
