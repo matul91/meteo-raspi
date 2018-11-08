@@ -5,3 +5,9 @@ type Query {
     latestTemperatures: [Temperature]
     latestWinds: [Wind]
 }
+
+type Mutation {
+    recordTemperature(temperature: Float): Temperature @create(model: "App\\Models\\Weather\\Records\\Temperature")
+    recordPressure(pressure: Float): Pressure @create(model: "App\\Models\\Weather\\Records\\Pressure")
+    recordWind(speed: Float, direction: WindDirection): Wind @create(model: "App\\Models\\Weather\\Records\\Wind")
+}
