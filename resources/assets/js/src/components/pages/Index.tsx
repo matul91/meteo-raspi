@@ -1,6 +1,6 @@
 import Loading from "components/loading/Loading";
 import PhotosHistory from "components/photosHistory/PhotosHistory";
-import StatusAlerts from "components/statusAlerts/StatusAlerts";
+import SuccessAlert from "components/statusAlerts/SuccessAlert";
 import * as React from "react";
 import { connect } from "react-redux";
 import { Alert, Col, Media, Row } from "reactstrap";
