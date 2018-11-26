@@ -52,6 +52,7 @@
         "jest": "^23.3.0",
         "moment": "^2.19.2",
         "production": "0.0.2",
+        "progressively": "^1.2.5",
         "prop-types": "^15.6.0",
         "react": "^16.0.0",
         "react-apollo": "^2.1.11",
