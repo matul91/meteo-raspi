@@ -55,6 +55,8 @@ mix.react('resources/assets/js/src/App.tsx', 'public/js')
         ]
     })
     .copy('resources/assets/images', 'public/images', false)
+    .copy('node_modules/progressively/dist/progressively.min.css', 'public/css/progressively.css')
+    .copy('node_modules/progressively/dist/progressively.min.js', 'public/js/progressively.js')
     .extract(['react', 'redux', 'axios', 'recharts', 'moment', 'react-bootstrap', 'react-router-bootstrap', 'firebase']);
 
 
