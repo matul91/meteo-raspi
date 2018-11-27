@@ -1,11 +1,12 @@
 import PressureOverview from "components/footer/PressureOverview";
 import TemperatureOverview from "components/footer/TemperatureOverview";
 import WindOverview from "components/footer/WindOverview";
+import { ONE_MINUTE } from "config/constants/intervals";
 import gql from "graphql-tag";
 import * as React from "react";
 import { ChildProps, graphql } from "react-apollo";
 import { Col, Container, Row } from "reactstrap";
-import {PressureRecord, TemperatureRecord, WindRecord} from "types/weather/WeatherRecords";
+import { PressureRecord, TemperatureRecord, WindRecord } from "types/weather/WeatherRecords";
 
 interface Response {
     latestPressures: PressureRecord[];
@@ -99,6 +100,6 @@ class Footer extends React.PureComponent<ChildProps<{}, Response>> {
 
 export default graphql(LATEST_WEATHER_RECORD_QUERY, {
     options: {
-        pollInterval: 5000,
+        pollInterval: ONE_MINUTE,
     },
 })(Footer);

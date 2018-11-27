@@ -1,21 +1,10 @@
-type Pressure {
-    id: ID!
-    pressure: Int
-    date: String
-}
-
-type Temperature {
-    id: ID!
-    temperature: Float
-    date: String
-}
-
 type Wind {
     id: ID!
     speed: Float
     direction: WindDirection
     date: String
 }
+
 enum WindDirection {
     N @enum(value: "N"),
     NNE @enum(value: "NNE"),

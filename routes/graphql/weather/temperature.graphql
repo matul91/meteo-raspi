@@ -1,0 +1,5 @@
+type Temperature {
+    id: ID!
+    temperature: Float
+    date: String
+}

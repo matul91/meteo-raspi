@@ -1,0 +1,5 @@
+type Pressure {
+    id: ID!
+    pressure: Int
+    date: String
+}

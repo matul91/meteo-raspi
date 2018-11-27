@@ -1,0 +1,5 @@
+type Photo {
+    id: ID!
+    link: String @rename(attribute: "name")
+    createdAt: String @rename(attribute: "created_at")
+}

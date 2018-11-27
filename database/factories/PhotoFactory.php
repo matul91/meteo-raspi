@@ -15,8 +15,12 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Photo::class, function (Faker $faker) {
 
+    $folderName =  env('PHOTO_FOLDER_PATH') . date("Y") . DIRECTORY_SEPARATOR . date("m");
+    $storageFolder = "public" . DIRECTORY_SEPARATOR . $folderName;
+    $imageName = $faker->image($storageFolder, 1920, 1080, null, false);
+
     return [
-        'name' => $faker->image("public/" . env('PHOTO_FOLDER_PATH') . date("Y") . "/" . date("m"), 600, 600),
+        'name' => $folderName . DIRECTORY_SEPARATOR . $imageName,
         'metaInfo' => 'none'
     ];
 });

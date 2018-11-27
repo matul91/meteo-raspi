@@ -1,3 +1,4 @@
+import { DEFAULT_DATETIME_FORMAT } from "config/constants/dateFormats";
 import * as React from "react";
 import Clock from "react-live-clock";
 
@@ -8,7 +9,7 @@ const HeaderClock = () => {
                 <Clock format={"LT"} ticking={true} />
                 <span> | </span>
             </strong>
-            <Clock format={"dddd Do MMMM"} ticking={true}/>
+            <Clock format={DEFAULT_DATETIME_FORMAT} ticking={true}/>
         </React.Fragment>
     );
 };

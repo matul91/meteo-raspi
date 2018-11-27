@@ -26,6 +26,13 @@ class Photo extends Model
         return self::orderBy('id', 'desc')->first();
     }
 
+    public static function latest(int $limit = 5)
+    {
+        return self::limit($limit)
+            ->orderBy('created_at', 'desc')
+            ->get();
+    }
+
     private static function saveImage($file)
     {
         $destinationPath = env('PHOTO_FOLDER_PATH') . date(self::DATE_FORMAT_SORTING_BY_DATE);
@@ -36,25 +43,25 @@ class Photo extends Model
 
     private static function saveInfoToDatabase(string $pathInfo, string $baseName, \Illuminate\Http\Request $request)
     {
-        $photo = new Photo;
-        $photo->name = self::PUBLIC_FOLDER . "/" . $pathInfo . "/" . $baseName;
+        $photo = new Photo();
+        $photo->name = $pathInfo . "/" . $baseName;
         if ($request->input("metaInfo")) {
             $photo->metaInfo = $request->input("metaInfo");
         } else {
             $photo->metaInfo = "None";
         }
         $photo->save();
+
+        return $photo;
     }
 
     public static function processImageFromApi(\Illuminate\Http\Request $request)
     {
         if ($request->hasFile('photo')) {
             $file = self::saveImage($request->file('photo'));
-            self::saveInfoToDatabase($file->getPathInfo(), $file->getBasename(), $request);
-            $result = true;
-        } else {
-            $result = false;
+            return self::saveInfoToDatabase($file->getPathInfo(), $file->getBasename(), $request);
         }
-        return $result;
+
+        return null;
     }
 }
