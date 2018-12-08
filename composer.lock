@@ -1736,36 +1736,39 @@
         },
         {
             "name": "nuwave/lighthouse",
-            "version": "v2.2",
+            "version": "v2.6.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nuwave/lighthouse.git",
-                "reference": "7d3a7b6e2badfd6d357e1a7a5d133c1bc29dd3a4"
+                "reference": "8412d702609b417fa9780a40bf93743a72275e97"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nuwave/lighthouse/zipball/7d3a7b6e2badfd6d357e1a7a5d133c1bc29dd3a4",
-                "reference": "7d3a7b6e2badfd6d357e1a7a5d133c1bc29dd3a4",
+                "url": "https://api.github.com/repos/nuwave/lighthouse/zipball/8412d702609b417fa9780a40bf93743a72275e97",
+                "reference": "8412d702609b417fa9780a40bf93743a72275e97",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
-                "illuminate/contracts": "^5.4",
-                "illuminate/http": "^5.4",
-                "illuminate/pagination": "^5.4",
-                "illuminate/routing": "^5.4",
-                "illuminate/support": "^5.4",
+                "illuminate/contracts": "5.5.*|5.6.*|5.7.*",
+                "illuminate/http": "5.5.*|5.6.*|5.7.*",
+                "illuminate/pagination": "5.5.*|5.6.*|5.7.*",
+                "illuminate/routing": "5.5.*|5.6.*|5.7.*",
+                "illuminate/support": "5.5.*|5.6.*|5.7.*",
+                "illuminate/validation": "5.5.*|5.6.*|5.7.*",
                 "opis/closure": "^3.0",
                 "php": ">= 7.0",
                 "webonyx/graphql-php": "^0.12"
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^2.10",
-                "illuminate/validation": "^5.4",
                 "laravel/scout": "^4.0",
                 "mockery/mockery": "dev-master",
-                "orchestra/testbench": "^3.6",
-                "phpunit/phpunit": "^7.0"
+                "orchestra/database": "3.5.*|3.6.*|3.7.*@dev",
+                "orchestra/testbench": "3.5.*|3.6.*|3.7.*"
+            },
+            "suggest": {
+                "mll-lab/laravel-graphql-playground": "GraphQL IDE for better development workflows - integrated with Laravel"
             },
             "type": "library",
             "extra": {
@@ -1800,9 +1803,10 @@
             "keywords": [
                 "api",
                 "graphql",
-                "laravel"
+                "laravel",
+                "laravel-graphql"
             ],
-            "time": "2018-09-07T07:21:08+00:00"
+            "time": "2018-11-02T21:21:48+00:00"
         },
         {
             "name": "opis/closure",

@@ -1,48 +1,56 @@
-import Icon from "components/svgIcon/SvgIcon";
+import PhotoThumbnail from "components/photosHistory/PhotoThubmnail";
+import { ONE_MINUTE } from "config/constants/intervals";
+import gql from "graphql-tag";
 import * as React from "react";
-import { Alert } from "reactstrap";
+import {ChildProps, graphql} from "react-apollo";
+import { Alert, Col, Row } from "reactstrap";
+import { Photo } from "types/photo/Photo";
+import {Heading} from "./Heading";
 
-interface IProps {
-    imageLinks?: string[];
+interface Response {
+    latestPhotos: Photo[];
 }
 
-export default class PhotosHistory extends React.Component<IProps> {
+const LATEST_PHOTOS_QUERY = gql`
+    {
+        latestPhotos(limit: 3) {
+            link
+            createdAt
+        }
+    }
+`;
 
-    private static defaultProps = {
-        imageLinks: [
-            "/images/camera-picture.png",
-            "/images/camera-picture.png",
-            "/images/camera-picture.png",
-        ],
-    };
+class PhotosHistory extends React.Component<ChildProps<{}, Response>> {
 
     public render(): JSX.Element {
+        if (this.props.data.loading) {
+            return (<Heading isLoading={true}/>);
+        }
+
         return (
             <React.Fragment>
-                <Alert color="primary">
-                    <div className="d-flex">
-                        <div className="p-2">
-                            <span className="text-uppercase">Poslední <br/> snímky</span>
-                        </div>
-                        <div className="p-2 ml-auto align-self-center" >
-                            <Icon kind="history" />
-                        </div>
-                    </div>
-                </Alert>
-                <div>
-                    {this.getImages()}
-                </div>
+                <Heading isLoading={false}/>
+                <Row>
+                    <Col xs={6}/>
+                    <Col xs={6}>
+                        {this.getImages()}
+                    </Col>
+                </Row>
             </React.Fragment>
         );
     }
 
     private getImages(): JSX.Element[] {
-        return this.props.imageLinks.map((imageLink, index) => {
+        return this.props.data.latestPhotos.map((photo, index) => {
             return (
-                <div key={index} className="d-flex justify-content-end mb-4">
-                    <img className="img-fluid img-snapshot" src={imageLink} />
-                </div>
+               <PhotoThumbnail key={index} photo={photo}/>
             );
         });
     }
 }
+
+export default graphql(LATEST_PHOTOS_QUERY, {
+    options: {
+        pollInterval: ONE_MINUTE,
+    },
+})(PhotosHistory);
