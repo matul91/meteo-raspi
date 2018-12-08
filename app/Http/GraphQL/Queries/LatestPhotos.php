@@ -2,16 +2,24 @@
 
 namespace App\Http\GraphQL\Queries;
 
-use App\Photo;
+use App\Models\Photo;
+use App\Repositories\PhotoRepository;
 use GraphQL\Type\Definition\ResolveInfo;
-use Illuminate\Database\Eloquent\Collection;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 class LatestPhotos
 {
-    /** @return Photo[]|Collection */
-    public function resolve($root, array $args, GraphQLContext $context, ResolveInfo $info): Collection
+    /** @var PhotoRepository */
+    private $photoRepository;
+
+    public function __construct(PhotoRepository $photoRepository)
     {
-        return Photo::latest($args['limit']);
+        $this->photoRepository = $photoRepository;
+    }
+
+    /** @return Photo[] */
+    public function resolve(?string $root, array $args, GraphQLContext $context, ResolveInfo $info): array
+    {
+        return $this->photoRepository->latest($args['limit']);
     }
 }
