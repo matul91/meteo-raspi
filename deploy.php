@@ -20,13 +20,13 @@ set('shared_files', [
 ]);
 set('shared_dirs', [
     'storage',
-    'public/images/photos'
+    'public/photos'
 ]);
 set('writable_dirs', [
     'bootstrap/cache',
     'vendor',
     'storage',
-    'public/images/photos'
+    'public/photos'
 ]);
 set('rsync', [
     'exclude' => [

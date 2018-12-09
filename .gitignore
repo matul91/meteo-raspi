@@ -25,3 +25,4 @@ package-lock.json
 /public/undefined.js
 /public/images/*
 /public/photos/*
+!/public/photos/.placeholder
