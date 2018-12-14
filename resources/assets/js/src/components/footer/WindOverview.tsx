@@ -40,7 +40,7 @@ class WindOverview extends React.Component<Props> {
             <FooterMainColumn
                 value={record.speed}
                 digits={1}
-                unit={unit}
+                unit={"%"}
                 resolveClassModifier={this.resolveClassModifier}
                 className={"wind"}
             />
@@ -53,7 +53,7 @@ class WindOverview extends React.Component<Props> {
                 value={record.speed}
                 digits={1}
                 date={record.date}
-                unit={unit}
+                unit={"%"}
                 resolveClassModifier={this.resolveClassModifier}
                 last={last}
                 xlSize={2}
