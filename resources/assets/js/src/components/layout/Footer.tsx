@@ -6,12 +6,14 @@ import gql from "graphql-tag";
 import * as React from "react";
 import { ChildProps, graphql } from "react-apollo";
 import { Col, Container, Row } from "reactstrap";
-import { PressureRecord, TemperatureRecord, WindRecord } from "types/weather/WeatherRecords";
+import { HumidityRecord, PressureRecord, TemperatureRecord, WindRecord } from "types/weather/WeatherRecords";
+import HumidityOverview from "../footer/HumidityOverview";
 
 interface Response {
     latestPressures: PressureRecord[];
     latestWinds: WindRecord[];
     latestTemperatures: TemperatureRecord[];
+    latestHumidity: HumidityRecord[];
 }
 
 const LATEST_WEATHER_RECORD_QUERY = gql`
@@ -31,6 +33,11 @@ const LATEST_WEATHER_RECORD_QUERY = gql`
             pressure
             date
         }
+
+        latestHumidity {
+            humidity
+            date
+        }
     }
 `;
 
@@ -41,7 +48,7 @@ class Footer extends React.PureComponent<ChildProps<{}, Response>> {
             <Container fluid={true} className="mx-0 px-0">
                 <Row className="mx-0 px-0">
                     {this.renderCol(this.temperatures(), "temperature-overview")}
-                    {this.renderCol(this.winds(), "wind-overview")}
+                    {this.renderCol(this.humidity(), "humidity-overview")}
                     {this.renderCol(this.pressures(), "pressure-overview")}
                 </Row>
             </Container>
@@ -92,6 +99,19 @@ class Footer extends React.PureComponent<ChildProps<{}, Response>> {
                 records={latestPressures}
                 unit={"hPa"}
                 loaderColor={"#66f000"}
+                isLoading={loading}
+            />
+        );
+    }
+
+    protected humidity(): JSX.Element {
+        const {latestHumidity, loading} = this.props.data;
+        return (
+            <HumidityOverview
+                requiredCellCount={4}
+                records={latestHumidity}
+                unit={"%"}
+                loaderColor={"#ffb400"}
                 isLoading={loading}
             />
         );

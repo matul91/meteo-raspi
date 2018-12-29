@@ -35,7 +35,7 @@ class WindOverview extends React.Component<Props> {
         );
     }
 
-    protected renderMainColumn(record: WindRecord, unit: string): JSX.Element {
+    protected renderMainColumn = (record: WindRecord, unit: string): JSX.Element => {
         return(
             <FooterMainColumn
                 value={record.speed}
@@ -47,7 +47,7 @@ class WindOverview extends React.Component<Props> {
         );
     }
 
-    protected renderColumn(record: WindRecord, unit: string, last = false): JSX.Element {
+    protected renderColumn = (record: WindRecord, unit: string, last = false): JSX.Element => {
         return (
             <FooterColumn
                 value={record.speed}
@@ -62,7 +62,7 @@ class WindOverview extends React.Component<Props> {
         );
     }
 
-    protected resolveClassModifier(speed: number): string {
+    protected resolveClassModifier = (speed: number): string => {
         return (speed < 1.5) ? "wind-none" : (speed > 3) ? "wind-strong" : "wind-mild";
     }
 }
