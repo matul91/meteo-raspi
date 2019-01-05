@@ -1,27 +1,19 @@
-import FooterOverview from "components/footer//FooterOverview";
-import FooterColumn from "components/footer/FooterColumn";
 import loadableOverview from "components/footer/LoadableOverview";
 import * as React from "react";
 import { connect } from "react-redux";
 import { Col, Container, Row } from "reactstrap";
-import {WindRecord} from "types/weather/WeatherRecords";
+import {HumidityRecord} from "types/weather/WeatherRecords";
+import FooterColumn from "./FooterColumn";
 import FooterMainColumn from "./FooterMainColumn";
+import FooterOverview from "./FooterOverview";
 
 interface Props {
     requiredCellCount: number;
-    records: WindRecord[];
+    records: HumidityRecord[];
     unit: string;
 }
 
-class WindOverview extends React.Component<Props> {
-
-    constructor(props: Props, context: any) {
-        super(props, context);
-        this.resolveClassModifier = this.resolveClassModifier.bind(this);
-        this.renderMainColumn = this.renderMainColumn.bind(this);
-        this.renderColumn = this.renderColumn.bind(this);
-    }
-
+class HumidityOverview extends React.Component<Props> {
     public render(): JSX.Element {
         const {requiredCellCount, records, unit} = this.props;
         return (
@@ -35,25 +27,25 @@ class WindOverview extends React.Component<Props> {
         );
     }
 
-    protected renderMainColumn = (record: WindRecord, unit: string): JSX.Element => {
+    protected renderMainColumn = (record: HumidityRecord, unit: string): JSX.Element => {
         return(
             <FooterMainColumn
-                value={record.speed}
+                value={record.humidity}
                 digits={1}
-                unit={"%"}
+                unit={unit}
                 resolveClassModifier={this.resolveClassModifier}
-                className={"wind"}
+                className={"humidity"}
             />
         );
     }
 
-    protected renderColumn = (record: WindRecord, unit: string, last = false): JSX.Element => {
+    protected renderColumn = (record: HumidityRecord, unit: string, last = false): JSX.Element => {
         return (
             <FooterColumn
-                value={record.speed}
+                value={record.humidity}
                 digits={1}
                 date={record.date}
-                unit={"%"}
+                unit={unit}
                 resolveClassModifier={this.resolveClassModifier}
                 last={last}
                 xlSize={2}
@@ -62,9 +54,9 @@ class WindOverview extends React.Component<Props> {
         );
     }
 
-    protected resolveClassModifier = (speed: number): string => {
-        return (speed < 1.5) ? "wind-none" : (speed > 3) ? "wind-strong" : "wind-mild";
+    protected resolveClassModifier = (humidity: number): string => {
+        return (humidity < 30) ? "humidity-low" : (humidity > 60) ? "humidity-high" : "humidity-medium";
     }
 }
 
-export default loadableOverview(WindOverview);
+export default loadableOverview(HumidityOverview);

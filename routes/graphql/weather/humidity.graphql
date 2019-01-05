@@ -1,0 +1,5 @@
+type Humidity {
+    id: ID!
+    humidity: Float
+    date: String
+}

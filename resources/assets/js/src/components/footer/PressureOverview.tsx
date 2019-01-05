@@ -14,14 +14,6 @@ interface Props {
 }
 
 class PressureOverview extends React.Component<Props> {
-
-    constructor(props: Props, context: any) {
-        super(props, context);
-        this.resolveClassModifier = this.resolveClassModifier.bind(this);
-        this.renderMainColumn = this.renderMainColumn.bind(this);
-        this.renderColumn = this.renderColumn.bind(this);
-    }
-
     public render(): JSX.Element {
         const {requiredCellCount, records, unit} = this.props;
         return (
@@ -35,7 +27,7 @@ class PressureOverview extends React.Component<Props> {
         );
     }
 
-    protected renderMainColumn(record: PressureRecord, unit: string): JSX.Element {
+    protected renderMainColumn = (record: PressureRecord, unit: string): JSX.Element => {
         return(
            <FooterMainColumn
                value={record.pressure}
@@ -47,7 +39,7 @@ class PressureOverview extends React.Component<Props> {
         );
     }
 
-    protected renderColumn(record: PressureRecord, unit: string, last = false): JSX.Element {
+    protected renderColumn = (record: PressureRecord, unit: string, last = false): JSX.Element => {
         return (
             <FooterColumn
                 value={record.pressure}
@@ -62,7 +54,7 @@ class PressureOverview extends React.Component<Props> {
         );
     }
 
-    protected resolveClassModifier(pressure: number): string {
+    protected resolveClassModifier = (pressure: number): string => {
         return (pressure < 1000) ? "pressure-low" : (pressure > 1013) ? "pressure-high" : "pressure-normal";
     }
 }
