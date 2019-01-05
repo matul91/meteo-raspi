@@ -1,9 +1,9 @@
 import LoadingOverview from "components/footer/LoadingOverview";
 import * as React from "react";
-import {PressureRecord, TemperatureRecord, WindRecord} from "types/weather/WeatherRecords";
+import {HumidityRecord, PressureRecord, TemperatureRecord, WindRecord} from "types/weather/WeatherRecords";
 
 interface Props {
-    records: TemperatureRecord[] | WindRecord[] | PressureRecord[];
+    records: TemperatureRecord[] | WindRecord[] | PressureRecord[] | HumidityRecord[];
     loaderColor: string;
     requiredCellCount: number;
     isLoading: boolean;

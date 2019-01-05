@@ -1,18 +1,18 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { Col, Container, Row } from "reactstrap";
-import {PressureRecord, TemperatureRecord, WindRecord} from "types/weather/WeatherRecords";
+import {HumidityRecord, PressureRecord, TemperatureRecord, WindRecord} from "types/weather/WeatherRecords";
 
 interface Props {
     requiredCellCount: number;
-    records: TemperatureRecord[] | WindRecord[] | PressureRecord[];
+    records: TemperatureRecord[] | WindRecord[] | PressureRecord[] | HumidityRecord[];
     unit: string;
     renderMainColumn: (
-        records: TemperatureRecord | WindRecord | PressureRecord,
+        records: TemperatureRecord | WindRecord | PressureRecord | HumidityRecord,
         unit: string,
     ) => JSX.Element;
     renderColumn: (
-        records: TemperatureRecord | WindRecord | PressureRecord,
+        records: TemperatureRecord | WindRecord | PressureRecord | HumidityRecord,
         unit: string,
         last: boolean,
     ) => JSX.Element;

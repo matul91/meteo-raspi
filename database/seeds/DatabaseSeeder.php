@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             PressuresTableSeeder::class,
             TemperaturesTableSeeder::class,
             WindsTableSeeder::class,
+            HumidityTableSeeder::class,
             SettingsTableSeeder::class,
         ]);
     }

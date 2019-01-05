@@ -6,11 +6,13 @@ type Query {
     latestTemperatures: [Temperature]
     latestWinds: [Wind]
     latestPhotos(limit: Int!): [Photo]
+    latestHumidity: [Humidity]
 }
 
 type Mutation {
     recordTemperature(temperature: Float): Temperature @create(model: "App\\Models\\Weather\\Records\\Temperature")
     recordPressure(pressure: Float): Pressure @create(model: "App\\Models\\Weather\\Records\\Pressure")
     recordWind(speed: Float, direction: WindDirection): Wind @create(model: "App\\Models\\Weather\\Records\\Wind")
+    recordHumidity(humidity: Float): Humidity @create(model: "App\\Models\\Weather\\Records\\Humidity")
     recordPhoto(tags: [String]): Photo @field(resolver: "App\\Http\\GraphQL\\Mutations\\PhotoMutator@recordPhoto")
 }

@@ -14,14 +14,6 @@ interface Props {
 }
 
 class TemperatureOverview extends React.Component<Props> {
-
-    constructor(props: Props, context: any) {
-        super(props, context);
-        this.resolveClassModifier = this.resolveClassModifier.bind(this);
-        this.renderMainColumn = this.renderMainColumn.bind(this);
-        this.renderColumn = this.renderColumn.bind(this);
-    }
-
     public render(): JSX.Element {
         const {requiredCellCount, records, unit} = this.props;
         return (
@@ -35,7 +27,7 @@ class TemperatureOverview extends React.Component<Props> {
         );
     }
 
-    protected renderMainColumn(record: TemperatureRecord, unit: string): JSX.Element {
+    protected renderMainColumn = (record: TemperatureRecord, unit: string): JSX.Element => {
         return(
             <FooterMainColumn
                 value={record.temperature}
@@ -47,7 +39,7 @@ class TemperatureOverview extends React.Component<Props> {
         );
     }
 
-    protected renderColumn(record: TemperatureRecord, unit: string, last = false): JSX.Element {
+    protected renderColumn = (record: TemperatureRecord, unit: string, last = false): JSX.Element => {
         return (
             <FooterColumn
                 value={record.temperature}
@@ -62,7 +54,7 @@ class TemperatureOverview extends React.Component<Props> {
         );
     }
 
-    protected resolveClassModifier(temperature: number): string {
+    protected resolveClassModifier = (temperature: number): string => {
         return (temperature < 15) ? "temperature-cold" : (temperature > 30) ? "temperature-warm" : "temperature-hot";
     }
 }

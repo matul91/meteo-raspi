@@ -13,3 +13,8 @@ export interface TemperatureRecord {
     temperature: number;
     date: string;
 }
+
+export interface HumidityRecord {
+    humidity: number;
+    date: string;
+}
