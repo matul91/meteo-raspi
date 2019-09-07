@@ -17,66 +17,20 @@ class UINavbar extends React.Component<IProps, IState> {
         isOpen: false,
     };
 
-    constructor(props) {
-        super(props);
-        this.toggleNav = this.toggleNav.bind(this);
-    }
-
     public render(): JSX.Element {
-        const userLinks = this.getUserLinks();
-        const userInfo = this.getUserInfo();
-
         return (
             <Navbar color="light" light={true} expand="md">
-                <Col xs={3}>
+                <Col xs={6}>
                     <Link to="/" className="navbar-brand"><strong>METEO </strong> RasPi - Lubno </Link>
                 </Col>
-                <Col xs={6} className={"text-center"}>
+                <Col xs={6} className={"text-right"}>
                     <HeaderClock/>
-                </Col>
-                <Col xs={3}>
-                    <NavbarToggler onClick={this.toggleNav} />
-                    <Collapse isOpen={this.state.isOpen} navbar={true}>
-                        <Nav navbar={true}>
-                            {this.props.isAuthenticated && userLinks}
-                        </Nav>
-                        <Nav className="ml-auto" navbar={true}>
-                            {userInfo}
-                        </Nav>
-                    </Collapse>
                 </Col>
             </Navbar>
         );
     }
 
-    private getUserLinks(): JSX.Element {
-        return (
-            <NavItem>
-                <Link to="/logged">Uživatelská stránka</Link>
-            </NavItem>
-        );
-    }
-
-    private getUserInfo(): JSX.Element {
-        let userInfo = (
-            <NavItem>
-                <Link to="/login">Login</Link>
-            </NavItem>
-        );
-
-        if (this.props.isAuthenticated) {
-            userInfo = (
-                <NavItem>
-                    Přihlášen jako: {this.props.user}
-                    <Link to="/logout">&nbsp; Odhlásit se</Link>
-                </NavItem>
-            );
-        }
-
-        return userInfo;
-    }
-
-    private toggleNav(): void {
+    private toggleNav = (): void => {
         this.setState({
             isOpen: !this.state.isOpen,
         });

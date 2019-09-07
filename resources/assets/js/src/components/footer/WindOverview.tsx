@@ -14,14 +14,6 @@ interface Props {
 }
 
 class WindOverview extends React.Component<Props> {
-
-    constructor(props: Props, context: any) {
-        super(props, context);
-        this.resolveClassModifier = this.resolveClassModifier.bind(this);
-        this.renderMainColumn = this.renderMainColumn.bind(this);
-        this.renderColumn = this.renderColumn.bind(this);
-    }
-
     public render(): JSX.Element {
         const {requiredCellCount, records, unit} = this.props;
         return (
