@@ -31,8 +31,8 @@ class PhotosHistory extends React.Component<ChildProps<{}, Response>> {
             <React.Fragment>
                 <Heading isLoading={false}/>
                 <Row>
-                    <Col xs={2} />
-                    <Col xs={10}>
+                    <Col xs={2} sm={5} />
+                    <Col xs={10} sm={7}>
                         {this.getImages()}
                     </Col>
                 </Row>
