@@ -10,12 +10,12 @@ interface Props {
 export class Heading extends React.PureComponent<Props> {
     public render(): JSX.Element {
         const { isLoading } = this.props;
-        const historyIcon = (<Icon kind="history" />);
+        const historyIcon = (<Icon kind="history" size={28} />);
         return (
             <Alert color="primary">
                 <div className="d-flex">
                     <div className="p-2">
-                        <span className="text-uppercase">Poslední <br/> snímky</span>
+                        <span className="text-uppercase">Poslední snímek</span>
                     </div>
                     <div className="p-2 ml-auto align-self-center" >
                         {(isLoading) ? <PulseLoader size={10} color="#ffffff" className={"d-inline"}/> : historyIcon}

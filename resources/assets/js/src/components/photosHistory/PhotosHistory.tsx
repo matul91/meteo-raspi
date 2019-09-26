@@ -13,7 +13,7 @@ interface Response {
 
 const LATEST_PHOTOS_QUERY = gql`
     {
-        latestPhotos(limit: 3) {
+        latestPhotos(limit: 1) {
             link
             createdAt
         }
@@ -31,8 +31,8 @@ class PhotosHistory extends React.Component<ChildProps<{}, Response>> {
             <React.Fragment>
                 <Heading isLoading={false}/>
                 <Row>
-                    <Col xs={6}/>
-                    <Col xs={6}>
+                    <Col xs={2} />
+                    <Col xs={10}>
                         {this.getImages()}
                     </Col>
                 </Row>

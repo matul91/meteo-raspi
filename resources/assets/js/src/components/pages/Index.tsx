@@ -17,12 +17,8 @@ class Index extends React.Component<IProps, void> {
         if (this.props.isLoaded) {
             content = (
                 <Row className="no-gutters">
-                    <Col xs={3}>
+                    <Col xs={11} sm={7}>
                         <PhotosHistory/>
-                    </Col>
-                    <Col xs={6}/>
-                    <Col xs={3}>
-                        <StatusAlerts/>
                     </Col>
                 </Row>
             );
