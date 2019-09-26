@@ -21,7 +21,7 @@ class UINavbar extends React.Component<IProps, IState> {
         return (
             <Navbar color="light" light={true} expand="md">
                 <Col xs={6}>
-                    <Link to="/" className="navbar-brand"><strong>METEO </strong> RasPi - Lubno </Link>
+                    <Link to="/" className="navbar-brand"><strong>METEO </strong> RasPi </Link>
                 </Col>
                 <Col xs={6} className={"text-right"}>
                     <HeaderClock/>

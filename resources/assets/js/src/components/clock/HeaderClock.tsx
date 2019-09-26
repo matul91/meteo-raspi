@@ -7,9 +7,7 @@ const HeaderClock = () => {
         <React.Fragment>
             <strong>
                 <Clock format={"LT"} ticking={true} />
-                <span> | </span>
             </strong>
-            <Clock format={DEFAULT_DATETIME_FORMAT} ticking={true}/>
         </React.Fragment>
     );
 };
