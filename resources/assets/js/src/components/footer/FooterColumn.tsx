@@ -27,7 +27,7 @@ export default class FooterColumn extends React.Component<Props> {
                 className={`${modifierClass} text-smaller separator py-4 ${lastCellClasses}`}
             >
                     <span className="time">
-                        {moment(date).format(DateFormats.HOURS_AND_MINUTES)}
+                        {moment(date).add(2, "hours").format(DateFormats.HOURS_AND_MINUTES)}
                     </span>
                 {value.toFixed(digits)} <span className="text-mini">{unit}</span>
             </Col>
