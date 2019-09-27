@@ -37,7 +37,7 @@ class PhotoThumbnail extends React.PureComponent<Props, State> {
                         <CardImg className={"img-snapshot"} src={link} alt={createdAt} />
                         <CardImgOverlay className={"d h-100 d-flex flex-column justify-content-end"}>
                             <CardText className={"text-right"}>
-                                {moment(createdAt).format(DateFormats.HOURS_AND_MINUTES)}
+                                {moment(createdAt).add(2, "hours").format(DateFormats.HOURS_AND_MINUTES)}
                             </CardText>
                         </CardImgOverlay>
                     </Card>
