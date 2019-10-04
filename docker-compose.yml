@@ -1,0 +1,52 @@
+version: '3.3'
+
+networks:
+  default:
+    driver: bridge
+
+volumes:
+  mysqldata:
+    driver: local
+
+services:
+  meteoraspi-proxy:
+    container_name: meteoraspi-proxy
+    image: jwilder/nginx-proxy:alpine
+    networks:
+      - default
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./docker/certs:/etc/nginx/certs
+      - ./docker/nginx-proxy/custom.conf:/etc/nginx/conf.d/custom.conf
+
+  apache:
+    build: .
+    container_name: meteoraspi-apache
+    depends_on:
+      - meteoraspi-proxy
+    networks:
+      - default
+    volumes:
+      - .:/var/www/html
+      - ~/.ssh/id_rsa:/root/.ssh/id_rsa
+      - ./docker/php/php.ini:/usr/local/etc/php/php.ini:ro
+    environment:
+      - VIRTUAL_HOST=raspi.local
+      - CERT_NAME=raspi.local
+      - COMPOSER_MEMORY_LIMIT=-1
+
+  mysql:
+    container_name: meteoraspi-mysql
+    image: mysql:5.7
+    ports:
+      - 4306:3306
+    environment:
+      MYSQL_DATABASE: meteoraspi
+      MYSQL_USER: raspi
+      MYSQL_PASSWORD: raspi
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - mysqldata:/var/lib/mysql
