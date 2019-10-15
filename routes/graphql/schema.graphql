@@ -4,7 +4,7 @@
 type Query {
     latestPressures: [Pressure]
     latestTemperatures: [Temperature]
-    latestWinds: [Wind]
+    latestWinds(limit: Int): [Wind]
     latestPhotos(limit: Int!): [Photo]
     latestHumidity: [Humidity]
 }

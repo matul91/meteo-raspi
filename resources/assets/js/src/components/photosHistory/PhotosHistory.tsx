@@ -13,7 +13,7 @@ interface Response {
 
 const LATEST_PHOTOS_QUERY = gql`
     {
-        latestPhotos(limit: 1) {
+        latestPhotos(limit: 3) {
             link
             createdAt
         }

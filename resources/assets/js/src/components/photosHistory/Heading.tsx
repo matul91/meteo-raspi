@@ -15,7 +15,7 @@ export class Heading extends React.PureComponent<Props> {
             <Alert color="primary">
                 <div className="d-flex">
                     <div className="p-2">
-                        <span className="text-uppercase">Poslední snímek</span>
+                        <span className="text-uppercase">Poslední snímky</span>
                     </div>
                     <div className="p-2 ml-auto align-self-center" >
                         {(isLoading) ? <PulseLoader size={10} color="#ffffff" className={"d-inline"}/> : historyIcon}
