@@ -1,0 +1,14 @@
+version: '2'
+
+syncs:
+  backend-sync:
+    src: '.'
+    sync_userid: '33'
+    sync_excludes: [
+      '.idea',
+      '.git',
+      'node_modules',
+      'docker',
+    ]
+    sync_args: '-prefer newer -copyonconflict'
+    notify_terminal: true
