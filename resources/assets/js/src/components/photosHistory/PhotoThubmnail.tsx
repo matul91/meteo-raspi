@@ -42,7 +42,7 @@ class PhotoThumbnail extends React.PureComponent<Props, State> {
                         </CardImgOverlay>
                     </Card>
                 </div>
-                <PhotoThumbnailModal toggle={this.toggle} photo={photo} isOpen={this.state.isOpen} />
+                <PhotoThumbnailModal onToggle={this.toggle} photo={photo} isOpen={this.state.isOpen} />
             </React.Fragment>
         );
     }

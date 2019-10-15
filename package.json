@@ -83,6 +83,7 @@
             "^config(.*)$": "<rootDir>/resources/assets/js/src/config/$1",
             "^store(.*)$": "<rootDir>/resources/assets/js/src/store/$1",
             "^components(.*)$": "<rootDir>/resources/assets/js/src/components/$1",
+            "^pages(.*)$": "<rootDir>/resources/assets/js/src/components/pages/$1",
             "^utils(.*)$": "<rootDir>/resources/assets/js/src/utils/$1",
             "^services(.*)$": "<rootDir>/resources/assets/js/src/services/$1"
         },
