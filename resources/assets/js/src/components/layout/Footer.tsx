@@ -23,12 +23,6 @@ const LATEST_WEATHER_RECORD_QUERY = gql`
             date
         }
 
-        latestWinds {
-            speed
-            direction
-            date
-        }
-
         latestPressures {
             pressure
             date
