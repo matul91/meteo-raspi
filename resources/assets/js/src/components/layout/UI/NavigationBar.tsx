@@ -3,19 +3,7 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import { Col, Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink} from "reactstrap";
 
-interface IState {
-    isOpen: boolean;
-}
-
-interface IProps {
-    isAuthenticated: boolean;
-    user: any;
-}
-
-class UINavbar extends React.Component<IProps, IState> {
-    public state = {
-        isOpen: false,
-    };
+export default class NavigationBar extends React.Component {
 
     public render(): JSX.Element {
         return (
@@ -29,12 +17,4 @@ class UINavbar extends React.Component<IProps, IState> {
             </Navbar>
         );
     }
-
-    private toggleNav = (): void => {
-        this.setState({
-            isOpen: !this.state.isOpen,
-        });
-    }
 }
-
-export default UINavbar;
