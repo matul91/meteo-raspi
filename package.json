@@ -45,7 +45,7 @@
     },
     "dependencies": {
         "apollo-boost": "^0.1.16",
-        "axios": "^0.17.0",
+        "axios": "^0.18.1",
         "compression-webpack-plugin": "^1.1.10",
         "downsample-lttb": "^0.0.1",
         "firebase": "^4.12.1",
