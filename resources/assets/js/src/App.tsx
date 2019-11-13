@@ -7,6 +7,9 @@ import thunk from "redux-thunk";
 import apolloClient from "services/apollo";
 import weatherReducer from "store/reducers/weather";
 import Layout from "./components/layout/Layout";
+import {registerServiceWorker} from "./services/fcm/registerServiceWorker";
+
+registerServiceWorker();
 
 const rootReducer = combineReducers({
     weather: weatherReducer,
