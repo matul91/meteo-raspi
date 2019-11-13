@@ -18,4 +18,10 @@ messaging.setBackgroundMessageHandler((payload) => {
     return self.registration.showNotification(payload.notification.title, notificationOptions);
 });
 
-//workbox.precaching.precacheAndRoute(self.__precacheManifest);
+workbox.routing.registerRoute(
+    new RegExp('https://raspi.jiri-matula.cz'),
+    new workbox.strategies.StaleWhileRevalidate()
+);
+
+
+workbox.precaching.precacheAndRoute(self.__precacheManifest);
