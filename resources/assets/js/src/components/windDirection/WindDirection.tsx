@@ -63,17 +63,18 @@ const WindDirection = (props: ChildProps<{}, Response>) => {
 
             <WindDirectionArrow
                 unit={"m/s"}
-                position={1}
-                direction={winds[4].direction}
-                speed={winds[4].speed}
-                time={winds[4].date}
-            />
-            <WindDirectionArrow
-                unit={"m/s"}
                 position={8}
                 direction={winds[5].direction}
                 speed={winds[5].speed}
                 time={winds[5].date}
+            />
+
+            <WindDirectionArrow
+                unit={"m/s"}
+                position={1}
+                direction={winds[4].direction}
+                speed={winds[4].speed}
+                time={winds[4].date}
             />
         </React.Fragment>
     );

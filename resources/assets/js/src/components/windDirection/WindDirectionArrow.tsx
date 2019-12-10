@@ -13,17 +13,15 @@ interface Props {
 class WindDirectionArrow extends React.PureComponent<Props> {
 
     public render(): JSX.Element {
-        const { position, speed, direction, unit, time } = this.props;
+        const { position, speed, direction, unit } = this.props;
         const remainingPositionToFullRow = 12 - position;
 
         return (
-            <Row noGutters={true}>
+            <Row noGutters={true} className={"wind-row"}>
                 <Col xs={position}/>
                 <Col xs={remainingPositionToFullRow}>
                     <Icon kind="arrow-up" size={50} className={`wind-direction-arrow ${direction}`}/>
                     <span className={"wind-direction-text"}>{speed} {unit}</span>
-                    <br/>
-                    <span className={"small"}>{time}</span>
                 </Col>
             </Row>
         );
