@@ -1,0 +1,11 @@
+// Struct
+
+.overview {
+    overflow-y: scroll;
+
+    > * + * {
+        margin-top: $vertical-spacing-triple
+    }
+}
+
+// Skin

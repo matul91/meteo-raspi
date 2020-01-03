@@ -1,0 +1,42 @@
+
+$font-family: Montserrat, sans-serif;
+
+$base-font-size: 1rem;
+$ratio: 1.33;
+
+$typography-xlarge: $base-font-size * $ratio * $ratio * $ratio;
+$typography-large:  $base-font-size * $ratio * $ratio;
+$typography-medium: $base-font-size * $ratio;
+$typography-base:   $base-font-size;
+$typography-small:  $base-font-size / $ratio;
+$typography-xsmall: $base-font-size / $ratio / $ratio ;
+
+$line-height: 1.25;
+
+// Spacing
+$vertical-spacing:              $typography-base * $line-height;
+$vertical-spacing-quadruple:    $vertical-spacing * 4;
+$vertical-spacing-triple:       $vertical-spacing * 3;
+$vertical-spacing-double:       $vertical-spacing * 2;
+$vertical-spacing-half:         $vertical-spacing * 0.5;
+
+$horizontal-spacing:            1rem;
+$horizontal-spacing-quadruple:  $horizontal-spacing * 4;
+$horizontal-spacing-triple:     $horizontal-spacing * 3;
+$horizontal-spacing-double:     $horizontal-spacing * 2;
+$horizontal-spacing-half:       $horizontal-spacing * 0.5;
+
+// Dimensions
+$layout-width: 75rem + $horizontal-spacing-double;
+$paragraph-width: 45rem;
+
+// Breakpoints
+$breakpoint-sm: 480px;
+$breakpoint-md: 800px;
+$breakpoint-lg: 1080px;
+$breakpoint-xl: 1400px;
+
+// Others
+$transition-duration: .3s;
+$box-shadow: 0 3px 10px rgba($color-body-black, 15);
+$border-radius: 8px;

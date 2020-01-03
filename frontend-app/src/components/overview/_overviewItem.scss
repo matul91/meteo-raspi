@@ -1,0 +1,38 @@
+// Config
+
+$icon-size: 24px;
+
+// Struct
+
+.overviewItem__icon {
+    flex: none;
+    width: $icon-size;
+    margin-right: $horizontal-spacing-half;
+
+    // temp
+    .icon {
+        height: $icon-size;
+        border-radius: 16px;
+        border: 2px solid grey;
+    }
+}
+
+.overviewItem__title {
+
+}
+
+.overviewItem__value {
+    font-size: $typography-xlarge;
+    font-weight: 600;
+    line-height: 1;
+}
+
+.overviewItem__unit {
+    margin-top: 4px; // optical alignment
+    font-size: $typography-medium;
+    font-weight: 600;
+    line-height: 1;
+}
+
+// Skin
+

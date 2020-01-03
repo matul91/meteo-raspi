@@ -1,0 +1,13 @@
+// Struct
+
+body {
+    font-family: 'Catamaran', sans-serif;
+    line-height: $line-height;
+    font-size: $typography-base;
+}
+
+h1, .h1 {
+    margin-bottom: $vertical-spacing;
+    font-size: $typography-base;
+    font-weight: 600;
+}

@@ -1,0 +1,17 @@
+// Struct
+
+.recordItem {
+    padding: $vertical-spacing-half $horizontal-spacing-half;
+    border-radius: $border-radius;
+}
+
+.recordItem__time {
+    margin-bottom: $vertical-spacing-half;
+    font-size: $typography-xsmall;
+}
+
+// Skin
+
+.recordItem {
+    background-color: $color-body-light;
+}

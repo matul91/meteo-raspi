@@ -1,0 +1,21 @@
+// Struct
+
+.header {
+    padding-top: $vertical-spacing;
+    padding-bottom: $vertical-spacing;
+    text-align: center;
+}
+
+.header__title {
+    font-weight: 400;
+}
+
+.header__time {
+    font-size: $typography-small;
+}
+
+// Skin
+
+.header__time {
+    font-weight: 600;
+}

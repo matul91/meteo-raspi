@@ -1,0 +1,49 @@
+// Config
+
+$image-label-height: 24px;
+
+// Struct
+
+.gallery {
+    display: grid;
+    grid-gap: $horizontal-spacing;
+    // https://uxdesign.cc/creating-horizontal-scrolling-containers-the-right-way-css-grid-c256f64fc585
+    grid-template-columns: $horizontal-spacing;
+    grid-auto-flow: column;
+    grid-auto-columns: calc((100% - 6 * #{$horizontal-spacing}) / 3);
+    grid-template-rows: min-content;
+    overflow-x: scroll;
+    scroll-snap-type: x proximity;
+
+    &::before,
+    &::after {
+        content: '';
+        width: $horizontal-spacing;
+    }
+
+    @media (min-width: $breakpoint-sm) {
+        grid-auto-columns: 120px;
+    }
+}
+
+.gallery__item {
+    position: relative;
+    height: 0;
+    padding-bottom: calc(100% + #{$image-label-height});
+}
+
+.gallery__image {
+    position: absolute;
+    width: 100%;
+    height: calc(100% - #{$image-label-height});
+    border-radius: $border-radius;
+}
+
+.gallery__label {
+    position: absolute;
+    height: $image-label-height;
+    bottom: 0;
+}
+
+
+// Skin

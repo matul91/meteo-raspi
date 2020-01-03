@@ -1,0 +1,59 @@
+// Struct
+
+.conditions {
+    @media (min-width: $breakpoint-md) {
+        display: flex;
+        flex-direction: column;
+        padding-bottom: $vertical-spacing-double;
+    }
+}
+
+.conditions__image {
+    position: relative;
+    padding-bottom: 56%;
+    border-radius: $border-radius;
+
+    @media (min-width: $breakpoint-md) {
+        flex: 1;
+        padding-bottom: 0;
+    }
+}
+
+// Skin
+
+.conditions__image {
+    background-image: url(https://raspi.jiri-matula.cz/images/body/airport-aerial-view.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+
+
+.conditions__overview {
+    display: flex;
+    justify-content: space-evenly;
+    padding-top: $vertical-spacing;
+    padding-bottom: $vertical-spacing-double;
+}
+
+.conditionsItem {
+    text-align: center;
+}
+
+.conditionsItem__value {
+    font-size: $typography-medium;
+}
+
+.conditionsItem__unit {
+    margin-left: .5ch;
+    vertical-align: super;
+    font-size: $typography-xsmall;
+}
+
+.conditionsItem__label {
+    margin-top: $vertical-spacing-half;
+    font-size: $typography-small;
+    color: #bcbcbc;
+}

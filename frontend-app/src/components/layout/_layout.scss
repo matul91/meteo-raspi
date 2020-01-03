@@ -1,0 +1,59 @@
+// Config
+
+$sidebar-width: 320px;
+
+// Struct
+
+.layout {
+    display: grid;
+    grid-gap: 0;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+        "header"
+        "conditions"
+        "gallery"
+        "overview"
+        "footer";
+
+    @media (min-width: $breakpoint-md) {
+        height: 100vh;
+        grid-template-columns: $sidebar-width 1fr;
+        grid-template-rows: max-content 1fr max-content max-content;
+        grid-template-areas:
+            "header header"
+            "overview conditions"
+            "overview gallery"
+            "overview footer";
+    }
+}
+
+.layout__header {
+    grid-area: header;
+}
+
+.layout__conditions {
+    grid-area: conditions;
+}
+
+.layout__overview {
+    grid-area: overview;
+}
+
+.layout__gallery {
+    grid-area: gallery;
+    align-self: end;
+
+    padding-top: $vertical-spacing;
+    padding-bottom: $vertical-spacing;
+    border-radius: $border-radius * 3 $border-radius * 3 0 0;
+}
+
+.layout__footer {
+    grid-area: footer;
+}
+
+// Skin
+
+.layout__gallery {
+    background-color: $color-body-lightest;
+}
