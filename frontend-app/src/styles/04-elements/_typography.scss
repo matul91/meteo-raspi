@@ -1,13 +1,18 @@
 // Struct
 
 body {
-    font-family: 'Catamaran', sans-serif;
+    font-family: $font-family;
     line-height: $line-height;
     font-size: $typography-base;
 }
 
 h1, .h1 {
+    font-family: $font-family-condensed;
+    font-size: 24px;
+}
+
+h2, .h2 {
     margin-bottom: $vertical-spacing;
-    font-size: $typography-base;
-    font-weight: 600;
+    font-family: $font-family-condensed;
+    font-size: 18px;
 }

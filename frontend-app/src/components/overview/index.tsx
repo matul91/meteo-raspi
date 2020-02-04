@@ -1,82 +1,125 @@
 import React from 'react';
 
-import OverviewItem from './overviewItem';
-// import { Overview } from './types';
-
 export default class Overview extends React.PureComponent<{}, {}> {
 
     data = [{
-        icon: '',
-        title: 'Teplota',
-        currentValue: 23,
-        unit: '°C',
-        records: [{
-            time: '10:45',
-            value: '23°'
-        },{
-            time: '10:30',
-            value: '21°'
-        },{
-            time: '10:15',
-            value: '20°'
-        },{
-            time: '10:00',
-            value: '18°'
-        },{
-            time: '09:45',
-            value: '17°'
-        }]
+        time: '10:30',
+        wind: {
+            value: 12,
+            unit: 'm/s'
+        },
+        temperature: {
+            value: 12,
+            unit: 'C'
+        },
+        humidity: {
+            value: 12,
+            unit: '%'
+        },
+        pressure: {
+            value: 12,
+            unit: 'hpa'
+        }
     },{
-        icon: '',
-        title: 'Vlhkost',
-        currentValue: 78,
-        unit: '%',
-        records: [{
-            time: '10:45',
-            value: 100
-        },{
-            time: '10:30',
-            value: 90
-        },{
-            time: '10:15',
-            value: 50
-        },{
-            time: '10:00',
-            value: 33
-        },{
-            time: '10:00',
-            value: 33
-        }]
+        time: '10:30',
+        wind: {
+            value: 12,
+            unit: 'm/s'
+        },
+        temperature: {
+            value: 12,
+            unit: 'C'
+        },
+        humidity: {
+            value: 12,
+            unit: '%'
+        },
+        pressure: {
+            value: 12,
+            unit: 'hpa'
+        }
     },{
-        icon: '',
-        title: 'Tlak',
-        currentValue: 1124,
-        unit: 'hPa',
-        records: [{
-            time: '10:45',
-            value: 1222
-        },{
-            time: '10:30',
-            value: 987
-        },{
-            time: '10:15',
-            value: 1024
-        },{
-            time: '10:15',
-            value: 1024
-        },{
-            time: '10:15',
-            value: 1024
-        }]
-    }]
+        time: '10:30',
+        wind: {
+            value: 12,
+            unit: 'm/s'
+        },
+        temperature: {
+            value: 12,
+            unit: 'C'
+        },
+        humidity: {
+            value: 12,
+            unit: '%'
+        },
+        pressure: {
+            value: 12,
+            unit: 'hpa'
+        }
+    },{
+        time: '10:30',
+        wind: {
+            value: 12,
+            unit: 'm/s'
+        },
+        temperature: {
+            value: 12,
+            unit: 'C'
+        },
+        humidity: {
+            value: 12,
+            unit: '%'
+        },
+        pressure: {
+            value: 12,
+            unit: 'hpa'
+        }
+    },{
+        time: '10:30',
+        wind: {
+            value: 12,
+            unit: 'm/s'
+        },
+        temperature: {
+            value: 12,
+            unit: 'C'
+        },
+        humidity: {
+            value: 12,
+            unit: '%'
+        },
+        pressure: {
+            value: 12,
+            unit: 'hpa'
+        }
+    }];
 
     render() {
         return (
             <div className="overview layout__overview container">
-                {this.data.map((overview, index: number) =>
-                    <OverviewItem
-                        key={index}
-                        {...overview} />
+
+                {this.data.map((item: any, index: number) =>
+                    <div className="overviewItem">
+                        <div className="overviewItem__value overviewItem__value--time">
+                            {item.time}
+                        </div>
+                        <div className="overviewItem__value">
+                            {item.wind.value}
+                            <span className="overviewItem__unit">m/s</span>
+                        </div>
+                        <div className="overviewItem__value">
+                            {item.temperature.value}
+                            <span className="overviewItem__unit">{item.temperature.unit}</span>
+                        </div>
+                        <div className="overviewItem__value">
+                            {item.humidity.value}
+                            <span className="overviewItem__unit">{item.humidity.unit}</span>
+                        </div>
+                        <div className="overviewItem__value">
+                            {item.pressure.value}
+                            <span className="overviewItem__unit">{item.pressure.unit}</span>
+                        </div>
+                    </div>
                 )}
             </div>
         );

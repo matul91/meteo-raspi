@@ -22,6 +22,10 @@ $image-label-height: 24px;
     }
 
     @media (min-width: $breakpoint-sm) {
+        grid-auto-columns: calc((100% - 7 * 1rem) / 4);
+    }
+
+    @media (min-width: $breakpoint-md) {
         grid-auto-columns: 120px;
     }
 }

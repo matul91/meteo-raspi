@@ -1,0 +1,30 @@
+// Config
+
+$btn-min-width: 64px;
+
+// Struct
+
+.btn {
+    display: block;
+    min-width: $btn-min-width;
+    padding: 4px $horizontal-spacing;
+    border-radius: 999px;
+    outline: none;
+    cursor: pointer;
+    font-size: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: .375px;
+    transition: background-color $transition-duration;
+}
+
+// Skin
+
+.btn {
+    background-color: #800033;
+    color: white;
+
+    &:hover, &:focus {
+        background-color: darken(#800033, 5);
+    }
+}

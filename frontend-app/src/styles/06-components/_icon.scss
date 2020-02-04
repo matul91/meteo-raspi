@@ -1,7 +1,32 @@
 // Struct
 
 .icon {
-    display: block;
-    width: 100%;
-    height: 100%;
+    svg {
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.icon--small {
+    width: $icon-size-small;
+    height: $icon-size-small;
+}
+
+.icon--medium {
+    width: $icon-size-medium;
+    height: $icon-size-medium;
+}
+
+.icon--large {
+    width: $icon-size-large;
+    height: $icon-size-large;
+}
+
+// Skin
+
+.icon {
+    svg {
+        fill: currentColor;
+    }
 }

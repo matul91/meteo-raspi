@@ -1,21 +1,47 @@
+// Config
+
+$logo-size: 32px;
+
 // Struct
 
 .header {
-    padding-top: $vertical-spacing;
-    padding-bottom: $vertical-spacing;
-    text-align: center;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-top: $vertical-spacing-half;
+    padding-bottom: calc(#{$vertical-spacing-half} + #{$border-radius-big});
+
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: $border-radius-big;
+        border-radius: $border-radius-big $border-radius-big 0 0;
+        background-color: white;
+    }
 }
 
-.header__title {
-    font-weight: 400;
+.header__logo {
+    flex: none;
+    width: $logo-size;
+    height: $logo-size;
+    margin-right: $horizontal-spacing;
 }
 
-.header__time {
-    font-size: $typography-small;
+.header__name {
+    margin-top: -2px; // visual alignment
+    font-family: $font-family-serif;
+    font-size: 14px;
 }
 
 // Skin
 
-.header__time {
-    font-weight: 600;
+.header {
+    background-color: silver;
+
+    &::after {
+        background-color: white;
+    }
 }

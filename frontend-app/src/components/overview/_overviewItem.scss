@@ -1,38 +1,52 @@
-// Config
-
-$icon-size: 24px;
-
 // Struct
 
-.overviewItem__icon {
-    flex: none;
-    width: $icon-size;
-    margin-right: $horizontal-spacing-half;
+.overviewItem {
+    display: flex;
+    background-color: $color-body-light;
+    padding: $vertical-spacing-half $horizontal-spacing-half;
+    border-radius: $border-radius / 2;
 
-    // temp
-    .icon {
-        height: $icon-size;
-        border-radius: 16px;
-        border: 2px solid grey;
+    > * + * {
+        position: relative;
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 1px;
+            height: 100%;
+            background-color: #d8d8d8;
+        }
+    }
+
+    .overview > & + & {
+        margin-top: 4px;
     }
 }
 
-.overviewItem__title {
-
+.overviewItem__value {
+    flex: 1;
+    text-align: center;
+    font-size: $typography-small;
 }
 
-.overviewItem__value {
-    font-size: $typography-xlarge;
-    font-weight: 600;
-    line-height: 1;
+.overviewItem__value--time {
+    text-align: left;
+    font-weight: bold;
 }
 
 .overviewItem__unit {
-    margin-top: 4px; // optical alignment
-    font-size: $typography-medium;
-    font-weight: 600;
-    line-height: 1;
+    margin-left: .5ch;
+    font-size: $typography-xsmall;
 }
 
 // Skin
 
+.overviewItem {
+    > * + * {
+        &::before {
+            background-color: #d8d8d8;
+        }
+    }
+}

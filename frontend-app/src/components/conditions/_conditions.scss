@@ -1,59 +1,80 @@
 // Struct
 
 .conditions {
-    @media (min-width: $breakpoint-md) {
-        display: flex;
-        flex-direction: column;
-        padding-bottom: $vertical-spacing-double;
-    }
-}
-
-.conditions__image {
-    position: relative;
-    padding-bottom: 56%;
-    border-radius: $border-radius;
-
-    @media (min-width: $breakpoint-md) {
-        flex: 1;
-        padding-bottom: 0;
-    }
-}
-
-// Skin
-
-.conditions__image {
-    background-image: url(https://raspi.jiri-matula.cz/images/body/airport-aerial-view.jpg);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
-
-
-
-.conditions__overview {
     display: flex;
     justify-content: space-evenly;
     padding-top: $vertical-spacing;
     padding-bottom: $vertical-spacing-double;
+
+    @media (min-width: $breakpoint-md) {
+        flex-wrap: wrap;
+    }
 }
 
-.conditionsItem {
+// todo - use general media component
+.conditionItem {
+    display: flex;
     text-align: center;
+
+    @media (min-width: $breakpoint-md) {
+        width: 50%;
+        margin-bottom: $vertical-spacing-double;
+        text-align: left;
+    }
 }
 
-.conditionsItem__value {
+.conditionItem__icon {
+    @media (min-width: $breakpoint-md) {
+        flex: none;
+
+        span {
+            display: block;
+            width: 24px;
+            height: 24px;
+            margin-right: $horizontal-spacing-half;
+            background-color: $color-body-light;
+            border-radius: 50%;
+        }
+    }
+}
+
+.conditionItem__content {
+    display: flex;
+    flex-direction: column;
+}
+
+.conditionItem__value {
     font-size: $typography-medium;
+    line-height: 1;
+
+    @media (min-width: $breakpoint-md) {
+        font-size: $typography-xlarge;
+    }
 }
 
-.conditionsItem__unit {
+.conditionItem__unit {
     margin-left: .5ch;
-    vertical-align: super;
     font-size: $typography-xsmall;
+
+    @media (min-width: $breakpoint-md) {
+        font-size: $typography-base;
+        transform: translateY(2px);
+    }
 }
 
-.conditionsItem__label {
+.conditionItem__label {
     margin-top: $vertical-spacing-half;
     font-size: $typography-small;
+
+    @media (min-width: $breakpoint-md) {
+        order: -1;
+        margin-top: 0;
+    }
+}
+
+
+// Skin
+
+.conditionItem__label {
     color: #bcbcbc;
 }

@@ -1,5 +1,6 @@
-
-$font-family: Montserrat, sans-serif;
+$font-family: 'Roboto', sans-serif;
+$font-family-condensed: 'Roboto Condensed', sans-serif;
+$font-family-serif: 'Roboto Slab', serif;
 
 $base-font-size: 1rem;
 $ratio: 1.33;
@@ -20,7 +21,7 @@ $vertical-spacing-triple:       $vertical-spacing * 3;
 $vertical-spacing-double:       $vertical-spacing * 2;
 $vertical-spacing-half:         $vertical-spacing * 0.5;
 
-$horizontal-spacing:            1rem;
+$horizontal-spacing:            .75rem;
 $horizontal-spacing-quadruple:  $horizontal-spacing * 4;
 $horizontal-spacing-triple:     $horizontal-spacing * 3;
 $horizontal-spacing-double:     $horizontal-spacing * 2;
@@ -39,4 +40,10 @@ $breakpoint-xl: 1400px;
 // Others
 $transition-duration: .3s;
 $box-shadow: 0 3px 10px rgba($color-body-black, 15);
+
 $border-radius: 8px;
+$border-radius-big: $vertical-spacing;
+
+$icon-size-small: 12px;
+$icon-size-medium: 24px;
+$icon-size-large: 48px;

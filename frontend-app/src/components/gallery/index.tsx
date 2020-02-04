@@ -4,19 +4,19 @@ export default class Gallery extends React.PureComponent<{}, {}> {
 
     images: any = [
         {
-            src: 'https://images.unsplash.com/photo-1576985599244-58dae7cdf824?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1700&q=80',
+            src: 'https://raspi.jiri-matula.cz/photos/2020/02/2020-02-04-15-00-06.jpg',
             time: 'ted'
         },{
-            src: 'https://images.unsplash.com/photo-1576985599244-58dae7cdf824?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1700&q=80',
+            src: 'https://raspi.jiri-matula.cz/photos/2020/02/2020-02-04-15-00-06.jpg',
             time: '10:45'
         },{
-            src: 'https://images.unsplash.com/photo-1576985599244-58dae7cdf824?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1700&q=80',
+            src: 'https://raspi.jiri-matula.cz/photos/2020/02/2020-02-04-15-00-06.jpg',
             time: '10:30'
         },{
-            src: 'https://images.unsplash.com/photo-1576985599244-58dae7cdf824?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1700&q=80',
+            src: 'https://raspi.jiri-matula.cz/photos/2020/02/2020-02-04-15-00-06.jpg',
             time: '10:15'
         },{
-            src: 'https://images.unsplash.com/photo-1576985599244-58dae7cdf824?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1700&q=80',
+            src: 'https://raspi.jiri-matula.cz/photos/2020/02/2020-02-04-15-00-06.jpg',
             time: '10:00'
         }
     ];
