@@ -1,12 +1,8 @@
-export type Overview = {
-    icon: string;
-    title: string;
-    currentValue: number;
-    unit: string;
-    records: OverviewRecord[];
-};
+import { WindRecord, TemperatureRecord, HumidityRecord, PressureRecord } from '../../types/conditions';
 
-export type OverviewRecord = {
-    time: string;
-    value: number | string;
-};
+export type CurrentConditionsData = {
+    wind: WindRecord[];
+    temperature: TemperatureRecord[];
+    humidity: HumidityRecord[];
+    pressure: PressureRecord[];
+}

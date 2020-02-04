@@ -5,7 +5,6 @@ $btn-min-width: 64px;
 // Struct
 
 .btn {
-    display: block;
     min-width: $btn-min-width;
     padding: 4px $horizontal-spacing;
     border-radius: 999px;

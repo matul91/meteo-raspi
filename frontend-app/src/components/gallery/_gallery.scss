@@ -32,22 +32,21 @@ $image-label-height: 24px;
 
 .gallery__item {
     position: relative;
-    height: 0;
-    padding-bottom: calc(100% + #{$image-label-height});
 }
 
 .gallery__image {
-    position: absolute;
-    width: 100%;
-    height: calc(100% - #{$image-label-height});
+    height: calc((100vw - 6 * #{$horizontal-spacing}) / 3);
     border-radius: $border-radius;
+    object-fit: cover;
 }
 
 .gallery__label {
-    position: absolute;
-    height: $image-label-height;
-    bottom: 0;
+    margin-top: $vertical-spacing-half;
+    font-size: 14px;
 }
 
-
 // Skin
+
+.gallery__label {
+    color: gray;
+}

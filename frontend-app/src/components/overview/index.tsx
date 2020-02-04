@@ -1,127 +1,52 @@
 import React from 'react';
+import { useQuery } from '@apollo/react-hooks';
 
-export default class Overview extends React.PureComponent<{}, {}> {
+import { CONDITIONS } from '../../constants/conditions';
+import { ConditionsType } from '../../types/conditions';
+import { CURRENT_CONDITIONS_RECORDS_QUERY } from './query';
+import { CurrentConditionsData } from './types';
 
-    data = [{
-        time: '10:30',
-        wind: {
-            value: 12,
-            unit: 'm/s'
-        },
-        temperature: {
-            value: 12,
-            unit: 'C'
-        },
-        humidity: {
-            value: 12,
-            unit: '%'
-        },
-        pressure: {
-            value: 12,
-            unit: 'hpa'
-        }
-    },{
-        time: '10:30',
-        wind: {
-            value: 12,
-            unit: 'm/s'
-        },
-        temperature: {
-            value: 12,
-            unit: 'C'
-        },
-        humidity: {
-            value: 12,
-            unit: '%'
-        },
-        pressure: {
-            value: 12,
-            unit: 'hpa'
-        }
-    },{
-        time: '10:30',
-        wind: {
-            value: 12,
-            unit: 'm/s'
-        },
-        temperature: {
-            value: 12,
-            unit: 'C'
-        },
-        humidity: {
-            value: 12,
-            unit: '%'
-        },
-        pressure: {
-            value: 12,
-            unit: 'hpa'
-        }
-    },{
-        time: '10:30',
-        wind: {
-            value: 12,
-            unit: 'm/s'
-        },
-        temperature: {
-            value: 12,
-            unit: 'C'
-        },
-        humidity: {
-            value: 12,
-            unit: '%'
-        },
-        pressure: {
-            value: 12,
-            unit: 'hpa'
-        }
-    },{
-        time: '10:30',
-        wind: {
-            value: 12,
-            unit: 'm/s'
-        },
-        temperature: {
-            value: 12,
-            unit: 'C'
-        },
-        humidity: {
-            value: 12,
-            unit: '%'
-        },
-        pressure: {
-            value: 12,
-            unit: 'hpa'
-        }
-    }];
+export default function Overview() {
 
-    render() {
-        return (
-            <div className="overview layout__overview container">
+    // const { data } = useQuery<CurrentConditionsData>(
+    //     CURRENT_CONDITIONS_RECORDS_QUERY,
+    //     {
+    //         pollInterval: 5000
+    //     }
+    // );
 
-                {this.data.map((item: any, index: number) =>
-                    <div className="overviewItem">
-                        <div className="overviewItem__value overviewItem__value--time">
-                            {item.time}
-                        </div>
-                        <div className="overviewItem__value">
-                            {item.wind.value}
-                            <span className="overviewItem__unit">m/s</span>
-                        </div>
-                        <div className="overviewItem__value">
-                            {item.temperature.value}
-                            <span className="overviewItem__unit">{item.temperature.unit}</span>
-                        </div>
-                        <div className="overviewItem__value">
-                            {item.humidity.value}
-                            <span className="overviewItem__unit">{item.humidity.unit}</span>
-                        </div>
-                        <div className="overviewItem__value">
-                            {item.pressure.value}
-                            <span className="overviewItem__unit">{item.pressure.unit}</span>
-                        </div>
+    const data: CurrentConditionsData = {
+        wind: [{
+            value: 12,
+            direction: 'NE'
+        }],
+        temperature: [{
+            value: 33
+        }],
+        humidity: [{
+            value: 74
+        }],
+        pressure: [{
+            value: 1056
+        }]
+    };
+
+    return (
+        <div className="conditions layout__conditions container">
+            {Object.entries(data).map(([key, values]) =>
+                <div className="conditionItem" key={key}>
+                    <div className="conditionItem__icon">
+                        <span></span>
                     </div>
-                )}
-            </div>
-        );
-    }
+                    <div className="conditionItem__content">
+                        <div className="u-d-f">
+                            <span className="conditionItem__value">{values[0].value}</span>
+                            <span className="conditionItem__unit">{CONDITIONS[key as ConditionsType].unit}</span>
+                        </div>
+                        <div className="conditionItem__label">{CONDITIONS[key as ConditionsType].title}</div>
+                    </div>
+                </div>
+            )}
+        </div>
+    );
 }
