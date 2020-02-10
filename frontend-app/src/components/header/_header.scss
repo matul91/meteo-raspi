@@ -9,18 +9,7 @@ $logo-size: 32px;
     display: flex;
     align-items: center;
     padding-top: $vertical-spacing-half;
-    padding-bottom: calc(#{$vertical-spacing-half} + #{$border-radius-big});
-
-    &::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        height: $border-radius-big;
-        border-radius: $border-radius-big $border-radius-big 0 0;
-        background-color: white;
-    }
+    padding-bottom: $vertical-spacing-half;
 }
 
 .header__logo {
@@ -37,11 +26,3 @@ $logo-size: 32px;
 }
 
 // Skin
-
-.header {
-    background-color: silver;
-
-    &::after {
-        background-color: white;
-    }
-}

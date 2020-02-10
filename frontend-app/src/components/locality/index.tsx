@@ -9,7 +9,7 @@ export default class Locality extends React.PureComponent<{}, {}> {
         const date = '12. ledna 2020';
 
         return (
-            <div className="layout__locality container u-mb-1">
+            <div className="u-mb-1">
                 <div className="u-d-f u-ai-c">
                     <h1 className="h1 u-f-a u-mr-1">{locality}</h1>
                     <div className="u-f-n">

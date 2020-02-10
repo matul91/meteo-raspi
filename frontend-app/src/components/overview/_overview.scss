@@ -1,80 +1,38 @@
 // Struct
 
-.conditions {
-    display: flex;
-    justify-content: space-evenly;
-    padding-top: $vertical-spacing;
-    padding-bottom: $vertical-spacing-double;
-
-    @media (min-width: $breakpoint-md) {
-        flex-wrap: wrap;
-    }
-}
-
-// todo - use general media component
-.conditionItem {
-    display: flex;
+.overviewItem {
+    flex: 1;
+    padding: $vertical-spacing-half $horizontal-spacing-half;
+    border-radius: $border-radius;
+    background-color: $color-white;
+    box-shadow: 0 3px 6px rgba($color-black, .12);
     text-align: center;
 
-    @media (min-width: $breakpoint-md) {
-        width: 50%;
-        margin-bottom: $vertical-spacing-double;
-        text-align: left;
+    & + & {
+        margin-left: $horizontal-spacing;
+    }
+
+    > * + * {
+        margin-top: $vertical-spacing;
     }
 }
 
-.conditionItem__icon {
-    @media (min-width: $breakpoint-md) {
-        flex: none;
-
-        span {
-            display: block;
-            width: 24px;
-            height: 24px;
-            margin-right: $horizontal-spacing-half;
-            background-color: $color-body-light;
-            border-radius: 50%;
-        }
-    }
+.overviewItem__value {
+    font-family: $font-family-serif;
+    font-size: 32px;
 }
 
-.conditionItem__content {
-    display: flex;
-    flex-direction: column;
+.overviewItem__unit {
+    font-family: $font-family-serif;
+    font-size: 12px;
 }
 
-.conditionItem__value {
-    font-size: $typography-medium;
-    line-height: 1;
-
-    @media (min-width: $breakpoint-md) {
-        font-size: $typography-xlarge;
-    }
+.overviewItem__label {
+    font-size: 14px;
 }
-
-.conditionItem__unit {
-    margin-left: .5ch;
-    font-size: $typography-xsmall;
-
-    @media (min-width: $breakpoint-md) {
-        font-size: $typography-base;
-        transform: translateY(2px);
-    }
-}
-
-.conditionItem__label {
-    margin-top: $vertical-spacing-half;
-    font-size: $typography-small;
-
-    @media (min-width: $breakpoint-md) {
-        order: -1;
-        margin-top: 0;
-    }
-}
-
 
 // Skin
 
-.conditionItem__label {
-    color: #bcbcbc;
+.overviewItem__label {
+    color: gray;
 }

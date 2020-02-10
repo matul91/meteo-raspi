@@ -10,10 +10,8 @@ $sidebar-width: 360px;
     grid-template-columns: 1fr;
     grid-template-areas:
         "header"
-        "locality"
         "main"
         "gallery"
-        "conditions"
         "overview"
         "footer";
 
@@ -23,7 +21,6 @@ $sidebar-width: 360px;
         grid-template-rows: max-content 1fr max-content max-content;
         grid-template-areas:
             "header locality"
-            "conditions locality"
             "overview locality"
             "overview gallery"
             "overview footer";
@@ -34,17 +31,11 @@ $sidebar-width: 360px;
     grid-area: header;
 }
 
-.layout__locality {
-    grid-area: locality;
-}
-
 .layout__main {
     grid-area: main;
-}
-
-.layout__conditions {
-    grid-area: conditions;
-    align-self: start;
+    padding-top: $vertical-spacing;
+    padding-bottom: $vertical-spacing-double;
+    border-radius: $border-radius-big;
 }
 
 .layout__overview {
@@ -67,6 +58,11 @@ $sidebar-width: 360px;
 
 // Skin
 
+.layout__main {
+    background-color: $color-white;
+    box-shadow: 0 6px 24px rgba($color-black, .12);
+}
+
 .layout__gallery {
-    background-color: $color-body-lightest;
+    background-color: $color-gray-10;
 }

@@ -1,0 +1,61 @@
+// Config
+
+$graph-bar-animation-time: 2s;
+
+// Struct
+
+.graphItem {
+    text-align: center;
+
+    @for $i from 1 through 10 {
+        &:nth-child(#{$i}) .graphItem__bar > div {
+            animation-delay: #{$i * 0.2}s;
+        }
+    }
+}
+
+.graphItem__bar {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    width: 4px;
+    height: 96px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: $vertical-spacing-half;
+    border-radius: $border-radius;
+
+    > div {
+        width: 100%;
+        height: 0;
+        border-radius: $border-radius;
+        visibility: hidden;
+        animation: graph-bar-animate;
+        animation-timing-function: cubic-bezier(.35,.95,.67,.99);
+        animation-duration: $graph-bar-animation-time;
+        animation-fill-mode: forwards;
+    }
+}
+
+.graphItem__value {
+    font-family: $font-family-serif;
+    font-size: 24px;
+}
+
+.graphItem__time {
+    font-size: 14px;
+}
+
+// Skin
+
+.graphItem__bar {
+    background-color: rgba(#fff, .5);
+
+    > div {
+        background-color: black;
+    }
+}
+
+.graphItem__time {
+    color: grey;
+}

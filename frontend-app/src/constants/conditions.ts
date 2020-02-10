@@ -1,18 +1,6 @@
-export const CONDITIONS = {
-    wind: {
-        title: 'Vítr',
-        unit: 'm/s'
-    },
-    temperature: {
-        title: 'Teplota',
-        unit: '°C'
-    },
-    humidity: {
-        title: 'Vlhkost',
-        unit: '%'
-    },
-    pressure: {
-        title: 'Tlak',
-        unit: 'hPa'
-    }
+export const CONDITION_TYPE = {
+    WIND: 'wind',
+    TEMPERATURE: 'temperature',
+    HUMIDITY: 'humidity',
+    PRESSURE: 'pressure'
 };

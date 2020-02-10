@@ -4,9 +4,8 @@ $image-ratio: 50%;
 
 // Struct
 
-.main__locality {
+.situationMap {
     position: relative;
-    z-index: -1;
     padding-bottom: $image-ratio;
     border-radius: $border-radius;
 
@@ -23,7 +22,7 @@ $image-ratio: 50%;
 
 // Skin
 
-.main__locality {
+.situationMap {
     background-image: url(https://raspi.jiri-matula.cz/images/body/airport-aerial-view.jpg);
     background-position: center;
     background-repeat: no-repeat;

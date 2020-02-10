@@ -10,7 +10,7 @@ export default class Btn extends React.PureComponent<Props, {}> {
         return (
             <button
                 className="btn"
-                onClick={() => {}}>
+                onClick={this.props.onClick}>
                 {this.props.children}
             </button>
         );
