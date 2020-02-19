@@ -1,5 +1,6 @@
 #import photo/*.graphql
 #import weather/*.graphql
+#import station/*.graphql
 
 type Query {
     latestPressures: [Pressure]
@@ -7,6 +8,8 @@ type Query {
     latestWinds(limit: Int): [Wind]
     latestPhotos(limit: Int!): [Photo]
     latestHumidity: [Humidity]
+    latestBatteryStatus: [BatteryStatus]
+    latestNetworkStatus: [NetworkStatus]
 }
 
 type Mutation {
@@ -14,5 +17,7 @@ type Mutation {
     recordPressure(pressure: Float): Pressure @create(model: "App\\Models\\Weather\\Records\\Pressure")
     recordWind(speed: Float, direction: WindDirection): Wind @create(model: "App\\Models\\Weather\\Records\\Wind")
     recordHumidity(humidity: Float): Humidity @create(model: "App\\Models\\Weather\\Records\\Humidity")
+    recordNetworkStatus(signal_strength: Int): NetworkStatus @create(model: "App\\Models\\Station\\NetworkStatus")
+    recordBatteryStatus(voltage: Float): BatteryStatus @create(model: "App\\Models\\Station\\BatteryStatus")
     recordPhoto(tags: [String]): Photo @field(resolver: "App\\Http\\GraphQL\\Mutations\\PhotoMutator@recordPhoto")
 }

@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
             WindsTableSeeder::class,
             HumidityTableSeeder::class,
             SettingsTableSeeder::class,
+            BatteryStatusTableSeeder::class,
+            NetworkStatusTableSeeder::class,
         ]);
     }
 }
