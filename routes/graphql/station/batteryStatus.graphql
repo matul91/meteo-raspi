@@ -1,0 +1,5 @@
+type BatteryStatus {
+    id: ID!
+    voltage: Float
+    date: String
+}

@@ -1,0 +1,5 @@
+type NetworkStatus {
+    id: ID!
+    signal_strength: Int
+    date: String
+}
