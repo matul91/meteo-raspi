@@ -32,7 +32,7 @@ export default class Graph extends React.PureComponent<Props, State> {
         return (
             <div>
                 <h2 className="h2">{this.props.title}</h2>
-                <div className="u-d-f u-jc-sb">
+                <div className="graph u-d-f u-jc-sb">
                     {this.props.data.map((item: any, index: number) =>
                         <div key={index} className="graphItem">
                             <div className="graphItem__bar">

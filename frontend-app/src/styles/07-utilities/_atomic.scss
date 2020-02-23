@@ -87,8 +87,20 @@
     margin-bottom: $vertical-spacing-double;
 }
 
-// .u-hsp-05 {
-//     & > * + * {
-//         margin-left: $horizontal-spacing-half;
-//     }
-// }
+.u-vsp-05 {
+    & > * + * {
+        margin-top: $vertical-spacing-half;
+    }
+}
+
+.u-vsp-1 {
+    & > * + * {
+        margin-top: $vertical-spacing;
+    }
+}
+
+.u-vsp-2 {
+    & > * + * {
+        margin-top: $vertical-spacing-double;
+    }
+}

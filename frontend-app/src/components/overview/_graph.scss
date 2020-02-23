@@ -1,0 +1,12 @@
+// Struct
+
+.graph {
+    padding: $vertical-spacing $horizontal-spacing;
+    border-radius: $border-radius;
+}
+
+// Skin
+
+.graph {
+    background-color: rgba($color-white, .25);
+}

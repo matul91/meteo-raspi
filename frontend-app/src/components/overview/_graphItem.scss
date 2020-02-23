@@ -49,10 +49,10 @@ $graph-bar-animation-time: 2s;
 // Skin
 
 .graphItem__bar {
-    background-color: rgba(#fff, .5);
+    background-color: rgba($color-white, .5);
 
     > div {
-        background-color: black;
+        background-color: #800033;
     }
 }
 

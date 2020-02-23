@@ -63,7 +63,7 @@ export default function Overview() {
     }];
 
     return (
-        <div className="overview layout__overview container u-mt-2">
+        <div className="layout__overview container u-vsp-2 u-mt-2">
             <div className="u-d-f u-jc-sb">
                 {data.map((item, index) =>
                     <div key={index} className="overviewItem">
@@ -89,6 +89,12 @@ export default function Overview() {
             </div>
             <Graph
                 title="Vyvoj teploty [°C]"
+                data={graphData} />
+            <Graph
+                title="Vyvoj vlhkosti [%]"
+                data={graphData} />
+            <Graph
+                title="Vyvoj tlaku [hPa]"
                 data={graphData} />
         </div>
     );
