@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Gallery from '../gallery';
-import Locality from '../locality';
+import {Locality} from '../locality';
 import WindItem from './windItem';
 
 export default class Main extends React.PureComponent<{}, {}> {
