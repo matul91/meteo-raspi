@@ -32,8 +32,8 @@ export default class Main extends React.PureComponent<{}, {}> {
 
         return (
             <main className="layout__main">
+                <Locality />
                 <div className="container u-mb-2">
-                    <Locality />
                     <div className="situationMap" />
                     <div className="u-p-r u-d-f">
                         <div className="icon icon--medium u-mt-05">

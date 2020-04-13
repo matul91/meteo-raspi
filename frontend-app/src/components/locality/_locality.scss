@@ -1,15 +1,56 @@
 // Struct
 
+.locality {
+
+}
+
+.locality--isStuck {
+    position: fixed;
+    top: 0;
+    z-index: $z-index-header;
+    width: 100%;
+    padding-top: $vertical-spacing-half / 2;
+    padding-bottom: $vertical-spacing-half / 2;
+    border-bottom: 1px solid;
+
+    .h1 {
+        font-size: $typography-base;
+    }
+
+    .container {
+        align-items: center;
+    }
+}
+
 .locality__time {
     font-size: 18px;
     font-weight: 700;
+
+    .locality--isStuck & {
+        font-size: $typography-small;
+    }
 }
 
 .locality__date {
     font-size: 14px;
+
+    .locality--isStuck & {
+        display: none;
+    }
+}
+
+.localityTrigger {
+    width: 0;
+    height: 0;
+    overflow: hidden;
 }
 
 // Skin
+
+.locality--isStuck {
+    background-color: $color-white;
+    border-bottom-color: $color-gray-20;
+}
 
 .locality__time,
 .locality__date {
