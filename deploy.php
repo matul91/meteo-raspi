@@ -43,7 +43,7 @@ set('rsync_src', function () {
     return $local_src;
 });
 
-set('bin/composer', function() {
+set('bin/composer', function () {
     if (commandExist('composer')) {
         $composer = locateBinaryPath('composer');
     }
