@@ -43,6 +43,19 @@ set('rsync_src', function () {
     return $local_src;
 });
 
+set('bin/composer', function() {
+    if (commandExist('composer')) {
+        $composer = locateBinaryPath('composer');
+    }
+
+    if (empty($composer)) {
+        run("cd {{release_path}} && curl -sS https://getcomposer.org/download/1.10.19/composer.phar -o composer.phar");
+        $composer = '{{bin/php}} {{release_path}}/composer.phar';
+    }
+
+    return $composer;
+});
+
 // Hosts
 
 host(getenv('DEPLOY_HOST'))
