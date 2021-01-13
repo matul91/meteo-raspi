@@ -17,9 +17,6 @@ cache:
 addons:
   ssh_known_hosts: $DEPLOY_HOST
 
-before_install:
-  - composer self-update
-
 install:
   - travis_retry composer install --no-interaction --prefer-dist
   - npm install
