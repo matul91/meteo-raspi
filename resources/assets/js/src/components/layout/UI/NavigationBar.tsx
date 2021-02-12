@@ -2,6 +2,7 @@ import HeaderClock from "components/clock/HeaderClock";
 import * as React from "react";
 import { Link } from "react-router-dom";
 import { Col, Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink} from "reactstrap";
+import Voltage from "../../voltage/Voltage";
 
 export default class NavigationBar extends React.Component {
 
@@ -13,6 +14,8 @@ export default class NavigationBar extends React.Component {
                 </Col>
                 <Col xs={6} className={"text-right"}>
                     <HeaderClock/>
+                    |
+                    <Voltage/>
                 </Col>
             </Navbar>
         );
