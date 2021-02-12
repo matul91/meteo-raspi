@@ -30,12 +30,12 @@ RUN apt-get update \
 RUN pecl install apcu && docker-php-ext-enable apcu
 
 # Install composer and prestissimo package for parallel download
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
+RUN curl -sS https://getcomposer.org/installer | php -- --version=1.10.19 --install-dir=/usr/local/bin --filename=composer \
     && composer global require hirak/prestissimo
 
 # Install NodeJS
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - \
-    && apt-get install -y nodejs=8.16.2-1nodesource1
+    && apt-get install -y nodejs=8.17.0-1nodesource1
 
 # SSL stuff
 COPY docker/certs /etc/apache2
